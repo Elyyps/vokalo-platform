@@ -1,0 +1,54 @@
+.button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 500;
+  &:hover {
+    border: 1px solid var(--primary-color);
+  }
+  &-default {
+    background-color: white;
+    box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
+    &:hover {
+      background-color: var(--primary-color);
+      color: white;
+      svg path {
+        fill: white;
+      }
+    }
+  }
+  &-secondary {
+    padding: 4px 8px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 400;
+    font-size: 15px;
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+  &-icon {
+    margin-left: 8px;
+    svg {
+      width: 12px;
+      height: 10px;
+      path {
+        fill: black;
+      }
+    }
+    &-left {
+      margin-right: 8px;
+      margin-left: 0;
+      svg {
+        vertical-align: top;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

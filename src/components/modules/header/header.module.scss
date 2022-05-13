@@ -1,0 +1,14 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-right,
+  &-left {
+    display: flex;
+    align-items: center;
+    > div:not(:last-child) {
+      margin-right: 48px;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+.dropdown {
+  position: relative;
+  &-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    > span {
+      margin-right: 8px;
+      border-radius: 50%;
+      background-color: black;
+      color: white;
+      font-size: 18px;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &-content {
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: white;
+    border: 1px solid var(--secondary-color);
+    border-radius: 10px;
+    z-index: 10;
+    &-open {
+      display: block;
+    }
+  }
+  .open svg {
+    transform: rotate(180deg);
+  }
+}

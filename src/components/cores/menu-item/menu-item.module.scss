@@ -1,0 +1,36 @@
+.menu-item {
+  background-color: transparent;
+  color: white;
+  border-radius: 5px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  text-decoration: none;
+  > span {
+    font-size: 20px;
+    width: calc(100% - 45px);
+  }
+  &-icon {
+    svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      path {
+        fill: white;
+      }
+    }
+  }
+}
+.menu-item:hover,
+.active {
+  background-color: white;
+  color: var(--primary-color);
+  > span {
+    border-right: 1px solid var(--primary-color);
+  }
+  svg path {
+    fill: var(--primary-color);
+  }
+}

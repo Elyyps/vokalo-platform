@@ -1,0 +1,50 @@
+.date-picker {
+  position: relative;
+  &-content {
+    &-top {
+      display: flex;
+    }
+    &-bottom {
+      padding: 12px;
+      border-top: 1px solid var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      > div {
+        display: flex;
+        > span {
+          &:first-child {
+            color: #ee6c4d;
+            margin-right: 12px;
+            &::before {
+              content: "";
+              display: inline-block;
+              margin-right: 4px;
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background-color: #ee6c4d;
+            }
+          }
+          &:last-child {
+            color: #5085f0;
+            &::before {
+              content: "";
+              display: inline-block;
+              margin-right: 4px;
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background-color: #5085f0;
+            }
+          }
+        }
+        > div {
+          &:first-child {
+            margin-right: 16px;
+          }
+        }
+      }
+    }
+  }
+}

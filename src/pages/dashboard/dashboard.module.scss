@@ -1,0 +1,40 @@
+.dashboard {
+  &-sessions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    margin-top: 24px;
+    > div {
+      width: 18.5%;
+      height: 160px;
+    }
+  }
+  &-bottom {
+    display: flex;
+    justify-content: space-between;
+    > div {
+      width: 48%;
+    }
+  }
+  &-aggregations {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    > div {
+      width: 48%;
+      height: 180px;
+      margin-bottom: 16px;
+    }
+  }
+  &-interactions {
+    margin-top: 24px;
+    height: 100%;
+
+    > div {
+      width: 100%;
+      height: 390px;
+    }
+  }
+}

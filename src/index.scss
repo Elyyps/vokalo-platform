@@ -1,0 +1,17 @@
+:root {
+  --primary-color: #333333;
+  --secondary-color: #c4c4c4;
+}
+@font-face {
+  font-family: "Futura";
+  src: local("Futura"),
+    url("./../public/fonts/Futura-medium.ttf") format("truetype");
+  font-weight: 500;
+}
+body {
+  font-weight: 500;
+  font-family: "Futura";
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
