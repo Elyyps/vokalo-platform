@@ -1,5 +1,3 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
 import { ISidebar } from "../../../types/modules/sidebar";
 import { MenuItemComponent } from "../../cores/menu-item/menu-item";
 import style from "./sidebar.module.scss";
@@ -9,8 +7,6 @@ interface ISidebarComponent {
 }
 
 export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
-  const { pathname } = useLocation();
-
   return (
     <div className={` ${style["sidebar"]} container`}>
       <div className={style["sidebar-logo"]}>

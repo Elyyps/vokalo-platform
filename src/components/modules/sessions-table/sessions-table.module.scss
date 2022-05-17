@@ -1,3 +1,87 @@
 .sessions-table {
-  background-color: red;
+  overflow-x: auto;
+
+  table {
+    min-width: 900px;
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      border-bottom: 1px solid var(--secondary-color);
+      height: 60px;
+    }
+    tbody tr {
+      height: 60px;
+      border-bottom: 1px solid #f3f3f3;
+
+      &:hover {
+        background-color: rgba($color: #dadada, $alpha: 0.2);
+      }
+    }
+    th,
+    td {
+      text-align: left;
+      text-transform: capitalize;
+      padding: 8px;
+
+      &:first-child {
+        padding-left: 16px;
+        input[type="checkbox"] {
+          cursor: pointer;
+          width: 18px;
+          height: 18px;
+          accent-color: var(--primary-color);
+          &:checked {
+            content: "\002714";
+            background-color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+      &:last-child {
+        width: 15px;
+        padding-right: 16px;
+        svg {
+          height: 18px;
+        }
+      }
+    }
+    thead tr {
+      th > span {
+        display: flex;
+        cursor: pointer;
+        font-weight: normal;
+        svg {
+          width: 12px;
+          height: 10px;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+  .session-type {
+    display: flex;
+    align-items: center;
+    background-color: #dadada;
+    padding: 4px 8px;
+    border-radius: 10px;
+    width: fit-content;
+    svg {
+      vertical-align: bottom;
+      width: 18px;
+      height: 18px;
+      margin-right: 8px;
+    }
+  }
+  .session-check {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+    &-rotate svg {
+      transform: rotate(45deg);
+    }
+  }
 }

@@ -32,7 +32,7 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
         icon="/icons/date.svg"
         onClick={() => setIsOpen(!isOpen)}
         hasNoPadding
-        contentPosition="right"
+        // contentPosition="right"
       >
         <div className={style["date-picker-content"]}>
           <div className={style["date-picker-content-top"]}>

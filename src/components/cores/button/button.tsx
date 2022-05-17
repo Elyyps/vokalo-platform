@@ -20,6 +20,7 @@ export const ButtonComponent = (props: IButtonComponent) => {
         className={` ${variant !== "secondary" && style[`button-icon`]} ${
           style[`button-icon-${position}`]
         }`}
+        style={!props.title ? { marginLeft: 0 } : {}}
       />
       {icon && position === "left" && title}
     </React.Fragment>
@@ -29,6 +30,7 @@ export const ButtonComponent = (props: IButtonComponent) => {
       className={` ${style["button"]} ${!variant && style["button-default"]}  ${
         variant === "secondary" && style["button-secondary"]
       }`}
+      style={!props.title ? { padding: 0, border: 0 } : {}}
       onClick={props.onClick}
     >
       {returnIconPosition}

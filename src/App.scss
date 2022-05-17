@@ -13,6 +13,7 @@
   &-body {
     background-color: #f5f5f5;
     width: calc(100% - 280px);
+    // width: 100%;
   }
   &-content {
     margin-top: 48px;
@@ -41,10 +42,7 @@
     background-color: white;
     box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
     border-radius: 10px;
-    &:hover {
-      cursor: pointer;
-      transform: scaleY(1.02);
-    }
+    cursor: pointer;
   }
 }
 .rdrInputRanges {

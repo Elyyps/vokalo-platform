@@ -46,6 +46,7 @@ export const DropdownComponent = (props: IDropdownComponent) => {
           <ButtonComponent
             title={props.title}
             icon={props.icon}
+            variant={props.variant}
             onClick={() => setIsOpen(!isOpen)}
             isDropdown
           />
@@ -58,11 +59,15 @@ export const DropdownComponent = (props: IDropdownComponent) => {
         style={
           props.contentPosition === "right"
             ? {
+                top: !props.title ? "25px" : "45px",
                 right: "auto",
                 left: "0px",
                 padding: props.hasNoPadding ? 0 : "16px",
               }
-            : { padding: props.hasNoPadding ? 0 : "16px" }
+            : {
+                padding: props.hasNoPadding ? 0 : "16px",
+                top: !props.title ? "25px" : "45px",
+              }
         }
       >
         {props.children}
