@@ -1,0 +1,15 @@
+.activity-widget {
+  padding: 16px;
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    > div {
+      font-size: 18px;
+    }
+  }
+  h3 {
+    margin: 0;
+    font-size: 36px;
+  }
+}

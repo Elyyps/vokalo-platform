@@ -1,0 +1,29 @@
+.trend {
+  > span {
+    display: flex;
+    align-items: center;
+  }
+  svg {
+    width: 16px;
+    height: 10px;
+    margin-right: 4px;
+  }
+  &-POSITIVE {
+    color: var(--POSITIVE-color);
+    svg {
+      transform: rotate(180deg);
+      path {
+        fill: var(--POSITIVE-color);
+      }
+    }
+  }
+  &-NEGATIVE {
+    color: var(--NEGATIVE-color);
+    svg path {
+      fill: var(--NEGATIVE-color);
+    }
+  }
+  &-NEUTRAL {
+    color: var(--primary-color);
+  }
+}

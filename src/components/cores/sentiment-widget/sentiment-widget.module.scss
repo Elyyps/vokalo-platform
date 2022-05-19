@@ -1,0 +1,46 @@
+.sentiment-widget {
+  padding: 16px;
+  > div {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  &-content {
+    margin: 12px 0;
+    > span {
+      width: calc(50% - 16px);
+      margin-right: 16px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+  }
+  &-footer {
+    > small {
+      color: var(--tertiary-color);
+    }
+    > span {
+      display: flex;
+      align-items: center;
+      svg {
+        width: 14px;
+        height: 10px;
+        margin-right: 4px;
+      }
+    }
+  }
+  &-graph {
+    width: 50%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 65px;
+    > div {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background-color: #96c0ff;
+      &:nth-child(2n) {
+        background-color: #0066ff;
+      }
+    }
+  }
+}

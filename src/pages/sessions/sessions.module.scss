@@ -1,0 +1,12 @@
+.sessions {
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+    > div {
+      width: 21%;
+      margin-bottom: 24px;
+    }
+  }
+}

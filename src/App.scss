@@ -43,6 +43,11 @@
     box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
     border-radius: 10px;
     cursor: pointer;
+    h6 {
+      color: var(--secondary-color);
+      margin: 0;
+      font-size: 16px;
+    }
   }
 }
 .rdrInputRanges {
@@ -52,12 +57,12 @@
 .rdrDefinedRangesWrapper {
   width: 120px !important;
   padding: 8px;
-  border-right: 1px solid var(--secondary-color) !important;
+  border-right: 1px solid var(--tertiary-color) !important;
   border-top-left-radius: 10px !important;
 
   .rdrStaticRangeSelected,
   .rdrStaticRangeLabel:hover {
-    background-color: var(--secondary-color) !important;
+    background-color: var(--tertiary-color) !important;
     color: white !important;
     cursor: pointer;
     border-radius: 5px;

@@ -1,0 +1,60 @@
+.feedback-widget {
+  padding: 16px;
+  > span {
+    color: var(--secondary-color);
+  }
+  &-percentage {
+    margin-top: 16px;
+    height: 70px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    > div {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: white;
+    }
+  }
+  &-simple {
+    font-size: 16px;
+    > div {
+      padding: 8px 4px;
+    }
+    &:last-child > div {
+      display: none;
+    }
+    > div:last-child {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: calc(100% - 32px);
+    }
+  }
+  &-complex {
+    &:first-child {
+      > div:first-child {
+        top: 3px;
+        left: 5px;
+      }
+    }
+    > div {
+      font-size: 11px;
+      position: absolute;
+      &:first-child {
+        top: 3px;
+        left: 2px;
+      }
+      &:last-child {
+        font-size: 8px;
+        width: 70px;
+        height: 10px;
+        bottom: 33px;
+        right: -29px;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}

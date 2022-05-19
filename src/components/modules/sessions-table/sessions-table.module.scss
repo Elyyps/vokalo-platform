@@ -5,15 +5,13 @@
     min-width: 900px;
     width: 100%;
     border-collapse: collapse;
-
     thead {
-      border-bottom: 1px solid var(--secondary-color);
+      border-bottom: 1px solid var(--tertiary-color);
       height: 60px;
     }
     tbody tr {
       height: 60px;
       border-bottom: 1px solid #f3f3f3;
-
       &:hover {
         background-color: rgba($color: #dadada, $alpha: 0.2);
       }
@@ -23,7 +21,6 @@
       text-align: left;
       text-transform: capitalize;
       padding: 8px;
-
       &:first-child {
         padding-left: 16px;
         input[type="checkbox"] {
