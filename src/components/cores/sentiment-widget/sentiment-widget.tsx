@@ -8,7 +8,7 @@ interface ISentimentWidget {
 }
 export const SentimentWidget = ({ widget }: ISentimentWidget) => {
   return (
-    <div className={` ${style["sentiment-widget"]} section-item `}>
+    <div className={` ${style["sentiment-widget"]} widget-container `}>
       <h6>{widget.header}</h6>
       <div className={style["sentiment-widget-content"]}>
         <span>{widget.label}</span>

@@ -5,7 +5,8 @@
   }
   &-percentage {
     margin-top: 16px;
-    height: 70px;
+    height: calc(100% - 36px);
+    min-height: 65px;
     border-radius: 5px;
     display: flex;
     align-items: center;

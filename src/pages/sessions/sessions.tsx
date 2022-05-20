@@ -5,6 +5,7 @@ import { ActivityWidget } from "../../components/cores/activity-widget/activity-
 import { SessionsTableComponent } from "../../components/modules/sessions-table/sessions-table";
 import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
 import { SentimentWidget } from "../../components/cores/sentiment-widget/sentiment-widget";
+import { UsageWidget } from "../../components/cores/usage-widget/usage-widget";
 
 export const SessionPage = () => {
   return (
@@ -57,7 +58,26 @@ export const SessionPage = () => {
             trendDirection: "POSITIVE",
             graph: {
               yAxis: {
-                data: [42, 95, 75, 50, 40, 55, 80, 20, 35],
+                data: [42, 95, 75, 50, 40, 55, 80],
+              },
+            },
+          }}
+        />
+        <UsageWidget
+          widget={{
+            header: "Usage",
+            label: "7.240",
+            subHeader: "previous 15 days",
+            trendLabel: 55,
+            trendDirection: "POSITIVE",
+            graph: {
+              yAxis: {
+                name: "age",
+                data: [0, 2, 4, 8, 5, 6, 2],
+              },
+              xAxis: {
+                name: "weight",
+                data: [0, 1, 2, 3, 4, 5, 6],
               },
             },
           }}

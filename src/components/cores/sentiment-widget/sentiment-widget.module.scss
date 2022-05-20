@@ -1,5 +1,4 @@
 .sentiment-widget {
-  padding: 16px;
   > div {
     display: flex;
     align-items: flex-end;
@@ -15,9 +14,6 @@
     }
   }
   &-footer {
-    > small {
-      color: var(--tertiary-color);
-    }
     > span {
       display: flex;
       align-items: center;

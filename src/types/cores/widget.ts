@@ -1,5 +1,5 @@
 type IAxe = {
-  name?: IAxe;
+  name?: string;
   data: any[];
 };
 type IGraph = {

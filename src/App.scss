@@ -42,12 +42,25 @@
     background-color: white;
     box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
     border-radius: 10px;
-    cursor: pointer;
-    h6 {
-      color: var(--secondary-color);
-      margin: 0;
-      font-size: 16px;
-    }
+  }
+}
+.widget-container {
+  padding: 16px;
+  background-color: white;
+  box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
+  border-radius: 10px;
+  cursor: pointer;
+  h3 {
+    font-size: 36px;
+    margin: 0;
+  }
+  h6 {
+    color: var(--secondary-color);
+    margin: 0;
+    font-size: 16px;
+  }
+  small {
+    color: var(--tertiary-color);
   }
 }
 .rdrInputRanges {

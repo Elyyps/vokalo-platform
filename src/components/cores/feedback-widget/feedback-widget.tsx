@@ -7,7 +7,7 @@ interface IFeedbackWidget {
 }
 export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
   return (
-    <div className={` ${style["feedback-widget"]} section-item `}>
+    <div className={` ${style["feedback-widget"]} widget-container `}>
       <h6>Feedback</h6>
       <div className={style["feedback-widget-percentage"]}>
         {widget.elements?.map((element, key) => (
