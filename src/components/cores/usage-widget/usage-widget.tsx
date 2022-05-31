@@ -10,8 +10,13 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
   const options = {
     legend: "none",
     curveType: "function",
+    intervals: { style: "area", color: "#D49464" },
     backgroundColor: "transparent",
-    chartArea: { width: "100%", height: "100%" },
+    areaOpacity: 0.3,
+    chartArea: {
+      width: "100%",
+      height: "100%",
+    },
     colors: ["#f05056"],
     lineWidth: 4,
     hAxis: {
@@ -30,7 +35,7 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
     widget.graph?.xAxis?.data.forEach((item, index) => {
       list.push([
         widget.graph?.xAxis?.data[index],
-        widget.graph?.yAxis?.data[index],
+        widget.graph?.yAxis.data[index],
       ]);
     });
     return list;
@@ -38,28 +43,38 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
 
   return (
     <div className={` ${style["usage-widget"]} widget-container`}>
-      <h6>{widget.header}</h6>
+      <div className="widget-header">
+        <h6>{widget.header}</h6>
+        {!widget.label && (
+          <TrendComponent
+            trendLabel={widget.trendLabel}
+            trendDirection={widget.trendDirection}
+          />
+        )}
+      </div>
       <div className={style["usage-widget-content"]}>
-        <div>
+        <div style={{ width: widget.label ? "40%" : "100%", height: "80px" }}>
           <Chart
-            chartType="LineChart"
+            chartType={widget.label ? "LineChart" : "AreaChart"}
             data={getChartData()}
             options={options}
             width="100%"
-            height="90px"
+            height="100%"
           />
         </div>
-        <div>
-          <span>Speech time</span>
-          <h3>{widget.label}</h3>
-          <div>
-            <small>{widget.subHeader}</small>
-            <TrendComponent
-              trendLabel={widget.trendLabel}
-              trendDirection={widget.trendDirection}
-            />
+        {widget.label && (
+          <div className={style["usage-widget-content-right"]}>
+            <span>Speech time</span>
+            <h3>{widget.label}</h3>
+            <div>
+              <small>{widget.subHeader}</small>
+              <TrendComponent
+                trendLabel={widget.trendLabel}
+                trendDirection={widget.trendDirection}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

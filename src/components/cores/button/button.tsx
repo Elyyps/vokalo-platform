@@ -6,12 +6,13 @@ export interface IButtonComponent {
   title?: string;
   icon?: string;
   position?: "right" | "left" | "top";
-  variant?: "transparent" | "secondary";
+  variant?: "transparent" | "secondary" | "disabled";
+  hasBorder?: boolean;
   isDropdown?: boolean;
   onClick?: () => void;
 }
 export const ButtonComponent = (props: IButtonComponent) => {
-  const { variant, title, icon, position, isDropdown } = props;
+  const { variant, title, icon, position, isDropdown, hasBorder } = props;
   const returnIconPosition = (
     <React.Fragment>
       {(isDropdown || position !== "left") && title}
@@ -28,8 +29,10 @@ export const ButtonComponent = (props: IButtonComponent) => {
   return (
     <div
       className={` ${style["button"]} ${!variant && style["button-default"]}  ${
-        variant === "secondary" && style["button-secondary"]
-      }`}
+        variant === "secondary"
+          ? style["button-secondary"]
+          : variant === "disabled" && style["button-disabled"]
+      } ${hasBorder && style["button-border"]}`}
       style={!props.title ? { padding: 0, border: 0 } : {}}
       onClick={props.onClick}
     >

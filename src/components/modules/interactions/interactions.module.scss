@@ -1,0 +1,39 @@
+.interactions {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  &-buttons {
+    display: flex;
+    margin-bottom: 24px;
+
+    > div {
+      font-size: 13px;
+      border-radius: 5px;
+      width: fit-content;
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+  &-switch {
+    display: flex;
+    justify-content: center;
+    > span {
+      cursor: pointer;
+      display: block;
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+      background-color: #2c2f51;
+      &:first-child {
+        margin-right: 12px;
+      }
+    }
+    &-active {
+      opacity: 0.4;
+    }
+  }
+}

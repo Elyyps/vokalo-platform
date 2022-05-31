@@ -1,5 +1,4 @@
 import React from "react";
-import { ReactSVG } from "react-svg";
 import { IWidget } from "../../../types/cores/widget";
 import { TrendComponent } from "../trend/trend";
 import style from "./sentiment-widget.module.scss";
@@ -13,7 +12,7 @@ export const SentimentWidget = ({ widget }: ISentimentWidget) => {
       <div className={style["sentiment-widget-content"]}>
         <span>{widget.label}</span>
         <div className={style["sentiment-widget-graph"]}>
-          {widget.graph?.yAxis.data.map((item, key) => (
+          {widget.graph?.yAxis.data.map((item: any, key: number) => (
             <div
               key={key}
               style={{

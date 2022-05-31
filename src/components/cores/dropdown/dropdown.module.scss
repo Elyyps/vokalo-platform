@@ -25,6 +25,19 @@
     border: 1px solid var(--tertiary-color);
     border-radius: 10px;
     z-index: 10;
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      > li {
+        cursor: pointer;
+        &:not(:last-child) {
+          margin-bottom: 4px;
+          padding-bottom: 4px;
+          border-bottom: 1px solid var(--tertiary-color);
+        }
+      }
+    }
     &-open {
       display: block;
     }

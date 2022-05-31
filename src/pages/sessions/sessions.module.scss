@@ -5,7 +5,7 @@
     flex-wrap: wrap;
     margin-bottom: 24px;
     > div {
-      width: 26%;
+      width: calc(24% - 32px);
       margin-bottom: 24px;
     }
   }

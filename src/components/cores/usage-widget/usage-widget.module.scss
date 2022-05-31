@@ -3,29 +3,26 @@
     margin-top: 16px;
     display: flex;
     justify-content: space-between;
-    > div {
-      &:first-child {
-        width: 40%;
+    &-right {
+      width: calc(55% + 8px);
+      margin-left: 8px;
+      text-align: right;
+      > h3 {
+        font-size: 40px;
       }
-      &:last-child {
-        width: calc(55% + 8px);
-        margin-left: 8px;
-        text-align: right;
-        > h3 {
-          font-size: 40px;
-        }
+      > div {
+        margin-top: 8px;
+        text-align: left;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         > div {
-          margin-top: 8px;
-          text-align: left;
-          display: flex;
-          justify-content: flex-end;
-          align-items: center;
-          > div {
-            font-size: 13px;
-            margin-left: 8px;
-          }
+          font-size: 13px;
+          margin-left: 8px;
         }
       }
+    }
+    > div {
     }
   }
 }

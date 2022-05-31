@@ -8,6 +8,7 @@ export interface IDropdownComponent {
   icon?: string;
   isProfile?: boolean;
   hasNoPadding?: boolean;
+  hasBorder?: boolean;
   contentPosition?: "right" | "left";
   variant?: "transparent";
   children: any;
@@ -49,6 +50,7 @@ export const DropdownComponent = (props: IDropdownComponent) => {
             variant={props.variant}
             onClick={() => setIsOpen(!isOpen)}
             isDropdown
+            hasBorder={props.hasBorder}
           />
         </div>
       )}

@@ -1,10 +1,11 @@
 type IAxe = {
   name?: string;
+  color?: string;
   data: any[];
 };
 type IGraph = {
   xAxis?: IAxe;
-  yAxis: IAxe;
+  yAxis: IAxe | IAxe[] | any;
 };
 type IWidgetElements = {
   label?: string;

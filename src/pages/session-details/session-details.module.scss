@@ -1,0 +1,32 @@
+.session-details {
+  display: flex;
+  justify-content: space-between;
+  &-left {
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    > div {
+      margin-bottom: 24px;
+    }
+  }
+  &-right {
+    width: 30%;
+  }
+  &-widgets {
+    width: 30%;
+    > div:first-child {
+      margin-bottom: 24px;
+    }
+    h3 {
+      margin-top: 16px;
+      font-size: 50px;
+    }
+  }
+  &-classification {
+    width: 65%;
+  }
+  &-graph {
+    width: 100%;
+  }
+}

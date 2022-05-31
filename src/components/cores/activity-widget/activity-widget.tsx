@@ -10,7 +10,7 @@ interface IActivityWidget {
 export const ActivityWidget = ({ widget }: IActivityWidget) => {
   return (
     <div className={` ${style["activity-widget"]} widget-container `}>
-      <div className={style["activity-widget-header"]}>
+      <div className="widget-header">
         <h6>{widget.header}</h6>
         <TrendComponent
           trendLabel={widget.trendLabel}

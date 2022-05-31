@@ -1,0 +1,39 @@
+.classifications {
+  > span {
+    display: flex;
+    justify-content: center;
+  }
+  &-content {
+    margin: 24px 0;
+    border-radius: 5px;
+    display: flex;
+    height: 110px;
+    overflow: hidden;
+
+    > div {
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      color: white;
+      > span {
+        margin-right: 8px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    > div {
+      width: 24%;
+      > span {
+        display: block;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

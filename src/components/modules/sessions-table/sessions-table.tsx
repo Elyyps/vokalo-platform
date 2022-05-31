@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
 import { converTime } from "../../../utils/convertTime";
@@ -13,6 +14,7 @@ interface ISessionsTableComponent {
 export const SessionsTableComponent = ({
   sessions,
 }: ISessionsTableComponent) => {
+  let navigate = useNavigate();
   const [sortConfig, setSortConfig] = React.useState<any>({
     column: "date",
     ascending: true,
@@ -50,7 +52,7 @@ export const SessionsTableComponent = ({
         </thead>
         <tbody>
           {sortedSession.map((row, key) => (
-            <tr key={key}>
+            <tr key={key} onClick={() => navigate("/sessions/" + row.coach)}>
               <td>
                 <input type="checkbox" />
               </td>
