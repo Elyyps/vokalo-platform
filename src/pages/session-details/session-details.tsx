@@ -1,6 +1,9 @@
 import React from "react";
+import { FieldOverviewData } from "../../api/field-overview";
 import { interactionData } from "../../api/interactions";
+import { playersData } from "../../api/players";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
+import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
 import style from "./session-details.module.scss";
 
@@ -50,9 +53,9 @@ export const SessionDetailsPage = () => {
           />
         </div>
       </div>
-      <div
-        className={` ${style["session-details-right"]} widget-container `}
-      ></div>
+      <div className={` ${style["session-details-right"]} widget-container `}>
+        <FieldOverviewComponent fieldOverview={FieldOverviewData()} />
+      </div>
     </div>
   );
 };

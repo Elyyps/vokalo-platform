@@ -1,3 +1,5 @@
+@use "src/styles/variables";
+
 .button {
   display: flex;
   align-items: center;
@@ -7,6 +9,10 @@
   border-radius: 10px;
   padding: 8px 12px;
   font-weight: 500;
+  box-sizing: border-box;
+  @media (max-width: variables.$breakpoint-xl) {
+    font-size: 13px;
+  }
   &:hover {
     border: 1px solid var(--primary-color);
   }
@@ -58,6 +64,19 @@
         width: 18px;
         height: 18px;
       }
+    }
+  }
+  &-top {
+    flex-direction: column-reverse;
+    // font-size: 13px;
+    text-align: center;
+    padding: 16px 12px;
+    > div {
+      margin-left: 0;
+    }
+    svg {
+      width: 25px;
+      height: 25px;
     }
   }
 }

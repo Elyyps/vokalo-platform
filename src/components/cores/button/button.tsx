@@ -32,7 +32,9 @@ export const ButtonComponent = (props: IButtonComponent) => {
         variant === "secondary"
           ? style["button-secondary"]
           : variant === "disabled" && style["button-disabled"]
-      } ${hasBorder && style["button-border"]}`}
+      } ${hasBorder && style["button-border"]} ${
+        position === "top" && style["button-top"]
+      }`}
       style={!props.title ? { padding: 0, border: 0 } : {}}
       onClick={props.onClick}
     >

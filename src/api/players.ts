@@ -1,0 +1,81 @@
+import { IPlayer } from "../types/cores/player";
+
+export const playersData = (): IPlayer[] => [
+  {
+    name: "player-0",
+    number: 50,
+    positionX: 0,
+    positionY: 1,
+    isReplaced: false,
+  },
+  {
+    name: "player-1",
+    number: 51,
+    positionX: 1,
+    positionY: 1,
+    isReplaced: false,
+  },
+  {
+    name: "player-2",
+    number: 52,
+    positionX: 1,
+    positionY: 2,
+    isReplaced: false,
+  },
+  {
+    name: "player-3",
+    number: 53,
+    positionX: 1,
+    positionY: 3,
+    isReplaced: false,
+  },
+  {
+    name: "player-4",
+    number: 54,
+    positionX: 1,
+    positionY: 4,
+    isReplaced: true,
+  },
+  {
+    name: "player-5",
+    number: 55,
+    positionX: 2,
+    positionY: 1,
+    isReplaced: false,
+  },
+  {
+    name: "player-6",
+    number: 56,
+    positionX: 2,
+    positionY: 2,
+    isReplaced: true,
+  },
+  {
+    name: "player-7",
+    number: 57,
+    positionX: 3,
+    positionY: 1,
+    isReplaced: true,
+  },
+  {
+    name: "player-8",
+    number: 58,
+    positionX: 3,
+    positionY: 2,
+    isReplaced: false,
+  },
+  {
+    name: "player-9",
+    number: 59,
+    positionX: 3,
+    positionY: 3,
+    isReplaced: false,
+  },
+  {
+    name: "player-10",
+    number: 60,
+    positionX: 4,
+    positionY: 1,
+    isReplaced: false,
+  },
+];

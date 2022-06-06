@@ -1,17 +1,28 @@
+@use "src/styles/variables";
+
 .session-details {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   &-left {
-    width: 65%;
+    width: 66%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 100%;
+    }
     > div {
       margin-bottom: 24px;
     }
   }
   &-right {
-    width: 30%;
+    width: 32%;
+    height: 100%;
+    padding: 8px;
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 50%;
+    }
   }
   &-widgets {
     width: 30%;
@@ -21,10 +32,13 @@
     h3 {
       margin-top: 16px;
       font-size: 50px;
+      @media (max-width: variables.$breakpoint-xxl) {
+        font-size: 40px;
+      }
     }
   }
   &-classification {
-    width: 65%;
+    width: 68%;
   }
   &-graph {
     width: 100%;

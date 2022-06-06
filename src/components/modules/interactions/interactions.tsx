@@ -108,7 +108,7 @@ export const InteractionsComponent = ({
             title={element.name}
             key={key}
             variant={
-              selectedButton.includes(element.name) ? undefined : "disabled"
+              selectedButton.includes(element.name) ? "transparent" : "disabled"
             }
             hasBorder
             onClick={() => element.name && onButtonSelected(element.name)}

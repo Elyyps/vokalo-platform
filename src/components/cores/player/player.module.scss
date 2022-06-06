@@ -1,0 +1,40 @@
+.player {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  cursor: pointer;
+  &-number {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 3px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: auto;
+    position: relative;
+  }
+  &-replaced {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    background-color: white;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-name {
+    text-transform: capitalize;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    padding: 2px 4px;
+    border-radius: 5px;
+    color: white;
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 13px;
+  }
+}

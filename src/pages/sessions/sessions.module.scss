@@ -1,3 +1,5 @@
+@use "src/styles/variables";
+
 .sessions {
   &-top {
     display: flex;
@@ -5,8 +7,11 @@
     flex-wrap: wrap;
     margin-bottom: 24px;
     > div {
-      width: calc(24% - 32px);
+      width: 24%;
       margin-bottom: 24px;
+      @media (max-width: variables.$breakpoint-xl) {
+        width: 48%;
+      }
     }
   }
 }

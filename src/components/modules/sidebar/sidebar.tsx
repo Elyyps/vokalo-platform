@@ -10,7 +10,7 @@ export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
   return (
     <div className={` ${style["sidebar"]} container`}>
       <div className={style["sidebar-logo"]}>
-        <img src="/logo.png" alt="vokalo logo" />
+        <img src="/img/logo.png" alt="vokalo logo" />
       </div>
       <ul className={style["sidebar-items"]}>
         {sidebarModule.items.map((item, key) => (

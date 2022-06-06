@@ -1,0 +1,87 @@
+.field-overview {
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  &-top {
+    background-image: url("../../../../public/img/field.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 55%;
+  }
+  &-players {
+    padding: 16px 4px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    position: relative;
+    > div:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+  &-formation {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    ul {
+      font-size: 13px;
+      padding: 8px;
+    }
+    > div > div > div {
+      padding: 2px 6px;
+      font-size: 13px;
+      background-color: rgba($color: #000000, $alpha: 0.3);
+    }
+  }
+  &-gradient {
+    > div {
+      &:first-child {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+        > span {
+          color: var(--tertiary-color);
+          font-size: 13px;
+        }
+      }
+      &:last-child {
+        display: flex;
+        width: 100%;
+        height: 15px;
+        > span {
+          width: 20%;
+        }
+      }
+    }
+  }
+  &-buttons {
+    > div {
+      &:first-child {
+        margin: 16px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        > input {
+          box-sizing: border-box;
+          width: 30%;
+          border: 0;
+          padding: 4px 8px;
+        }
+      }
+      &:last-child {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        > div {
+          width: 32%;
+          margin-bottom: 8px;
+          &:nth-last-child(-n + 2) {
+            width: 49%;
+          }
+        }
+      }
+    }
+  }
+}
