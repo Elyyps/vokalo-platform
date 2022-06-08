@@ -9,59 +9,56 @@ interface IPlayerComponent {
   onPlayerDrop: (playerTarget: IPlayer) => void;
   onPlayerDrag: (playerDrag: IPlayer) => void;
 }
-export const PlayerComponent = ({
-  player,
-  value,
-  color,
-  onPlayerDrop,
-  onPlayerDrag,
-}: IPlayerComponent) => {
-  function handleDragStart(e: any) {
+export const PlayerComponent = (props: IPlayerComponent) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const handleDragStart = (e: any) => {
     const data = JSON.stringify({ type: "card" });
     e.dataTransfer.setData("text/plain", data);
-    onPlayerDrag(player);
-  }
+    props.onPlayerDrag(props.player);
+  };
 
-  function handleDragEnd(e: any) {
+  const handleDragEnd = (e: any) => {
     e.dataTransfer.clearData();
-  }
-  function handleDragOver(e: any) {
+  };
+  const handleDragOver = (e: any) => {
     if (e.dataTransfer.types[0] === "text/plain") {
       e.preventDefault();
     }
-  }
-  function handleDrop(e: any, playerTarget: IPlayer) {
+  };
+  const handleDrop = (e: any, playerTarget: IPlayer) => {
     const dataJSON = e.dataTransfer.getData("text/plain");
     let data;
     try {
       data = JSON.parse(dataJSON);
     } catch {}
     if (data && data.type === "card") {
-      onPlayerDrop(playerTarget);
+      props.onPlayerDrop(playerTarget);
     }
-  }
+  };
   return (
     <div
-      className={`${style["player"]} ${style["player-" + player.positionX]}`}
+      className={`${style["player"]} ${
+        style["player-" + props.player.positionX]
+      }`}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
-      // onDragLeave={() => setIsOver(false)}
-      onDrop={(e) => handleDrop(e, player)}
+      onDrop={(e) => handleDrop(e, props.player)}
+      onClick={() => setIsOpen(!isOpen)}
     >
       <div
         className={style["player-number"]}
-        style={{ backgroundColor: color }}
+        style={{ backgroundColor: props.color }}
         draggable
       >
-        <span>{value}</span>
-        {player.isReplaced && (
+        <span>{props.value}</span>
+        {props.player.isReplaced && (
           <span className={style["player-replaced"]}>
             <ReactSVG src="/icons/change.svg" />
           </span>
         )}
       </div>
-      <span className={style["player-name"]}>{player.name}</span>
+      <span className={style["player-name"]}>{props.player.name}</span>
     </div>
   );
 };

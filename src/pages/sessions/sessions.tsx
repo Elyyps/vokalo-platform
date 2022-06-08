@@ -64,43 +64,6 @@ export const SessionsPage = () => {
             ],
           }}
         />
-        {/* <ActivityWidget
-          widget={{
-            header: "Most active athlete",
-            label: "Brian B.",
-            trendLabel: 45,
-            trendDirection: "NEGATIVE",
-          }}
-        />
-         <FeedbackWidget
-          widget={{
-            header: "Feedback",
-            trendLabel: 55,
-            elements: [
-              { percentage: 65, color: "#21ce71", label: "POSITIVE" },
-              { percentage: 35, color: "#f05056", label: "ORIENTATION" },
-            ],
-          }}
-        />
-
-        <UsageWidget
-          widget={{
-            header: "Usage",
-            subHeader: "previous 15 days",
-            trendLabel: 55,
-            trendDirection: "POSITIVE",
-            graph: {
-              yAxis: {
-                name: "age",
-                data: [0, 4, 2, 2, 8, 6, 2],
-              },
-              xAxis: {
-                name: "weight",
-                data: [0, 1, 2, 3, 4, 5, 6],
-              },
-            },
-          }}
-        /> */}
       </div>
       <SessionsTableComponent sessions={sessionsData()} />
     </div>

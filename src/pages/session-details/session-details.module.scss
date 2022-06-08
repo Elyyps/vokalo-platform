@@ -5,15 +5,15 @@
   justify-content: space-between;
   flex-wrap: wrap;
   &-left {
-    width: 66%;
+    width: 65%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     @media (max-width: variables.$breakpoint-xl) {
-      width: 100%;
+      width: 63%;
     }
-    > div {
-      margin-bottom: 24px;
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 60%;
     }
   }
   &-right {
@@ -21,26 +21,48 @@
     height: 100%;
     padding: 8px;
     @media (max-width: variables.$breakpoint-xl) {
-      width: 50%;
+      width: 35%;
+    }
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 38%;
     }
   }
   &-widgets {
     width: 30%;
-    > div:first-child {
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       margin-bottom: 24px;
+      > div {
+        width: 48%;
+      }
+    }
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-bottom: 16px;
+    }
+    > div {
+      @media (min-width: variables.$breakpoint-xl) {
+        &:first-child {
+          margin-bottom: 24px;
+        }
+      }
     }
     h3 {
-      margin-top: 16px;
-      font-size: 50px;
-      @media (max-width: variables.$breakpoint-xxl) {
-        font-size: 40px;
-      }
+      margin-top: 12px;
     }
   }
   &-classification {
     width: 68%;
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 100%;
+    }
   }
   &-graph {
+    margin-top: 24px;
     width: 100%;
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-top: 16px;
+    }
   }
 }

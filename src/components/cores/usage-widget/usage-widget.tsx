@@ -10,9 +10,7 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
   const options = {
     legend: "none",
     curveType: "function",
-    intervals: { style: "area", color: "#D49464" },
     backgroundColor: "transparent",
-    areaOpacity: 0.3,
     chartArea: {
       width: "100%",
       height: "100%",
@@ -53,7 +51,7 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
         )}
       </div>
       <div className={style["usage-widget-content"]}>
-        <div style={{ width: widget.label ? "40%" : "100%", height: "80px" }}>
+        <div className={widget.label && style["usage-widget-graph"]}>
           <Chart
             chartType={widget.label ? "LineChart" : "AreaChart"}
             data={getChartData()}

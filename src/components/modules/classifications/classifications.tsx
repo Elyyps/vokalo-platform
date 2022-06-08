@@ -8,7 +8,7 @@ export const ClassificationComponent = ({
   widget,
 }: IClassificationComponent) => {
   return (
-    <div className={style["classifications"]}>
+    <div className={` ${style["classifications"]} widget-container`}>
       <span>{widget.header}</span>
       <div className={style["classifications-content"]}>
         {widget.elements?.map((element, key) => (

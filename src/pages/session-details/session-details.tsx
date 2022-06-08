@@ -1,7 +1,6 @@
 import React from "react";
 import { FieldOverviewData } from "../../api/field-overview";
 import { interactionData } from "../../api/interactions";
-import { playersData } from "../../api/players";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
@@ -22,9 +21,7 @@ export const SessionDetailsPage = () => {
             <h3>92 mins</h3>
           </div>
         </div>
-        <div
-          className={` ${style["session-details-classification"]} widget-container `}
-        >
+        <div className={style["session-details-classification"]}>
           <ClassificationComponent
             widget={{
               header: "Team interaction classifications",

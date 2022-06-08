@@ -1,20 +1,29 @@
+@use "src/styles/variables";
+
 .interactions {
   &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-bottom: 16px;
+    }
   }
   &-buttons {
     display: flex;
     margin-bottom: 24px;
-
+    @media (max-width: variables.$breakpoint-xl) {
+      margin-bottom: 0;
+    }
     > div {
-      font-size: 13px;
       border-radius: 5px;
       width: fit-content;
       &:not(:last-child) {
         margin-right: 16px;
+        @media (max-width: variables.$breakpoint-lg) {
+          margin-right: 12px;
+        }
       }
     }
   }
@@ -34,6 +43,15 @@
     }
     &-active {
       opacity: 0.4;
+    }
+  }
+  &-graph {
+    height: 320px;
+    @media (max-width: variables.$breakpoint-xl) {
+      height: 280px;
+    }
+    @media (max-width: variables.$breakpoint-lg) {
+      height: 240px;
     }
   }
 }

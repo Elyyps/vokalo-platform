@@ -1,3 +1,5 @@
+@use "src/styles/variables";
+
 .player {
   display: flex;
   flex-direction: column;
@@ -14,6 +16,10 @@
     color: white;
     margin: auto;
     position: relative;
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 36px;
+      height: 36px;
+    }
   }
   &-replaced {
     position: absolute;
@@ -26,6 +32,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @media (max-width: variables.$breakpoint-lg) {
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
   }
   &-name {
     text-transform: capitalize;
@@ -36,5 +48,8 @@
     width: fit-content;
     margin: 0 auto;
     font-size: 13px;
+    @media (max-width: variables.$breakpoint-lg) {
+      font-size: 11px;
+    }
   }
 }

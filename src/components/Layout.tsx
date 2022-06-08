@@ -1,10 +1,10 @@
-import React, { ReactNode, useMemo } from "react";
+import React from "react";
 import { sidebarData } from "../api/sidebar";
 import { HeaderComponent } from "./modules/header/header";
 import { SidebarComponent } from "./modules/sidebar/sidebar";
 
 type Props = {
-  children?: ReactNode;
+  children?: any;
 };
 
 const Layout = ({ children }: Props) => {

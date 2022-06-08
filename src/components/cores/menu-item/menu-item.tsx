@@ -1,3 +1,4 @@
+import { log } from "console";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ReactSVG } from "react-svg";
@@ -11,12 +12,14 @@ interface IMenuItemComponent {
 
 export const MenuItemComponent = (props: IMenuItemComponent) => {
   const { pathname } = useLocation();
+  const path = pathname.replace("/", "");
+  const route = props.route.replace("/", "");
 
   return (
     <Link
       to={props.route}
       className={` ${style["menu-item"]} ${
-        pathname === props.route && style["active"]
+        route.length && path.startsWith(route) && style["active"]
       } `}
     >
       <ReactSVG src={props.icon} className={style["menu-item-icon"]} />

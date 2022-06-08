@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
-import { converTime } from "../../../utils/convertTime";
+import { converToHours } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./sessions-table.module.scss";
@@ -70,7 +70,7 @@ export const SessionsTableComponent = ({
                   {}
                 </span>
               </td>
-              <td>{converTime(row.length)}</td>
+              <td>{converToHours(row.length)}</td>
               <td>{row.coach}</td>
               <td>{row.athletes?.length}</td>
               <td>

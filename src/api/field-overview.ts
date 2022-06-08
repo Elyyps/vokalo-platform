@@ -21,6 +21,7 @@ export const FieldOverviewData = (): IFieldOverview => ({
         { playerId: 58, value: 0.71 },
         { playerId: 59, value: 0.33 },
         { playerId: 60, value: 0.8 },
+        { playerId: 72, value: 0.8 },
       ],
     },
     {
@@ -39,7 +40,7 @@ export const FieldOverviewData = (): IFieldOverview => ({
         { playerId: 57, value: 0.68 },
         { playerId: 58, value: 0.88 },
         { playerId: 59, value: 0.5 },
-        { playerId: 60, value: 0.77 },
+        { playerId: 60, value: 1 },
       ],
     },
     {

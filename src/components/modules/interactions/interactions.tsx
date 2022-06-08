@@ -20,7 +20,7 @@ export const InteractionsComponent = ({
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
   ]);
-  const [sortBy, setSortBy] = React.useState<SortType>("Default");
+  const [, setSortBy] = React.useState<SortType>("Default");
 
   const options = {
     curveType: "function",
@@ -119,8 +119,8 @@ export const InteractionsComponent = ({
         chartType={isLineChart ? "LineChart" : "ColumnChart"}
         data={getChartData()}
         options={options}
+        className={style["interactions-graph"]}
         width="100%"
-        height="300px"
       />
       <div className={style["interactions-switch"]}>
         <span

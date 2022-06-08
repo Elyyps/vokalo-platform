@@ -1,0 +1,58 @@
+import { ISquad } from "../types/modules/squad";
+
+export const squadData = (): ISquad[] => [
+  {
+    name: "Anders A",
+    role: "Athlete",
+    speechTime: 620,
+    interation: 120,
+    averageInteraction: 0,
+    type: 50,
+    mood: { trendDirection: "NEUTRAL", trendLabel: 0 },
+  },
+  {
+    name: "Anders A",
+    role: "Athlete",
+    speechTime: 100,
+    interation: 120,
+    averageInteraction: 0,
+    type: 50,
+    mood: { trendDirection: "NEGATIVE", trendLabel: 30 },
+  },
+  {
+    name: "Anders A",
+    role: "Athlete",
+    speechTime: 50,
+    interation: 120,
+    averageInteraction: 0,
+    type: 50,
+    mood: { trendDirection: "POSITIVE", trendLabel: 50 },
+  },
+  {
+    name: "Anders A",
+    role: "Athlete",
+    speechTime: 90,
+    interation: 120,
+    averageInteraction: 0,
+    type: 50,
+    mood: { trendDirection: "NEUTRAL", trendLabel: 0 },
+  },
+  {
+    name: "Anders A",
+    role: "Athlete",
+    speechTime: 40,
+    interation: 120,
+    averageInteraction: 0,
+    type: 50,
+    mood: { trendDirection: "NEGATIVE", trendLabel: 15 },
+  },
+  {
+    name: "Anders A",
+    role: "Athlete",
+    speechTime: 20,
+    interation: 120,
+    averageInteraction: 0,
+    type: 50,
+    mood: { trendDirection: "POSITIVE", trendLabel: 50 },
+  },
+];

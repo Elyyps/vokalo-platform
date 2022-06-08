@@ -1,35 +1,33 @@
 @use "src/styles/variables";
 
 .container {
-  width: 90%;
+  width: 92%;
   margin: 36px auto;
   @media (max-width: variables.$breakpoint-lg) {
-    * {
-      font-size: 13px;
-    }
+    height: calc(100% - 48px);
+    margin: 24px auto;
+    font-size: 13px;
   }
 }
 .layout {
   display: flex;
+  justify-content: flex-end;
   min-height: 100vh;
   &-sidebar {
+    z-index: 100;
     background-color: var(--primary-color);
-    width: 280px;
-    @media (max-width: variables.$breakpoint-lg) {
-      width: 230px;
-    }
+    width: fit-content;
   }
   &-body {
     background-color: #f5f5f5;
     width: calc(100% - 280px);
     @media (max-width: variables.$breakpoint-lg) {
-      width: calc(100% - 230px);
+      width: calc(100% - 50px);
     }
   }
   &-content {
     margin-top: 48px;
     border-radius: 10px;
-    min-height: calc(100vh + 48px);
   }
 }
 .section {
@@ -64,23 +62,30 @@
   box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
   border-radius: 10px;
   box-sizing: border-box;
+  @media (max-width: variables.$breakpoint-lg) {
+    padding: 12px;
+  }
   h3 {
-    font-size: 36px;
+    font-size: 2.2rem;
     margin: 0;
     @media (max-width: variables.$breakpoint-xl) {
-      font-size: 28px;
+      font-size: 2rem;
+    }
+    @media (max-width: variables.$breakpoint-lg) {
+      font-size: 1.8rem;
     }
   }
   h6 {
     color: var(--secondary-color);
     margin: 0;
     font-size: 16px;
-    @media (max-width: variables.$breakpoint-xl) {
+    @media (max-width: variables.$breakpoint-lg) {
       font-size: 13px;
     }
   }
   small {
     color: var(--tertiary-color);
+    text-align: right;
   }
 }
 .widget-header {

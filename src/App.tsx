@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import { DashboardPage } from "./pages/dashboard/dashboard";
 import { SessionDetailsPage } from "./pages/session-details/session-details";
 import { SessionsPage } from "./pages/sessions/sessions";
+import { SquadPage } from "./pages/squad/squad";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
             <Route path="/coach" element={<div>Coach</div>} />
             <Route path="/sessions" element={<SessionsPage />} />
             <Route path="/sessions/:caoch" element={<SessionDetailsPage />} />
-            <Route path="/squad" element={<div>Squad</div>} />
+            <Route path="/squad" element={<SquadPage />} />
             <Route path="/video-sync" element={<div>Video sync</div>} />
             <Route path="/recordings" element={<div>Recordings</div>} />
             <Route path="/settings" element={<div>Settings</div>} />

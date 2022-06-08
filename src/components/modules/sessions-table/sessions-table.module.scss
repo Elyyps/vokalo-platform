@@ -2,7 +2,7 @@
   overflow-x: auto;
 
   table {
-    min-width: 900px;
+    min-width: 950px;
     width: 100%;
     border-collapse: collapse;
     thead {
@@ -12,6 +12,7 @@
     tbody tr {
       height: 60px;
       border-bottom: 1px solid #f3f3f3;
+      cursor: pointer;
       &:hover {
         background-color: rgba($color: #dadada, $alpha: 0.2);
       }

@@ -1,36 +1,104 @@
 @use "src/styles/variables";
 
 .sidebar {
-  font-size: 20px;
+  background-color: var(--primary-color);
+  width: 280px;
+  transition: width 0.5s ease-in-out;
   @media (max-width: variables.$breakpoint-lg) {
-    font-size: 16px;
+    width: 50px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+  &-open {
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 240px;
+      .sidebar-logo {
+        justify-content: space-between;
+        margin-bottom: 48px;
+        > img {
+          width: 110px;
+          transition: width 0.5s ease-in-out;
+        }
+      }
+      .sidebar-items {
+        > ul {
+          visibility: visible;
+          > li {
+            transition: opacity 2s;
+            opacity: 1;
+            width: 100%;
+          }
+        }
+        > div {
+          display: none;
+        }
+      }
+    }
   }
 
   &-logo {
-    width: 75%;
     height: 25px;
-    margin: auto;
-    @media (max-width: variables.$breakpoint-lg) {
-      height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (min-width: variables.$breakpoint-lg) {
+      margin-bottom: 72px;
     }
     > img {
-      max-width: 100%;
+      width: 150px;
       height: 100%;
       object-fit: contain;
+      @media (max-width: variables.$breakpoint-lg) {
+        width: 0;
+      }
+    }
+    svg {
+      cursor: pointer;
+      width: 25px;
+      height: 15px;
+      fill: white;
+      display: none;
+      @media (max-width: variables.$breakpoint-lg) {
+        display: block;
+      }
     }
   }
   &-items {
-    list-style: none;
-    padding: 0;
-    margin-top: 72px;
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    @media (max-width: variables.$breakpoint-lg) {
-      margin-top: 48px;
+    height: calc(100% - 25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    > div {
+      display: none;
+      @media (max-width: variables.$breakpoint-lg) {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-bottom: 45px;
+        > img {
+          transform: rotate(270deg);
+          width: 100px;
+          object-fit: contain;
+        }
+      }
     }
-    > li {
-      margin-bottom: 12px;
+    > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      @media (max-width: variables.$breakpoint-lg) {
+        visibility: hidden;
+      }
+      > li {
+        margin-bottom: 12px;
+        font-size: 20px;
+        @media (max-width: variables.$breakpoint-lg) {
+          opacity: 0;
+          font-size: 16px;
+        }
+      }
     }
   }
 }

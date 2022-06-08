@@ -10,8 +10,9 @@
   padding: 8px 12px;
   font-weight: 500;
   box-sizing: border-box;
-  @media (max-width: variables.$breakpoint-xl) {
-    font-size: 13px;
+  font-size: 13px;
+  @media (max-width: variables.$breakpoint-lg) {
+    padding: 6px 8px;
   }
   &:hover {
     border: 1px solid var(--primary-color);
@@ -68,15 +69,21 @@
   }
   &-top {
     flex-direction: column-reverse;
-    // font-size: 13px;
     text-align: center;
     padding: 16px 12px;
+    @media (max-width: variables.$breakpoint-lg) {
+      padding: 12px 8px;
+    }
     > div {
       margin-left: 0;
     }
     svg {
       width: 25px;
       height: 25px;
+      @media (max-width: variables.$breakpoint-lg) {
+        width: 18px;
+        height: 18px;
+      }
     }
   }
 }

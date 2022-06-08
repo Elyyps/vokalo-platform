@@ -1,15 +1,19 @@
+@use "src/styles/variables";
+
 .usage-widget {
   &-content {
-    margin-top: 16px;
     display: flex;
     justify-content: space-between;
+    > div:first-child {
+      height: 80px;
+      width: 100%;
+      @media (max-width: variables.$breakpoint-lg) {
+        height: 70px;
+      }
+    }
     &-right {
-      width: calc(55% + 8px);
       margin-left: 8px;
       text-align: right;
-      > h3 {
-        font-size: 40px;
-      }
       > div {
         margin-top: 8px;
         text-align: left;
@@ -22,7 +26,11 @@
         }
       }
     }
-    > div {
+  }
+  &-graph {
+    width: 45% !important;
+    @media (max-width: variables.$breakpoint-lg) {
+      width: calc(55% - 8px) !important;
     }
   }
 }

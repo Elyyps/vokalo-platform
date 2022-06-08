@@ -10,7 +10,7 @@ export const SentimentWidget = ({ widget }: ISentimentWidget) => {
     <div className={` ${style["sentiment-widget"]} widget-container `}>
       <h6>{widget.header}</h6>
       <div className={style["sentiment-widget-content"]}>
-        <span>{widget.label}</span>
+        <h3>{widget.label}</h3>
         <div className={style["sentiment-widget-graph"]}>
           {widget.graph?.yAxis.data.map((item: any, key: number) => (
             <div

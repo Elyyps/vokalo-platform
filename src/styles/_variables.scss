@@ -1,9 +1,9 @@
 /* Breakpoints */
-$breakpoint-sm: 576px !default;
-$breakpoint-md: 768px !default;
-$breakpoint-lg: 992px !default;
-$breakpoint-xl: 1200px !default;
-$breakpoint-xxl: 1400px !default;
+$breakpoint-sm: calc(576px + 50px) !default;
+$breakpoint-md: calc(768px + 50px) !default;
+$breakpoint-lg: calc(992px + 280px) !default;
+$breakpoint-xl: calc(1200px + 280px) !default;
+$breakpoint-xxl: calc(1400px + 280px) !default;
 /* Colors */
 $primary-color: #333333;
 $secondary-color: #9a9a9a;

@@ -1,3 +1,5 @@
+@use "src/styles/variables";
+
 .sentiment-widget {
   > div {
     display: flex;
@@ -6,12 +8,6 @@
   }
   &-content {
     margin: 12px 0;
-    > span {
-      width: calc(50% - 16px);
-      margin-right: 16px;
-      font-size: 36px;
-      font-weight: bold;
-    }
   }
   &-footer {
     > span {
@@ -30,6 +26,9 @@
     align-items: flex-end;
     justify-content: space-between;
     height: 65px;
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 60%;
+    }
     > div {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
