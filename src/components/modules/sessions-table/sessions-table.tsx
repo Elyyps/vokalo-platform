@@ -51,7 +51,7 @@ export const SessionsTableComponent = ({
           </tr>
         </thead>
         <tbody>
-          {sortedSession.map((row, key) => (
+          {sortedSession.map((row: ISession, key) => (
             <tr key={key} onClick={() => navigate("/sessions/" + row.coach)}>
               <td>
                 <input type="checkbox" />

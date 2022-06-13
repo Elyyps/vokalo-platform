@@ -1,9 +1,9 @@
-@use "src/styles/variables";
+@use "src/variables";
 
 .feedback-widget {
   padding: 16px;
   > span {
-    color: var(--secondary-color);
+    color: variables.$secondary-color;
   }
   &-percentage {
     margin-top: 16px;

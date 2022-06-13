@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .squad-table {
   overflow-x: auto;
 
@@ -6,15 +8,22 @@
     width: 100%;
     border-collapse: collapse;
     thead {
-      border-bottom: 1px solid var(--tertiary-color);
+      border-bottom: 1px solid variables.$tertiary-color;
       height: 60px;
       text-align: center;
       text-transform: capitalize;
       tr:first-child th {
+        padding-top: 24px;
         font-size: 13px;
-        color: var(--secondary-color);
+        color: variables.$secondary-color;
         &:nth-child(2n) {
-          background-color: rgba($color: #000000, $alpha: 0.2);
+          background-color: rgba(
+            $color: variables.$tertiary-color,
+            $alpha: 0.1
+          );
+        }
+        &:nth-child(3) {
+          background-color: white;
         }
       }
     }
@@ -30,9 +39,14 @@
     td {
       text-align: center;
       padding: 8px;
-      > div {
+      &:last-child > div {
         display: flex;
+        align-items: center;
         justify-content: center;
+      }
+      &:nth-child(2n + 1):not(:first-child),
+      &:nth-child(4) {
+        background-color: rgba($color: variables.$tertiary-color, $alpha: 0.1);
       }
     }
     thead tr {
@@ -48,6 +62,19 @@
           margin-left: 8px;
         }
       }
+    }
+  }
+  &-progress {
+    background-color: variables.$NEGATIVE-color;
+    min-width: 80px;
+    width: 65%;
+    height: 10px;
+    border-radius: 5px;
+    display: flex;
+    overflow: hidden;
+    margin: auto;
+    > div {
+      background-color: variables.$POSITIVE-color;
     }
   }
 }

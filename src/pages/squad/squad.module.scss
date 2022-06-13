@@ -1,11 +1,11 @@
-@use "src/styles/variables";
+@use "src/variables";
 
 .squad {
   &-top {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 48px;
+    margin-bottom: 32px;
     @media (max-width: variables.$breakpoint-lg) {
       margin-bottom: 24px;
     }

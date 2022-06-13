@@ -1,19 +1,27 @@
 @use "src/variables";
 
-.sessions {
+.coach {
   &-top {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    gap: 20px;
     margin-bottom: 32px;
     @media (max-width: variables.$breakpoint-lg) {
       margin-bottom: 24px;
     }
     > div {
-      width: 24%;
-      @media (max-width: variables.$breakpoint-lg) {
-        margin-bottom: 24px;
-        width: 48%;
+      &:first-child {
+        width: 24%;
+        > div {
+          height: calc(50% - 12px);
+          &:first-child {
+            margin-bottom: 24px;
+          }
+        }
+      }
+      &:nth-child(2) {
+        flex: 1;
       }
     }
   }

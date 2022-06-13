@@ -1,7 +1,5 @@
-type ITrend = {
-  trendDirection?: "NEUTRAL" | "POSITIVE" | "NEGATIVE";
-  trendLabel?: number;
-};
+import { ITrend } from "../cores/trend";
+
 export type ISquad = {
   name: string;
   role: "Athlete" | "Coach";

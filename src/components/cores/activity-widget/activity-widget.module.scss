@@ -1,1 +1,10 @@
+@use "src/variables";
 
+.activity-widget {
+  &-POSITIVE {
+    color: variables.$POSITIVE-color;
+  }
+  &-NEGATIVE {
+    color: variables.$NEGATIVE-color;
+  }
+}

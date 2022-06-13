@@ -10,12 +10,13 @@ export interface IDropdownComponent {
   hasNoPadding?: boolean;
   hasBorder?: boolean;
   contentPosition?: "right" | "left";
-  variant?: "transparent";
+  variant?: "transparent" | "disabled";
   children: any;
   onClick?: () => void;
 }
 export const DropdownComponent = (props: IDropdownComponent) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
   const wrapperRef = React.createRef<HTMLDivElement>();
   React.useEffect(() => {
     function handleClickOutside(event: any) {

@@ -1,13 +1,11 @@
-import React from "react";
-import { ReactSVG } from "react-svg";
 import { IWidget } from "../../../types/cores/widget";
 import { TrendComponent } from "../trend/trend";
 import style from "./activity-widget.module.scss";
-
 interface IActivityWidget {
   widget: IWidget;
+  hasColor?: boolean;
 }
-export const ActivityWidget = ({ widget }: IActivityWidget) => {
+export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
   return (
     <div className={` ${style["activity-widget"]} widget-container `}>
       <div className="widget-header">
@@ -17,7 +15,13 @@ export const ActivityWidget = ({ widget }: IActivityWidget) => {
           trendDirection={widget.trendDirection}
         />
       </div>
-      <h3>{widget.label}</h3>
+      <h3
+        className={
+          hasColor ? style[`activity-widget-${widget.trendDirection}`] : ""
+        }
+      >
+        {widget.label}
+      </h3>
     </div>
   );
 };

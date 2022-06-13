@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .date-picker {
   position: relative;
   &-content {
@@ -6,7 +8,7 @@
     }
     &-bottom {
       padding: 12px;
-      border-top: 1px solid var(--tertiary-color);
+      border-top: 1px solid variables.$tertiary-color;
       display: flex;
       align-items: center;
       justify-content: space-between;

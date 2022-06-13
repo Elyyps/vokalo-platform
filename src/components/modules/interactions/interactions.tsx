@@ -20,7 +20,7 @@ export const InteractionsComponent = ({
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
   ]);
-  const [, setSortBy] = React.useState<SortType>("Default");
+  const [sortBy, setSortBy] = React.useState<SortType>("Default");
 
   const options = {
     curveType: "function",
@@ -40,7 +40,7 @@ export const InteractionsComponent = ({
     if (!isLineChart) {
       header[0].push("", { role: "style" });
     } else {
-      selectedButton.forEach((element, key) => header[0].push(element));
+      selectedButton.forEach((element) => header[0].push(element));
     }
     let filteredList = widget.graph?.yAxis.filter((item: any) =>
       selectedButton.includes(item.name)
@@ -56,18 +56,19 @@ export const InteractionsComponent = ({
         }
       });
     });
-
-    return list;
+    return sortList(list);
   };
-  // const sortList = (list: any) => {
-  //   if (sortBy !== "Default") {
-  //     return list.data.sort((a: any, b: any) =>
-  //       sortBy === "Ascending" ? a.value - b.value : b.value - a.value
-  //     );
-  //   } else {
-  //     return list.data;
-  //   }
-  // };
+  const sortList = (list: any) => {
+    if (sortBy !== "Default") {
+      return list.sort((a: any, b: any) => {
+        if (a[1] && b[1]) {
+          return sortBy === "Ascending" ? a[1] - b[1] : b[1] - a[1];
+        }
+      });
+    } else {
+      return list;
+    }
+  };
   const onButtonSelected = (name: string) => {
     let list: string[] = [];
     if (isLineChart) {
@@ -94,8 +95,13 @@ export const InteractionsComponent = ({
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
         <h6>{widget.header}</h6>
-        <DropdownComponent title="Sort" hasBorder>
+        <DropdownComponent
+          title="Sort"
+          hasBorder
+          variant={isLineChart ? "disabled" : "transparent"}
+        >
           <ul>
+            <li onClick={() => setSortBy("Default")}>Default</li>
             <li onClick={() => setSortBy("Ascending")}>Ascending</li>
             <li onClick={() => setSortBy("Descending")}>Descending</li>
           </ul>
@@ -132,7 +138,10 @@ export const InteractionsComponent = ({
         ></span>
         <span
           style={!isLineChart ? { opacity: 0.4 } : {}}
-          onClick={() => onClick(true)}
+          onClick={() => {
+            onClick(true);
+            setSortBy("Default");
+          }}
         ></span>
       </div>
     </div>

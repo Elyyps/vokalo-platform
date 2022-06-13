@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Layout from "./components/Layout";
+import { CoachPage } from "./pages/coach/coach";
 import { DashboardPage } from "./pages/dashboard/dashboard";
 import { SessionDetailsPage } from "./pages/session-details/session-details";
 import { SessionsPage } from "./pages/sessions/sessions";
@@ -14,7 +15,7 @@ function App() {
         <Layout>
           <Routes>
             <Route index element={<DashboardPage />} />
-            <Route path="/coach" element={<div>Coach</div>} />
+            <Route path="/coach" element={<CoachPage />} />
             <Route path="/sessions" element={<SessionsPage />} />
             <Route path="/sessions/:caoch" element={<SessionDetailsPage />} />
             <Route path="/squad" element={<SquadPage />} />

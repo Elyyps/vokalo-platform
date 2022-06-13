@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .dropdown {
   position: relative;
   &-profile {
@@ -22,7 +24,7 @@
     position: absolute;
     right: 0;
     background-color: white;
-    border: 1px solid var(--tertiary-color);
+    border: 1px solid variables.$tertiary-color;
     border-radius: 10px;
     z-index: 10;
     ul {
@@ -34,7 +36,7 @@
         &:not(:last-child) {
           margin-bottom: 4px;
           padding-bottom: 4px;
-          border-bottom: 1px solid var(--tertiary-color);
+          border-bottom: 1px solid variables.$tertiary-color;
         }
       }
     }

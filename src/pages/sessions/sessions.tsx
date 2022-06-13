@@ -6,10 +6,12 @@ import { SessionsTableComponent } from "../../components/modules/sessions-table/
 import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
 import { SentimentWidget } from "../../components/cores/sentiment-widget/sentiment-widget";
 import { UsageWidget } from "../../components/cores/usage-widget/usage-widget";
+import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 
 export const SessionsPage = () => {
   return (
     <div className={style["sessions"]}>
+      <PageHeaderComponent title="Session" />
       <div className={style["sessions-top"]}>
         <UsageWidget
           widget={{

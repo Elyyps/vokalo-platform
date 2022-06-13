@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .field-overview {
   border-radius: 10px;
   overflow: hidden;
@@ -41,7 +43,7 @@
         justify-content: space-between;
         margin-top: 8px;
         > span {
-          color: var(--tertiary-color);
+          color: variables.$tertiary-color;
           font-size: 13px;
         }
       }

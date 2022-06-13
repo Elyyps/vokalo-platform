@@ -2,12 +2,14 @@ import React from "react";
 import { squadData } from "../../api/squad";
 import { ActivityWidget } from "../../components/cores/activity-widget/activity-widget";
 import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
+import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { UsageWidget } from "../../components/cores/usage-widget/usage-widget";
 import { SquadTableComponent } from "../../components/modules/squad-table/squad-table";
 import style from "./squad.module.scss";
 export const SquadPage = () => {
   return (
     <div className={style["squad"]}>
+      <PageHeaderComponent title="Squad" />
       <div className={style["squad-top"]}>
         <UsageWidget
           widget={{

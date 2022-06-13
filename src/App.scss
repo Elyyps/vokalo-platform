@@ -1,4 +1,4 @@
-@use "src/styles/variables";
+@use "src/variables";
 
 .container {
   width: 92%;
@@ -15,7 +15,7 @@
   min-height: 100vh;
   &-sidebar {
     z-index: 100;
-    background-color: var(--primary-color);
+    background-color: variables.$primary-color;
     width: fit-content;
   }
   &-body {
@@ -52,14 +52,14 @@
   }
   &-item {
     background-color: white;
-    box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
+    box-shadow: 3px 5px rgba($color: variables.$primary-color, $alpha: 0.2);
     border-radius: 10px;
   }
 }
 .widget-container {
   padding: 16px;
   background-color: white;
-  box-shadow: 3px 5px rgba($color: #333333, $alpha: 0.2);
+  box-shadow: 3px 5px rgba($color: variables.$primary-color, $alpha: 0.2);
   border-radius: 10px;
   box-sizing: border-box;
   @media (max-width: variables.$breakpoint-lg) {
@@ -76,7 +76,7 @@
     }
   }
   h6 {
-    color: var(--secondary-color);
+    color: variables.$secondary-color;
     margin: 0;
     font-size: 16px;
     @media (max-width: variables.$breakpoint-lg) {
@@ -84,7 +84,7 @@
     }
   }
   small {
-    color: var(--tertiary-color);
+    color: variables.$tertiary-color;
     text-align: right;
   }
 }
@@ -103,12 +103,12 @@
 .rdrDefinedRangesWrapper {
   width: 120px !important;
   padding: 8px;
-  border-right: 1px solid var(--tertiary-color) !important;
+  border-right: 1px solid variables.$tertiary-color !important;
   border-top-left-radius: 10px !important;
 
   .rdrStaticRangeSelected,
   .rdrStaticRangeLabel:hover {
-    background-color: var(--tertiary-color) !important;
+    background-color: variables.$tertiary-color !important;
     color: white !important;
     cursor: pointer;
     border-radius: 5px;

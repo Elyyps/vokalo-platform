@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .trend {
   > span {
     display: flex;
@@ -9,21 +11,21 @@
     margin-right: 4px;
   }
   &-POSITIVE {
-    color: var(--POSITIVE-color);
+    color: variables.$POSITIVE-color;
     svg {
       transform: rotate(180deg);
       path {
-        fill: var(--POSITIVE-color);
+        fill: variables.$POSITIVE-color;
       }
     }
   }
   &-NEGATIVE {
-    color: var(--NEGATIVE-color);
+    color: variables.$NEGATIVE-color;
     svg path {
-      fill: var(--NEGATIVE-color);
+      fill: variables.$NEGATIVE-color;
     }
   }
   &-NEUTRAL {
-    color: var(--primary-color);
+    color: variables.$primary-color;
   }
 }

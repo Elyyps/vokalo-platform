@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .menu-item {
   background-color: transparent;
   color: white;
@@ -25,11 +27,11 @@
 .menu-item:hover,
 .active {
   background-color: white;
-  color: var(--primary-color);
+  color: variables.$primary-color;
   > span {
-    border-right: 1px solid var(--primary-color);
+    border-right: 1px solid variables.$primary-color;
   }
   svg path {
-    fill: var(--primary-color);
+    fill: variables.$primary-color;
   }
 }

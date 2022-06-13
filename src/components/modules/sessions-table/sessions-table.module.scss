@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .sessions-table {
   overflow-x: auto;
 
@@ -6,7 +8,7 @@
     width: 100%;
     border-collapse: collapse;
     thead {
-      border-bottom: 1px solid var(--tertiary-color);
+      border-bottom: 1px solid variables.$tertiary-color;
       height: 60px;
     }
     tbody tr {
@@ -28,7 +30,7 @@
           cursor: pointer;
           width: 18px;
           height: 18px;
-          accent-color: var(--primary-color);
+          accent-color: variables.$primary-color;
           &:checked {
             content: "\002714";
             background-color: #000000;

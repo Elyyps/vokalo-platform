@@ -1,0 +1,29 @@
+@use "src/variables";
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  h2 {
+    margin: 0;
+    font-size: 30px;
+    color: variables.$primary-color;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    > div {
+      margin-right: 16px;
+      svg {
+        width: 20px;
+        height: 15px;
+        transform: rotate(90deg);
+      }
+    }
+  }
+  > div {
+    display: flex;
+    > div:not(:last-child) {
+      margin-right: 16px;
+    }
+  }
+}

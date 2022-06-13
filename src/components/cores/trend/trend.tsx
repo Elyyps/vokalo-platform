@@ -15,7 +15,7 @@ export const TrendComponent = (props: ITrendComponent) => {
             props.trendDirection !== "NEUTRAL" ? "/icons/arrow-down.svg" : "-"
           }
         />
-        {props.trendLabel}%
+        {props.trendLabel && Math.abs(props.trendLabel)}%
       </span>
     </div>
   );

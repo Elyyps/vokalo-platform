@@ -36,7 +36,7 @@ export const ButtonComponent = (props: IButtonComponent) => {
         position === "top" && style["button-top"]
       }`}
       style={!props.title ? { padding: 0, border: 0 } : {}}
-      onClick={props.onClick}
+      onClick={isDropdown && variant === "disabled" ? () => "" : props.onClick}
     >
       {returnIconPosition}
     </div>

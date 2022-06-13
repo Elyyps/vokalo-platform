@@ -2,14 +2,24 @@ import React from "react";
 import { ReactSVG } from "react-svg";
 import { ISquad } from "../../../types/modules/squad";
 import { converToMinutes } from "../../../utils/convertTime";
+import { sortColumn } from "../../../utils/sortColumn";
 import { TrendComponent } from "../../cores/trend/trend";
 import style from "./squad-table.module.scss";
 interface ISquadTableComponent {
   squad: ISquad[];
 }
 export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
-  return (
-    <div className={style["squad-table"]}>
+  const [sortConfig, setSortConfig] = React.useState<any>({
+    column: "name",
+    ascending: true,
+  });
+  const sortedSquad = React.useMemo(() => {
+    let sortableSquad = [...squad];
+    return sortColumn(sortableSquad, sortConfig.column, sortConfig.ascending);
+  }, [sortConfig, squad]);
+
+  return sortedSquad ? (
+    <div className={` ${style["squad-table"]} section-item`}>
       <div className={` ${style["squad-table"]} section-item`}>
         <table>
           <thead>
@@ -31,12 +41,12 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
               {Object.keys(squad[0]).map((column, key) => (
                 <th key={key}>
                   <span
-                  // onClick={() =>
-                  //   setSortConfig({
-                  //     column,
-                  //     ascending: !sortConfig.ascending,
-                  //   })
-                  // }
+                    onClick={() =>
+                      setSortConfig({
+                        column,
+                        ascending: !sortConfig.ascending,
+                      })
+                    }
                   >
                     {column} <ReactSVG src="/icons/arrow-down.svg" />
                   </span>
@@ -45,14 +55,18 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
             </tr>
           </thead>
           <tbody>
-            {squad.map((row, key) => (
+            {sortedSquad.map((row: ISquad, key) => (
               <tr key={key}>
                 <td>{row.name}</td>
                 <td>{row.role}</td>
                 <td>{converToMinutes(row.speechTime)}</td>
                 <td>{row.interation}</td>
-                <td>{row.interation}</td>
-                <td>{row.type}</td>
+                <td>{row.averageInteraction}</td>
+                <td>
+                  <div className={style["squad-table-progress"]}>
+                    <div style={{ width: `${row.type}%` }} />
+                  </div>
+                </td>
                 <td>
                   <TrendComponent {...row.mood} />
                 </td>
@@ -62,5 +76,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
         </table>
       </div>
     </div>
+  ) : (
+    <div />
   );
 };
