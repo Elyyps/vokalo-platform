@@ -6,6 +6,7 @@ import { PageHeaderComponent } from "../../components/cores/page-header/page-hea
 import { UsageWidget } from "../../components/cores/usage-widget/usage-widget";
 import { SquadTableComponent } from "../../components/modules/squad-table/squad-table";
 import style from "./squad.module.scss";
+
 export const SquadPage = () => {
   return (
     <div className={style["squad"]}>

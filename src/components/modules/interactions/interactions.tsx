@@ -9,6 +9,7 @@ type SortType = "Ascending" | "Descending" | "Default";
 interface IInteractionsComponent {
   widget: IWidget;
   isLineChart?: boolean;
+  hasButtons?: boolean;
   onClick: (isLineChart: boolean) => void;
 }
 
@@ -16,6 +17,7 @@ export const InteractionsComponent = ({
   widget,
   isLineChart,
   onClick,
+  hasButtons,
 }: IInteractionsComponent) => {
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
@@ -107,20 +109,23 @@ export const InteractionsComponent = ({
           </ul>
         </DropdownComponent>
       </div>
-
-      <div className={style["interactions-buttons"]}>
-        {widget.graph?.yAxis?.map((element: any, key: number) => (
-          <ButtonComponent
-            title={element.name}
-            key={key}
-            variant={
-              selectedButton.includes(element.name) ? "transparent" : "disabled"
-            }
-            hasBorder
-            onClick={() => element.name && onButtonSelected(element.name)}
-          />
-        ))}
-      </div>
+      {hasButtons && (
+        <div className={style["interactions-buttons"]}>
+          {widget.graph?.yAxis?.map((element: any, key: number) => (
+            <ButtonComponent
+              title={element.name}
+              key={key}
+              variant={
+                selectedButton.includes(element.name)
+                  ? "transparent"
+                  : "disabled"
+              }
+              hasBorder
+              onClick={() => element.name && onButtonSelected(element.name)}
+            />
+          ))}
+        </div>
+      )}
       <Chart
         chartType={isLineChart ? "LineChart" : "ColumnChart"}
         data={getChartData()}
@@ -128,22 +133,24 @@ export const InteractionsComponent = ({
         className={style["interactions-graph"]}
         width="100%"
       />
-      <div className={style["interactions-switch"]}>
-        <span
-          style={isLineChart ? { opacity: 0.4 } : {}}
-          onClick={() => {
-            onClick(false);
-            resetFilter(selectedButton);
-          }}
-        ></span>
-        <span
-          style={!isLineChart ? { opacity: 0.4 } : {}}
-          onClick={() => {
-            onClick(true);
-            setSortBy("Default");
-          }}
-        ></span>
-      </div>
+      {hasButtons && (
+        <div className={style["interactions-switch"]}>
+          <span
+            style={isLineChart ? { opacity: 0.4 } : {}}
+            onClick={() => {
+              onClick(false);
+              resetFilter(selectedButton);
+            }}
+          ></span>
+          <span
+            style={!isLineChart ? { opacity: 0.4 } : {}}
+            onClick={() => {
+              onClick(true);
+              setSortBy("Default");
+            }}
+          ></span>
+        </div>
+      )}
     </div>
   );
 };

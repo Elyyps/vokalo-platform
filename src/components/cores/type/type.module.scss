@@ -1,0 +1,16 @@
+.type {
+  display: flex;
+  align-items: center;
+  background-color: #dadada;
+  padding: 4px 8px;
+  border-radius: 10px;
+  width: fit-content;
+  text-transform: capitalize;
+  font-size: 14px;
+  svg {
+    vertical-align: bottom;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
+}

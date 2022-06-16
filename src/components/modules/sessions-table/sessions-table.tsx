@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
+import { converToDate } from "../../../utils/convertDate";
 import { converToHours } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
+import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions-table.module.scss";
 
 interface ISessionsTableComponent {
@@ -56,21 +58,11 @@ export const SessionsTableComponent = ({
               <td>
                 <input type="checkbox" />
               </td>
-              <td>{row.date}</td>
+              <td>{converToDate(row.date)}</td>
               <td>
-                <span className={style["session-type"]}>
-                  <ReactSVG
-                    src={
-                      row.type === "practice"
-                        ? "/icons/practice.svg"
-                        : "/icons/match.svg"
-                    }
-                  />
-                  {row.type}
-                  {}
-                </span>
+                <TypeComponent type={row.type} />
               </td>
-              <td>{converToHours(row.length)}</td>
+              <td>{row.length && converToHours(row.length)}</td>
               <td>{row.coach}</td>
               <td>{row.athletes?.length}</td>
               <td>
@@ -89,11 +81,11 @@ export const SessionsTableComponent = ({
               <td>
                 <span
                   className={` ${style["session-check"]} ${
-                    !row.analyzed && style["session-check-rotate"]
+                    !row.vokalo && style["session-check-rotate"]
                   }`}
                 >
                   <ReactSVG
-                    src={row.analyzed ? "/icons/check.svg" : "/icons/cross.svg"}
+                    src={row.vokalo ? "/icons/check.svg" : "/icons/cross.svg"}
                   />
                 </span>
               </td>
@@ -114,6 +106,6 @@ export const SessionsTableComponent = ({
       </table>
     </div>
   ) : (
-    <div></div>
+    <div />
   );
 };

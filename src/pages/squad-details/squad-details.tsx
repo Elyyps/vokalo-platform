@@ -1,30 +1,33 @@
 import React from "react";
-import { FieldOverviewData } from "../../api/field-overview";
-import { playerInteractionData } from "../../api/interactions";
+import { useParams } from "react-router-dom";
+import { squadInteractionData } from "../../api/interactions";
+import { squadSessionsData } from "../../api/session";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
-import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
-import style from "./session-details.module.scss";
+import { SessionsComponent } from "../../components/modules/sessions/sessions";
+import style from "./squad-details.module.scss";
 
-export const SessionDetailsPage = () => {
+export const SquadDetailsPage = () => {
+  const { name } = useParams();
   const [isLineChart, setIsLineChart] = React.useState<boolean>(false);
+
   return (
-    <div className={style["session-details"]}>
-      <PageHeaderComponent title="Session details" route="sessions" hasReturn />
-      <div className={style["session-details-content"]}>
-        <div className={style["session-details-left"]}>
-          <div className={style["session-details-widgets"]}>
+    <div className={style["squad-details"]}>
+      <PageHeaderComponent title={name ? name : ""} hasReturn route="squad" />
+      <div className={style["squad-details-content"]}>
+        <div className={style["squad-details-left"]}>
+          <div className={style["squad-details-widgets"]}>
             <div className="widget-container">
-              <h6>Total interactions</h6>
-              <h3>420</h3>
+              <h6>Session</h6>
+              <h3>4</h3>
             </div>
             <div className="widget-container">
-              <h6>Sessions length</h6>
-              <h3>92 mins</h3>
+              <h6>Interactions per min</h6>
+              <h3>3.57</h3>
             </div>
           </div>
-          <div className={style["session-details-classification"]}>
+          <div className={style["squad-details-classification"]}>
             <ClassificationComponent
               widget={{
                 header: "Team interaction classifications",
@@ -45,17 +48,17 @@ export const SessionDetailsPage = () => {
               }}
             />
           </div>
-          <div className={style["session-details-graph"]}>
+          <div className={style["squad-details-graph"]}>
             <InteractionsComponent
-              widget={playerInteractionData()}
+              widget={squadInteractionData()}
               isLineChart={isLineChart}
               onClick={setIsLineChart}
               hasButtons
             />
           </div>
         </div>
-        <div className={` ${style["session-details-right"]} widget-container `}>
-          <FieldOverviewComponent fieldOverview={FieldOverviewData()} />
+        <div className={` ${style["squad-details-right"]} widget-container `}>
+          <SessionsComponent sessions={squadSessionsData()} isSquadSessions />
         </div>
       </div>
     </div>

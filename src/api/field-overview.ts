@@ -1,4 +1,3 @@
-import { IPlayer } from "../types/cores/player";
 import { IFieldOverview } from "../types/modules/field-overview";
 import { playersData } from "./players";
 
@@ -22,6 +21,7 @@ export const FieldOverviewData = (): IFieldOverview => ({
         { playerId: 59, value: 0.33 },
         { playerId: 60, value: 0.8 },
         { playerId: 72, value: 0.8 },
+        { playerId: 75, value: 0.3 },
       ],
     },
     {
@@ -41,6 +41,7 @@ export const FieldOverviewData = (): IFieldOverview => ({
         { playerId: 58, value: 0.88 },
         { playerId: 59, value: 0.5 },
         { playerId: 60, value: 1 },
+        { playerId: 72, value: 0.6 },
       ],
     },
     {

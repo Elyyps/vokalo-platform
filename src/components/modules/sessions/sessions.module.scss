@@ -1,0 +1,61 @@
+@use "src/variables";
+
+.sessions {
+  &-header {
+    margin-top: 16px;
+    display: flex;
+    > span {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      text-transform: capitalize;
+      svg {
+        margin-left: 4px;
+      }
+    }
+  }
+  &-content {
+    > div {
+      display: flex;
+      align-items: center;
+      margin-top: 12px;
+      > span > div {
+        margin: 0 auto;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        @media (max-width: variables.$breakpoint-lg) {
+          width: 17px;
+          height: 17px;
+        }
+      }
+    }
+  }
+  &-header,
+  &-content > div {
+    > span {
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      &:not(:last-child) {
+        margin-right: 12px;
+      }
+      &:first-child,
+      &:nth-child(2) {
+        min-width: 85px;
+        @media (max-width: variables.$breakpoint-lg) {
+          min-width: 70px;
+        }
+      }
+    }
+  }
+  &-POSITIVE {
+    background-color: variables.$POSITIVE-color;
+  }
+  &-NEGATIVE {
+    background-color: variables.$NEGATIVE-color;
+  }
+  &-NEUTRAL {
+    background-color: #f0e050;
+  }
+}

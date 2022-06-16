@@ -1,14 +1,14 @@
 import { ISession } from "../types/modules/session";
 
-export const sessionsData = (): ISession[] => [
+export const sessionsTableData = (): ISession[] => [
   {
     date: "01/05/2022",
     type: "match",
     length: 65,
     coach: "coach name 1",
     athletes: ["athletes1"],
-    recordings: true,
-    analyzed: true,
+    recordings: { trendDirection: "POSITIVE" },
+    vokalo: { trendDirection: "POSITIVE" },
   },
   {
     date: "05/05/2022",
@@ -16,8 +16,8 @@ export const sessionsData = (): ISession[] => [
     length: 85,
     coach: "coach name 2",
     athletes: ["athletes2", "athletes2", "athletes2"],
-    recordings: true,
-    analyzed: true,
+    recordings: { trendDirection: "POSITIVE" },
+    vokalo: { trendDirection: "POSITIVE" },
   },
   {
     date: "02/05/2022",
@@ -25,8 +25,8 @@ export const sessionsData = (): ISession[] => [
     length: 165,
     coach: "coach name 3",
     athletes: ["athletes3", "athletes2"],
-    recordings: false,
-    analyzed: false,
+    recordings: undefined,
+    vokalo: undefined,
   },
   {
     date: "02/05/2022",
@@ -34,8 +34,8 @@ export const sessionsData = (): ISession[] => [
     length: 165,
     coach: "coach name 4",
     athletes: ["athletes3", "athletes2"],
-    recordings: false,
-    analyzed: false,
+    recordings: undefined,
+    vokalo: undefined,
   },
   {
     date: "02/05/2022",
@@ -43,8 +43,8 @@ export const sessionsData = (): ISession[] => [
     length: 165,
     coach: "coach name 5",
     athletes: ["athletes3", "athletes2"],
-    recordings: false,
-    analyzed: false,
+    recordings: undefined,
+    vokalo: undefined,
   },
   {
     date: "02/05/2022",
@@ -52,8 +52,8 @@ export const sessionsData = (): ISession[] => [
     length: 165,
     coach: "coach name 6",
     athletes: ["athletes3", "athletes2"],
-    recordings: false,
-    analyzed: false,
+    recordings: undefined,
+    vokalo: undefined,
   },
   {
     date: "02/05/2022",
@@ -61,8 +61,8 @@ export const sessionsData = (): ISession[] => [
     length: 165,
     coach: "coach name 7",
     athletes: ["athletes3", "athletes2"],
-    recordings: false,
-    analyzed: false,
+    recordings: undefined,
+    vokalo: undefined,
   },
   {
     date: "02/05/2022",
@@ -70,7 +70,54 @@ export const sessionsData = (): ISession[] => [
     length: 165,
     coach: "coach name 8",
     athletes: ["athletes3", "athletes2"],
-    recordings: false,
-    analyzed: false,
+    recordings: undefined,
+    vokalo: undefined,
+  },
+];
+export const coachSessionsData = (): ISession[] => [
+  {
+    date: "05/05/2022",
+    type: "match",
+    vokalo: { trendDirection: "POSITIVE" },
+    recordings: { trendDirection: "POSITIVE" },
+    score: { trendDirection: "POSITIVE" },
+  },
+  {
+    date: "12/02/2022",
+    type: "match",
+    vokalo: { trendDirection: "NEGATIVE" },
+    recordings: { trendDirection: "POSITIVE" },
+    score: { trendDirection: "NEGATIVE" },
+  },
+  {
+    date: "01/01/2022",
+    type: "match",
+    vokalo: { trendDirection: "POSITIVE" },
+    recordings: { trendDirection: "NEUTRAL" },
+    score: { trendDirection: "NEGATIVE" },
+  },
+  {
+    date: "01/01/2022",
+    type: "match",
+    vokalo: { trendDirection: "POSITIVE" },
+    recordings: { trendDirection: "NEUTRAL" },
+    score: { trendDirection: "NEGATIVE" },
+  },
+];
+export const squadSessionsData = (): ISession[] => [
+  {
+    date: "05/05/2022",
+    type: "match",
+    length: 25,
+  },
+  {
+    date: "12/02/2022",
+    type: "match",
+    length: 85,
+  },
+  {
+    date: "01/01/2022",
+    type: "match",
+    length: 155,
   },
 ];

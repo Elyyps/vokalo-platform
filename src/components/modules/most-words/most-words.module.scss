@@ -2,16 +2,39 @@
 
 .most-words {
   width: 30%;
+  @media (max-width: variables.$breakpoint-xl) {
+    width: 38%;
+    margin-top: 24px;
+  }
   &-list {
-    margin-top: 16px;
+    margin-top: 12px;
     > div {
       display: flex;
       justify-content: space-between;
-      border: 1px solid variables.$tertiary-color;
+      align-items: center;
+      border: 1px solid rgba($color: variables.$tertiary-color, $alpha: 0.4);
       border-radius: 10px;
-      padding: 8px 12px;
-      > div small {
-        margin-bottom: 4px;
+      padding: 8px;
+      > h3 {
+        font-size: 1.7rem;
+        @media (max-width: variables.$breakpoint-lg) {
+          font-size: 1.5rem;
+        }
+      }
+      > div {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+        small {
+          margin-bottom: 4px;
+        }
+        > div {
+          font-size: 13px;
+          svg {
+            width: 80%;
+            height: 100%;
+          }
+        }
       }
       &:not(:last-child) {
         margin-bottom: 8px;

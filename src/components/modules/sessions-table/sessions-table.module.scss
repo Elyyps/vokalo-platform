@@ -61,20 +61,6 @@
       }
     }
   }
-  .session-type {
-    display: flex;
-    align-items: center;
-    background-color: #dadada;
-    padding: 4px 8px;
-    border-radius: 10px;
-    width: fit-content;
-    svg {
-      vertical-align: bottom;
-      width: 18px;
-      height: 18px;
-      margin-right: 8px;
-    }
-  }
   .session-check {
     svg {
       width: 20px;

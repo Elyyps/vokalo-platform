@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISquad } from "../../../types/modules/squad";
 import { converToMinutes } from "../../../utils/convertTime";
@@ -13,6 +14,8 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
     column: "name",
     ascending: true,
   });
+  let navigate = useNavigate();
+
   const sortedSquad = React.useMemo(() => {
     let sortableSquad = [...squad];
     return sortColumn(sortableSquad, sortConfig.column, sortConfig.ascending);
@@ -56,7 +59,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
           </thead>
           <tbody>
             {sortedSquad.map((row: ISquad, key) => (
-              <tr key={key}>
+              <tr key={key} onClick={() => navigate("/squad/" + row.name)}>
                 <td>{row.name}</td>
                 <td>{row.role}</td>
                 <td>{converToMinutes(row.speechTime)}</td>

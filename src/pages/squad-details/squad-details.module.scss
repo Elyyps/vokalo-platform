@@ -1,0 +1,73 @@
+@use "src/variables";
+
+.squad-details {
+  &-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &-left {
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 63%;
+    }
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 60%;
+    }
+  }
+  &-right {
+    width: 32%;
+    padding: 8px;
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 35%;
+    }
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 38%;
+    }
+  }
+  &-widgets {
+    width: 30%;
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      > div {
+        width: 48%;
+      }
+    }
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-bottom: 16px;
+    }
+    > div {
+      @media (min-width: variables.$breakpoint-xl) {
+        height: calc(50% - 12px);
+        &:first-child {
+          margin-bottom: 24px;
+        }
+      }
+    }
+    h3 {
+      margin-top: 12px;
+    }
+  }
+  &-classification {
+    width: 68%;
+    @media (max-width: variables.$breakpoint-xl) {
+      width: 100%;
+    }
+    > div {
+      height: 100%;
+    }
+  }
+  &-graph {
+    margin-top: 24px;
+    width: 100%;
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-top: 16px;
+    }
+  }
+}

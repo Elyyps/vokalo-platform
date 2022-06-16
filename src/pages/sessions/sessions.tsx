@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./sessions.module.scss";
-import { sessionsData } from "../../api/session";
+import { sessionsTableData } from "../../api/session";
 import { ActivityWidget } from "../../components/cores/activity-widget/activity-widget";
 import { SessionsTableComponent } from "../../components/modules/sessions-table/sessions-table";
 import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
@@ -67,7 +67,7 @@ export const SessionsPage = () => {
           }}
         />
       </div>
-      <SessionsTableComponent sessions={sessionsData()} />
+      <SessionsTableComponent sessions={sessionsTableData()} />
     </div>
   );
 };

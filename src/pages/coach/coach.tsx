@@ -4,6 +4,12 @@ import { PageHeaderComponent } from "../../components/cores/page-header/page-hea
 import { ActivityWidget } from "../../components/cores/activity-widget/activity-widget";
 import { MostWordsComponent } from "../../components/modules/most-words/most-words";
 import { mostWordsData } from "../../api/most-words";
+import { InteractionsComponent } from "../../components/modules/interactions/interactions";
+import { coachInteractionData } from "../../api/interactions";
+import { SuggestionsComponent } from "../../components/modules/suggestions/suggestions";
+import { suggestionsData } from "../../api/suggestions";
+import { SessionsComponent } from "../../components/modules/sessions/sessions";
+import { coachSessionsData } from "../../api/session";
 
 export const CoachPage = () => {
   return (
@@ -29,8 +35,17 @@ export const CoachPage = () => {
             hasColor
           />
         </div>
-        <div className="widget-container">-</div>
+        <div className={` ${style["coach-right"]} widget-container `}>
+          <SessionsComponent sessions={coachSessionsData()} />
+        </div>
         <MostWordsComponent mostWords={mostWordsData()} />
+        <div className={style["coach-graph"]}>
+          <InteractionsComponent
+            widget={coachInteractionData()}
+            onClick={() => ""}
+          />
+        </div>
+        <SuggestionsComponent suggestions={suggestionsData()} />
       </div>
     </div>
   );
