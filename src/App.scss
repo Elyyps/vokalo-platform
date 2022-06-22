@@ -96,6 +96,16 @@
     font-size: 18px;
   }
 }
+input[type="checkbox"] {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  accent-color: variables.$primary-color;
+  &:checked {
+    content: "\002714";
+    background-color: #000000;
+  }
+}
 .rdrInputRanges {
   display: none !important;
 }

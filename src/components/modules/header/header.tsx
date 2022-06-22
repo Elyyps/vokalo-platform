@@ -1,10 +1,25 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { AccountContext } from "../../../context/account";
 import { ButtonComponent } from "../../cores/button/button";
 import { DatePickerComponent } from "../../cores/date-picker/date-picker";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./header.module.scss";
 
 export const HeaderComponent = () => {
+  let navigate = useNavigate();
+
+  const [status, setStatus] = React.useState(false);
+  const { getSession, logout } = React.useContext(AccountContext);
+  React.useEffect(() => {
+    getSession().then((session: any) => {
+      setStatus(true);
+    });
+  }, [getSession]);
+  const onLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
     <div className={style["header"]}>
       <div className={style["header-left"]}>
@@ -19,9 +34,14 @@ export const HeaderComponent = () => {
           variant="transparent"
           position="left"
         />
-        <DropdownComponent title="profile" isProfile>
-          HELLO
-        </DropdownComponent>
+        {status && (
+          <DropdownComponent title="profile" isProfile>
+            <ul>
+              <li>Hello </li>
+              <li onClick={onLogout}>Logout</li>
+            </ul>
+          </DropdownComponent>
+        )}
       </div>
     </div>
   );

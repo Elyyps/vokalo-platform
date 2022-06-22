@@ -1,0 +1,55 @@
+@use "/src/variables";
+
+.login {
+  &-header {
+    width: 100%;
+    height: 80px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    > div {
+      height: 50px;
+      width: 150px;
+      margin-left: 24px;
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  &-content {
+    display: flex;
+    height: calc(100vh - 80px);
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &-left {
+      background-color: black;
+      background-image: url("../../../public/img/login.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position-y: bottom;
+      width: 50%;
+      @media (max-width: variables.$breakpoint-xl) {
+        width: 40%;
+      }
+      > h1 {
+        margin: 0;
+        color: white;
+        font-size: 100px;
+        @media (max-width: variables.$breakpoint-lg) {
+          font-size: 72px;
+        }
+      }
+    }
+    &-right {
+      width: 50%;
+      @media (max-width: variables.$breakpoint-xl) {
+        width: 60%;
+      }
+    }
+  }
+}

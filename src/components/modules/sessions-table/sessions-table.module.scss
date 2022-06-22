@@ -27,17 +27,8 @@
       &:first-child {
         padding-left: 16px;
         input[type="checkbox"] {
-          cursor: pointer;
           width: 18px;
           height: 18px;
-          accent-color: variables.$primary-color;
-          &:checked {
-            content: "\002714";
-            background-color: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
         }
       }
       &:last-child {
