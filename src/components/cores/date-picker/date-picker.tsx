@@ -10,7 +10,9 @@ interface IDateRange {
   endDate: Date;
   startDate: Date;
 }
-interface IDatePickerComponent {}
+interface IDatePickerComponent {
+  contentPosition?: "right" | "left";
+}
 
 export const DatePickerComponent = (props: IDatePickerComponent) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -31,8 +33,7 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
         title="01/05/2022"
         icon="/icons/date.svg"
         onClick={() => setIsOpen(!isOpen)}
-        hasNoPadding
-        // contentPosition="right"
+        contentPosition={props.contentPosition}
       >
         <div className={style["date-picker-content"]}>
           <div className={style["date-picker-content-top"]}>

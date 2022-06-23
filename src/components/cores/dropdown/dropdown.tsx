@@ -7,7 +7,7 @@ export interface IDropdownComponent {
   title?: string;
   icon?: string;
   isProfile?: boolean;
-  hasNoPadding?: boolean;
+  hasPadding?: boolean;
   hasBorder?: boolean;
   contentPosition?: "right" | "left";
   variant?: "transparent" | "disabled";
@@ -49,29 +49,24 @@ export const DropdownComponent = (props: IDropdownComponent) => {
             title={props.title}
             icon={props.icon}
             variant={props.variant}
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
             isDropdown
             hasBorder={props.hasBorder}
           />
         </div>
       )}
       <div
-        className={` ${style["dropdown-content"]} ${
-          isOpen && style["dropdown-content-open"]
+        className={` ${style["dropdown-content"]} 
+        ${props.isProfile && style["dropdown-content-profile"]}
+        ${isOpen && style["dropdown-content-open"]} ${
+          props.contentPosition === "right" && style["dropdown-content-right"]
         }`}
-        style={
-          props.contentPosition === "right"
-            ? {
-                top: !props.title ? "25px" : "45px",
-                right: "auto",
-                left: "0px",
-                padding: props.hasNoPadding ? 0 : "16px",
-              }
-            : {
-                padding: props.hasNoPadding ? 0 : "16px",
-                top: !props.title ? "25px" : "45px",
-              }
-        }
+        style={{
+          padding: props.hasPadding ? "8px 16px" : 0,
+          top: !props.title ? "25px" : "45px",
+        }}
       >
         {props.children}
       </div>

@@ -25,23 +25,40 @@
     right: 0;
     background-color: white;
     border: 1px solid variables.$tertiary-color;
-    border-radius: 10px;
-    z-index: 10;
+    border-radius: 5px;
+    z-index: 100;
+    min-width: 100px;
     ul {
       padding: 0;
       margin: 0;
       list-style: none;
       > li {
         cursor: pointer;
+        padding: 4px 12px;
+        &:hover {
+          background-color: rgba($color: variables.$tertiary-color, $alpha: 1);
+        }
         &:not(:last-child) {
-          margin-bottom: 4px;
-          padding-bottom: 4px;
           border-bottom: 1px solid variables.$tertiary-color;
         }
       }
     }
     &-open {
       display: block;
+    }
+    &-profile {
+      width: 150px;
+      ul > li {
+        cursor: default;
+        padding: 8px 0;
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+    &-right {
+      right: auto;
+      left: 0;
     }
   }
   .open svg {

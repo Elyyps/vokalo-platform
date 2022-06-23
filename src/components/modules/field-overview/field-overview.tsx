@@ -100,7 +100,7 @@ export const FieldOverviewComponent = ({
       <div className={style["field-overview-top"]}>
         <div className={style["field-overview-players"]}>
           <div className={style["field-overview-formation"]}>
-            <DropdownComponent title={formation} hasNoPadding>
+            <DropdownComponent title={formation}>
               <ul>
                 {data.map((item, key) => (
                   <li key={key} onClick={() => setFormation(item)}>

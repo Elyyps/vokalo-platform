@@ -3,6 +3,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  &-left > div:first-child {
+    min-width: 90px;
+  }
   &-right,
   &-left {
     display: flex;

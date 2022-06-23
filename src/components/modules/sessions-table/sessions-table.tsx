@@ -90,11 +90,7 @@ export const SessionsTableComponent = ({
                 </span>
               </td>
               <td>
-                <DropdownComponent
-                  icon="/icons/more.svg"
-                  variant="transparent"
-                  hasNoPadding
-                >
+                <DropdownComponent icon="/icons/more.svg" variant="transparent">
                   <span onClick={() => alert("this session:" + row.date)}>
                     hello
                   </span>
