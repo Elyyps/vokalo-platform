@@ -1,43 +1,36 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserAPI } from "../../../api/user";
 import { AccountContext } from "../../../context/account";
+import FilterContext from "../../../context/filter";
 import { ButtonComponent } from "../../cores/button/button";
 import { DatePickerComponent } from "../../cores/date-picker/date-picker";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./header.module.scss";
-
-export const HeaderComponent = () => {
+type Props = {
+  user: any;
+};
+export const HeaderComponent = ({ user }: Props) => {
   let navigate = useNavigate();
-  const [user, setUser] = React.useState<any>();
-  const [currentTeam, setCurrentTeam] = React.useState<string>("");
 
-  const { getSession, logout } = React.useContext(AccountContext);
+  const { logout } = React.useContext(AccountContext);
+  const { team, setTeam } = React.useContext(FilterContext);
 
-  const getUser = async (session: any) => {
-    const data = await getUserAPI(session);
-    setUser(data);
-    setCurrentTeam(data.teams[0].name);
-  };
   const onLogout = () => {
     logout();
     navigate("/login");
   };
 
-  React.useEffect(() => {
-    getSession().then((session: any) => {
-      getUser(session);
-    });
-  }, [getSession]);
-
   return (
     <div className={style["header"]}>
       <div className={style["header-left"]}>
         {user && (
-          <DropdownComponent title={currentTeam} contentPosition="right">
+          <DropdownComponent
+            title={team ? team.name : user.teams[0].name}
+            contentPosition="right"
+          >
             <ul>
               {user.teams.map((team: any, key: number) => (
-                <li key={key} onClick={() => setCurrentTeam(team.name)}>
+                <li key={key} onClick={() => setTeam(team)}>
                   {team.name}
                 </li>
               ))}

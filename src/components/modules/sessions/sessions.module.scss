@@ -21,13 +21,6 @@
       margin-top: 12px;
       > span > div {
         margin: 0 auto;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        @media (max-width: variables.$breakpoint-lg) {
-          width: 17px;
-          height: 17px;
-        }
       }
     }
   }
@@ -48,14 +41,5 @@
         }
       }
     }
-  }
-  &-POSITIVE {
-    background-color: variables.$POSITIVE-color;
-  }
-  &-NEGATIVE {
-    background-color: variables.$NEGATIVE-color;
-  }
-  &-NEUTRAL {
-    background-color: #f0e050;
   }
 }

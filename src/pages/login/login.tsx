@@ -13,7 +13,6 @@ export const LoginPage = () => {
       .authenticate("jon@vokalo.io", "Sqw5#I9V")
       // .authenticate(e.username, e.password)
       .then((data: any) => {
-        // console.log("Logged in!", data);
         navigate("/");
       })
       .catch((err: any) => {

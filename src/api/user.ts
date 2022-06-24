@@ -7,7 +7,6 @@ export const getUserAPI = async ({ accessToken }: any) => {
       Authorization: `Bearer ${accessToken.jwtToken}`,
     },
   };
-
   return await axios
     .get("/user", config)
     .then((response: any) => response.data.user)

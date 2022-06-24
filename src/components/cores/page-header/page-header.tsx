@@ -8,7 +8,9 @@ import style from "./page-header.module.scss";
 interface IPageHeaderComponent {
   title: string;
   hasReturn?: boolean;
+  hasTwoButtons?: boolean;
   route?: string;
+  children?: any;
 }
 export const PageHeaderComponent = (props: IPageHeaderComponent) => {
   let navigate = useNavigate();
@@ -24,13 +26,12 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
         {props.title}
       </h2>
       <div>
-        <DropdownComponent title="Athlete" hasBorder>
-          <ul>
-            <li>hello</li>
-            <li>hello</li>
-          </ul>
+        {props.hasTwoButtons && (
+          <ButtonComponent title="Filter" icon="/icons/filter.svg" hasBorder />
+        )}
+        <DropdownComponent title="Filter" icon="/icons/filter.svg" hasBorder>
+          {props.children ? props.children : "hello"}
         </DropdownComponent>
-        <ButtonComponent title="Filter" icon="/icons/filter.svg" hasBorder />
       </div>
     </div>
   );

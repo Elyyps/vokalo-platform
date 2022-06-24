@@ -5,9 +5,10 @@ import { SidebarComponent } from "./modules/sidebar/sidebar";
 
 type Props = {
   children?: any;
+  user?: any;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, user }: Props) => {
   return (
     <div className="layout">
       <div className="layout-sidebar">
@@ -16,7 +17,7 @@ const Layout = ({ children }: Props) => {
       <div className="layout-body">
         <div className="container">
           <div className="layout-header">
-            <HeaderComponent />
+            <HeaderComponent user={user} />
           </div>
           <div className="layout-content">{children}</div>
         </div>

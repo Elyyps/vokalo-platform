@@ -3,25 +3,27 @@ import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import userPool from "../utils/userPool";
 
 const authenticate: any = async (username: string, password: string) => {};
-const getSession: any = () => {};
+const getAccount: any = () => {};
 const logout: any = () => {};
 
 const AccountContext = React.createContext({
   authenticate,
-  getSession,
+  getAccount,
   logout,
 });
 
-const Account = (props: any) => {
-  const getSession = async () =>
+const AccountContextProvider = (props: any) => {
+  const getAccount = async () =>
     await new Promise((resolve, reject) => {
       const user = userPool.getCurrentUser();
       if (user) {
-        user.getSession((err: any, session: any) => {
+        user.getSession((err: any, account: any) => {
           if (err) {
             reject();
           } else {
-            resolve(session);
+            console.log(account);
+
+            resolve(account);
           }
         });
       } else {
@@ -66,7 +68,7 @@ const Account = (props: any) => {
     <AccountContext.Provider
       value={{
         authenticate,
-        getSession,
+        getAccount,
         logout,
       }}
     >
@@ -75,4 +77,4 @@ const Account = (props: any) => {
   );
 };
 
-export { Account, AccountContext };
+export { AccountContextProvider, AccountContext };

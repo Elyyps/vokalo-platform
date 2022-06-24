@@ -2,7 +2,7 @@ import React from "react";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
 import { converToDate } from "../../../utils/convertDate";
-import { converToHours } from "../../../utils/convertTime";
+import { converToHours, converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions.module.scss";
@@ -18,16 +18,28 @@ export const SessionsComponent = ({
     column: "date",
     ascending: true,
   });
+  const [columns, setColumns] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    let list: string[] = ["date", "type"];
+    if (isSquadSessions) {
+      list.push("length");
+    } else {
+      list.push("vokalo live", "recordings", "score");
+    }
+    setColumns(list);
+  }, [isSquadSessions]);
 
   const sortedSession = React.useMemo(() => {
     let sortableSession = [...sessions];
     return sortColumn(sortableSession, sortConfig.column, sortConfig.ascending);
   }, [sortConfig, sessions]);
-  return sortedSession ? (
+
+  return sortedSession && columns.length ? (
     <div className={style["sessions"]}>
       <h6>Session</h6>
       <div className={style["sessions-header"]}>
-        {Object.keys(sessions[0]).map((column, key) => (
+        {columns.map((column, key) => (
           <span
             key={key}
             onClick={() =>
@@ -44,7 +56,7 @@ export const SessionsComponent = ({
       <div className={style["sessions-content"]}>
         {sortedSession
           .slice(0, isSquadSessions ? sessions.length : 4)
-          .map((session, key) => (
+          .map((session: ISession, key) => (
             <div
               key={key}
               style={
@@ -53,25 +65,37 @@ export const SessionsComponent = ({
                   : { fontSize: "14px" }
               }
             >
-              <span>{converToDate(session.date)}</span>
+              <span>{converToDate(session.creationTimestamp)}</span>
               <span>
                 <TypeComponent type={session.type} />
               </span>
-              {session.length && <span>{converToHours(session.length)}</span>}
-              {session.vokalo && (
-                <span>
-                  <div
-                    className={
-                      style[`sessions-${session.vokalo.trendDirection}`]
+              {session.length && <span>{converToMinutes(session.length)}</span>}
+              {!isSquadSessions && (
+                <span
+                  className={`checkmark ${
+                    !session.vokaloLive && "checkmark-rotate"
+                  }`}
+                >
+                  <ReactSVG
+                    src={
+                      session.vokaloLive
+                        ? "/icons/check.svg"
+                        : "/icons/cross.svg"
                     }
                   />
                 </span>
               )}
-              {session.recordings && (
-                <span>
-                  <div
-                    className={
-                      style[`sessions-${session.recordings.trendDirection}`]
+              {!isSquadSessions && (
+                <span
+                  className={`checkmark ${
+                    !session.recordings && "checkmark-rotate"
+                  }`}
+                >
+                  <ReactSVG
+                    src={
+                      session.recordings
+                        ? "/icons/check.svg"
+                        : "/icons/cross.svg"
                     }
                   />
                 </span>
@@ -79,9 +103,7 @@ export const SessionsComponent = ({
               {session.score && (
                 <span>
                   <div
-                    className={
-                      style[`sessions-${session.score.trendDirection}`]
-                    }
+                    className={`score score-${session.score.trendDirection}`}
                   />
                 </span>
               )}

@@ -14,42 +14,40 @@ import Layout from "../../components/Layout";
 
 export const CoachPage = () => {
   return (
-    <Layout>
-      <div className={style["coach"]}>
-        <PageHeaderComponent title="Gabriel" />
-        <div className={style["coach-top"]}>
-          <div>
-            <ActivityWidget
-              widget={{
-                header: "Total interactions",
-                label: "420",
-                trendLabel: 5,
-                trendDirection: "POSITIVE",
-              }}
-            />
-            <ActivityWidget
-              widget={{
-                header: "Overall sentiment",
-                label: "Great",
-                trendLabel: 75,
-                trendDirection: "POSITIVE",
-              }}
-              hasColor
-            />
-          </div>
-          <div className={` ${style["coach-right"]} widget-container `}>
-            <SessionsComponent sessions={coachSessionsData()} />
-          </div>
-          <MostWordsComponent mostWords={mostWordsData()} />
-          <div className={style["coach-graph"]}>
-            <InteractionsComponent
-              widget={coachInteractionData()}
-              onClick={() => ""}
-            />
-          </div>
-          <SuggestionsComponent suggestions={suggestionsData()} />
+    <div className={style["coach"]}>
+      <PageHeaderComponent title="Gabriel" />
+      <div className={style["coach-top"]}>
+        <div>
+          <ActivityWidget
+            widget={{
+              header: "Total interactions",
+              label: "420",
+              trendLabel: 5,
+              trendDirection: "POSITIVE",
+            }}
+          />
+          <ActivityWidget
+            widget={{
+              header: "Overall sentiment",
+              label: "Great",
+              trendLabel: 75,
+              trendDirection: "POSITIVE",
+            }}
+            hasColor
+          />
         </div>
+        <div className={` ${style["coach-right"]} widget-container `}>
+          <SessionsComponent sessions={coachSessionsData()} />
+        </div>
+        <MostWordsComponent mostWords={mostWordsData()} />
+        <div className={style["coach-graph"]}>
+          <InteractionsComponent
+            widget={coachInteractionData()}
+            onClick={() => ""}
+          />
+        </div>
+        <SuggestionsComponent suggestions={suggestionsData()} />
       </div>
-    </Layout>
+    </div>
   );
 };
