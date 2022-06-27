@@ -62,7 +62,7 @@ export const SessionsTableComponent = ({
           </tr>
         </thead>
         <tbody>
-          {sortedSession?.length ? (
+          {sortedSession ? (
             sortedSession.map((row: ISession, key) => (
               <tr
                 key={key}
@@ -121,9 +121,7 @@ export const SessionsTableComponent = ({
               </tr>
             ))
           ) : (
-            <tr>
-              <div>X</div>
-            </tr>
+            <tr>X</tr>
           )}
         </tbody>
       </table>

@@ -15,7 +15,7 @@ import Layout from "../../components/Layout";
 export const CoachPage = () => {
   return (
     <div className={style["coach"]}>
-      <PageHeaderComponent title="Gabriel" />
+      <PageHeaderComponent title="Gabriel" list={[""]} onSelect={() => ""} />
       <div className={style["coach-top"]}>
         <div>
           <ActivityWidget

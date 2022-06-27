@@ -21,8 +21,7 @@ const AccountContextProvider = (props: any) => {
           if (err) {
             reject();
           } else {
-            console.log(account);
-
+            //  console.log(account.accessToken.jwtToken);
             resolve(account);
           }
         });

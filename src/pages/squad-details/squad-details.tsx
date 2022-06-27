@@ -15,7 +15,13 @@ export const SquadDetailsPage = () => {
 
   return (
     <div className={style["squad-details"]}>
-      <PageHeaderComponent title={name ? name : ""} hasReturn route="squad" />
+      <PageHeaderComponent
+        title={name ? name : ""}
+        hasReturn
+        route="squad"
+        list={[""]}
+        onSelect={() => ""}
+      />
       <div className={style["squad-details-content"]}>
         <div className={style["squad-details-left"]}>
           <div className={style["squad-details-widgets"]}>

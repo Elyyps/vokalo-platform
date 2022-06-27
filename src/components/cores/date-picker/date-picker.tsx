@@ -1,17 +1,20 @@
 import React from "react";
-import { ReactSVG } from "react-svg";
 import { ButtonComponent } from "../button/button";
 import { DropdownComponent } from "../dropdown/dropdown";
 import style from "./date-picker.module.scss";
 import { DateRangePicker } from "react-date-range";
-import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { convertDateToString } from "../../../utils/convertDate";
 interface IDateRange {
-  endDate: Date;
-  startDate: Date;
+  endDate: Date | undefined;
+  startDate: Date | undefined;
 }
 interface IDatePickerComponent {
   contentPosition?: "right" | "left";
+  dateRange: IDateRange;
+  onChange: (dateRange: IDateRange) => void;
+  onReset: () => void;
 }
 
 export const DatePickerComponent = (props: IDatePickerComponent) => {
@@ -20,17 +23,22 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
     startDate: new Date(),
     endDate: new Date(),
   });
-  const setDate = (range: any) => {
-    setDateRange({
-      startDate: range.startDate,
-      endDate: range.endDate,
-    });
+  const onSubmit = () => {
+    props.onChange(dateRange);
   };
+  const getTitle = () => {
+    const start =
+      dateRange.startDate &&
+      "From: " + convertDateToString(dateRange.startDate);
+    const end =
+      dateRange.endDate && "To: " + convertDateToString(dateRange.endDate);
 
+    return dateRange ? start + " " + end : "Date range";
+  };
   return (
     <div className={style["date-picker"]}>
       <DropdownComponent
-        title="01/05/2022"
+        title={getTitle()}
         icon="/icons/date.svg"
         onClick={() => setIsOpen(!isOpen)}
         contentPosition={props.contentPosition}
@@ -40,7 +48,7 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
             <DateRangePicker
               rangeColors={["#ee6c4d", "#5085f0"]}
               ranges={[dateRange]}
-              onChange={(range) => setDate(range.range1)}
+              onChange={(range: any) => setDateRange(range.range1)}
             />
           </div>
           <div className={style["date-picker-content-bottom"]}>
@@ -49,8 +57,16 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
               <span>training</span>
             </div>
             <div>
-              <ButtonComponent title="Cancel" variant="secondary" />
-              <ButtonComponent title="Submit" variant="secondary" />
+              <ButtonComponent
+                title="Cancel"
+                variant="secondary"
+                onClick={props.onReset}
+              />
+              <ButtonComponent
+                title="Submit"
+                variant="secondary"
+                onClick={onSubmit}
+              />
             </div>
           </div>
         </div>

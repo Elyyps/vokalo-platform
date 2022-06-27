@@ -11,9 +11,17 @@ interface IPageHeaderComponent {
   hasTwoButtons?: boolean;
   route?: string;
   children?: any;
+  list: string[];
+  onSelect: (value: string) => void;
 }
 export const PageHeaderComponent = (props: IPageHeaderComponent) => {
   let navigate = useNavigate();
+  const [currentSelection, setCurrentSelection] = React.useState("");
+  React.useEffect(() => {}, [currentSelection]);
+  const onSelect = (value: string) => {
+    props.onSelect(value);
+    setCurrentSelection(value);
+  };
   return (
     <div className={style["page-header"]}>
       <h2
@@ -29,8 +37,19 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
         {props.hasTwoButtons && (
           <ButtonComponent title="Filter" icon="/icons/filter.svg" hasBorder />
         )}
-        <DropdownComponent title="Filter" icon="/icons/filter.svg" hasBorder>
-          {props.children ? props.children : "hello"}
+        <DropdownComponent
+          title={currentSelection ? currentSelection : "Filter"}
+          icon="/icons/filter.svg"
+          hasBorder
+        >
+          <ul>
+            <li onClick={() => onSelect("")}>All</li>
+            {props.list.map((value, key) => (
+              <li key={key} onClick={() => onSelect(value)}>
+                {value}
+              </li>
+            ))}
+          </ul>
         </DropdownComponent>
       </div>
     </div>

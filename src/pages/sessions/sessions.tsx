@@ -17,26 +17,35 @@ export const SessionsPage = (user: any) => {
   const [sessions, setSessions] = React.useState<ISession[]>();
 
   const { getAccount } = React.useContext(AccountContext);
-  const { team } = React.useContext(FilterContext);
+  const { team, startDate, endDate } = React.useContext(FilterContext);
+  const [filter, setFilter] = React.useState({ key: "type", value: "" });
 
   const getSessions = async (session: any) => {
-    const data = await getSessionsAPI(session, team);
+    const data = await getSessionsAPI(
+      session,
+      team.id,
+      startDate,
+      endDate,
+      filter
+    );
     setSessions(data.sessions);
   };
   React.useEffect(() => {
     getAccount().then((session: any) => {
       getSessions(session);
     });
-  }, [team]);
+  }, [team, startDate, endDate, filter.value]);
 
   return (
     <div className={style["sessions"]}>
-      <PageHeaderComponent title="Session">
-        <ul>
-          <li>eeee</li>
-          <li>eeee</li>
-        </ul>
-      </PageHeaderComponent>
+      {filter.value}
+      <PageHeaderComponent
+        title="Session"
+        list={["Match", "Training"]}
+        onSelect={(value: string) =>
+          setFilter({ key: "type", value: value.toLocaleUpperCase() })
+        }
+      ></PageHeaderComponent>
       <div className={style["sessions-top"]}>
         <UsageWidget
           widget={{

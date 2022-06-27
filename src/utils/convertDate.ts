@@ -7,3 +7,7 @@ export const converToDate = (date: string) => {
   const addition = day === 1 ? "st" : day === 2 ? "nd" : "th";
   return result + addition;
 };
+export const convertDateToString = (date: Date) => {
+  const result = new Date(date).toLocaleDateString("fr-CA");
+  return result;
+};

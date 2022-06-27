@@ -1,5 +1,6 @@
 import { ISession } from "../types/modules/session";
 import axios from "axios";
+import { convertDateToString } from "../utils/convertDate";
 
 // export const sessionsTableData = (): ISession[] => [
 //   {
@@ -123,17 +124,36 @@ export const squadSessionsData = (): ISession[] => [
   },
 ];
 
-export const getSessionsAPI = async ({ accessToken }: any, team: any) => {
+export const getSessionsAPI = async (
+  { accessToken }: any,
+  team: string,
+  startDate: any,
+  endDate: any,
+  filter: any
+) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken.jwtToken}`,
     },
   };
-  const teamFilter = team ? "team=" + team.id : "";
-
+  let filtersList = team || startDate || endDate || filter.value ? "?" : "";
+  filtersList = filtersList.concat(team ? "&team=" + team : "");
+  filtersList = filtersList.concat(
+    filter.value ? "&" + filter.key + "=" + filter.value : ""
+  );
+  filtersList = filtersList.concat(
+    startDate ? "&from=" + convertDateToString(startDate) : ""
+  );
+  filtersList = filtersList.concat(
+    endDate ? "&to=" + convertDateToString(endDate) : ""
+  );
+  console.log(filtersList);
   return await axios
-    .get(`/sessions?${teamFilter}`, config)
+    .get(
+      `https://data.stage.vokaloio.com/v1/platform/sessions${filtersList}`,
+      config
+    )
     .then((response: any) => response.data)
     .catch(console.log);
 };

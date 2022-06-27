@@ -11,7 +11,7 @@ import style from "./squad.module.scss";
 export const SquadPage = () => {
   return (
     <div className={style["squad"]}>
-      <PageHeaderComponent title="Squad" />
+      <PageHeaderComponent title="Squad" list={[""]} onSelect={() => ""} />
       <div className={style["squad-top"]}>
         <UsageWidget
           widget={{

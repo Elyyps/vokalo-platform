@@ -1,11 +1,11 @@
 import React from "react";
 
-const team: any = {};
-const startDate: Date = new Date();
-const endDate: Date = new Date();
+let team: any;
+let startDate: Date | undefined;
+let endDate: Date | undefined;
 
 const setTeam = (value: any) => value;
-const setStartEnd = (value: any) => value;
+const setStartDate = (value: any) => value;
 const setEndDate = (value: any) => value;
 
 const FilterContext = React.createContext({
@@ -13,18 +13,18 @@ const FilterContext = React.createContext({
   startDate,
   endDate,
   setTeam,
-  setStartEnd,
+  setStartDate,
   setEndDate,
 });
 
 export const FilterContextProvider = (props: any) => {
   const [selectedTeam, setSelectedTeam] = React.useState<string>("");
-  const [selectedStartDate, setSelectedStartDate] = React.useState<Date>(
-    new Date()
-  );
-  const [selectedEndDate, setSelectedEndDate] = React.useState<Date>(
-    new Date()
-  );
+  const [selectedStartDate, setSelectedStartDate] = React.useState<
+    Date | undefined
+  >();
+  const [selectedEndDate, setSelectedEndDate] = React.useState<
+    Date | undefined
+  >();
   return (
     <FilterContext.Provider
       value={{
@@ -32,7 +32,7 @@ export const FilterContextProvider = (props: any) => {
         startDate: selectedStartDate,
         endDate: selectedEndDate,
         setTeam: setSelectedTeam,
-        setStartEnd: setSelectedStartDate,
+        setStartDate: setSelectedStartDate,
         setEndDate: setSelectedEndDate,
       }}
     >

@@ -12,7 +12,13 @@ export const SessionDetailsPage = () => {
   const [isLineChart, setIsLineChart] = React.useState<boolean>(false);
   return (
     <div className={style["session-details"]}>
-      <PageHeaderComponent title="Session details" route="sessions" hasReturn />
+      <PageHeaderComponent
+        title="Session details"
+        route="sessions"
+        hasReturn
+        list={[""]}
+        onSelect={() => ""}
+      />
       <div className={style["session-details-content"]}>
         <div className={style["session-details-left"]}>
           <div className={style["session-details-widgets"]}>
