@@ -28,8 +28,16 @@ const App = () => {
     });
   }, [getAccount]);
 
-  const addPageLayout = (component: any) => {
-    return <Layout user={user}>{component}</Layout>;
+  const addPageLayout = (component: any, title?: string) => {
+    let defaultTitle = "Vokalo";
+    if (title) {
+      defaultTitle = defaultTitle.concat(" | " + title);
+    }
+    return (
+      <Layout user={user} title={defaultTitle}>
+        {component}
+      </Layout>
+    );
   };
 
   return (
@@ -39,22 +47,31 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route index element={addPageLayout(<DashboardPage />)} />
-            <Route path="/coach" element={addPageLayout(<CoachPage />)} />
-            <Route path="/sessions" element={addPageLayout(<SessionsPage />)} />
+            <Route
+              path="/coach"
+              element={addPageLayout(<CoachPage />, "Coachs")}
+            />
+            <Route
+              path="/sessions"
+              element={addPageLayout(<SessionsPage />, "Sessions")}
+            />
             <Route
               path="/sessions/:caoch"
-              element={addPageLayout(<SessionDetailsPage />)}
+              element={addPageLayout(<SessionDetailsPage />, "Coach")}
             />
-            <Route path="/squad" element={addPageLayout(<SquadPage />)} />
+            <Route
+              path="/squad"
+              element={addPageLayout(<SquadPage />, "Squads")}
+            />
             <Route
               path="/squad/:name"
-              element={addPageLayout(<SquadDetailsPage />)}
+              element={addPageLayout(<SquadDetailsPage />, "Squad")}
             />
             {/* <Route path="/video-sync" element={<div>Video sync</div>} />
             <Route path="/recordings" element={<div>Recordings</div>} /> */}
             <Route
               path="/settings"
-              element={addPageLayout(<div>Settings</div>)}
+              element={addPageLayout(<div>Settings</div>, "Settings")}
             />
           </Routes>
         </BrowserRouter>
