@@ -12,13 +12,13 @@ export const SentimentWidget = ({ widget }: ISentimentWidget) => {
       <div className={style["sentiment-widget-content"]}>
         <h3>{widget.label}</h3>
         <div className={style["sentiment-widget-graph"]}>
-          {widget.graph?.yAxis.data.map((item: any, key: number) => (
+          {widget.data?.yaxis[0].data.map((item: any, key: number) => (
             <div
               key={key}
               style={{
-                height: item + "%",
+                height: item.value * 10 + "%",
                 width: `calc(${
-                  100 / (widget.graph ? widget.graph?.yAxis.data.length : 0)
+                  100 / (widget.data ? widget.data?.yaxis[0].data.length : 0)
                 }% - 2%)`,
               }}
             />

@@ -2,8 +2,8 @@ import { IWidget } from "../types/cores/widget";
 
 export const playerInteractionData = (): IWidget => ({
   header: "Average player interactions per min",
-  graph: {
-    yAxis: [
+  data: {
+    yaxis: [
       {
         name: "Total",
         color: "black",
@@ -235,7 +235,7 @@ export const playerInteractionData = (): IWidget => ({
         ],
       },
     ],
-    xAxis: {
+    xaxis: {
       name: "Profiles",
       data: [
         "Jon Fogh",
@@ -254,8 +254,8 @@ export const playerInteractionData = (): IWidget => ({
 });
 export const squadInteractionData = (): IWidget => ({
   header: "Interactions per session",
-  graph: {
-    yAxis: [
+  data: {
+    yaxis: [
       {
         name: "Total",
         color: "black",
@@ -487,7 +487,7 @@ export const squadInteractionData = (): IWidget => ({
         ],
       },
     ],
-    xAxis: {
+    xaxis: {
       name: "Profiles",
       data: [
         "Jon Fogh",
@@ -506,8 +506,8 @@ export const squadInteractionData = (): IWidget => ({
 });
 export const coachInteractionData = (): IWidget => ({
   header: "Most interacted athletes",
-  graph: {
-    yAxis: [
+  data: {
+    yaxis: [
       {
         name: "Total",
         color: "black",
@@ -575,7 +575,7 @@ export const coachInteractionData = (): IWidget => ({
         ],
       },
     ],
-    xAxis: {
+    xaxis: {
       name: "Profiles",
       data: [
         "Jon Fogh",

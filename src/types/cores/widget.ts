@@ -4,13 +4,13 @@ type IAxe = {
   data: any[];
 };
 type IGraph = {
-  xAxis?: IAxe;
-  yAxis: IAxe | IAxe[] | any;
+  xaxis?: IAxe;
+  yaxis: IAxe | IAxe[] | any;
 };
 type IWidgetElements = {
   label?: string;
   percentage: number;
-  color: string;
+  color?: string;
 };
 export type IWidget = {
   type?: string;
@@ -21,5 +21,5 @@ export type IWidget = {
   trendLabel?: number;
   trendDirection?: "POSITIVE" | "NEGATIVE" | "NEUTRAL";
   elements?: IWidgetElements[];
-  graph?: IGraph;
+  data?: IGraph;
 };

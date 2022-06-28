@@ -1,0 +1,23 @@
+@use "src/variables";
+
+.page-widgets {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+
+  @media (max-width: variables.$breakpoint-lg) {
+    margin-bottom: 24px;
+  }
+  > div {
+    width: 24%;
+    min-height: calc(90px + 36px);
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-bottom: 24px;
+      width: 48%;
+    }
+    > div {
+      min-height: 100%;
+    }
+  }
+}

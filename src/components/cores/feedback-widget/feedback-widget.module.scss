@@ -7,8 +7,6 @@
   }
   &-percentage {
     margin-top: 16px;
-    height: calc(100% - 36px);
-    min-height: 65px;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -18,12 +16,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100%;
+      height: calc(100% - 36px);
+      min-height: 75px;
       color: white;
     }
   }
   &-simple {
     font-size: 18px;
+    background-color: beige;
+    &:first-child {
+      background-color: variables.$POSITIVE-color;
+    }
+    &:last-child {
+      background-color: variables.$NEGATIVE-color;
+    }
     > div {
       padding: 8px 4px;
     }
@@ -38,10 +44,20 @@
   }
   &-complex {
     &:first-child {
+      background-color: #2c2f51;
       > div:first-child {
         top: 3px;
         left: 5px;
       }
+    }
+    &:nth-child(2) {
+      background-color: #486fd4;
+    }
+    &:nth-child(3) {
+      background-color: #91aae8;
+    }
+    &:last-child {
+      background-color: #d3d3d3;
     }
     > div {
       font-size: 11px;

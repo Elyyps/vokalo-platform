@@ -148,7 +148,6 @@ export const getSessionsAPI = async (
   filtersList = filtersList.concat(
     endDate ? "&to=" + convertDateToString(endDate) : ""
   );
-  console.log(filtersList);
   return await axios
     .get(
       `https://data.stage.vokaloio.com/v1/platform/sessions${filtersList}`,

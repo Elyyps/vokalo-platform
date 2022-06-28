@@ -38,19 +38,19 @@ export const InteractionsComponent = ({
   };
 
   const getChartData = () => {
-    let header: any = [[widget.graph?.xAxis?.name]];
+    let header: any = [[widget.data?.xaxis?.name]];
     if (!isLineChart) {
       header[0].push("", { role: "style" });
     } else {
       selectedButton.forEach((element) => header[0].push(element));
     }
-    let filteredList = widget.graph?.yAxis.filter((item: any) =>
+    let filteredList = widget.data?.yaxis.filter((item: any) =>
       selectedButton.includes(item.name)
     );
 
     let list: any = header;
-    widget.graph?.xAxis?.data.forEach((item, index) => {
-      list.push([widget.graph?.xAxis?.data[index].match(/\b(\w)/g).join(".")]);
+    widget.data?.xaxis?.data.forEach((item, index) => {
+      list.push([widget.data?.xaxis?.data[index].match(/\b(\w)/g).join(".")]);
       filteredList.forEach((element: any, key: number) => {
         list[index + 1].push(filteredList[key].data[index].value);
         if (!isLineChart) {
@@ -111,7 +111,7 @@ export const InteractionsComponent = ({
       </div>
       {hasButtons && (
         <div className={style["interactions-buttons"]}>
-          {widget.graph?.yAxis?.map((element: any, key: number) => (
+          {widget.data?.yaxis?.map((element: any, key: number) => (
             <ButtonComponent
               title={element.name}
               key={key}

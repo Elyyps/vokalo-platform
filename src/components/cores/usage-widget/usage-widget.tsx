@@ -29,11 +29,11 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
   };
 
   const getChartData = () => {
-    let list: any = [[widget.graph?.xAxis?.name, widget.graph?.yAxis.name]];
-    widget.graph?.xAxis?.data.forEach((item, index) => {
+    let list: any = [[widget.data?.xaxis?.name, widget.data?.yaxis.name]];
+    widget.data?.xaxis?.data.forEach((item, index) => {
       list.push([
-        widget.graph?.xAxis?.data[index],
-        widget.graph?.yAxis.data[index],
+        widget.data?.xaxis?.data[index],
+        widget.data?.yaxis.data[index],
       ]);
     });
     return list;

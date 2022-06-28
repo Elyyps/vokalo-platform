@@ -16,8 +16,6 @@ export const HeaderComponent = ({ user }: Props) => {
   const { logout } = React.useContext(AccountContext);
   const { team, setTeam, startDate, setStartDate, endDate, setEndDate } =
     React.useContext(FilterContext);
-  const today = new Date();
-  const thisMonth = today.setDate(today.getDate() - 30);
   const onLogout = () => {
     logout();
     navigate("/login");

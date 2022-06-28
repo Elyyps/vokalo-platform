@@ -19,12 +19,12 @@ export const SquadPage = () => {
             subHeader: "previous 15 days",
             trendLabel: 55,
             trendDirection: "POSITIVE",
-            graph: {
-              yAxis: {
+            data: {
+              yaxis: {
                 name: "age",
                 data: [0, 4, 2, 2, 8, 6, 2],
               },
-              xAxis: {
+              xaxis: {
                 name: "weight",
                 data: [0, 1, 2, 3, 4, 5, 6],
               },

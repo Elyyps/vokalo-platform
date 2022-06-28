@@ -6,9 +6,12 @@ interface IFeedbackWidget {
   widget: IWidget;
 }
 export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
+  const getPercentage = (value: number) => {
+    return Math.round(value * 100) + "%";
+  };
   return (
     <div className={` ${style["feedback-widget"]} widget-container `}>
-      <h6>Feedback</h6>
+      <h6>{widget.header}</h6>
       <div className={style["feedback-widget-percentage"]}>
         {widget.elements?.map((element, key) => (
           <div
@@ -21,11 +24,11 @@ export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
               ]
             }
             style={{
-              width: `${element.percentage}%`,
+              width: getPercentage(element.percentage),
               backgroundColor: element.color,
             }}
           >
-            <div>{element.percentage}%</div>
+            <div>{getPercentage(element.percentage)}</div>
             <div>{element.label}</div>
           </div>
         ))}
