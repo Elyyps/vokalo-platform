@@ -19,6 +19,7 @@
       height: calc(100% - 36px);
       min-height: 75px;
       color: white;
+      transition: width 1s;
     }
   }
   &-simple {
@@ -36,6 +37,10 @@
     &:last-child > div {
       display: none;
     }
+    &-none:last-child > div {
+      display: block;
+    }
+
     > div:last-child {
       text-overflow: ellipsis;
       overflow: hidden;

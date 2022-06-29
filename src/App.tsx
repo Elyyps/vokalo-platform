@@ -34,9 +34,12 @@ const App = () => {
       defaultTitle = defaultTitle.concat(" | " + title);
     }
     return (
-      <Layout user={user} title={defaultTitle}>
-        {component}
-      </Layout>
+      user &&
+      user.teams && (
+        <Layout user={user} title={defaultTitle}>
+          {component}
+        </Layout>
+      )
     );
   };
 
@@ -61,7 +64,7 @@ const App = () => {
             />
             <Route
               path="/squad"
-              element={addPageLayout(<SquadPage />, "Squads")}
+              element={addPageLayout(<SquadPage user={user} />, "Squads")}
             />
             <Route
               path="/squad/:name"

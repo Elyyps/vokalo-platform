@@ -1,6 +1,6 @@
 import { ISession } from "../types/modules/session";
 import axios from "axios";
-import { convertDateToString } from "../utils/convertDate";
+import { getFilterUrl } from "../utils/getFilterUrl";
 
 // export const sessionsTableData = (): ISession[] => [
 //   {
@@ -137,17 +137,7 @@ export const getSessionsAPI = async (
       Authorization: `Bearer ${accessToken.jwtToken}`,
     },
   };
-  let filtersList = team || startDate || endDate || filter.value ? "?" : "";
-  filtersList = filtersList.concat(team ? "&team=" + team : "");
-  filtersList = filtersList.concat(
-    filter.value ? "&" + filter.key + "=" + filter.value : ""
-  );
-  filtersList = filtersList.concat(
-    startDate ? "&from=" + convertDateToString(startDate) : ""
-  );
-  filtersList = filtersList.concat(
-    endDate ? "&to=" + convertDateToString(endDate) : ""
-  );
+  let filtersList = getFilterUrl(team, startDate, endDate, filter);
   return await axios
     .get(
       `https://data.stage.vokaloio.com/v1/platform/sessions${filtersList}`,

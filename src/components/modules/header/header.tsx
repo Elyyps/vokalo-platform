@@ -1,8 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AccountContext } from "../../../context/account";
 import FilterContext from "../../../context/filter";
-import { convertDateToString } from "../../../utils/convertDate";
 import { ButtonComponent } from "../../cores/button/button";
 import { DatePickerComponent } from "../../cores/date-picker/date-picker";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
@@ -12,14 +11,25 @@ type Props = {
 };
 export const HeaderComponent = ({ user }: Props) => {
   let navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const { logout } = React.useContext(AccountContext);
   const { team, setTeam, startDate, setStartDate, endDate, setEndDate } =
     React.useContext(FilterContext);
+
   const onLogout = () => {
     logout();
     navigate("/login");
   };
+  const isException = (): boolean => {
+    const exceptions = ["/squad"];
+    return exceptions.includes(pathname);
+  };
+  React.useEffect(() => {
+    if (user && user.teams) {
+      setTeam(isException() ? user.teams[0] : "");
+    }
+  }, [pathname]);
 
   return (
     <div className={style["header"]}>
@@ -30,7 +40,7 @@ export const HeaderComponent = ({ user }: Props) => {
             contentPosition="right"
           >
             <ul>
-              <li onClick={() => setTeam("")}>All</li>
+              {!isException() && <li onClick={() => setTeam("")}>All</li>}
               {user.teams.map((team: any, key: number) => (
                 <li key={key} onClick={() => setTeam(team)}>
                   {team.name}

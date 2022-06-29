@@ -33,6 +33,7 @@
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       background-color: #96c0ff;
+      transition: height 1s ease;
       &:nth-child(2n) {
         background-color: #0066ff;
       }

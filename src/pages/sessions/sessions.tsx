@@ -34,7 +34,6 @@ export const SessionsPage = (user: any) => {
     getAccount().then((session: any) => {
       getSessions(session);
     });
-    //console.log(list?.widgets);
   }, [team, startDate, endDate, filter.value]);
 
   return (

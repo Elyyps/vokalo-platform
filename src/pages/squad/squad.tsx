@@ -1,60 +1,59 @@
 import React from "react";
-import { squadData } from "../../api/squad";
-import { ActivityWidget } from "../../components/cores/activity-widget/activity-widget";
-import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
+import { getSquadAPI } from "../../api/squad";
+import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
-import { UsageWidget } from "../../components/cores/usage-widget/usage-widget";
-import Layout from "../../components/Layout";
+import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
 import { SquadTableComponent } from "../../components/modules/squad-table/squad-table";
+import { AccountContext } from "../../context/account";
+import FilterContext from "../../context/filter";
+import { IWidget } from "../../types/cores/widget";
+import { IProfile } from "../../types/modules/squad";
 import style from "./squad.module.scss";
+interface ISquadPage {
+  user: any;
+}
+export const SquadPage = ({ user }: ISquadPage) => {
+  const [list, setList] = React.useState<{
+    squads: IProfile[];
+    widgets: IWidget[];
+  }>();
+  const { getAccount } = React.useContext(AccountContext);
+  const { team, startDate, endDate } = React.useContext(FilterContext);
+  const [filter, setFilter] = React.useState({ key: "role", value: "" });
 
-export const SquadPage = () => {
+  const getSquads = async (session: any) => {
+    const data = await getSquadAPI(
+      session,
+      team ? team.id : user.teams[0].id,
+      startDate,
+      endDate,
+      filter
+    );
+    setList({ squads: data.profiles, widgets: data.profilesAggregations });
+  };
+  React.useEffect(() => {
+    getAccount().then((session: any) => {
+      getSquads(session);
+    });
+  }, [team, startDate, endDate, filter.value]);
+
   return (
     <div className={style["squad"]}>
-      <PageHeaderComponent title="Squad" list={[""]} onSelect={() => ""} />
-      <div className={style["squad-top"]}>
-        <UsageWidget
-          widget={{
-            header: "Usage",
-            subHeader: "previous 15 days",
-            trendLabel: 55,
-            trendDirection: "POSITIVE",
-            data: {
-              yaxis: {
-                name: "age",
-                data: [0, 4, 2, 2, 8, 6, 2],
-              },
-              xaxis: {
-                name: "weight",
-                data: [0, 1, 2, 3, 4, 5, 6],
-              },
-            },
-          }}
-        />
-        <ActivityWidget
-          widget={{
-            header: "Most active athlete",
-            label: "Brian B.",
-            trendLabel: 45,
-            trendDirection: "NEGATIVE",
-          }}
-        />
-        <div className="widget-container">
-          <h6>Mood</h6>
-          <h3 style={{ marginTop: "16px" }}>65% POSITIVE</h3>
+      <PageHeaderComponent
+        title="Squad"
+        list={["Athlete", "Coach"]}
+        onSelect={(value: string) =>
+          setFilter({ key: "role", value: value.toLocaleUpperCase() })
+        }
+      />
+      {list ? (
+        <div>
+          <PageWidgetsComponent widgets={list.widgets} />
+          <SquadTableComponent squad={list.squads} />
         </div>
-        <FeedbackWidget
-          widget={{
-            header: "Feedback",
-            trendLabel: 55,
-            elements: [
-              { percentage: 75, color: "#21ce71", label: "POSITIVE" },
-              { percentage: 25, color: "#f05056", label: "ORIENTATION" },
-            ],
-          }}
-        />
-      </div>
-      <SquadTableComponent squad={squadData()} />
+      ) : (
+        <LoaderComponent />
+      )}
     </div>
   );
 };

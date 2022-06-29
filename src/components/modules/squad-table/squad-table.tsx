@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
-import { ISquad } from "../../../types/modules/squad";
-import { converToMinutes } from "../../../utils/convertTime";
+import { IProfile } from "../../../types/modules/squad";
+import { converToHours } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { TrendComponent } from "../../cores/trend/trend";
 import style from "./squad-table.module.scss";
 interface ISquadTableComponent {
-  squad: ISquad[];
+  squad: IProfile[];
 }
 export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
   const [sortConfig, setSortConfig] = React.useState<any>({
@@ -15,7 +15,18 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
     ascending: true,
   });
   let navigate = useNavigate();
-
+  const columns = [
+    "speech time",
+    "type",
+    "speech time",
+    "average interaction length",
+    "average tnteractions",
+    "distribution",
+    "percentage",
+  ];
+  const getPercentage = (value: number) => {
+    return Math.round(value * 100);
+  };
   const sortedSquad = React.useMemo(() => {
     let sortableSquad = [...squad];
     return sortColumn(sortableSquad, sortConfig.column, sortConfig.ascending);
@@ -37,11 +48,11 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                 Feedback
               </th>
               <th colSpan={1} scope="colgroup">
-                Motivation
+                Orientation
               </th>
             </tr>
             <tr>
-              {Object.keys(squad[0]).map((column, key) => (
+              {columns.map((column, key) => (
                 <th key={key}>
                   <span
                     onClick={() =>
@@ -58,20 +69,37 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
             </tr>
           </thead>
           <tbody>
-            {sortedSquad.map((row: ISquad, key) => (
-              <tr key={key} onClick={() => navigate("/squad/" + row.name)}>
-                <td>{row.name}</td>
+            {sortedSquad.map((row: IProfile, key) => (
+              <tr key={key} onClick={() => navigate("/squad/" + row.id)}>
+                <td>
+                  {row.firstName} {row.lastName}
+                </td>
                 <td>{row.role}</td>
-                <td>{converToMinutes(row.speechTime)}</td>
-                <td>{row.interation}</td>
-                <td>{row.averageInteraction}</td>
+                <td>{converToHours(row.communicationAggregations.minutes)}</td>
+                <td>
+                  {converToHours(
+                    row.communicationAggregations.averageInteractionLength
+                  )}
+                </td>
+                <td>
+                  {converToHours(
+                    row.communicationAggregations.averageInteractions
+                  )}
+                </td>
                 <td>
                   <div className={style["squad-table-progress"]}>
-                    <div style={{ width: `${row.type}%` }} />
+                    <div
+                      style={{
+                        width: `${getPercentage(row.moodAggregations.value)}%`,
+                      }}
+                    />
                   </div>
                 </td>
                 <td>
-                  <TrendComponent {...row.mood} />
+                  <TrendComponent
+                    trendLabel={getPercentage(row.moodAggregations.value)}
+                    trendDirection={row.moodAggregations.trendDirection}
+                  />
                 </td>
               </tr>
             ))}

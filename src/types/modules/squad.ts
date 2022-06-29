@@ -1,11 +1,21 @@
-import { ITrend } from "../cores/trend";
-
-export type ISquad = {
-  name: string;
+type IAggregation = {
+  key: string;
+  trendDirection: "NEUTRAL" | "POSITIVE" | "NEGATIVE";
+  value: number;
+};
+type ICommunicationAggregation = {
+  averageInteractionLength: number;
+  averageInteractions: number;
+  minutes: number;
+};
+export type IProfile = {
+  communicationAggregations: ICommunicationAggregation;
+  firstName: string;
+  lastName: string;
+  moodAggregations: IAggregation;
+  orientationAggregations: IAggregation;
   role: "Athlete" | "Coach";
-  speechTime: number;
-  interation: number;
-  averageInteraction: number;
-  type: number;
-  mood: ITrend;
+  tags: string[];
+  teams: any[];
+  id: string;
 };

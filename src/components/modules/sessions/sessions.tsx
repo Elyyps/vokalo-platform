@@ -2,7 +2,7 @@ import React from "react";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
 import { converToDate } from "../../../utils/convertDate";
-import { converToHours, converToMinutes } from "../../../utils/convertTime";
+import { converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions.module.scss";

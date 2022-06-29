@@ -15,7 +15,7 @@ type IWidgetElements = {
 export type IWidget = {
   type?: string;
   header: string;
-  subHeader?: string;
+  subheader?: string;
   label?: string;
   widgetType?: string;
   trendLabel?: number;

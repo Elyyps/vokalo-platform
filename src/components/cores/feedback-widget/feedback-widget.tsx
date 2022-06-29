@@ -16,13 +16,18 @@ export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
         {widget.elements?.map((element, key) => (
           <div
             key={key}
-            className={
+            className={` ${
               style[
                 widget.elements && widget.elements.length > 2
                   ? "feedback-widget-complex"
                   : "feedback-widget-simple"
               ]
+            } ${
+              widget.elements &&
+              widget.elements[0].percentage === 0 &&
+              style["feedback-widget-simple-none"]
             }
+            `}
             style={{
               width: getPercentage(element.percentage),
               backgroundColor: element.color,

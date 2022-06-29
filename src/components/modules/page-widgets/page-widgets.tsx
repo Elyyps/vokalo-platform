@@ -7,13 +7,18 @@ import { UsageWidget } from "../../cores/usage-widget/usage-widget";
 import style from "./page-widgets.module.scss";
 interface IPageWidgetsComponent {
   widgets: IWidget[];
+  isDetailPage?: boolean;
 }
-export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
-  React.useEffect(() => {
-    console.log(widgets);
-  }, []);
+export const PageWidgetsComponent = ({
+  widgets,
+  isDetailPage,
+}: IPageWidgetsComponent) => {
   return (
-    <div className={style["page-widgets"]}>
+    <div
+      className={` ${style["page-widgets"]} ${
+        isDetailPage && style["page-widgets-details"]
+      }`}
+    >
       {widgets.map((widget, key) => (
         <div key={key}>
           {widget.widgetType === "BASIC_LABEL" && (
@@ -30,6 +35,12 @@ export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
           )}
           {widget.widgetType === "SMALL_TABLE_WITH_TRENDING_LABEL" && (
             <SentimentWidget widget={widget} />
+          )}
+          {widget.widgetType === "BASIC_WITH_TRENDING_LABEL" && (
+            <ActivityWidget widget={widget} />
+          )}
+          {widget.widgetType === "SMALL_GRAPH_WITH_TRENDING_LABEL" && (
+            <UsageWidget widget={widget} />
           )}
         </div>
       ))}

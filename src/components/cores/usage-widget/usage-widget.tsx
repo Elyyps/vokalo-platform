@@ -29,11 +29,11 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
   };
 
   const getChartData = () => {
-    let list: any = [[widget.data?.xaxis?.name, widget.data?.yaxis.name]];
+    let list: any = [[widget.data?.xaxis?.name, widget.data?.yaxis[0].name]];
     widget.data?.xaxis?.data.forEach((item, index) => {
       list.push([
         widget.data?.xaxis?.data[index],
-        widget.data?.yaxis.data[index],
+        widget.data?.yaxis[0].data[index].value,
       ]);
     });
     return list;
@@ -65,7 +65,7 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
             <span>Speech time</span>
             <h3>{widget.label}</h3>
             <div>
-              <small>{widget.subHeader}</small>
+              <small>{widget.subheader}</small>
               <TrendComponent
                 trendLabel={widget.trendLabel}
                 trendDirection={widget.trendDirection}

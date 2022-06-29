@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { squadInteractionData } from "../../api/interactions";
 import { squadSessionsData } from "../../api/session";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
-import Layout from "../../components/Layout";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
 import { SessionsComponent } from "../../components/modules/sessions/sessions";
