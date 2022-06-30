@@ -10,10 +10,12 @@ type IGameData = {
 type IDataSets = {
   button: IButton;
   data: any[];
+  name?: string;
 };
 export type IFieldOverview = {
   gameData?: IGameData;
-  players: IPlayer[];
+  formations: string[];
+  profiles: IPlayer[];
   dataSets: IDataSets[];
   colors: string[];
 };

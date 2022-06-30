@@ -78,6 +78,7 @@ import { getFilterUrl } from "../utils/getFilterUrl";
 // ];
 export const coachSessionsData = (): ISession[] => [
   {
+    id: "",
     creationTimestamp: "05/05/2022",
     type: "match",
     vokaloLive: true,
@@ -85,6 +86,7 @@ export const coachSessionsData = (): ISession[] => [
     score: { trendDirection: "POSITIVE" },
   },
   {
+    id: "",
     creationTimestamp: "12/02/2022",
     type: "match",
     vokaloLive: false,
@@ -92,6 +94,7 @@ export const coachSessionsData = (): ISession[] => [
     score: { trendDirection: "NEGATIVE" },
   },
   {
+    id: "",
     creationTimestamp: "01/01/2022",
     type: "match",
     vokaloLive: false,
@@ -99,6 +102,7 @@ export const coachSessionsData = (): ISession[] => [
     score: { trendDirection: "NEGATIVE" },
   },
   {
+    id: "",
     creationTimestamp: "01/01/2022",
     type: "match",
     vokaloLive: true,
@@ -107,42 +111,53 @@ export const coachSessionsData = (): ISession[] => [
   },
 ];
 export const squadSessionsData = (): ISession[] => [
-  {
-    creationTimestamp: "05/05/2022",
-    type: "match",
-    length: 25,
-  },
-  {
-    creationTimestamp: "12/02/2022",
-    type: "match",
-    length: 85,
-  },
-  {
-    creationTimestamp: "01/01/2022",
-    type: "match",
-    length: 155,
-  },
+  { id: "", creationTimestamp: "05/05/2022", type: "match", length: 25 },
+  { id: "", creationTimestamp: "12/02/2022", type: "match", length: 85 },
+  { id: "", creationTimestamp: "01/01/2022", type: "match", length: 155 },
 ];
 
-export const getSessionsAPI = async (
-  { accessToken }: any,
-  team: string,
-  startDate: any,
-  endDate: any,
-  filter: any
-) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken.jwtToken}`,
-    },
-  };
-  let filtersList = getFilterUrl(team, startDate, endDate, filter);
-  return await axios
-    .get(
-      `https://data.stage.vokaloio.com/v1/platform/sessions${filtersList}`,
-      config
-    )
-    .then((response: any) => response.data)
-    .catch(console.log);
-};
+// export const getSessionsAPI = async (
+//   { accessToken }: any,
+//   team: string,
+//   startDate: any,
+//   endDate: any,
+//   filter: any
+// ) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${accessToken.jwtToken}`,
+//     },
+//   };
+//   let filtersList = getFilterUrl(team, startDate, endDate, filter);
+//   return await axios
+//     .get(
+//       `https://data.stage.vokaloio.com/v1/platform/sessions/${filtersList}`,
+//       config
+//     )
+//     .then((response: any) => response.data)
+//     .catch(console.log);
+// };
+// export const getSessionDetailsAPI = async (
+//   url: string,
+//   { accessToken }: any,
+//   team: string,
+//   startDate: any,
+//   endDate: any,
+//   filter: any
+// ) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${accessToken.jwtToken}`,
+//     },
+//   };
+//   let filtersList = getFilterUrl(team, startDate, endDate, filter);
+//   return await axios
+//     .get(
+//       `https://data.stage.vokaloio.com/v1/platform/${url}${filtersList}`,
+//       config
+//     )
+//     .then((response: any) => response.data)
+//     .catch(console.log);
+// };

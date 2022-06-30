@@ -11,6 +11,7 @@ type IWidgetElements = {
   label?: string;
   percentage: number;
   color?: string;
+  header?: string;
 };
 export type IWidget = {
   type?: string;

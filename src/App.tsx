@@ -59,7 +59,7 @@ const App = () => {
               element={addPageLayout(<SessionsPage />, "Sessions")}
             />
             <Route
-              path="/sessions/:caoch"
+              path="/sessions/:id"
               element={addPageLayout(<SessionDetailsPage />, "Coach")}
             />
             <Route

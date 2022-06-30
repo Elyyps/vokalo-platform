@@ -15,11 +15,11 @@ export const ClassificationComponent = ({
           <div
             key={key}
             style={{
-              width: `${element.percentage}%`,
+              width: `${element.percentage * 100}%`,
               backgroundColor: element.color,
             }}
           >
-            <span>{element.percentage}%</span>
+            <span>{element.header}</span>
           </div>
         ))}
       </div>

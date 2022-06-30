@@ -1,7 +1,9 @@
 export type IPlayer = {
-  name: string;
-  number: number;
-  positionX: number;
-  positionY: number;
+  firstName: string;
+  lastName: string;
+  id: number;
+  gridX: number;
+  gridY: number;
+  ghost: boolean;
   isReplaced?: boolean;
 };

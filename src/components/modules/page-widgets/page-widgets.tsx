@@ -4,21 +4,14 @@ import { ActivityWidget } from "../../cores/activity-widget/activity-widget";
 import { FeedbackWidget } from "../../cores/feedback-widget/feedback-widget";
 import { SentimentWidget } from "../../cores/sentiment-widget/sentiment-widget";
 import { UsageWidget } from "../../cores/usage-widget/usage-widget";
+import { ClassificationComponent } from "../classifications/classifications";
 import style from "./page-widgets.module.scss";
 interface IPageWidgetsComponent {
   widgets: IWidget[];
-  isDetailPage?: boolean;
 }
-export const PageWidgetsComponent = ({
-  widgets,
-  isDetailPage,
-}: IPageWidgetsComponent) => {
+export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
   return (
-    <div
-      className={` ${style["page-widgets"]} ${
-        isDetailPage && style["page-widgets-details"]
-      }`}
-    >
+    <div className={style["page-widgets"]}>
       {widgets.map((widget, key) => (
         <div key={key}>
           {widget.widgetType === "BASIC_LABEL" && (
@@ -41,6 +34,9 @@ export const PageWidgetsComponent = ({
           )}
           {widget.widgetType === "SMALL_GRAPH_WITH_TRENDING_LABEL" && (
             <UsageWidget widget={widget} />
+          )}
+          {widget.widgetType === "LARGE_PERCENTAGE_DISTRIBUTION_WIDGET" && (
+            <ClassificationComponent widget={widget} />
           )}
         </div>
       ))}

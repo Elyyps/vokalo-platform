@@ -97,7 +97,9 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                 </td>
                 <td>
                   <TrendComponent
-                    trendLabel={getPercentage(row.moodAggregations.value)}
+                    trendLabel={getPercentage(
+                      row.orientationAggregations.value
+                    )}
                     trendDirection={row.moodAggregations.trendDirection}
                   />
                 </td>

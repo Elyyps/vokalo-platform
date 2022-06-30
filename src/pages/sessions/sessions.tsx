@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./sessions.module.scss";
-import { getSessionsAPI } from "../../api/session";
 import { SessionsTableComponent } from "../../components/modules/sessions-table/sessions-table";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { ISession } from "../../types/modules/session";
@@ -9,6 +8,7 @@ import { LoaderComponent } from "../../components/cores/loader/loader";
 import FilterContext from "../../context/filter";
 import { IWidget } from "../../types/cores/widget";
 import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
+import { getAPI } from "../../utils/getApi";
 
 export const SessionsPage = (user: any) => {
   const [list, setList] = React.useState<{
@@ -21,7 +21,8 @@ export const SessionsPage = (user: any) => {
   const [filter, setFilter] = React.useState({ key: "type", value: "" });
 
   const getSessions = async (session: any) => {
-    const data = await getSessionsAPI(
+    const data = await getAPI(
+      "sessions",
       session,
       team.id,
       startDate,

@@ -49,21 +49,23 @@ export const HeaderComponent = ({ user }: Props) => {
             </ul>
           </DropdownComponent>
         )}
-        <DatePickerComponent
-          contentPosition="right"
-          dateRange={{
-            startDate: startDate ? startDate : new Date(),
-            endDate: endDate,
-          }}
-          onChange={(range) => {
-            setStartDate(range.startDate);
-            setEndDate(range.endDate);
-          }}
-          onReset={() => {
-            setStartDate(undefined);
-            setEndDate(undefined);
-          }}
-        />
+        {!pathname.includes("/sessions/") && (
+          <DatePickerComponent
+            contentPosition="right"
+            dateRange={{
+              startDate: startDate ? startDate : new Date(),
+              endDate: endDate,
+            }}
+            onChange={(range) => {
+              setStartDate(range.startDate);
+              setEndDate(range.endDate);
+            }}
+            onReset={() => {
+              setStartDate(undefined);
+              setEndDate(undefined);
+            }}
+          />
+        )}
       </div>
       <div className={style["header-right"]}>
         <ButtonComponent

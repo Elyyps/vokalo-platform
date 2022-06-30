@@ -1,5 +1,4 @@
 import React from "react";
-import { getSquadAPI } from "../../api/squad";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
@@ -8,6 +7,7 @@ import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { IWidget } from "../../types/cores/widget";
 import { IProfile } from "../../types/modules/squad";
+import { getAPI } from "../../utils/getApi";
 import style from "./squad.module.scss";
 interface ISquadPage {
   user: any;
@@ -22,7 +22,8 @@ export const SquadPage = ({ user }: ISquadPage) => {
   const [filter, setFilter] = React.useState({ key: "role", value: "" });
 
   const getSquads = async (session: any) => {
-    const data = await getSquadAPI(
+    const data = await getAPI(
+      "profiles",
       session,
       team ? team.id : user.teams[0].id,
       startDate,

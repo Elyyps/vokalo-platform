@@ -21,5 +21,20 @@
     }
   }
   &-details {
+    &-column {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      > div {
+        width: 100%;
+        min-height: unset !important;
+        &:first-child {
+          margin-bottom: 24px;
+        }
+      }
+    }
+    > div {
+      width: 50%;
+    }
   }
 }

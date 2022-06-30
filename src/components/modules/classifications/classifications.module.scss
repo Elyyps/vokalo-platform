@@ -20,7 +20,18 @@
       align-items: flex-end;
       justify-content: flex-end;
       color: white;
-
+      &:first-child {
+        background-color: #2c2f51;
+      }
+      &:nth-child(2) {
+        background-color: #486fd4;
+      }
+      &:nth-child(3) {
+        background-color: #91aae8;
+      }
+      &:last-child {
+        background-color: #d3d3d3;
+      }
       > span {
         margin-right: 8px;
         margin-bottom: 8px;
@@ -33,6 +44,19 @@
     > div {
       width: 24%;
       font-size: 80%;
+      &:first-child > span {
+        background-color: #2c2f51;
+      }
+      &:nth-child(2) > span {
+        background-color: #486fd4;
+      }
+      &:nth-child(3) > span {
+        background-color: #91aae8;
+      }
+      &:last-child > span {
+        background-color: #d3d3d3;
+      }
+
       > span {
         display: block;
         border-radius: 50%;

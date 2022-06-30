@@ -16,7 +16,9 @@ export const PlayerComponent = (props: IPlayerComponent) => {
     e.dataTransfer.setData("text/plain", data);
     props.onPlayerDrag(props.player);
   };
-
+  React.useEffect(() => {
+    //console.log(props.player);
+  }, []);
   const handleDragEnd = (e: any) => {
     e.dataTransfer.clearData();
   };
@@ -37,14 +39,13 @@ export const PlayerComponent = (props: IPlayerComponent) => {
   };
   return (
     <div
-      className={`${style["player"]} ${
-        style["player-" + props.player.positionX]
-      }`}
+      className={`${style["player"]} ${style["player-" + props.player.gridX]}`}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
       onDrop={(e) => handleDrop(e, props.player)}
       onClick={() => setIsOpen(!isOpen)}
+      style={{ opacity: props.player.ghost ? 0.5 : 1 }}
     >
       <div
         className={style["player-number"]}
@@ -58,7 +59,11 @@ export const PlayerComponent = (props: IPlayerComponent) => {
           </span>
         )}
       </div>
-      <span className={style["player-name"]}>{props.player.name}</span>
+      {!props.player.ghost && (
+        <span className={style["player-name"]}>
+          {props.player.firstName} {props.player.lastName}
+        </span>
+      )}
     </div>
   );
 };

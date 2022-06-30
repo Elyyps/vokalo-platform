@@ -64,10 +64,7 @@ export const SessionsTableComponent = ({
         <tbody>
           {sortedSession ? (
             sortedSession.map((row: ISession, key) => (
-              <tr
-                key={key}
-                onClick={() => navigate("/sessions/" + row.creator)}
-              >
+              <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
                 <td>
                   <input type="checkbox" />
                 </td>

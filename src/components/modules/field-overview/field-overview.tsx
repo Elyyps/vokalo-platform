@@ -7,35 +7,36 @@ import { ButtonComponent } from "../../cores/button/button";
 import { IFieldOverview } from "../../../types/modules/field-overview";
 import { playersReplaceData } from "../../../api/players";
 import { PlayerSwapComponent } from "../../cores/player-swap/player-swap";
+import { IWidget } from "../../../types/cores/widget";
+import { IProfile } from "../../../types/modules/squad";
 
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
+  profiles: any[];
 }
 export const FieldOverviewComponent = ({
   fieldOverview,
+  profiles,
 }: IFieldOverviewComponent) => {
   const sortPlayer = (list: IPlayer[]) => {
     return list.sort((a, b) => {
-      if (a.positionX === b.positionX) {
-        return a.positionY - b.positionY;
+      if (a.gridX === b.gridX) {
+        return a.gridY - b.gridY;
       } else {
-        return a.positionX - b.positionX;
+        return a.gridX - b.gridX;
       }
     });
   };
   const [playersList, setPlayersList] = React.useState<IPlayer[]>(
-    sortPlayer(fieldOverview.players)
+    sortPlayer(profiles)
   );
   const [currentPlayer, setCurrentPlayer] = React.useState<IPlayer>(
     playersList[0]
   );
-  const [selectedButton, setSelectedButton] =
-    React.useState<string>("Interactions");
+  const [selectedButton, setSelectedButton] = React.useState<string>("Total");
   const [formation, setFormation] = React.useState<string>("4-2-3-1");
   const [isOpen, setIsOpen] = React.useState(false);
-
-  const data = ["4-2-3-1", "4-3-2-1", "3-3-3-1"];
-
+  const colors = ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"];
   const getPlayerPosition = (position: number) => {
     const newFormation = formation.replaceAll("-", "");
     const width = newFormation.charAt(position - 1);
@@ -44,13 +45,19 @@ export const FieldOverviewComponent = ({
   const updatePlayers = (playerTarget: IPlayer) => {
     const players = playersList.map((player) => {
       const playerCopy = { ...player };
-      if (playerCopy.number === playerTarget.number) {
-        playerCopy.positionX = currentPlayer.positionX;
-        playerCopy.positionY = currentPlayer.positionY;
+      if (
+        playerCopy.gridX === playerTarget.gridX &&
+        playerCopy.gridY === playerTarget.gridY
+      ) {
+        playerCopy.gridX = currentPlayer.gridX;
+        playerCopy.gridY = currentPlayer.gridY;
       }
-      if (playerCopy.number === currentPlayer.number) {
-        playerCopy.positionX = playerTarget.positionX;
-        playerCopy.positionY = playerTarget.positionY;
+      if (
+        playerCopy.gridX === currentPlayer.gridX &&
+        playerCopy.gridY === currentPlayer.gridY
+      ) {
+        playerCopy.gridX = playerTarget.gridX;
+        playerCopy.gridY = playerTarget.gridY;
       }
       return playerCopy;
     });
@@ -61,19 +68,17 @@ export const FieldOverviewComponent = ({
   };
   const getPlayerValue = (playerId: number) => {
     const dataSet = fieldOverview.dataSets.find(
-      (data) => data.button.title === selectedButton
+      (data) => data.name === selectedButton
     );
-    const player = dataSet?.data.find((data) => data.playerId === playerId);
+    const player = dataSet?.data.find((data) => data.profileId === playerId);
     return player ? Math.round(player.value * 100) : 0;
   };
   const getPlayerColor = (playerId: number) => {
     const playerValue = getPlayerValue(playerId);
-    const result = Math.trunc(
-      playerValue / (100 / fieldOverview.colors.length)
-    );
-    return result === fieldOverview.colors.length
-      ? fieldOverview.colors[fieldOverview.colors.length - 1]
-      : fieldOverview.colors[result];
+    const result = Math.trunc(playerValue / (100 / colors.length));
+    return result === colors.length
+      ? colors[colors.length - 1]
+      : colors[result];
   };
   const playerClicked = (player: IPlayer) => {
     setIsOpen(!isOpen);
@@ -82,9 +87,9 @@ export const FieldOverviewComponent = ({
   const playerSelected = (playerTarget: IPlayer) => {
     const players = playersList.map((player) => {
       const playerCopy = { ...player };
-      if (playerCopy.number === currentPlayer.number) {
-        playerCopy.name = playerTarget.name;
-        playerCopy.number = playerTarget.number;
+      if (playerCopy.id === currentPlayer.id) {
+        playerCopy.firstName = playerTarget.firstName;
+        playerCopy.id = playerTarget.id;
         playerCopy.isReplaced = true;
       }
       return playerCopy;
@@ -102,7 +107,7 @@ export const FieldOverviewComponent = ({
           <div className={style["field-overview-formation"]}>
             <DropdownComponent title={formation}>
               <ul>
-                {data.map((item, key) => (
+                {fieldOverview.formations.map((item, key) => (
                   <li key={key} onClick={() => setFormation(item)}>
                     {item}
                   </li>
@@ -113,8 +118,8 @@ export const FieldOverviewComponent = ({
           <div style={{ width: "100%" }}>
             <PlayerComponent
               player={playersList[0]}
-              value={getPlayerValue(playersList[0].number)}
-              color={getPlayerColor(playersList[0].number)}
+              value={getPlayerValue(playersList[0].id)}
+              color={getPlayerColor(playersList[0].id)}
               onPlayerDrop={() => ""}
               onPlayerDrag={() => ""}
             />
@@ -123,25 +128,26 @@ export const FieldOverviewComponent = ({
             <div
               key={key}
               style={{
-                width: `${getPlayerPosition(player.positionX)}% `,
+                width: `${getPlayerPosition(player.gridX)}% `,
               }}
-              onClick={() => playerClicked(player)}
+              onClick={() => !player.ghost && playerClicked(player)}
             >
               <PlayerComponent
                 player={player}
-                value={getPlayerValue(player.number)}
-                color={getPlayerColor(player.number)}
+                value={player.ghost ? 0 : getPlayerValue(player.id)}
+                color={player.ghost ? "" : getPlayerColor(player.id)}
                 onPlayerDrag={(index) => setCurrentPlayer(index)}
                 onPlayerDrop={updatePlayers}
               />
             </div>
           ))}
         </div>
+
         {isOpen && (
           <div className={style["field-overview-replacement"]}>
             <PlayerSwapComponent
               players={playersReplaceData()}
-              playerName={currentPlayer.name}
+              playerName={currentPlayer.firstName}
               onClick={playerSelected}
             />
           </div>
@@ -154,11 +160,11 @@ export const FieldOverviewComponent = ({
             <span>Many</span>
           </div>
           <div>
-            {fieldOverview.colors.map((color, key) => (
+            {colors.map((color, key) => (
               <span
                 key={key}
                 style={{
-                  width: `${100 / fieldOverview.colors.length}%`,
+                  width: `${100 / colors.length}%`,
                   backgroundColor: color,
                 }}
               ></span>
@@ -174,16 +180,14 @@ export const FieldOverviewComponent = ({
           <div>
             {fieldOverview.dataSets.map((data, key) => (
               <ButtonComponent
-                {...data.button}
+                title={data.name}
                 key={key}
                 variant={
-                  selectedButton === data.button.title
-                    ? "transparent"
-                    : "disabled"
+                  selectedButton === data.name ? "transparent" : "disabled"
                 }
                 hasBorder
                 position="top"
-                onClick={() => setSelectedButton(data.button.title)}
+                onClick={() => setSelectedButton(data.name ? data.name : "")}
               />
             ))}
           </div>

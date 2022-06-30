@@ -110,5 +110,6 @@ export const FieldOverviewData = (): IFieldOverview => ({
     to: 0,
   },
   colors: ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"],
-  players: playersData(),
+  profiles: playersData(),
+  formations: [],
 });

@@ -34,8 +34,8 @@ export const PlayerSwapComponent = ({
               className={style["player-swap-item"]}
               onClick={() => onClick(player)}
             >
-              <div>{player.number}</div>
-              <span>{player.name}</span>
+              <div>0</div>
+              <span>{player.firstName}</span>
             </div>
           ))}
           <ReactSVG
