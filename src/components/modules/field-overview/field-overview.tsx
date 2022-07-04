@@ -140,7 +140,6 @@ export const FieldOverviewComponent = ({
             </div>
           ))}
         </div>
-
         {isOpen && (
           <div className={style["field-overview-replacement"]}>
             <PlayerSwapComponent
@@ -180,6 +179,7 @@ export const FieldOverviewComponent = ({
             {fieldOverview.dataSets.map((data, key) => (
               <ButtonComponent
                 title={data.name}
+                icon={`/icons/` + data.icon}
                 key={key}
                 variant={
                   selectedButton === data.name ? "transparent" : "disabled"

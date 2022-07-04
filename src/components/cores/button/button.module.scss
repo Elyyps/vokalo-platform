@@ -71,9 +71,10 @@
   &-top {
     flex-direction: column-reverse;
     text-align: center;
+    justify-content: center;
     padding: 16px 12px;
     @media (max-width: variables.$breakpoint-lg) {
-      padding: 12px 8px;
+      padding: 8px;
     }
     > div {
       margin-left: 0;
@@ -82,8 +83,8 @@
       width: 25px;
       height: 25px;
       @media (max-width: variables.$breakpoint-lg) {
-        width: 18px;
-        height: 18px;
+        width: 22px;
+        height: 22px;
       }
     }
   }

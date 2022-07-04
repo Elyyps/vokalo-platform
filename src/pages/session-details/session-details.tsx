@@ -31,7 +31,6 @@ export const SessionDetailsPage = () => {
       endDate,
       { key: "sessionId", value: id }
     );
-    console.log(data.sessionAggregations[3]);
     setList({ session: data.session, widgets: data.sessionAggregations });
   };
   React.useEffect(() => {
@@ -79,7 +78,6 @@ export const SessionDetailsPage = () => {
                     ? list.widgets[3].tableData
                     : list.widgets[3].graphData
                 }
-                //widget={playerInteractionData()}
                 isLineGraph={isLineGraph}
                 onClick={setIsLineGraph}
                 hasButtons

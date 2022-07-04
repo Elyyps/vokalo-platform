@@ -8,7 +8,7 @@ type IGameData = {
   to: number;
 };
 type IDataSets = {
-  button: IButton;
+  icon: string;
   data: any[];
   name?: string;
 };
