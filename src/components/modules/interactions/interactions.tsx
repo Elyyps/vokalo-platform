@@ -4,17 +4,16 @@ import { IWidget } from "../../../types/cores/widget";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./interactions.module.scss";
-type graphType = "Table" | "AllLine" | "Line";
 interface IInteractionsComponent {
-  widget: IWidget;
-  graphType?: graphType;
+  widget: any;
+  isLineGraph?: boolean;
   hasButtons?: boolean;
-  onClick: (graphType: graphType) => void;
+  onClick: (isLineGraph: boolean) => void;
 }
 
 export const InteractionsComponent = ({
   widget,
-  graphType,
+  isLineGraph,
   onClick,
   hasButtons,
 }: IInteractionsComponent) => {
@@ -33,36 +32,47 @@ export const InteractionsComponent = ({
       baselineColor: "none",
     },
     hAxis: { textStyle: { color: "#C4C4C4" } },
-    legend: graphType !== "Table" ? { position: "bottom" } : "none",
+    legend: isLineGraph ? { position: "bottom" } : "none",
   };
-
-  const getChartData = () => {
+  const getTableChartData = () => {
     let header: any = [[widget.data?.xaxis?.name]];
-    if (graphType === "Table") {
-      header[0].push("", { role: "style" });
-    } else {
-      selectedButton.forEach((element) => header[0].push(element));
-    }
+    header[0].push("", { role: "style" });
     let filteredList = widget.data?.yaxis.filter((item: any) =>
       selectedButton.includes(item.name)
     );
-
     let list: any = header;
-    widget.data?.xaxis?.data.forEach((item, index) => {
-      if (graphType === "Table") {
+    widget.data?.xaxis?.data.forEach((item: any, index: number) => {
+      if (!isLineGraph) {
         list.push([widget.data?.xaxis?.data[index].match(/\b(\w)/g).join(".")]);
-      } else {
-        list.push([widget.data?.xaxis?.data[index]]);
       }
       filteredList.forEach((element: any, key: number) => {
         list[index + 1].push(filteredList[key].data[index].value);
-        if (graphType === "Table") {
-          list[index + 1].push(filteredList[key].data[index].color);
-        }
+        list[index + 1].push(filteredList[key].data[index].color);
       });
     });
     return sortList(list);
   };
+  const getLineChartData = () => {
+    const result = widget.data?.dataSets?.find(
+      (item: any) => item.name === sortBy
+    );
+    if (result) {
+      let header: any = [[result.data?.xaxis?.name]];
+      selectedButton.forEach((element) => header[0].push(element));
+      let filteredList = result.data?.yaxis.filter((item: any) =>
+        selectedButton.includes(item.name)
+      );
+      let list: any = header;
+      result.data?.xaxis?.data.forEach((item: any, index: number) => {
+        list.push([result.data?.xaxis?.data[index]]);
+        filteredList.forEach((element: any, key: number) => {
+          list[index + 1].push(filteredList[key].data[index].value);
+        });
+      });
+      return list;
+    }
+  };
+
   const sortList = (list: any) => {
     if (sortBy !== "Default") {
       return list.sort((a: any, b: any) => {
@@ -76,7 +86,7 @@ export const InteractionsComponent = ({
   };
   const onButtonSelected = (name: string) => {
     let list: string[] = [];
-    if (graphType !== "Table") {
+    if (isLineGraph) {
       if (selectedButton.includes(name)) {
         list = selectedButton.filter((item) => item !== name);
       } else {
@@ -95,30 +105,38 @@ export const InteractionsComponent = ({
       setSelectedButton([lastButton]);
     }
   };
-
+  const getButtons = () => {
+    if (isLineGraph) {
+      return widget.data?.dataSets?.find((item: any) => item.name === sortBy);
+    } else {
+      return widget;
+    }
+  };
   return (
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
         <h6>{widget.header}</h6>
         <DropdownComponent title={sortBy} hasBorder>
-          {graphType === "Table" ? (
+          {!isLineGraph ? (
             <ul>
               <li onClick={() => setSortBy("Default")}>Default</li>
               <li onClick={() => setSortBy("Ascending")}>Ascending</li>
               <li onClick={() => setSortBy("Descending")}>Descending</li>
             </ul>
           ) : (
-            <ul>
-              <li onClick={() => setSortBy("Total")}>Total</li>
-              {}
-              <li onClick={() => setSortBy("Default")}>Total</li>
+            <ul style={{ width: "130px" }}>
+              {widget.data?.dataSets.map((item: any, key: number) => (
+                <li key={key} onClick={() => setSortBy(item.name)}>
+                  {item.name}
+                </li>
+              ))}
             </ul>
           )}
         </DropdownComponent>
       </div>
       {hasButtons && (
         <div className={style["interactions-buttons"]}>
-          {widget.data?.yaxis?.map((element: any, key: number) => (
+          {getButtons().data?.yaxis?.map((element: any, key: number) => (
             <ButtonComponent
               title={element.name}
               key={key}
@@ -134,8 +152,8 @@ export const InteractionsComponent = ({
         </div>
       )}
       <Chart
-        chartType={graphType === "Table" ? "ColumnChart" : "LineChart"}
-        data={getChartData()}
+        chartType={!isLineGraph ? "ColumnChart" : "LineChart"}
+        data={!isLineGraph ? getTableChartData() : getLineChartData()}
         options={options}
         className={style["interactions-graph"]}
         width="100%"
@@ -143,17 +161,18 @@ export const InteractionsComponent = ({
       {hasButtons && (
         <div className={style["interactions-switch"]}>
           <span
-            style={graphType === "Table" ? {} : { opacity: 0.4 }}
+            style={!isLineGraph ? {} : { opacity: 0.4 }}
             onClick={() => {
-              onClick("Table");
+              onClick(false);
+              setSortBy("Default");
               resetFilter(selectedButton);
             }}
           ></span>
           <span
-            style={graphType === "Table" ? { opacity: 0.4 } : {}}
+            style={!isLineGraph ? { opacity: 0.4 } : {}}
             onClick={() => {
-              onClick("AllLine");
-              setSortBy("Default");
+              onClick(true);
+              setSortBy("All");
             }}
           ></span>
         </div>

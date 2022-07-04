@@ -4,7 +4,6 @@ import { PageHeaderComponent } from "../../components/cores/page-header/page-hea
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
-import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
 import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { ISession } from "../../types/modules/session";
@@ -14,7 +13,7 @@ import style from "./session-details.module.scss";
 type graphType = "Table" | "AllLine" | "Line";
 
 export const SessionDetailsPage = () => {
-  const [graphType, setGraphType] = React.useState<graphType>("Table");
+  const [isLineGraph, setIsLineGraph] = React.useState<boolean>(false);
   const [list, setList] = React.useState<{
     session: ISession;
     widgets: any[];
@@ -40,6 +39,7 @@ export const SessionDetailsPage = () => {
       getSessionDetails(session);
     });
   }, [team, startDate, endDate]);
+
   const getTitle = () => {
     if (list) {
       return (
@@ -75,15 +75,13 @@ export const SessionDetailsPage = () => {
             <div className={style["session-details-graph"]}>
               <InteractionsComponent
                 widget={
-                  graphType === "Table"
+                  !isLineGraph
                     ? list.widgets[3].tableData
-                    : graphType === "AllLine"
-                    ? list.widgets[3].graphData
-                    : list.widgets[3].graphDataList
+                    : list.widgets[3].graphData
                 }
                 //widget={playerInteractionData()}
-                graphType={graphType}
-                onClick={setGraphType}
+                isLineGraph={isLineGraph}
+                onClick={setIsLineGraph}
                 hasButtons
               />
             </div>

@@ -7,8 +7,6 @@ import { ButtonComponent } from "../../cores/button/button";
 import { IFieldOverview } from "../../../types/modules/field-overview";
 import { playersReplaceData } from "../../../api/players";
 import { PlayerSwapComponent } from "../../cores/player-swap/player-swap";
-import { IWidget } from "../../../types/cores/widget";
-import { IProfile } from "../../../types/modules/squad";
 
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
