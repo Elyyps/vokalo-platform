@@ -149,6 +149,7 @@ export const FieldOverviewComponent = ({
               players={playersReplaceData()}
               playerName={currentPlayer.firstName}
               onClick={playerSelected}
+              onClose={() => setIsOpen(false)}
             />
           </div>
         )}

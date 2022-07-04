@@ -16,9 +16,6 @@ export const PlayerComponent = (props: IPlayerComponent) => {
     e.dataTransfer.setData("text/plain", data);
     props.onPlayerDrag(props.player);
   };
-  React.useEffect(() => {
-    //console.log(props.player);
-  }, []);
   const handleDragEnd = (e: any) => {
     e.dataTransfer.clearData();
   };
@@ -59,11 +56,12 @@ export const PlayerComponent = (props: IPlayerComponent) => {
           </span>
         )}
       </div>
-      {!props.player.ghost && (
-        <span className={style["player-name"]}>
-          {props.player.firstName} {props.player.lastName}
-        </span>
-      )}
+      <span
+        className={style["player-name"]}
+        style={{ visibility: props.player.ghost ? "hidden" : "visible" }}
+      >
+        {props.player.firstName} {props.player.lastName}
+      </span>
     </div>
   );
 };

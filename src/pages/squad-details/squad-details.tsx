@@ -55,12 +55,12 @@ export const SquadDetailsPage = () => {
             />
           </div>
           <div className={style["squad-details-graph"]}>
-            <InteractionsComponent
+            {/* <InteractionsComponent
               widget={squadInteractionData()}
               isLineChart={isLineChart}
               onClick={setIsLineChart}
               hasButtons
-            />
+            /> */}
           </div>
         </div>
         <div className={` ${style["squad-details-right"]} widget-container `}>

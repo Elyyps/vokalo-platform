@@ -4,25 +4,24 @@ import { IWidget } from "../../../types/cores/widget";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./interactions.module.scss";
-
-type SortType = "Ascending" | "Descending" | "Default";
+type graphType = "Table" | "AllLine" | "Line";
 interface IInteractionsComponent {
   widget: IWidget;
-  isLineChart?: boolean;
+  graphType?: graphType;
   hasButtons?: boolean;
-  onClick: (isLineChart: boolean) => void;
+  onClick: (graphType: graphType) => void;
 }
 
 export const InteractionsComponent = ({
   widget,
-  isLineChart,
+  graphType,
   onClick,
   hasButtons,
 }: IInteractionsComponent) => {
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
   ]);
-  const [sortBy, setSortBy] = React.useState<SortType>("Default");
+  const [sortBy, setSortBy] = React.useState<string>("Default");
 
   const options = {
     curveType: "function",
@@ -34,12 +33,12 @@ export const InteractionsComponent = ({
       baselineColor: "none",
     },
     hAxis: { textStyle: { color: "#C4C4C4" } },
-    legend: isLineChart ? { position: "bottom" } : "none",
+    legend: graphType !== "Table" ? { position: "bottom" } : "none",
   };
 
   const getChartData = () => {
     let header: any = [[widget.data?.xaxis?.name]];
-    if (!isLineChart) {
+    if (graphType === "Table") {
       header[0].push("", { role: "style" });
     } else {
       selectedButton.forEach((element) => header[0].push(element));
@@ -50,10 +49,14 @@ export const InteractionsComponent = ({
 
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item, index) => {
-      list.push([widget.data?.xaxis?.data[index].match(/\b(\w)/g).join(".")]);
+      if (graphType === "Table") {
+        list.push([widget.data?.xaxis?.data[index].match(/\b(\w)/g).join(".")]);
+      } else {
+        list.push([widget.data?.xaxis?.data[index]]);
+      }
       filteredList.forEach((element: any, key: number) => {
         list[index + 1].push(filteredList[key].data[index].value);
-        if (!isLineChart) {
+        if (graphType === "Table") {
           list[index + 1].push(filteredList[key].data[index].color);
         }
       });
@@ -73,7 +76,7 @@ export const InteractionsComponent = ({
   };
   const onButtonSelected = (name: string) => {
     let list: string[] = [];
-    if (isLineChart) {
+    if (graphType !== "Table") {
       if (selectedButton.includes(name)) {
         list = selectedButton.filter((item) => item !== name);
       } else {
@@ -97,16 +100,20 @@ export const InteractionsComponent = ({
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
         <h6>{widget.header}</h6>
-        <DropdownComponent
-          title="Sort"
-          hasBorder
-          variant={isLineChart ? "disabled" : "transparent"}
-        >
-          <ul>
-            <li onClick={() => setSortBy("Default")}>Default</li>
-            <li onClick={() => setSortBy("Ascending")}>Ascending</li>
-            <li onClick={() => setSortBy("Descending")}>Descending</li>
-          </ul>
+        <DropdownComponent title={sortBy} hasBorder>
+          {graphType === "Table" ? (
+            <ul>
+              <li onClick={() => setSortBy("Default")}>Default</li>
+              <li onClick={() => setSortBy("Ascending")}>Ascending</li>
+              <li onClick={() => setSortBy("Descending")}>Descending</li>
+            </ul>
+          ) : (
+            <ul>
+              <li onClick={() => setSortBy("Total")}>Total</li>
+              {}
+              <li onClick={() => setSortBy("Default")}>Total</li>
+            </ul>
+          )}
         </DropdownComponent>
       </div>
       {hasButtons && (
@@ -127,7 +134,7 @@ export const InteractionsComponent = ({
         </div>
       )}
       <Chart
-        chartType={isLineChart ? "LineChart" : "ColumnChart"}
+        chartType={graphType === "Table" ? "ColumnChart" : "LineChart"}
         data={getChartData()}
         options={options}
         className={style["interactions-graph"]}
@@ -136,16 +143,16 @@ export const InteractionsComponent = ({
       {hasButtons && (
         <div className={style["interactions-switch"]}>
           <span
-            style={isLineChart ? { opacity: 0.4 } : {}}
+            style={graphType === "Table" ? {} : { opacity: 0.4 }}
             onClick={() => {
-              onClick(false);
+              onClick("Table");
               resetFilter(selectedButton);
             }}
           ></span>
           <span
-            style={!isLineChart ? { opacity: 0.4 } : {}}
+            style={graphType === "Table" ? { opacity: 0.4 } : {}}
             onClick={() => {
-              onClick(true);
+              onClick("AllLine");
               setSortBy("Default");
             }}
           ></span>

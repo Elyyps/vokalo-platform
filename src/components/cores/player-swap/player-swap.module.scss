@@ -7,9 +7,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  &-cross {
+    width: 100%;
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+    > b {
+      font-size: 18px;
+      cursor: pointer;
+    }
+  }
   &-content {
+    position: relative;
     background-color: rgba($color: #ffffff, $alpha: 0.9);
-    padding: 12px;
+    padding: 0 12px;
     width: 80%;
     display: flex;
     flex-wrap: wrap;
@@ -23,7 +34,7 @@
         font-weight: bold;
       }
     }
-    > div {
+    > div:not(:first-child) {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -62,6 +73,7 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      margin-bottom: 12px;
     }
   }
 }

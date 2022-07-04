@@ -6,16 +6,21 @@ interface IPlayerSwapComponent {
   players: IPlayer[];
   playerName: string;
   onClick: (player: IPlayer) => void;
+  onClose: () => void;
 }
 export const PlayerSwapComponent = ({
   players,
   playerName,
   onClick,
+  onClose,
 }: IPlayerSwapComponent) => {
   const [sliceFrom, setSliceFrom] = React.useState(0);
   return (
     <div className={style["player-swap"]}>
       <div className={style["player-swap-content"]}>
+        <div className={style["player-swap-cross"]}>
+          <b onClick={onClose}>x</b>
+        </div>
         <span>
           Replacement for player: <u>{playerName}</u>
         </span>
