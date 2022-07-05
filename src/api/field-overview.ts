@@ -113,3 +113,26 @@ import { playersData } from "./players";
 //   profiles: playersData(),
 //   formations: [],
 // });
+import axios from "axios";
+
+export const getNewFormationAPI = async (
+  { accessToken }: any,
+  filter: string
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken.jwtToken}`,
+    },
+  };
+  console.log(
+    `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/formation${filter}`
+  );
+  return await axios
+    .get(
+      `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/formation?${filter}`,
+      config
+    )
+    .then((response: any) => response.data)
+    .catch(console.log);
+};

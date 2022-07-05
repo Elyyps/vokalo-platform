@@ -7,7 +7,10 @@ import { ButtonComponent } from "../../cores/button/button";
 import { IFieldOverview } from "../../../types/modules/field-overview";
 import { playersReplaceData } from "../../../api/players";
 import { PlayerSwapComponent } from "../../cores/player-swap/player-swap";
-
+import { getNewFormationAPI } from "../../../api/field-overview";
+import { useParams } from "react-router-dom";
+import { AccountContext } from "../../../context/account";
+import { LoaderComponent } from "../../cores/loader/loader";
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
   profiles: any[];
@@ -31,10 +34,14 @@ export const FieldOverviewComponent = ({
   const [currentPlayer, setCurrentPlayer] = React.useState<IPlayer>(
     playersList[0]
   );
+  const { getAccount } = React.useContext(AccountContext);
   const [selectedButton, setSelectedButton] = React.useState<string>("Total");
   const [formation, setFormation] = React.useState<string>("4-2-3-1");
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const colors = ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"];
+  const { id } = useParams();
+
   const getPlayerPosition = (position: number) => {
     const newFormation = formation.replaceAll("-", "");
     const width = newFormation.charAt(position - 1);
@@ -98,59 +105,83 @@ export const FieldOverviewComponent = ({
       setIsOpen(false);
     }
   };
+
+  const changeFormation = async (session: any) => {
+    setIsLoading(true);
+    const result = await getNewFormationAPI(
+      session,
+      "sessionId=" + id + "&formation=" + formation
+    );
+    if (result) {
+      setIsLoading(false);
+    }
+    const sortedResult = sortPlayer(result.data.profiles);
+    setPlayersList(sortedResult);
+  };
+  React.useEffect(() => {
+    getAccount().then((session: any) => {
+      changeFormation(session);
+    });
+  }, [formation]);
   return (
     <div className={style["field-overview"]}>
-      <div className={style["field-overview-top"]}>
-        <div className={style["field-overview-players"]}>
-          <div className={style["field-overview-formation"]}>
-            <DropdownComponent title={formation}>
-              <ul>
-                {fieldOverview.formations.map((item, key) => (
-                  <li key={key} onClick={() => setFormation(item)}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </DropdownComponent>
-          </div>
-          <div style={{ width: "100%" }}>
-            <PlayerComponent
-              player={playersList[0]}
-              value={getPlayerValue(playersList[0].id)}
-              color={getPlayerColor(playersList[0].id)}
-              onPlayerDrop={() => ""}
-              onPlayerDrag={() => ""}
-            />
-          </div>
-          {playersList.slice(1, 11).map((player, key) => (
-            <div
-              key={key}
-              style={{
-                width: `${getPlayerPosition(player.gridX)}% `,
-              }}
-              onClick={() => !player.ghost && playerClicked(player)}
-            >
+      {!isLoading ? (
+        <div className={style["field-overview-top"]}>
+          <div className={style["field-overview-players"]}>
+            <div className={style["field-overview-formation"]}>
+              <DropdownComponent title={formation}>
+                <ul>
+                  {fieldOverview.formations.map((item, key) => (
+                    <li key={key} onClick={() => setFormation(item)}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </DropdownComponent>
+            </div>
+            <div style={{ width: "100%" }}>
               <PlayerComponent
-                player={player}
-                value={player.ghost ? 0 : getPlayerValue(player.id)}
-                color={player.ghost ? "" : getPlayerColor(player.id)}
-                onPlayerDrag={(index) => setCurrentPlayer(index)}
-                onPlayerDrop={updatePlayers}
+                player={playersList[0]}
+                value={getPlayerValue(playersList[0].id)}
+                color={getPlayerColor(playersList[0].id)}
+                onPlayerDrop={() => ""}
+                onPlayerDrag={() => ""}
               />
             </div>
-          ))}
-        </div>
-        {isOpen && (
-          <div className={style["field-overview-replacement"]}>
-            <PlayerSwapComponent
-              players={playersReplaceData()}
-              playerName={currentPlayer.firstName}
-              onClick={playerSelected}
-              onClose={() => setIsOpen(false)}
-            />
+            {playersList.slice(1, 11).map((player, key) => (
+              <div
+                key={key}
+                style={{
+                  width: `${getPlayerPosition(player.gridX)}% `,
+                }}
+                onClick={() => !player.ghost && playerClicked(player)}
+              >
+                <PlayerComponent
+                  player={player}
+                  value={player.ghost ? 0 : getPlayerValue(player.id)}
+                  color={player.ghost ? "" : getPlayerColor(player.id)}
+                  onPlayerDrag={(index) => setCurrentPlayer(index)}
+                  onPlayerDrop={updatePlayers}
+                />
+              </div>
+            ))}
           </div>
-        )}
-      </div>
+          {isOpen && (
+            <div className={style["field-overview-replacement"]}>
+              <PlayerSwapComponent
+                players={playersReplaceData()}
+                playerName={currentPlayer.firstName}
+                onClick={playerSelected}
+                onClose={() => setIsOpen(false)}
+              />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className={style["field-overview-top"]}>
+          <LoaderComponent />
+        </div>
+      )}
       <div className={style["field-overview-bottom"]}>
         <div className={style["field-overview-gradient"]}>
           <div>
