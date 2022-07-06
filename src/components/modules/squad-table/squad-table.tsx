@@ -11,25 +11,30 @@ interface ISquadTableComponent {
 }
 export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
   const [sortConfig, setSortConfig] = React.useState<any>({
-    column: "name",
+    column: { name: "name", param: "" },
     ascending: true,
   });
   let navigate = useNavigate();
   const columns = [
-    "speech time",
-    "type",
-    "speech time",
-    "average interaction length",
-    "average tnteractions",
-    "distribution",
-    "percentage",
+    { name: "speech time", param: "" },
+    { name: "type", param: "" },
+    { name: "speech time", param: "" },
+    { name: "average interaction length", param: "" },
+    { name: "average tnteractions", param: "" },
+    { name: "distribution", param: "" },
+    { name: "percentage", param: "" },
   ];
   const getPercentage = (value: number) => {
     return Math.round(value * 100);
   };
   const sortedSquad = React.useMemo(() => {
     let sortableSquad = [...squad];
-    return sortColumn(sortableSquad, sortConfig.column, sortConfig.ascending);
+    return sortColumn(
+      sortableSquad,
+      sortConfig.column.name,
+      sortConfig.column.param,
+      sortConfig.ascending
+    );
   }, [sortConfig, squad]);
 
   return sortedSquad ? (
@@ -62,7 +67,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                       })
                     }
                   >
-                    {column} <ReactSVG src="/icons/arrow-down.svg" />
+                    {column.name} <ReactSVG src="/icons/arrow-down.svg" />
                   </span>
                 </th>
               ))}

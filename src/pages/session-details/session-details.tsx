@@ -54,7 +54,7 @@ export const SessionDetailsPage = () => {
         title={getTitle()}
         route="sessions"
         hasReturn
-        list={[""]}
+        list={[]}
         onSelect={() => ""}
       />
       {list && (

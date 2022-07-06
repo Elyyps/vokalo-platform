@@ -15,27 +15,39 @@ export const SessionsComponent = ({
   isSquadSessions,
 }: ISessionsComponent) => {
   const [sortConfig, setSortConfig] = React.useState<any>({
-    column: "date",
+    column: { name: "date", param: "creationTimestamp" },
     ascending: true,
   });
-  const [columns, setColumns] = React.useState<string[]>([]);
+  const [columns, setColumns] = React.useState<any[]>([]);
 
   React.useEffect(() => {
-    let list: string[] = ["date", "type"];
+    let list: any[] = [
+      { name: "date", param: "creationTimestamp" },
+      { name: "type", param: "" },
+    ];
     if (isSquadSessions) {
-      list.push("length");
+      list.push({ name: "length", param: "" });
     } else {
-      list.push("vokalo live", "recordings", "score");
+      list.push(
+        { name: "vokalo live", param: "vokaloLive" },
+        { name: "recordings", param: "" },
+        { name: "score", param: "" }
+      );
     }
     setColumns(list);
   }, [isSquadSessions]);
 
   const sortedSession = React.useMemo(() => {
     let sortableSession = [...sessions];
-    return sortColumn(sortableSession, sortConfig.column, sortConfig.ascending);
-  }, [sortConfig, sessions]);
+    return sortColumn(
+      sortableSession,
+      sortConfig.column.name,
+      sortConfig.column.param,
+      sortConfig.ascending
+    );
+  }, [sortConfig]);
 
-  return sortedSession && columns.length ? (
+  return sortedSession && columns?.length ? (
     <div className={style["sessions"]}>
       <h6>Session</h6>
       <div className={style["sessions-header"]}>
@@ -44,12 +56,12 @@ export const SessionsComponent = ({
             key={key}
             onClick={() =>
               setSortConfig({
-                column,
+                column: { name: column.name, param: column.param },
                 ascending: !sortConfig.ascending,
               })
             }
           >
-            {column} <ReactSVG src="/icons/arrow-down.svg" />
+            {column.name} <ReactSVG src="/icons/arrow-down.svg" />
           </span>
         ))}
       </div>

@@ -125,9 +125,6 @@ export const getNewFormationAPI = async (
       Authorization: `Bearer ${accessToken.jwtToken}`,
     },
   };
-  console.log(
-    `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/formation${filter}`
-  );
   return await axios
     .get(
       `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/formation?${filter}`,

@@ -18,22 +18,27 @@ export const SessionsTableComponent = ({
 }: ISessionsTableComponent) => {
   let navigate = useNavigate();
   const columns = [
-    "Date",
-    "type",
-    "length",
-    "coach",
-    "participants",
-    "Recordings",
-    "analyzed",
+    { name: "date", param: "creationTimestamp" },
+    { name: "type", param: "" },
+    { name: "length", param: "" },
+    { name: "coach", param: "creator?.firstName" },
+    { name: "participants", param: "" },
+    { name: "recordings", param: "" },
+    { name: "analyzed", param: "" },
   ];
-  const [sortConfig, setSortConfig] = React.useState<any>({
-    column: "date",
+  const [sortConfig, setSortConfig] = React.useState({
+    column: { name: "date", param: "" },
     ascending: true,
   });
 
   const sortedSession = React.useMemo(() => {
     let sortableSession = [...sessions];
-    return sortColumn(sortableSession, sortConfig.column, sortConfig.ascending);
+    return sortColumn(
+      sortableSession,
+      sortConfig.column.name,
+      sortConfig.column.param,
+      sortConfig.ascending
+    );
   }, [sortConfig, sessions]);
 
   return (
@@ -49,12 +54,12 @@ export const SessionsTableComponent = ({
                 <span
                   onClick={() =>
                     setSortConfig({
-                      column,
+                      column: { name: column.name, param: column.param },
                       ascending: !sortConfig.ascending,
                     })
                   }
                 >
-                  {column} <ReactSVG src="/icons/arrow-down.svg" />
+                  {column.name} <ReactSVG src="/icons/arrow-down.svg" />
                 </span>
               </th>
             ))}
@@ -73,7 +78,7 @@ export const SessionsTableComponent = ({
                   <TypeComponent type={row.type} />
                 </td>
                 <td>{row.length && converToMinutes(row.length)}</td>
-                <td>{row.creator?.firstName}</td>
+                <td>{row.creator?.firstName + " " + row.creator?.lastName}</td>
                 <td>{row.participants?.length}</td>
                 <td>
                   <span

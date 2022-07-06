@@ -37,20 +37,22 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
         {props.hasTwoButtons && (
           <ButtonComponent title="Filter" icon="/icons/filter.svg" hasBorder />
         )}
-        <DropdownComponent
-          title={currentSelection ? currentSelection : "Filter"}
-          icon="/icons/filter.svg"
-          hasBorder
-        >
-          <ul>
-            <li onClick={() => onSelect("")}>All</li>
-            {props.list.map((value, key) => (
-              <li key={key} onClick={() => onSelect(value)}>
-                {value}
-              </li>
-            ))}
-          </ul>
-        </DropdownComponent>
+        {props.list.length > 0 && (
+          <DropdownComponent
+            title={currentSelection ? currentSelection : "Filter"}
+            icon="/icons/filter.svg"
+            hasBorder
+          >
+            <ul>
+              <li onClick={() => onSelect("")}>All</li>
+              {props.list.map((value, key) => (
+                <li key={key} onClick={() => onSelect(value)}>
+                  {value}
+                </li>
+              ))}
+            </ul>
+          </DropdownComponent>
+        )}
       </div>
     </div>
   );
