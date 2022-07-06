@@ -15,23 +15,23 @@ export const SessionsComponent = ({
   isSquadSessions,
 }: ISessionsComponent) => {
   const [sortConfig, setSortConfig] = React.useState<any>({
-    column: { name: "date", param: "creationTimestamp" },
+    column: { name: "date", param: ["creationTimestamp"] },
     ascending: true,
   });
   const [columns, setColumns] = React.useState<any[]>([]);
 
   React.useEffect(() => {
     let list: any[] = [
-      { name: "date", param: "creationTimestamp" },
-      { name: "type", param: "" },
+      { name: "date", param: ["creationTimestamp"] },
+      { name: "type", param: ["type"] },
     ];
     if (isSquadSessions) {
-      list.push({ name: "length", param: "" });
+      list.push({ name: "length", param: ["length"] });
     } else {
       list.push(
-        { name: "vokalo live", param: "vokaloLive" },
-        { name: "recordings", param: "" },
-        { name: "score", param: "" }
+        { name: "vokalo live", param: ["vokaloLive"] },
+        { name: "recordings", param: ["recordings"] },
+        { name: "score", param: ["score"] }
       );
     }
     setColumns(list);

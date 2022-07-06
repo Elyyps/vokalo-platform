@@ -6,6 +6,7 @@ import { converToDate } from "../../../utils/convertDate";
 import { converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
+import { PaginationComponent } from "../../cores/pagination/pagination";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions-table.module.scss";
 
@@ -18,16 +19,17 @@ export const SessionsTableComponent = ({
 }: ISessionsTableComponent) => {
   let navigate = useNavigate();
   const columns = [
-    { name: "date", param: "creationTimestamp" },
-    { name: "type", param: "" },
-    { name: "length", param: "" },
-    { name: "coach", param: "creator?.firstName" },
-    { name: "participants", param: "" },
-    { name: "recordings", param: "" },
-    { name: "analyzed", param: "" },
+    { name: "date", param: ["creationTimestamp"] },
+    { name: "type", param: ["type"] },
+    { name: "length", param: ["length"] },
+    { name: "coach", param: ["creator", "firstName"] },
+    { name: "participants", param: ["participants"] },
+    { name: "recordings", param: ["recordings"] },
+    { name: "analyzed", param: ["analyzed"] },
   ];
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [sortConfig, setSortConfig] = React.useState({
-    column: { name: "date", param: "" },
+    column: { name: "date", param: [""] },
     ascending: true,
   });
 
@@ -41,92 +43,107 @@ export const SessionsTableComponent = ({
     );
   }, [sortConfig, sessions]);
 
-  return (
-    <div className={` ${style["sessions-table"]} section-item`}>
-      <table>
-        <thead>
-          <tr>
-            <th>
-              <input type="checkbox" />
-            </th>
-            {columns.map((column, key) => (
-              <th key={key}>
-                <span
-                  onClick={() =>
-                    setSortConfig({
-                      column: { name: column.name, param: column.param },
-                      ascending: !sortConfig.ascending,
-                    })
-                  }
-                >
-                  {column.name} <ReactSVG src="/icons/arrow-down.svg" />
-                </span>
+  return sortedSession ? (
+    <div>
+      <div className={` ${style["sessions-table"]} section-item`}>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" />
               </th>
-            ))}
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedSession ? (
-            sortedSession.map((row: ISession, key) => (
-              <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
-                <td>
-                  <input type="checkbox" />
-                </td>
-                <td>{converToDate(row.creationTimestamp)}</td>
-                <td>
-                  <TypeComponent type={row.type} />
-                </td>
-                <td>{row.length && converToMinutes(row.length)}</td>
-                <td>{row.creator?.firstName + " " + row.creator?.lastName}</td>
-                <td>{row.participants?.length}</td>
-                <td>
+              {columns.map((column, key) => (
+                <th key={key}>
                   <span
-                    className={`checkmark ${
-                      !row.recordings && "checkmark-rotate"
-                    }`}
+                    onClick={() =>
+                      setSortConfig({
+                        column: { name: column.name, param: column.param },
+                        ascending: !sortConfig.ascending,
+                      })
+                    }
                   >
-                    <ReactSVG
-                      src={
-                        row.recordings ? "/icons/check.svg" : "/icons/cross.svg"
-                      }
-                    />
+                    {column.name} <ReactSVG src="/icons/arrow-down.svg" />
                   </span>
-                </td>
-                <td>
-                  <span
-                    className={`checkmark ${
-                      !row.vokaloLive && "checkmark-rotate"
-                    }`}
-                  >
-                    <ReactSVG
-                      src={
-                        row.vokaloLive ? "/icons/check.svg" : "/icons/cross.svg"
-                      }
-                    />
-                  </span>
-                </td>
-                <td>
-                  <DropdownComponent
-                    icon="/icons/more.svg"
-                    variant="transparent"
-                  >
+                </th>
+              ))}
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedSession ? (
+              sortedSession.map((row: ISession, key) => (
+                <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
+                  <td>
+                    <input type="checkbox" />
+                  </td>
+                  <td>{converToDate(row.creationTimestamp)}</td>
+                  <td>
+                    <TypeComponent type={row.type} />
+                  </td>
+                  <td>{row.length && converToMinutes(row.length)}</td>
+                  <td>
+                    {row.creator?.firstName + " " + row.creator?.lastName}
+                  </td>
+                  <td>{row.participants?.length}</td>
+                  <td>
                     <span
-                      onClick={() =>
-                        alert("this session:" + row.creationTimestamp)
-                      }
+                      className={`checkmark ${
+                        !row.recordings && "checkmark-rotate"
+                      }`}
                     >
-                      hello
+                      <ReactSVG
+                        src={
+                          row.recordings
+                            ? "/icons/check.svg"
+                            : "/icons/cross.svg"
+                        }
+                      />
                     </span>
-                  </DropdownComponent>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>X</tr>
-          )}
-        </tbody>
-      </table>
+                  </td>
+                  <td>
+                    <span
+                      className={`checkmark ${
+                        !row.vokaloLive && "checkmark-rotate"
+                      }`}
+                    >
+                      <ReactSVG
+                        src={
+                          row.vokaloLive
+                            ? "/icons/check.svg"
+                            : "/icons/cross.svg"
+                        }
+                      />
+                    </span>
+                  </td>
+                  <td>
+                    <DropdownComponent
+                      icon="/icons/more.svg"
+                      variant="transparent"
+                    >
+                      <span
+                        onClick={() =>
+                          alert("this session:" + row.creationTimestamp)
+                        }
+                      >
+                        hello
+                      </span>
+                    </DropdownComponent>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>X</tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <PaginationComponent
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        list={sortedSession}
+      />
     </div>
+  ) : (
+    <div />
   );
 };

@@ -127,18 +127,18 @@ export const FieldOverviewComponent = ({
     <div className={style["field-overview"]}>
       {!isLoading ? (
         <div className={style["field-overview-top"]}>
+          <div className={style["field-overview-formation"]}>
+            <DropdownComponent title={formation}>
+              <ul>
+                {fieldOverview.formations.map((item, key) => (
+                  <li key={key} onClick={() => setFormation(item)}>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </DropdownComponent>
+          </div>
           <div className={style["field-overview-players"]}>
-            <div className={style["field-overview-formation"]}>
-              <DropdownComponent title={formation}>
-                <ul>
-                  {fieldOverview.formations.map((item, key) => (
-                    <li key={key} onClick={() => setFormation(item)}>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </DropdownComponent>
-            </div>
             <div style={{ width: "100%" }}>
               <PlayerComponent
                 player={playersList[0]}

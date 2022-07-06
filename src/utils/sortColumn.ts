@@ -23,7 +23,7 @@ const sortTrend = (list: any[], isAscending: boolean) => {
 export const sortColumn = (
   list: any[],
   columnName: string,
-  columnParam: string,
+  columnParam: string[],
   isAscending: boolean
 ) => {
   if (columnName !== null) {
@@ -32,16 +32,22 @@ export const sortColumn = (
     } else {
       let result = list.sort((a: any, b: any) => {
         if (isAscending) {
-          if (columnParam.length > 0) {
-            return a[columnParam] < b[columnParam] ? -1 : 1;
+          if (columnParam.length > 1) {
+            return a[columnParam[0]][columnParam[1]] <
+              b[columnParam[0]][columnParam[1]]
+              ? -1
+              : 1;
           } else {
-            return a[columnName] < b[columnName] ? -1 : 1;
+            return a[columnParam[0]] < b[columnParam[0]] ? -1 : 1;
           }
         } else {
-          if (columnParam.length > 0) {
-            return a[columnParam] > b[columnParam] ? -1 : 1;
+          if (columnParam.length > 1) {
+            return a[columnParam[0]][columnParam[1]] >
+              b[columnParam[0]][columnParam[1]]
+              ? -1
+              : 1;
           } else {
-            return a[columnName] > b[columnName] ? -1 : 1;
+            return a[columnParam[0]] > b[columnParam[0]] ? -1 : 1;
           }
         }
       });
