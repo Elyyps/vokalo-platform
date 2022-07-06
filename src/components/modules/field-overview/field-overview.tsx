@@ -7,7 +7,7 @@ import { ButtonComponent } from "../../cores/button/button";
 import { IFieldOverview } from "../../../types/modules/field-overview";
 import { playersReplaceData } from "../../../api/players";
 import { PlayerSwapComponent } from "../../cores/player-swap/player-swap";
-import { getNewFormationAPI } from "../../../api/field-overview";
+import { getNewFormationAPI, getRangeAPI } from "../../../api/field-overview";
 import { useParams } from "react-router-dom";
 import { AccountContext } from "../../../context/account";
 import { LoaderComponent } from "../../cores/loader/loader";
@@ -37,6 +37,7 @@ export const FieldOverviewComponent = ({
   const { getAccount } = React.useContext(AccountContext);
   const [selectedButton, setSelectedButton] = React.useState<string>("Total");
   const [formation, setFormation] = React.useState<string>("4-2-3-1");
+  const [range, setRange] = React.useState({ from: 0, to: 90 });
   const [isOpen, setIsOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const colors = ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"];
@@ -112,17 +113,32 @@ export const FieldOverviewComponent = ({
       session,
       "sessionId=" + id + "&formation=" + formation
     );
-    if (result) {
-      setIsLoading(false);
-    }
     const sortedResult = sortPlayer(result.data.profiles);
     setPlayersList(sortedResult);
+    if (sortedResult) {
+      setIsLoading(false);
+    }
+  };
+  const changeRange = () => {
+    setIsLoading(true);
+    getAccount().then(async (session: any) => {
+      const result = await getRangeAPI(
+        session,
+        "sessionId=" + id + "&from=" + range.from + "&to=" + range.to
+      );
+      const sortedResult = sortPlayer(result.data.profiles);
+      setPlayersList(sortedResult);
+      if (sortedResult) {
+        setIsLoading(false);
+      }
+    });
   };
   React.useEffect(() => {
     getAccount().then((session: any) => {
       changeFormation(session);
     });
   }, [formation]);
+
   return (
     <div className={style["field-overview"]}>
       {!isLoading ? (
@@ -202,9 +218,23 @@ export const FieldOverviewComponent = ({
         </div>
         <div className={style["field-overview-buttons"]}>
           <div>
-            <input placeholder="Start" />
-            <input placeholder="End" />
-            <ButtonComponent title="Entire session" hasBorder />
+            <input
+              placeholder="Start"
+              onChange={(e: any) =>
+                setRange({ from: e.target.value, to: range.to })
+              }
+            />
+            <input
+              placeholder="End"
+              onChange={(e: any) =>
+                setRange({ from: range.from, to: e.target.value })
+              }
+            />
+            <ButtonComponent
+              title="Entire session"
+              hasBorder
+              onClick={changeRange}
+            />
           </div>
           <div>
             {fieldOverview.dataSets.map((data, key) => (
