@@ -15,6 +15,7 @@ type IDataSets = {
 export type IFieldOverview = {
   gameData?: IGameData;
   formations: string[];
+  matchData: any;
   profiles: IPlayer[];
   dataSets: IDataSets[];
   colors: string[];

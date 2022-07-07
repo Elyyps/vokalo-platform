@@ -31,13 +31,19 @@ export const FieldOverviewComponent = ({
   const [playersList, setPlayersList] = React.useState<IPlayer[]>(
     sortPlayer(profiles)
   );
+  const [fieldData, setFieldData] =
+    React.useState<IFieldOverview>(fieldOverview);
+
   const [currentPlayer, setCurrentPlayer] = React.useState<IPlayer>(
     playersList[0]
   );
   const { getAccount } = React.useContext(AccountContext);
   const [selectedButton, setSelectedButton] = React.useState<string>("Total");
+  const [range, setRange] = React.useState({
+    from: fieldOverview.matchData.startMinute,
+    to: fieldOverview.matchData.endMinute,
+  });
   const [formation, setFormation] = React.useState<string>("4-2-3-1");
-  const [range, setRange] = React.useState({ from: 0, to: 90 });
   const [isOpen, setIsOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const colors = ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"];
@@ -73,7 +79,7 @@ export const FieldOverviewComponent = ({
     }
   };
   const getPlayerValue = (playerId: number) => {
-    const dataSet = fieldOverview.dataSets.find(
+    const dataSet = fieldData.dataSets.find(
       (data) => data.name === selectedButton
     );
     const player = dataSet?.data.find((data) => data.profileId === playerId);
@@ -106,7 +112,22 @@ export const FieldOverviewComponent = ({
       setIsOpen(false);
     }
   };
-
+  const changeRange = async (session: any) => {
+    if (
+      range.to <= fieldData.matchData.endMinute &&
+      range.from < fieldData.matchData.endMinute
+    ) {
+      setIsLoading(true);
+      const result = await getRangeAPI(
+        session,
+        "sessionId=" + id + "&from=" + range.from + "&to=" + range.to
+      );
+      if (result.data) {
+        setFieldData(result.data.data);
+        setIsLoading(false);
+      }
+    }
+  };
   const changeFormation = async (session: any) => {
     setIsLoading(true);
     const result = await getNewFormationAPI(
@@ -119,26 +140,17 @@ export const FieldOverviewComponent = ({
       setIsLoading(false);
     }
   };
-  const changeRange = () => {
-    setIsLoading(true);
-    getAccount().then(async (session: any) => {
-      const result = await getRangeAPI(
-        session,
-        "sessionId=" + id + "&from=" + range.from + "&to=" + range.to
-      );
-      const sortedResult = sortPlayer(result.data.profiles);
-      setPlayersList(sortedResult);
-      if (sortedResult) {
-        setIsLoading(false);
-      }
-    });
-  };
+
   React.useEffect(() => {
     getAccount().then((session: any) => {
       changeFormation(session);
     });
   }, [formation]);
-
+  React.useEffect(() => {
+    getAccount().then((session: any) => {
+      changeRange(session);
+    });
+  }, [range]);
   return (
     <div className={style["field-overview"]}>
       {!isLoading ? (
@@ -146,7 +158,7 @@ export const FieldOverviewComponent = ({
           <div className={style["field-overview-formation"]}>
             <DropdownComponent title={formation}>
               <ul>
-                {fieldOverview.formations.map((item, key) => (
+                {fieldData.formations.map((item, key) => (
                   <li key={key} onClick={() => setFormation(item)}>
                     {item}
                   </li>
@@ -220,24 +232,37 @@ export const FieldOverviewComponent = ({
           <div>
             <input
               placeholder="Start"
-              onChange={(e: any) =>
+              type={"number"}
+              max={fieldData.matchData.endMinute - 1}
+              min={0}
+              onChangeCapture={(e: any) =>
+                e.target.value >= 0 &&
                 setRange({ from: e.target.value, to: range.to })
               }
             />
             <input
               placeholder="End"
-              onChange={(e: any) =>
+              type={"number"}
+              min={1}
+              max={fieldData.matchData.endMinute}
+              onChangeCapture={(e: any) =>
+                e.target.value > 0 &&
                 setRange({ from: range.from, to: e.target.value })
               }
             />
             <ButtonComponent
               title="Entire session"
               hasBorder
-              onClick={changeRange}
+              onClick={() =>
+                setRange({
+                  from: fieldData.matchData.startMinute,
+                  to: fieldData.matchData.endMinute,
+                })
+              }
             />
           </div>
           <div>
-            {fieldOverview.dataSets.map((data, key) => (
+            {fieldData.dataSets.map((data, key) => (
               <ButtonComponent
                 title={data.name}
                 icon={`/icons/` + data.icon}

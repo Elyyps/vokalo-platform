@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { getRangeAPI } from "../../api/field-overview";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
@@ -10,7 +11,6 @@ import { ISession } from "../../types/modules/session";
 import { converToDate } from "../../utils/convertDate";
 import { getAPI } from "../../utils/getApi";
 import style from "./session-details.module.scss";
-type graphType = "Table" | "AllLine" | "Line";
 
 export const SessionDetailsPage = () => {
   const [isLineGraph, setIsLineGraph] = React.useState<boolean>(false);
@@ -21,7 +21,6 @@ export const SessionDetailsPage = () => {
   const { getAccount } = React.useContext(AccountContext);
   const { team, startDate, endDate } = React.useContext(FilterContext);
   const { id } = useParams();
-
   const getSessionDetails = async (session: any) => {
     const data = await getAPI(
       "session",
