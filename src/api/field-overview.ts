@@ -1,5 +1,8 @@
 import { IFieldOverview } from "../types/modules/field-overview";
 import { playersData } from "./players";
+import axios from "axios";
+import { IProfile } from "../types/modules/squad";
+import { IPlayer } from "../types/cores/player";
 
 // export const FieldOverviewData = (): IFieldOverview => ({
 //   dataSets: [
@@ -113,7 +116,6 @@ import { playersData } from "./players";
 //   profiles: playersData(),
 //   formations: [],
 // });
-import axios from "axios";
 
 export const getNewFormationAPI = async (
   { accessToken }: any,
@@ -143,6 +145,27 @@ export const getRangeAPI = async ({ accessToken }: any, filter: string) => {
   return await axios
     .get(
       `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/range?${filter}`,
+      config
+    )
+    .then((response: any) => response.data)
+    .catch(console.log);
+};
+export const updatePlayerAPI = async (
+  { accessToken }: any,
+  players: IPlayer[],
+  sessionId?: string
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken.jwtToken}`,
+    },
+  };
+  return await axios
+    .post(
+      `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/profiles?sessionId= ` +
+        sessionId,
+      players,
       config
     )
     .then((response: any) => response.data)
