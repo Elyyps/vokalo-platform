@@ -1,45 +1,42 @@
 import React from "react";
-import { ButtonComponent } from "../../components/cores/button/button";
-import { DropdownComponent } from "../../components/cores/dropdown/dropdown";
-import Layout from "../../components/Layout";
+import { LoaderComponent } from "../../components/cores/loader/loader";
+import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
+import { AccountContext } from "../../context/account";
+import { IWidget } from "../../types/cores/widget";
+import { getAPI } from "../../utils/getApi";
 import style from "./dashboard.module.scss";
-export const DashboardPage = () => {
-  const list = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  return (
+export const DashboardPage = () => {
+  const [list, setList] = React.useState<{
+    lastSession: IWidget[];
+    sessions: IWidget[];
+  }>();
+  const { getAccount } = React.useContext(AccountContext);
+
+  const getSquads = async (session: any) => {
+    const data = await getAPI("dashboard", session, "", "", "", "");
+    setList({
+      lastSession: data.lastSessionAggregations,
+      sessions: data.sessionAggregations,
+    });
+  };
+  React.useEffect(() => {
+    getAccount().then((session: any) => {
+      getSquads(session);
+    });
+  }, []);
+  return list ? (
     <div className={style["dashboard"]}>
-      <div className="section-header">
-        <h1>Dashboard from latest session</h1>
-        <div className="section-header-btn">
-          <DropdownComponent title="Athlete">hello</DropdownComponent>
-          <ButtonComponent title="Filter" icon="/icons/filter.svg" />
-        </div>
-      </div>
-      <div className={style["dashboard-sessions"]}>
-        {list.slice(0, 5).map((item, key) => (
-          <div key={key} className="section-item"></div>
-        ))}
-      </div>
+      <h1>Last session</h1>
+      <PageWidgetsComponent widgets={list?.lastSession} />
+      <h1>Last 30 days</h1>
       <div className={style["dashboard-bottom"]}>
-        <div>
-          <div className="section-header">
-            <h1>Aggregations</h1>
-          </div>
-          <div className={style["dashboard-aggregations"]}>
-            {list.slice(0, 4).map((item, key) => (
-              <div key={key} className="section-item"></div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <div className="section-header">
-            <h1>Interactions</h1>
-          </div>
-          <div className={style["dashboard-interactions"]}>
-            <div className="section-item"></div>
-          </div>
-        </div>
+        <PageWidgetsComponent widgets={list?.sessions.slice(0, 3)} />
+        <div className="widget-container">ee</div>
+        {/* <InteractionsComponent widget={list?.sessions[4]} onClick={() => ""} /> */}
       </div>
     </div>
+  ) : (
+    <LoaderComponent />
   );
 };

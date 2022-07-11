@@ -1,6 +1,5 @@
 import React from "react";
 import { Chart } from "react-google-charts";
-import { IWidget } from "../../../types/cores/widget";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./interactions.module.scss";

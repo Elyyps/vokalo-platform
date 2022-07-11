@@ -34,7 +34,7 @@ export const HeaderComponent = ({ user }: Props) => {
   return (
     <div className={style["header"]}>
       <div className={style["header-left"]}>
-        {user && (
+        {user && pathname !== "/" && (
           <DropdownComponent
             title={team ? team.name : "All"}
             contentPosition="right"
@@ -49,7 +49,7 @@ export const HeaderComponent = ({ user }: Props) => {
             </ul>
           </DropdownComponent>
         )}
-        {!pathname.includes("/sessions/") && (
+        {!pathname.includes("/sessions/") && pathname !== "/" && (
           <DatePickerComponent
             contentPosition="right"
             dateRange={{
@@ -68,12 +68,14 @@ export const HeaderComponent = ({ user }: Props) => {
         )}
       </div>
       <div className={style["header-right"]}>
-        <ButtonComponent
-          title="Export"
-          icon="/icons/export.svg"
-          variant="transparent"
-          position="left"
-        />
+        {pathname !== "/" && (
+          <ButtonComponent
+            title="Export"
+            icon="/icons/export.svg"
+            variant="transparent"
+            position="left"
+          />
+        )}
         {user && (
           <DropdownComponent title={user.firstName} isProfile hasPadding>
             <ul>

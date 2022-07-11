@@ -1,13 +1,9 @@
 .dashboard {
-  &-sessions {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 48px;
-    margin-top: 24px;
-    > div {
-      width: 18.5%;
-      height: 160px;
+  > h1 {
+    margin-top: 48px;
+    margin-bottom: 32px;
+    &:first-child {
+      margin-top: 0;
     }
   }
   &-bottom {
@@ -15,26 +11,16 @@
     justify-content: space-between;
     > div {
       width: 48%;
-    }
-  }
-  &-aggregations {
-    margin-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    > div {
-      width: 48%;
-      height: 180px;
-      margin-bottom: 16px;
-    }
-  }
-  &-interactions {
-    margin-top: 24px;
-    height: 100%;
-
-    > div {
-      width: 100%;
-      height: 390px;
+      margin-bottom: 0;
+      &:first-child {
+        > div {
+          width: 48%;
+          margin-bottom: 24px;
+        }
+      }
+      &:last-child {
+        margin-bottom: 24px;
+      }
     }
   }
 }
