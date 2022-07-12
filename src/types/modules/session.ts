@@ -10,5 +10,5 @@ export type ISession = {
   participants?: IUser[];
   vokaloLive?: boolean;
   recordings?: boolean;
-  score?: ITrend;
+  coachScore?: number;
 };

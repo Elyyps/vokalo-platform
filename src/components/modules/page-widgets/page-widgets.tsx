@@ -32,7 +32,8 @@ export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
           {widget.widgetType === "BASIC_WITH_TRENDING_LABEL" && (
             <ActivityWidget widget={widget} />
           )}
-          {widget.widgetType === "SMALL_GRAPH_WITH_TRENDING_LABEL" && (
+          {(widget.widgetType === "SMALL_GRAPH_WITH_TRENDING_LABEL" ||
+            widget.widgetType === "BASIC_SMALL_GRAPH_WITH_TRENDING_LABEL") && (
             <UsageWidget widget={widget} />
           )}
           {widget.widgetType === "LARGE_PERCENTAGE_DISTRIBUTION_WIDGET" && (

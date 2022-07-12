@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
 import { converToDate } from "../../../utils/convertDate";
@@ -19,7 +20,17 @@ export const SessionsComponent = ({
     ascending: true,
   });
   const [columns, setColumns] = React.useState<any[]>([]);
+  const { pathname } = useLocation();
 
+  const getColor = (score: number) => {
+    if (score <= 0.4) {
+      return "NEGATIVE";
+    } else if (score > 0.4 && score <= 0.6) {
+      return "NEUTRAL";
+    } else {
+      return "POSITIVE";
+    }
+  };
   React.useEffect(() => {
     let list: any[] = [
       { name: "date", param: ["creationTimestamp"] },
@@ -29,7 +40,7 @@ export const SessionsComponent = ({
       list.push({ name: "length", param: ["length"] });
     } else {
       list.push(
-        { name: "vokalo live", param: ["vokaloLive"] },
+        { name: "vokalo", param: ["vokaloLive"] },
         { name: "recordings", param: ["recordings"] },
         { name: "score", param: ["score"] }
       );
@@ -67,7 +78,7 @@ export const SessionsComponent = ({
       </div>
       <div className={style["sessions-content"]}>
         {sortedSession
-          .slice(0, isSquadSessions ? sessions.length : 4)
+          .slice(0, isSquadSessions ? sessions.length : 5)
           .map((session: ISession, key) => (
             <div
               key={key}
@@ -81,7 +92,9 @@ export const SessionsComponent = ({
               <span>
                 <TypeComponent type={session.type} />
               </span>
-              {session.length && <span>{converToMinutes(session.length)}</span>}
+              {session.length && pathname !== "/coach" && (
+                <span>{converToMinutes(session.length)}</span>
+              )}
               {!isSquadSessions && (
                 <span
                   className={`checkmark ${
@@ -112,10 +125,10 @@ export const SessionsComponent = ({
                   />
                 </span>
               )}
-              {session.score && (
+              {pathname === "/coach" && session.coachScore && (
                 <span>
                   <div
-                    className={`score score-${session.score.trendDirection}`}
+                    className={`score score-${getColor(session.coachScore)}`}
                   />
                 </span>
               )}

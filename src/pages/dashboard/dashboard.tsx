@@ -13,7 +13,7 @@ export const DashboardPage = () => {
   }>();
   const { getAccount } = React.useContext(AccountContext);
 
-  const getSquads = async (session: any) => {
+  const getDashboard = async (session: any) => {
     const data = await getAPI("dashboard", session, "", "", "", "");
     setList({
       lastSession: data.lastSessionAggregations,
@@ -22,7 +22,7 @@ export const DashboardPage = () => {
   };
   React.useEffect(() => {
     getAccount().then((session: any) => {
-      getSquads(session);
+      getDashboard(session);
     });
   }, []);
   return list ? (

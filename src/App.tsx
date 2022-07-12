@@ -52,7 +52,7 @@ const App = () => {
             <Route index element={addPageLayout(<DashboardPage />)} />
             <Route
               path="/coach"
-              element={addPageLayout(<CoachPage />, "Coachs")}
+              element={addPageLayout(<CoachPage user={user} />, "Coachs")}
             />
             <Route
               path="/sessions"

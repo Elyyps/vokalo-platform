@@ -10,44 +10,56 @@ import { SuggestionsComponent } from "../../components/modules/suggestions/sugge
 import { suggestionsData } from "../../api/suggestions";
 import { SessionsComponent } from "../../components/modules/sessions/sessions";
 import { coachSessionsData } from "../../api/session";
-import Layout from "../../components/Layout";
+import { AccountContext } from "../../context/account";
+import FilterContext from "../../context/filter";
+import { getAPI } from "../../utils/getApi";
+import { IWidget } from "../../types/cores/widget";
+import { LoaderComponent } from "../../components/cores/loader/loader";
+import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
+interface ICoachPage {
+  user: any;
+}
+export const CoachPage = ({ user }: ICoachPage) => {
+  const [list, setList] = React.useState<any[]>();
+  const { getAccount } = React.useContext(AccountContext);
+  const { team, startDate, endDate } = React.useContext(FilterContext);
+  const getSessionDetails = async (session: any) => {
+    const data = await getAPI(
+      "coach",
+      session,
+      team && team.id,
+      startDate,
+      endDate,
+      { key: "profileId", value: user.id }
+    );
+    console.log(data.coachAggregations);
 
-export const CoachPage = () => {
-  return (
+    setList(data.coachAggregations);
+  };
+  React.useEffect(() => {
+    getAccount().then((session: any) => {
+      getSessionDetails(session);
+    });
+  }, [team, startDate, endDate]);
+  return list ? (
     <div className={style["coach"]}>
       <PageHeaderComponent title="Gabriel" list={[""]} onSelect={() => ""} />
       <div className={style["coach-top"]}>
-        <div>
-          <ActivityWidget
-            widget={{
-              header: "Total interactions",
-              label: "420",
-              trendLabel: 5,
-              trendDirection: "POSITIVE",
-            }}
-          />
-          <ActivityWidget
-            widget={{
-              header: "Overall sentiment",
-              label: "Great",
-              trendLabel: 75,
-              trendDirection: "POSITIVE",
-            }}
-            hasColor
-          />
-        </div>
+        <PageWidgetsComponent widgets={list.slice(0, 2)} />
         <div className={` ${style["coach-right"]} widget-container `}>
-          <SessionsComponent sessions={coachSessionsData()} />
+          <SessionsComponent sessions={list[2].sessions} />
         </div>
         <MostWordsComponent mostWords={mostWordsData()} />
         <div className={style["coach-graph"]}>
           <InteractionsComponent
-            widget={coachInteractionData()}
+            widget={list[3].tableData}
             onClick={() => ""}
           />
         </div>
         <SuggestionsComponent suggestions={suggestionsData()} />
       </div>
     </div>
+  ) : (
+    <LoaderComponent />
   );
 };

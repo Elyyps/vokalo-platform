@@ -5,27 +5,25 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin-bottom: 32px;
-    @media (max-width: variables.$breakpoint-lg) {
-      margin-bottom: 24px;
-    }
     > div {
       &:first-child {
-        width: 21%;
+        width: 26%;
+        margin-bottom: 0;
         @media (max-width: variables.$breakpoint-xl) {
           width: 38%;
         }
         > div {
-          height: calc(50% - 12px);
-          &:first-child {
-            margin-bottom: 24px;
+          width: 100%;
+          margin-bottom: 24px;
+          &:last-child {
+            margin-bottom: 0;
           }
         }
       }
     }
   }
   &-right {
-    width: 45%;
+    width: 40%;
     @media (max-width: variables.$breakpoint-xl) {
       width: 60%;
     }
