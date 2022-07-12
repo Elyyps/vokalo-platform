@@ -43,20 +43,20 @@ export const CoachPage = ({ user }: ICoachPage) => {
   }, [team, startDate, endDate]);
   return list ? (
     <div className={style["coach"]}>
-      <PageHeaderComponent title="Gabriel" list={[""]} onSelect={() => ""} />
+      <PageHeaderComponent title="Gabriel" list={[]} onSelect={() => ""} />
       <div className={style["coach-top"]}>
         <PageWidgetsComponent widgets={list.slice(0, 2)} />
         <div className={` ${style["coach-right"]} widget-container `}>
           <SessionsComponent sessions={list[2].sessions} />
         </div>
-        <MostWordsComponent mostWords={mostWordsData()} />
+        <MostWordsComponent mostWords={list[4]} />
         <div className={style["coach-graph"]}>
           <InteractionsComponent
             widget={list[3].tableData}
             onClick={() => ""}
           />
         </div>
-        <SuggestionsComponent suggestions={suggestionsData()} />
+        <SuggestionsComponent suggestions={list[5]} />
       </div>
     </div>
   ) : (

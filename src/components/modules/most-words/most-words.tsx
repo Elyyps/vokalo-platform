@@ -8,14 +8,17 @@ interface IMostWordsComponent {
 export const MostWordsComponent = ({ mostWords }: IMostWordsComponent) => {
   return (
     <div className={`${style["most-words"]} widget-container`}>
-      <h6>{mostWords.title}</h6>
+      <h6>{mostWords.header}</h6>
       <div className={style["most-words-list"]}>
-        {mostWords.words.map((word, key) => (
+        {mostWords.elements.map((word, key) => (
           <div key={key}>
             <h3>{word.label}</h3>
             <div>
-              <small>{word.repetition} times</small>
-              <TrendComponent {...word.trend} />
+              <small>{word.subHeader} </small>
+              <TrendComponent
+                trendLabel={word.trendLabel}
+                trendDirection={word.trendDirection}
+              />
             </div>
           </div>
         ))}

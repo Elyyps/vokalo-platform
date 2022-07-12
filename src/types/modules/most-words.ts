@@ -2,10 +2,11 @@ import { ITrend } from "../cores/trend";
 
 type IWord = {
   label: string;
-  repetition: number;
-  trend: ITrend;
+  subHeader: String;
+  trendLabel: number;
+  trendDirection: "NEUTRAL" | "POSITIVE" | "NEGATIVE";
 };
 export type IMostWords = {
-  title: string;
-  words: IWord[];
+  header: string;
+  elements: IWord[];
 };

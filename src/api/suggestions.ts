@@ -1,22 +1,22 @@
 import { ISuggestions } from "../types/modules/suggestions";
 
 export const suggestionsData = (): ISuggestions => ({
-  title: "Coaching suggestions",
-  parts: [
+  header: "Coaching suggestions",
+  elements: [
     {
-      title: "Increase speech time with defense",
-      content: [
-        { value: "10", label: "Defense" },
-        { value: "45", label: "Midfield" },
-        { value: "50", label: "Attack" },
+      header: "Increase speech time with defense",
+      subElements: [
+        { value: "10", description: "Defense" },
+        { value: "45", description: "Midfield" },
+        { value: "50", description: "Attack" },
       ],
     },
-    { title: "Decrease generic interactions", content: [] },
+    { header: "Decrease generic interactions", subElements: [] },
     {
-      title: "Increase avg. interaction time",
-      content: [
-        { value: "04 sec", label: "your avg." },
-        { value: "10 sec", label: "recommended" },
+      header: "Increase avg. interaction time",
+      subElements: [
+        { value: "04 sec", description: "your avg." },
+        { value: "10 sec", description: "recommended" },
       ],
     },
   ],

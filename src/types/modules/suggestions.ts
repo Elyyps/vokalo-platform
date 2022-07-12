@@ -1,12 +1,12 @@
 type IContent = {
   value: string;
-  label: string;
+  description: string;
 };
 type IPart = {
-  title: string;
-  content: IContent[];
+  header: string;
+  subElements: IContent[];
 };
 export type ISuggestions = {
-  title: string;
-  parts: IPart[];
+  header: string;
+  elements: IPart[];
 };

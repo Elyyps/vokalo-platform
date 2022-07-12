@@ -1,22 +1,25 @@
 import { IMostWords } from "../types/modules/most-words";
 
 export const mostWordsData = (): IMostWords => ({
-  title: "3 most said words",
-  words: [
+  header: "3 most said words",
+  elements: [
     {
       label: "Good",
-      repetition: 578,
-      trend: { trendLabel: 12, trendDirection: "POSITIVE" },
+      subHeader: "578 times",
+      trendLabel: 12,
+      trendDirection: "POSITIVE",
     },
     {
       label: "Bad",
-      repetition: 30,
-      trend: { trendLabel: 5, trendDirection: "NEGATIVE" },
+      subHeader: "30 times",
+      trendLabel: 5,
+      trendDirection: "NEGATIVE",
     },
     {
       label: "Super",
-      repetition: 150,
-      trend: { trendLabel: 25, trendDirection: "POSITIVE" },
+      subHeader: "150 times",
+      trendLabel: 25,
+      trendDirection: "POSITIVE",
     },
   ],
 });
