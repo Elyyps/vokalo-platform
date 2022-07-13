@@ -15,24 +15,24 @@
     h4 {
       margin-top: 0;
     }
-    > div > div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: variables.$tertiary-color;
-      > span {
-        font-size: 20px;
-        @media (max-width: variables.$breakpoint-lg) {
-          font-size: 18px;
-        }
-      }
-    }
   }
   &-part-1,
   &-part-3 {
     > div {
       display: flex;
       justify-content: space-around;
+      > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: variables.$tertiary-color;
+        > span {
+          font-size: 20px;
+          @media (max-width: variables.$breakpoint-lg) {
+            font-size: 18px;
+          }
+        }
+      }
     }
   }
   &-part-2 > div {
@@ -45,6 +45,12 @@
       height: 10px;
       background-color: variables.$tertiary-color;
       border-radius: 5px;
+      display: flex;
+      overflow: hidden;
+      > div {
+        background-color: variables.$POSITIVE-color;
+        height: 100%;
+      }
     }
   }
 }
