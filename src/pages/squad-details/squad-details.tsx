@@ -1,72 +1,79 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { squadInteractionData } from "../../api/interactions";
 import { squadSessionsData } from "../../api/session";
+import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
+import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
+import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
 import { SessionsComponent } from "../../components/modules/sessions/sessions";
+import { AccountContext } from "../../context/account";
+import FilterContext from "../../context/filter";
+import { IWidget } from "../../types/cores/widget";
+import { getAPI } from "../../utils/getApi";
 import style from "./squad-details.module.scss";
 
 export const SquadDetailsPage = () => {
-  const { name } = useParams();
-  const [isLineChart, setIsLineChart] = React.useState<boolean>(false);
+  const [list, setList] = React.useState<{
+    profile: any;
+    widgets: any[];
+  }>();
+  const [isLineGraph, setIsLineGraph] = React.useState<boolean>(false);
+  const { getAccount } = React.useContext(AccountContext);
+  const { team, startDate, endDate } = React.useContext(FilterContext);
+  const getSquadDetails = async (session: any) => {
+    const data = await getAPI("profile", session, "", startDate, endDate, {
+      key: "profileId",
+      value: "3005e8c0-19e7-4d41-9dce-24865370e19f",
+    });
+    console.log(data.profileAggregations[4]);
 
-  return (
+    setList({ profile: data.profile, widgets: data.profileAggregations });
+  };
+  const getTitle = () => {
+    return list ? list.profile.firstName + " " + list.profile.lastName : "";
+  };
+  React.useEffect(() => {
+    getAccount().then((session: any) => {
+      getSquadDetails(session);
+    });
+  }, [team, startDate, endDate]);
+
+  return list ? (
     <div className={style["squad-details"]}>
       <PageHeaderComponent
-        title={name ? name : ""}
+        title={getTitle()}
         hasReturn
         route="squad"
-        list={[""]}
+        list={[]}
         onSelect={() => ""}
       />
       <div className={style["squad-details-content"]}>
         <div className={style["squad-details-left"]}>
-          <div className={style["squad-details-widgets"]}>
-            <div className="widget-container">
-              <h6>Session</h6>
-              <h3>4</h3>
-            </div>
-            <div className="widget-container">
-              <h6>Interactions per min</h6>
-              <h3>3.57</h3>
-            </div>
-          </div>
-          <div className={style["squad-details-classification"]}>
-            <ClassificationComponent
-              widget={{
-                header: "Team interaction classifications",
-                elements: [
-                  {
-                    percentage: 49,
-                    color: "#2C2F51",
-                    label: "Positive feedback",
-                  },
-                  { percentage: 21, color: "#486FD4", label: "Stimulation" },
-                  { percentage: 15, color: "#91AAE8", label: "Orientation" },
-                  {
-                    percentage: 15,
-                    color: "#D3D3D3",
-                    label: "Negative feedback",
-                  },
-                ],
-              }}
-            />
-          </div>
-          <div className={style["squad-details-graph"]}>
-            {/* <InteractionsComponent
-              widget={squadInteractionData()}
-              isLineChart={isLineChart}
-              onClick={setIsLineChart}
-              hasButtons
-            /> */}
-          </div>
+          <PageWidgetsComponent widgets={list.widgets.slice(0, 2)} />
+          <FeedbackWidget widget={list.widgets[2]} />
+          <InteractionsComponent
+            widget={
+              !isLineGraph
+                ? list.widgets[4].tableData
+                : list.widgets[4].graphData
+            }
+            isLineGraph={isLineGraph}
+            onClick={setIsLineGraph}
+            hasButtons
+            isNotDefault
+          />
         </div>
         <div className={` ${style["squad-details-right"]} widget-container `}>
-          <SessionsComponent sessions={squadSessionsData()} isSquadSessions />
+          <SessionsComponent
+            sessions={list.widgets[3].sessions}
+            isSquadSessions
+          />
         </div>
       </div>
     </div>
+  ) : (
+    <LoaderComponent />
   );
 };

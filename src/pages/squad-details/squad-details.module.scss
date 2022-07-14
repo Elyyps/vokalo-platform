@@ -8,6 +8,7 @@
   }
   &-left {
     width: 65%;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -16,6 +17,30 @@
     }
     @media (max-width: variables.$breakpoint-lg) {
       width: 60%;
+    }
+    > div {
+      &:first-child {
+        display: flex;
+        flex-direction: column;
+        width: 38%;
+        margin-bottom: 0;
+        > div {
+          width: 100%;
+          &:last-child {
+            margin-bottom: 0;
+          }
+          &:first-child {
+            margin-bottom: 24px;
+          }
+        }
+      }
+      &:nth-child(2) {
+        width: 60%;
+      }
+      &:last-child {
+        margin-top: 24px;
+        width: 100%;
+      }
     }
   }
   &-right {

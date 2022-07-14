@@ -16,7 +16,6 @@ export const getAPI = async (
     },
   };
   let filtersList = getFilterUrl(team, startDate, endDate, filter);
-  //  console.log(filtersList);
   return await axios
     .get(
       `https://data.stage.vokaloio.com/v1/platform/${url}${filtersList}`,

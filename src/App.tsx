@@ -67,7 +67,7 @@ const App = () => {
               element={addPageLayout(<SquadPage user={user} />, "Squads")}
             />
             <Route
-              path="/squad/:name"
+              path="/squad/:id"
               element={addPageLayout(<SquadDetailsPage />, "Squad")}
             />
             {/* <Route path="/video-sync" element={<div>Video sync</div>} />

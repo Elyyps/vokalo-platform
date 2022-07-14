@@ -4,7 +4,6 @@ interface ISuggestionComponent {
   suggestions: ISuggestions;
 }
 export const SuggestionsComponent = ({ suggestions }: ISuggestionComponent) => {
-  console.log(suggestions);
   return (
     <div className={` ${style["suggestions"]} widget-container `}>
       <h6>{suggestions.header}</h6>

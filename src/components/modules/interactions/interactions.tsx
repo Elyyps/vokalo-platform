@@ -1,5 +1,6 @@
 import React from "react";
 import { Chart } from "react-google-charts";
+import { useLocation } from "react-router-dom";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./interactions.module.scss";
@@ -8,6 +9,7 @@ interface IInteractionsComponent {
   isLineGraph?: boolean;
   hasButtons?: boolean;
   onClick: (isLineGraph: boolean) => void;
+  isNotDefault?: boolean;
 }
 
 export const InteractionsComponent = ({
@@ -15,6 +17,7 @@ export const InteractionsComponent = ({
   isLineGraph,
   onClick,
   hasButtons,
+  isNotDefault,
 }: IInteractionsComponent) => {
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
@@ -41,8 +44,10 @@ export const InteractionsComponent = ({
     );
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
-      if (!isLineGraph) {
+      if (!isLineGraph && !item.includes("/")) {
         list.push([widget.data?.xaxis?.data[index].match(/\b(\w)/g).join(".")]);
+      } else {
+        list.push([widget.data?.xaxis?.data[index]]);
       }
       filteredList.forEach((element: any, key: number) => {
         list[index + 1].push(filteredList[key].data[index].value);
@@ -52,9 +57,10 @@ export const InteractionsComponent = ({
     return sortList(list);
   };
   const getLineChartData = () => {
-    const result = widget.data?.dataSets?.find(
+    let result = widget.data?.dataSets?.find(
       (item: any) => item.name === sortBy
     );
+
     if (result) {
       let header: any = [[result.data?.xaxis?.name]];
       selectedButton.forEach((element) => header[0].push(element));
@@ -106,6 +112,7 @@ export const InteractionsComponent = ({
   };
   const getButtons = () => {
     if (isLineGraph) {
+      //setSortBy("16/05-2022");
       return widget.data?.dataSets?.find((item: any) => item.name === sortBy);
     } else {
       return widget;
@@ -171,7 +178,7 @@ export const InteractionsComponent = ({
             style={!isLineGraph ? { opacity: 0.4 } : {}}
             onClick={() => {
               onClick(true);
-              setSortBy("All");
+              setSortBy("16/05-2022");
             }}
           ></span>
         </div>
