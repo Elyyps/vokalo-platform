@@ -68,14 +68,14 @@ export const HeaderComponent = ({ user }: Props) => {
         )}
       </div>
       <div className={style["header-right"]}>
-        {pathname !== "/" && (
+        {/* {pathname !== "/" && (
           <ButtonComponent
             title="Export"
             icon="/icons/export.svg"
             variant="transparent"
             position="left"
           />
-        )}
+        )} */}
         {user && (
           <DropdownComponent title={user.firstName} isProfile hasPadding>
             <ul>

@@ -13,6 +13,6 @@ export const sidebarData = (): ISidebar => ({
     //   icon: "/icons/recordings.svg",
     //   route: "/recordings",
     // },
-    { title: "Settings", icon: "/icons/settings.svg", route: "/settings" },
+    // { title: "Settings", icon: "/icons/settings.svg", route: "/settings" },
   ],
 });

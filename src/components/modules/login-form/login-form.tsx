@@ -2,19 +2,20 @@ import style from "./login-form.module.scss";
 import { withFormik, FormikProps, FormikErrors, Form } from "formik";
 import { validateEmail } from "../../../utils/validate-email";
 import { InputComponent } from "../../cores/input/input";
+import { Link } from "react-router-dom";
 
-interface IContactFormErrorMessages {
+interface ILoginFormErrorMessages {
   username: string;
   password: string;
 }
-export interface IContactFormValues {
+export interface ILoginFormValues {
   username: string;
   password: string;
 }
 const formOnChange = () => {
   return;
 };
-const InnerForm = (props: FormikProps<IContactFormValues>) => {
+const InnerForm = (props: FormikProps<ILoginFormValues>) => {
   const { touched, errors } = props;
   return (
     <Form action={"#"} onChange={formOnChange}>
@@ -25,7 +26,6 @@ const InnerForm = (props: FormikProps<IContactFormValues>) => {
           <InputComponent
             type="email"
             name="username"
-            //placeholder="enter your email"
             label="Username"
             errorMessage={touched.username ? errors.username : ""}
             onChange={(e: any) => {
@@ -39,7 +39,6 @@ const InnerForm = (props: FormikProps<IContactFormValues>) => {
           <InputComponent
             type="password"
             name="password"
-            // placeholder="enter your password"
             label="Password"
             errorMessage={touched.password ? errors.password : ""}
             onChange={(e: any) => {
@@ -50,7 +49,11 @@ const InnerForm = (props: FormikProps<IContactFormValues>) => {
             }}
             value={props.values.password}
           />
+          <small>
+            <Link to="/forgot-password">Forgot your password ? </Link>
+          </small>
         </div>
+
         <div className={style["login-form-save"]}>
           <input type="checkbox" name="save" />
           <label htmlFor="save">Remember me</label>
@@ -64,17 +67,17 @@ const InnerForm = (props: FormikProps<IContactFormValues>) => {
 };
 
 interface IFormProps {
-  onSubmit: (values: IContactFormValues) => void;
+  onSubmit: (values: ILoginFormValues) => void;
 }
 
-export const LoginFormComponent = withFormik<IFormProps, IContactFormValues>({
+export const LoginFormComponent = withFormik<IFormProps, ILoginFormValues>({
   mapPropsToValues: () => ({
     username: "",
     password: "",
   }),
 
-  validate: (values: IContactFormValues) => {
-    const errors: FormikErrors<IContactFormErrorMessages> = {};
+  validate: (values: ILoginFormValues) => {
+    const errors: FormikErrors<ILoginFormErrorMessages> = {};
 
     if (!values.password) {
       errors.password = "password is required";
@@ -88,7 +91,7 @@ export const LoginFormComponent = withFormik<IFormProps, IContactFormValues>({
     return errors;
   },
 
-  handleSubmit: (values: IContactFormValues, bag: any) => {
+  handleSubmit: (values: ILoginFormValues, bag: any) => {
     bag.props.onSubmit(values);
   },
 })(InnerForm);

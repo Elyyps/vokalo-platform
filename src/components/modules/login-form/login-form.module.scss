@@ -13,7 +13,13 @@
   &-inputs {
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
+    > div:not(:first-child) {
+      margin-bottom: 4px;
+    }
+    > small a {
+      color: black;
+    }
   }
   &-save {
     > button {

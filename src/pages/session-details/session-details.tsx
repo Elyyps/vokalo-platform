@@ -1,6 +1,5 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getRangeAPI } from "../../api/field-overview";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";

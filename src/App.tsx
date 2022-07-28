@@ -7,6 +7,7 @@ import { AccountContext } from "./context/account";
 import { FilterContextProvider } from "./context/filter";
 import { CoachPage } from "./pages/coach/coach";
 import { DashboardPage } from "./pages/dashboard/dashboard";
+import { ForgotPasswordPage } from "./pages/forgot-password/forgot-password";
 import { LoginPage } from "./pages/login/login";
 import { SessionDetailsPage } from "./pages/session-details/session-details";
 import { SessionsPage } from "./pages/sessions/sessions";
@@ -49,6 +50,8 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
             <Route index element={addPageLayout(<DashboardPage />)} />
             <Route
               path="/coach"

@@ -24,13 +24,15 @@ export const FieldOverviewComponent = ({
   profiles,
 }: IFieldOverviewComponent) => {
   const sortPlayer = (list: IPlayer[]) => {
-    return list.sort((a, b) => {
-      if (a.gridX === b.gridX) {
-        return a.gridY - b.gridY;
-      } else {
-        return a.gridX - b.gridX;
-      }
-    });
+    if (list.length) {
+      return list.sort((a, b) => {
+        if (a.gridX === b.gridX) {
+          return a.gridY - b.gridY;
+        } else {
+          return a.gridX - b.gridX;
+        }
+      });
+    } else return [];
   };
   const [playersList, setPlayersList] = React.useState<IPlayer[]>(profiles);
   const [fieldData, setFieldData] =
@@ -153,132 +155,136 @@ export const FieldOverviewComponent = ({
     });
   }, [range]);
   return (
-    <div className={style["field-overview"]}>
-      {!isLoading ? (
-        <div className={style["field-overview-top"]}>
-          <div className={style["field-overview-formation"]}>
-            <DropdownComponent title={formation}>
-              <ul>
-                {fieldData.formations.map((item, key) => (
-                  <li key={key} onClick={() => setFormation(item)}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </DropdownComponent>
-          </div>
-          <div className={style["field-overview-players"]}>
-            <div style={{ width: "100%" }}>
-              <PlayerComponent
-                player={playersList[0]}
-                value={getPlayerValue(playersList[0].id)}
-                color={getPlayerColor(playersList[0].id)}
-                onPlayerDrop={() => ""}
-                onPlayerDrag={() => ""}
-              />
+    fieldData && (
+      <div className={style["field-overview"]}>
+        {!isLoading ? (
+          <div className={style["field-overview-top"]}>
+            <div className={style["field-overview-formation"]}>
+              <DropdownComponent title={formation}>
+                <ul>
+                  {fieldData.formations.map((item, key) => (
+                    <li key={key} onClick={() => setFormation(item)}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </DropdownComponent>
             </div>
-            {playersList.slice(1, 11).map((player, key) => (
-              <div
-                key={key}
-                style={{
-                  width: `${getPlayerPosition(player.gridX)}% `,
-                }}
-                onClick={() => !player.ghost && playerClicked(player)}
-              >
+            <div className={style["field-overview-players"]}>
+              <div style={{ width: "100%" }}>
                 <PlayerComponent
-                  player={player}
-                  value={player.ghost ? 0 : getPlayerValue(player.id)}
-                  color={player.ghost ? "" : getPlayerColor(player.id)}
-                  onPlayerDrag={(index) => setCurrentPlayer(index)}
-                  onPlayerDrop={updatePlayers}
+                  player={playersList[0]}
+                  value={getPlayerValue(playersList[0].id)}
+                  color={getPlayerColor(playersList[0].id)}
+                  onPlayerDrop={() => ""}
+                  onPlayerDrag={() => ""}
                 />
               </div>
-            ))}
+              {playersList &&
+                playersList.slice(1, 11).map((player, key) => (
+                  <div
+                    key={key}
+                    style={{
+                      width: `${getPlayerPosition(player.gridX)}% `,
+                    }}
+                    onClick={() => !player.ghost && playerClicked(player)}
+                  >
+                    <PlayerComponent
+                      player={player}
+                      value={player.ghost ? 0 : getPlayerValue(player.id)}
+                      color={player.ghost ? "" : getPlayerColor(player.id)}
+                      onPlayerDrag={(index) => setCurrentPlayer(index)}
+                      onPlayerDrop={updatePlayers}
+                    />
+                  </div>
+                ))}
+            </div>
+            {isOpen && (
+              <div className={style["field-overview-replacement"]}>
+                <PlayerSwapComponent
+                  players={playersReplaceData()}
+                  playerName={currentPlayer.firstName}
+                  onClick={playerSelected}
+                  onClose={() => setIsOpen(false)}
+                />
+              </div>
+            )}
           </div>
-          {isOpen && (
-            <div className={style["field-overview-replacement"]}>
-              <PlayerSwapComponent
-                players={playersReplaceData()}
-                playerName={currentPlayer.firstName}
-                onClick={playerSelected}
-                onClose={() => setIsOpen(false)}
+        ) : (
+          <div className={style["field-overview-top"]}>
+            <LoaderComponent />
+          </div>
+        )}
+        <div className={style["field-overview-bottom"]}>
+          <div className={style["field-overview-gradient"]}>
+            <div>
+              <span>Few</span>
+              <span>Many</span>
+            </div>
+            <div>
+              {colors.map((color, key) => (
+                <span
+                  key={key}
+                  style={{
+                    width: `${100 / colors.length}%`,
+                    backgroundColor: color,
+                  }}
+                ></span>
+              ))}
+            </div>
+          </div>
+          <div className={style["field-overview-buttons"]}>
+            <div>
+              <input
+                placeholder="Start"
+                type={"number"}
+                max={fieldData.matchData.endMinute - 1}
+                min={0}
+                onChangeCapture={(e: any) =>
+                  e.target.value >= 0 &&
+                  setRange({ from: e.target.value, to: range.to })
+                }
+              />
+              <input
+                placeholder="End"
+                type={"number"}
+                min={1}
+                max={fieldData.matchData.endMinute}
+                onChangeCapture={(e: any) =>
+                  e.target.value > 0 &&
+                  setRange({ from: range.from, to: e.target.value })
+                }
+              />
+              <ButtonComponent
+                title="Entire session"
+                hasBorder
+                onClick={() =>
+                  setRange({
+                    from: fieldData.matchData.startMinute,
+                    to: fieldData.matchData.endMinute,
+                  })
+                }
               />
             </div>
-          )}
-        </div>
-      ) : (
-        <div className={style["field-overview-top"]}>
-          <LoaderComponent />
-        </div>
-      )}
-      <div className={style["field-overview-bottom"]}>
-        <div className={style["field-overview-gradient"]}>
-          <div>
-            <span>Few</span>
-            <span>Many</span>
-          </div>
-          <div>
-            {colors.map((color, key) => (
-              <span
-                key={key}
-                style={{
-                  width: `${100 / colors.length}%`,
-                  backgroundColor: color,
-                }}
-              ></span>
-            ))}
-          </div>
-        </div>
-        <div className={style["field-overview-buttons"]}>
-          <div>
-            <input
-              placeholder="Start"
-              type={"number"}
-              max={fieldData.matchData.endMinute - 1}
-              min={0}
-              onChangeCapture={(e: any) =>
-                e.target.value >= 0 &&
-                setRange({ from: e.target.value, to: range.to })
-              }
-            />
-            <input
-              placeholder="End"
-              type={"number"}
-              min={1}
-              max={fieldData.matchData.endMinute}
-              onChangeCapture={(e: any) =>
-                e.target.value > 0 &&
-                setRange({ from: range.from, to: e.target.value })
-              }
-            />
-            <ButtonComponent
-              title="Entire session"
-              hasBorder
-              onClick={() =>
-                setRange({
-                  from: fieldData.matchData.startMinute,
-                  to: fieldData.matchData.endMinute,
-                })
-              }
-            />
-          </div>
-          <div>
-            {fieldData.dataSets.map((data, key) => (
-              <ButtonComponent
-                title={data.name}
-                icon={`/icons/` + data.icon}
-                key={key}
-                variant={
-                  selectedButton === data.name ? "transparent" : "disabled"
-                }
-                hasBorder
-                position="top"
-                onClick={() => setSelectedButton(data.name ? data.name : "")}
-              />
-            ))}
+
+            <div>
+              {fieldData.dataSets.map((data, key) => (
+                <ButtonComponent
+                  title={data.name}
+                  icon={`/icons/` + data.icon}
+                  key={key}
+                  variant={
+                    selectedButton === data.name ? "transparent" : "disabled"
+                  }
+                  hasBorder
+                  position="top"
+                  onClick={() => setSelectedButton(data.name ? data.name : "")}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    )
   );
 };

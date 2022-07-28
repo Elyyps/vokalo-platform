@@ -22,13 +22,13 @@ export const SquadDetailsPage = () => {
   const [isLineGraph, setIsLineGraph] = React.useState<boolean>(false);
   const { getAccount } = React.useContext(AccountContext);
   const { team, startDate, endDate } = React.useContext(FilterContext);
+  const [filter, setFilter] = React.useState({ key: "role", value: "" });
+
   const getSquadDetails = async (session: any) => {
     const data = await getAPI("profile", session, "", startDate, endDate, {
       key: "profileId",
       value: "3005e8c0-19e7-4d41-9dce-24865370e19f",
     });
-    console.log(data.profileAggregations[4]);
-
     setList({ profile: data.profile, widgets: data.profileAggregations });
   };
   const getTitle = () => {
@@ -46,8 +46,10 @@ export const SquadDetailsPage = () => {
         title={getTitle()}
         hasReturn
         route="squad"
-        list={[]}
-        onSelect={() => ""}
+        list={["Match", "Training"]}
+        onSelect={(value: string) =>
+          setFilter({ key: "type", value: value.toLocaleUpperCase() })
+        }
       />
       <div className={style["squad-details-content"]}>
         <div className={style["squad-details-left"]}>

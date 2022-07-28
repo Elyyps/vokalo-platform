@@ -40,7 +40,7 @@ export const SessionsPage = (user: any) => {
   return (
     <div className={style["sessions"]}>
       <PageHeaderComponent
-        title="Session"
+        title="Sessions"
         list={["Match", "Training"]}
         onSelect={(value: string) =>
           setFilter({ key: "type", value: value.toLocaleUpperCase() })

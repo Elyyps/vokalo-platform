@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISidebar } from "../../../types/modules/sidebar";
 import { MenuItemComponent } from "../../cores/menu-item/menu-item";
@@ -10,12 +11,17 @@ interface ISidebarComponent {
 
 export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  let navigate = useNavigate();
 
   return (
     <div className={` ${style["sidebar"]} ${isOpen && style["sidebar-open"]}`}>
       <div className="container">
         <div className={style["sidebar-logo"]}>
-          <img src="/img/logo.png" alt="vokalo logo" />
+          <img
+            src="/img/logo.png"
+            alt="vokalo logo"
+            onClick={() => navigate("/")}
+          />
           <ReactSVG src="/icons/menu.svg" onClick={() => setIsOpen(!isOpen)} />
         </div>
         <div className={style["sidebar-items"]}>
@@ -27,7 +33,11 @@ export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
             ))}
           </ul>
           <div>
-            <img src="/img/logo.png" alt="vokalo logo" />
+            <img
+              src="/img/logo.png"
+              alt="vokalo logo"
+              onClick={() => navigate("/")}
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Chart } from "react-google-charts";
-import { useLocation } from "react-router-dom";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./interactions.module.scss";
@@ -37,7 +36,9 @@ export const InteractionsComponent = ({
     legend: isLineGraph ? { position: "bottom" } : "none",
   };
   const getTableChartData = () => {
-    let header: any = [[widget.data?.xaxis?.name]];
+    let header: any = [
+      [widget.data?.xaxis?.name ? widget.data?.xaxis?.name : ""],
+    ];
     header[0].push("", { role: "style" });
     let filteredList = widget.data?.yaxis.filter((item: any) =>
       selectedButton.includes(item.name)
@@ -45,7 +46,7 @@ export const InteractionsComponent = ({
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
       if (!isLineGraph && !item.includes("/")) {
-        list.push([widget.data?.xaxis?.data[index].match(/\b(\w)/g).join(".")]);
+        list.push([widget.data?.xaxis?.data[index].match(/\b\w/g).join(".")]);
       } else {
         list.push([widget.data?.xaxis?.data[index]]);
       }
@@ -62,7 +63,9 @@ export const InteractionsComponent = ({
     );
 
     if (result) {
-      let header: any = [[result.data?.xaxis?.name]];
+      let header: any = [
+        [widget.data?.xaxis?.name ? widget.data?.xaxis?.name : ""],
+      ];
       selectedButton.forEach((element) => header[0].push(element));
       let filteredList = result.data?.yaxis.filter((item: any) =>
         selectedButton.includes(item.name)
@@ -112,7 +115,6 @@ export const InteractionsComponent = ({
   };
   const getButtons = () => {
     if (isLineGraph) {
-      //setSortBy("16/05-2022");
       return widget.data?.dataSets?.find((item: any) => item.name === sortBy);
     } else {
       return widget;
