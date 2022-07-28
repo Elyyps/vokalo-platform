@@ -50,7 +50,7 @@ const InnerForm = (props: FormikProps<ILoginFormValues>) => {
             value={props.values.password}
           />
           <small>
-            <Link to="/forgot-password">Forgot your password ? </Link>
+            <Link to="/forgot-password">Forgot your password ?</Link>
           </small>
         </div>
 

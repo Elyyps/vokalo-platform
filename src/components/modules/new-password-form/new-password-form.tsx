@@ -3,10 +3,12 @@ import { withFormik, FormikProps, FormikErrors, Form } from "formik";
 import { InputComponent } from "../../cores/input/input";
 
 interface INewPasswordFormErrorMessages {
+  code: string;
   password: string;
   confirmPassword: string;
 }
 export interface INewPasswordFormValues {
+  code: string;
   password: string;
   confirmPassword: string;
 }
@@ -21,6 +23,19 @@ const InnerForm = (props: FormikProps<INewPasswordFormValues>) => {
         <span>Welcome</span>
         <h2>Change your password</h2>
         <div className={style["new-password-form-inputs"]}>
+          <InputComponent
+            type="text"
+            name="code"
+            label="Code"
+            errorMessage={touched.code ? errors.code : ""}
+            onChange={(e: any) => {
+              props.handleChange(e);
+            }}
+            onBlur={(e: any) => {
+              props.handleBlur(e);
+            }}
+            value={props.values.code}
+          />
           <InputComponent
             type="password"
             name="password"
@@ -66,6 +81,7 @@ export const NewPasswordFormComponent = withFormik<
   INewPasswordFormValues
 >({
   mapPropsToValues: () => ({
+    code: "",
     password: "",
     confirmPassword: "",
   }),
@@ -73,6 +89,9 @@ export const NewPasswordFormComponent = withFormik<
   validate: (values: INewPasswordFormValues) => {
     const errors: FormikErrors<INewPasswordFormErrorMessages> = {};
 
+    if (!values.code) {
+      errors.code = "code is required";
+    }
     if (!values.password) {
       errors.password = "password is required";
     }

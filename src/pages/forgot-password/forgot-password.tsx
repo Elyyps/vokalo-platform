@@ -8,6 +8,7 @@ import style from "./forgot-password.module.scss";
 
 export const ForgotPasswordPage = () => {
   const [stage, setStage] = React.useState<number>(0);
+  const [email, setEmail] = React.useState<string>("");
 
   const getUser = (email: string) => {
     return new CognitoUser({
@@ -26,7 +27,18 @@ export const ForgotPasswordPage = () => {
       },
       inputVerificationCode: (data) => {
         console.log("Input code:", data);
+        setEmail(e.username);
         setStage(1);
+      },
+    });
+  };
+  const resetPassword = (e: any) => {
+    getUser(email).confirmPassword(e.code, e.password, {
+      onSuccess: (data) => {
+        console.log("onSuccess:", data);
+      },
+      onFailure: (err) => {
+        console.error("onFailure:", err);
       },
     });
   };
@@ -40,7 +52,7 @@ export const ForgotPasswordPage = () => {
         )}
         {stage === 1 && (
           <div className={style["forgot-password-0"]}>
-            <NewPasswordFormComponent onSubmit={() => setStage(1)} />
+            <NewPasswordFormComponent onSubmit={(e) => resetPassword(e)} />
           </div>
         )}
       </LoginLayoutComponent>
