@@ -1,7 +1,7 @@
 import style from "./send-code-form.module.scss";
 import { withFormik, FormikProps, FormikErrors, Form } from "formik";
 import { InputComponent } from "../../cores/input/input";
-import { validateEmail } from "../../../utils/validate-email";
+import { validateEmail } from "../../../utils/validate";
 
 interface ISendCodeFormErrorMessages {
   username: string;

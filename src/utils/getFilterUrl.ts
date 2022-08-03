@@ -4,13 +4,21 @@ export const getFilterUrl = (
   team: string,
   startDate: Date,
   endDate: Date,
-  filter: any
+  filters: any | any[]
 ) => {
-  let filtersList = team || startDate || endDate || filter.value ? "?" : "";
+  let filtersList = team || startDate || endDate || filters ? "?" : "";
   filtersList = filtersList.concat(team ? "&team=" + team : "");
-  filtersList = filtersList.concat(
-    filter.value ? "&" + filter.key + "=" + filter.value : ""
-  );
+  if (Array.isArray(filters)) {
+    filters.forEach((filter) => {
+      return (filtersList = filtersList.concat(
+        filter.value ? "&" + filter.key + "=" + filter.value : ""
+      ));
+    });
+  } else {
+    filtersList = filtersList.concat(
+      filters.value ? "&" + filters.key + "=" + filters.value : ""
+    );
+  }
   filtersList = filtersList.concat(
     startDate ? "&from=" + convertDateToString(startDate) : ""
   );

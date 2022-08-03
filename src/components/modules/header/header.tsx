@@ -34,7 +34,7 @@ export const HeaderComponent = ({ user }: Props) => {
   return (
     <div className={style["header"]}>
       <div className={style["header-left"]}>
-        {user && pathname !== "/" && (
+        {user && pathname !== "/" && !pathname.includes("/squad/") && (
           <DropdownComponent
             title={team ? team.name : "All"}
             contentPosition="right"

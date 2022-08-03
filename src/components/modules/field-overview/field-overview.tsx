@@ -47,7 +47,9 @@ export const FieldOverviewComponent = ({
     from: fieldOverview.matchData.startMinute,
     to: fieldOverview.matchData.endMinute,
   });
-  const [formation, setFormation] = React.useState<string>("4-2-3-1");
+  const [formation, setFormation] = React.useState<string>(
+    fieldData.matchData.currentFormation
+  );
   const [isOpen, setIsOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const colors = ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"];
@@ -58,6 +60,10 @@ export const FieldOverviewComponent = ({
     const width = newFormation.charAt(position - 1);
     return Math.round(100 / parseInt(width));
   };
+  const formations: string[] = React.useMemo(() => {
+    return fieldData.formations;
+  }, [fieldData.formations]);
+
   const updatePlayers = (playerTarget: IPlayer) => {
     const players = [playerTarget, currentPlayer].map((player, index) => {
       const playerCopy = { ...player };
@@ -162,11 +168,12 @@ export const FieldOverviewComponent = ({
             <div className={style["field-overview-formation"]}>
               <DropdownComponent title={formation}>
                 <ul>
-                  {fieldData.formations.map((item, key) => (
-                    <li key={key} onClick={() => setFormation(item)}>
-                      {item}
-                    </li>
-                  ))}
+                  {formations &&
+                    formations.map((item: string, key: number) => (
+                      <li key={key} onClick={() => setFormation(item)}>
+                        {item}
+                      </li>
+                    ))}
                 </ul>
               </DropdownComponent>
             </div>

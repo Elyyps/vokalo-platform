@@ -1,6 +1,6 @@
 import style from "./login-form.module.scss";
 import { withFormik, FormikProps, FormikErrors, Form } from "formik";
-import { validateEmail } from "../../../utils/validate-email";
+import { validateEmail } from "../../../utils/validate";
 import { InputComponent } from "../../cores/input/input";
 import { Link } from "react-router-dom";
 

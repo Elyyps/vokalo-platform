@@ -1,5 +1,6 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginLayoutComponent } from "../../components/modules/login-layout/login-layout";
 import { NewPasswordFormComponent } from "../../components/modules/new-password-form/new-password-form";
 import { SendCodeFormComponent } from "../../components/modules/send-code-form/send-code-form";
@@ -9,6 +10,7 @@ import style from "./forgot-password.module.scss";
 export const ForgotPasswordPage = () => {
   const [stage, setStage] = React.useState<number>(0);
   const [email, setEmail] = React.useState<string>("");
+  let navigate = useNavigate();
 
   const getUser = (email: string) => {
     return new CognitoUser({
@@ -36,6 +38,7 @@ export const ForgotPasswordPage = () => {
     getUser(email).confirmPassword(e.code, e.password, {
       onSuccess: (data) => {
         console.log("onSuccess:", data);
+        navigate("/login");
       },
       onFailure: (err) => {
         console.error("onFailure:", err);

@@ -1,6 +1,7 @@
 import React from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import userPool from "../utils/userPool";
+import { useNavigate } from "react-router-dom";
 
 const authenticate: any = async (username: string, password: string) => {};
 const getAccount: any = () => {};
@@ -21,7 +22,7 @@ const AccountContextProvider = (props: any) => {
           if (err) {
             reject();
           } else {
-            //console.log(account.accessToken.jwtToken);
+            // console.log(account.accessToken.jwtToken);
             resolve(account);
           }
         });
@@ -37,7 +38,6 @@ const AccountContextProvider = (props: any) => {
         Username: username,
         Password: password,
       });
-
       user.authenticateUser(authDetails, {
         onSuccess: (data) => {
           // console.log("onSuccess:", data);

@@ -26,6 +26,9 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
   const onSubmit = () => {
     props.onChange(dateRange);
   };
+  const onReset = () => {
+    props.onReset();
+  };
   const getTitle = () => {
     const start =
       dateRange.startDate &&
@@ -60,7 +63,7 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
               <ButtonComponent
                 title="Cancel"
                 variant="secondary"
-                onClick={props.onReset}
+                onClick={onReset}
               />
               <ButtonComponent
                 title="Submit"

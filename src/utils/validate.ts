@@ -4,3 +4,7 @@ export const validateEmail = (email: string) => {
 
   return re.test(String(email).toLowerCase());
 };
+export const validatePassword = (password: string) => {
+  const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/;
+  return re.test(String(password));
+};

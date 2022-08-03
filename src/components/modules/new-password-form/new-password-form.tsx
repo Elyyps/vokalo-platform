@@ -1,6 +1,7 @@
 import style from "./new-password-form.module.scss";
 import { withFormik, FormikProps, FormikErrors, Form } from "formik";
 import { InputComponent } from "../../cores/input/input";
+import { validatePassword } from "../../../utils/validate";
 
 interface INewPasswordFormErrorMessages {
   code: string;
@@ -98,10 +99,21 @@ export const NewPasswordFormComponent = withFormik<
     if (!values.confirmPassword) {
       errors.confirmPassword = "confirm password is required";
     }
-    if (values.password !== values.confirmPassword) {
+    if (
+      values.password !== values.confirmPassword &&
+      values.password &&
+      values.confirmPassword
+    ) {
       errors.confirmPassword = "password should match";
     }
-
+    if (!validatePassword(values.password) && values.password) {
+      errors.password =
+        "password should have Upper/Lower case characters and numbers";
+    }
+    if (!validatePassword(values.confirmPassword) && values.confirmPassword) {
+      errors.confirmPassword =
+        "password should have Upper/Lower case characters and numbers";
+    }
     return errors;
   },
 

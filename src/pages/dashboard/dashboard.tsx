@@ -31,7 +31,7 @@ export const DashboardPage = () => {
       <PageWidgetsComponent widgets={list?.lastSession} />
       <h1>Last 30 days</h1>
       <div className={style["dashboard-bottom"]}>
-        <PageWidgetsComponent widgets={list?.sessions.slice(0, 3)} />
+        <PageWidgetsComponent widgets={list?.sessions.slice(0, 4)} />
         <div className="widget-container">ee</div>
         {/* <InteractionsComponent widget={list?.sessions[4]} onClick={() => ""} /> */}
       </div>

@@ -63,7 +63,7 @@ export const getSquadAPI = async (
   team: string,
   startDate: any,
   endDate: any,
-  filter: any
+  filter: any[]
 ) => {
   const config = {
     headers: {
@@ -80,3 +80,19 @@ export const getSquadAPI = async (
     .then((response: any) => response.data)
     .catch(console.log);
 };
+// const getSquadDetailsAPI = async ()=>{
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${accessToken.jwtToken}`,
+//     },
+//   };
+//   let filtersList = getFilterUrl(team, startDate, endDate, filter);
+//   return await axios
+//     .get(
+//       `https://data.stage.vokaloio.com/v1/platform/profiles${filtersList}`,
+//       config
+//     )
+//     .then((response: any) => response.data)
+//     .catch(console.log);
+// };

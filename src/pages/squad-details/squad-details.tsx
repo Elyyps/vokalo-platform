@@ -1,6 +1,5 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { squadSessionsData } from "../../api/session";
 import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
@@ -10,7 +9,6 @@ import { PageWidgetsComponent } from "../../components/modules/page-widgets/page
 import { SessionsComponent } from "../../components/modules/sessions/sessions";
 import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
-import { IWidget } from "../../types/cores/widget";
 import { getAPI } from "../../utils/getApi";
 import style from "./squad-details.module.scss";
 
@@ -25,10 +23,13 @@ export const SquadDetailsPage = () => {
   const [filter, setFilter] = React.useState({ key: "role", value: "" });
 
   const getSquadDetails = async (session: any) => {
-    const data = await getAPI("profile", session, "", startDate, endDate, {
-      key: "profileId",
-      value: "3005e8c0-19e7-4d41-9dce-24865370e19f",
-    });
+    const data = await getAPI("profile", session, "", startDate, endDate, [
+      {
+        key: "profileId",
+        value: "3005e8c0-19e7-4d41-9dce-24865370e19f",
+      },
+      filter,
+    ]);
     setList({ profile: data.profile, widgets: data.profileAggregations });
   };
   const getTitle = () => {
@@ -38,7 +39,7 @@ export const SquadDetailsPage = () => {
     getAccount().then((session: any) => {
       getSquadDetails(session);
     });
-  }, [team, startDate, endDate]);
+  }, [team, startDate, endDate, filter]);
 
   return list ? (
     <div className={style["squad-details"]}>
@@ -54,7 +55,7 @@ export const SquadDetailsPage = () => {
       <div className={style["squad-details-content"]}>
         <div className={style["squad-details-left"]}>
           <PageWidgetsComponent widgets={list.widgets.slice(0, 2)} />
-          <FeedbackWidget widget={list.widgets[2]} />
+          <ClassificationComponent widget={list.widgets[2]} />
           <InteractionsComponent
             widget={
               !isLineGraph

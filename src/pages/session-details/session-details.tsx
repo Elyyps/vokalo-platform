@@ -29,6 +29,7 @@ export const SessionDetailsPage = () => {
       endDate,
       { key: "sessionId", value: id }
     );
+    console.log(data.sessionAggregations);
     setList({ session: data.session, widgets: data.sessionAggregations });
   };
   React.useEffect(() => {
