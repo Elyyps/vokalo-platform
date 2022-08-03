@@ -128,8 +128,9 @@ export const getNewFormationAPI = async (
     },
   };
   return await axios
-    .get(
+    .put(
       `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/formation?${filter}`,
+      {},
       config
     )
     .then((response: any) => response.data)
@@ -143,8 +144,9 @@ export const getRangeAPI = async ({ accessToken }: any, filter: string) => {
     },
   };
   return await axios
-    .get(
+    .put(
       `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/range?${filter}`,
+      {},
       config
     )
     .then((response: any) => response.data)
