@@ -1,5 +1,6 @@
 import React from "react";
 import { LoaderComponent } from "../../components/cores/loader/loader";
+import { InteractionsComponent } from "../../components/modules/interactions/interactions";
 import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
 import { AccountContext } from "../../context/account";
 import { IWidget } from "../../types/cores/widget";
@@ -32,8 +33,8 @@ export const DashboardPage = () => {
       <h1>Last 30 days</h1>
       <div className={style["dashboard-bottom"]}>
         <PageWidgetsComponent widgets={list?.sessions.slice(0, 4)} />
-        <div className="widget-container">ee</div>
-        {/* <InteractionsComponent widget={list?.sessions[4]} onClick={() => ""} /> */}
+
+        <InteractionsComponent widget={list?.sessions[4]} onClick={() => ""} />
       </div>
     </div>
   ) : (

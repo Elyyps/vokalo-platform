@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { getUserAPI } from "./api/user";
 import "./App.scss";
 import Layout from "./components/Layout";
@@ -16,17 +16,22 @@ import { SquadPage } from "./pages/squad/squad";
 
 const App = () => {
   const [user, setUser] = React.useState<any>();
+  const [isLogged, setIsLogged] = React.useState<boolean>(true);
 
   const { getAccount } = React.useContext(AccountContext);
-
   const getUser = async (session: any) => {
     const data = await getUserAPI(session);
     setUser(data);
   };
   React.useEffect(() => {
-    getAccount().then((session: any) => {
-      getUser(session);
-    });
+    getAccount()
+      .then((session: any) => {
+        getUser(session);
+        setIsLogged(true);
+      })
+      .catch(() => {
+        setIsLogged(false);
+      });
   }, [getAccount]);
 
   const addPageLayout = (component: any, title?: string) => {
@@ -35,12 +40,9 @@ const App = () => {
       defaultTitle = defaultTitle.concat(" | " + title);
     }
     return (
-      user &&
-      user.teams && (
-        <Layout user={user} title={defaultTitle}>
-          {component}
-        </Layout>
-      )
+      <Layout user={user} title={defaultTitle} hasNoSession={!isLogged}>
+        {component}
+      </Layout>
     );
   };
 

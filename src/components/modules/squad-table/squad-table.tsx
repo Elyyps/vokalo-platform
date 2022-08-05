@@ -14,7 +14,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [sortConfig, setSortConfig] = React.useState<any>({
     column: { name: "name", param: [""] },
-    ascending: true,
+    ascending: false,
   });
   let navigate = useNavigate();
   const columns = [

@@ -21,12 +21,13 @@ export const SquadDetailsPage = () => {
   const { getAccount } = React.useContext(AccountContext);
   const { team, startDate, endDate } = React.useContext(FilterContext);
   const [filter, setFilter] = React.useState({ key: "role", value: "" });
+  const { id } = useParams();
 
   const getSquadDetails = async (session: any) => {
     const data = await getAPI("profile", session, "", startDate, endDate, [
       {
         key: "profileId",
-        value: "3005e8c0-19e7-4d41-9dce-24865370e19f",
+        value: id,
       },
       filter,
     ]);

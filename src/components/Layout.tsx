@@ -3,14 +3,25 @@ import { sidebarData } from "../api/sidebar";
 import { HeaderComponent } from "./modules/header/header";
 import { SidebarComponent } from "./modules/sidebar/sidebar";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   children?: any;
   user?: any;
   title: string;
+  hasNoSession?: boolean;
 };
 
-const Layout = ({ children, user, title }: Props) => {
+const Layout = ({ children, user, title, hasNoSession }: Props) => {
+  const navigate = useNavigate();
+  const [isLogged, setIsLogged] = React.useState<boolean>(true);
+
+  React.useEffect(() => {
+    console.log("sdaasas");
+    if (hasNoSession) {
+      navigate("/login");
+    }
+  }, [hasNoSession]);
   return (
     <HelmetProvider>
       <div className="layout">

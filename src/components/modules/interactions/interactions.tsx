@@ -36,32 +36,38 @@ export const InteractionsComponent = ({
     legend: isLineGraph ? { position: "bottom" } : "none",
   };
   const getTableChartData = () => {
+    console.log(widget);
+
     let header: any = [
       [widget.data?.xaxis?.name ? widget.data?.xaxis?.name : ""],
     ];
     header[0].push("", { role: "style" });
-    let filteredList = widget.data?.yaxis.filter((item: any) =>
-      selectedButton.includes(item.name)
-    );
+    let filteredList =
+      widget.data?.yaxis &&
+      widget.data?.yaxis.filter((item: any) =>
+        selectedButton.includes(item.name)
+      );
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
-      if (!isLineGraph && !item.includes("/")) {
-        list.push([widget.data?.xaxis?.data[index].match(/\b\w/g).join(".")]);
+      if (!isLineGraph && item !== "/") {
+        item &&
+          list.push([widget.data?.xaxis?.data[index].match(/\b\w/g).join(".")]);
       } else {
-        list.push([widget.data?.xaxis?.data[index]]);
+        item && list.push([widget.data?.xaxis?.data[index]]);
       }
-      filteredList.forEach((element: any, key: number) => {
-        list[index + 1].push(filteredList[key].data[index].value);
-        list[index + 1].push(filteredList[key].data[index].color);
-      });
+      item &&
+        filteredList.forEach((element: any, key: number) => {
+          list[index + 1].push(filteredList[key].data[index].value);
+          list[index + 1].push(filteredList[key].data[index].color);
+        });
     });
-    return sortList(list);
+    return list.length > 1 ? sortList(list) : undefined;
   };
   const getLineChartData = () => {
+    console.log(widget);
     let result = widget.data?.dataSets?.find(
       (item: any) => item.name === sortBy
     );
-
     if (result) {
       let header: any = [
         [widget.data?.xaxis?.name ? widget.data?.xaxis?.name : ""],
@@ -72,12 +78,14 @@ export const InteractionsComponent = ({
       );
       let list: any = header;
       result.data?.xaxis?.data.forEach((item: any, index: number) => {
-        list.push([result.data?.xaxis?.data[index]]);
-        filteredList.forEach((element: any, key: number) => {
-          list[index + 1].push(filteredList[key].data[index].value);
-        });
+        if (item) {
+          list.push([result.data?.xaxis?.data[index]]);
+          filteredList.forEach((element: any, key: number) => {
+            list[index + 1].push(filteredList[key].data[index].value);
+          });
+        }
       });
-      return list;
+      return list && list;
     }
   };
 
@@ -142,7 +150,7 @@ export const InteractionsComponent = ({
           )}
         </DropdownComponent>
       </div>
-      {hasButtons && (
+      {hasButtons && getButtons() && (
         <div className={style["interactions-buttons"]}>
           {getButtons().data?.yaxis?.map((element: any, key: number) => (
             <ButtonComponent
@@ -180,7 +188,9 @@ export const InteractionsComponent = ({
             style={!isLineGraph ? { opacity: 0.4 } : {}}
             onClick={() => {
               onClick(true);
-              setSortBy("16/05-2022");
+              setSortBy(
+                isNotDefault && isLineGraph ? widget.data.xaxis.data[1] : "All"
+              );
             }}
           ></span>
         </div>

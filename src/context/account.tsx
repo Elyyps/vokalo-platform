@@ -1,7 +1,6 @@
 import React from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import userPool from "../utils/userPool";
-import { useNavigate } from "react-router-dom";
 
 const authenticate: any = async (username: string, password: string) => {};
 const getAccount: any = () => {};
