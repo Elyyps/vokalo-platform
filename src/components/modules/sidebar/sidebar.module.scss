@@ -5,6 +5,7 @@
   width: 280px;
   transition: width 0.5s ease-in-out;
   @media (max-width: variables.$breakpoint-lg) {
+    z-index: 100;
     width: 50px;
     position: fixed;
     top: 0;
@@ -14,6 +15,8 @@
   &-open {
     @media (max-width: variables.$breakpoint-lg) {
       width: 240px;
+      z-index: 100;
+
       .sidebar-logo {
         justify-content: space-between;
         margin-bottom: 48px;

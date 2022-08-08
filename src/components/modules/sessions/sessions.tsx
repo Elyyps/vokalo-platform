@@ -17,7 +17,7 @@ export const SessionsComponent = ({
 }: ISessionsComponent) => {
   const [sortConfig, setSortConfig] = React.useState<any>({
     column: { name: "date", param: ["creationTimestamp"] },
-    ascending: true,
+    ascending: false,
   });
   const [columns, setColumns] = React.useState<any[]>([]);
   const { pathname } = useLocation();
@@ -113,12 +113,12 @@ export const SessionsComponent = ({
               {!isSquadSessions && (
                 <span
                   className={`checkmark ${
-                    !session.recordings && "checkmark-rotate"
+                    !session.hasRecordings && "checkmark-rotate"
                   }`}
                 >
                   <ReactSVG
                     src={
-                      session.recordings
+                      session.hasRecordings
                         ? "/icons/check.svg"
                         : "/icons/cross.svg"
                     }

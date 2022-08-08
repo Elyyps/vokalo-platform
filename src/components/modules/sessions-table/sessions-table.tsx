@@ -34,6 +34,7 @@ export const SessionsTableComponent = ({
   });
 
   const sortedSession = React.useMemo(() => {
+    console.log(sessions);
     let sortableSession = [...sessions];
     return sortColumn(
       sortableSession,
@@ -88,12 +89,12 @@ export const SessionsTableComponent = ({
                   <td>
                     <span
                       className={`checkmark ${
-                        !row.recordings && "checkmark-rotate"
+                        !row.hasRecordings && "checkmark-rotate"
                       }`}
                     >
                       <ReactSVG
                         src={
-                          row.recordings
+                          row.hasRecordings
                             ? "/icons/check.svg"
                             : "/icons/cross.svg"
                         }

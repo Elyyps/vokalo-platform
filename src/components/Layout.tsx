@@ -9,19 +9,18 @@ type Props = {
   children?: any;
   user?: any;
   title: string;
-  hasNoSession?: boolean;
+  isLogged?: boolean;
 };
 
-const Layout = ({ children, user, title, hasNoSession }: Props) => {
+const Layout = ({ children, user, title, isLogged }: Props) => {
   const navigate = useNavigate();
-  const [isLogged, setIsLogged] = React.useState<boolean>(true);
 
   React.useEffect(() => {
-    console.log("sdaasas");
-    if (hasNoSession) {
+    if (!isLogged) {
       navigate("/login");
     }
-  }, [hasNoSession]);
+  }, [isLogged, user]);
+
   return (
     <HelmetProvider>
       <div className="layout">

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { IProfile } from "../../../types/modules/squad";
-import { converToHours } from "../../../utils/convertTime";
+import { converToHours, converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { PaginationComponent } from "../../cores/pagination/pagination";
 import { TrendComponent } from "../../cores/trend/trend";
@@ -26,7 +26,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
       param: ["communicationAggregations", "averageInteractionLength"],
     },
     {
-      name: "average tnteractions",
+      name: "average interactions",
       param: ["communicationAggregations", "averageInteractions"],
     },
     { name: "distribution", param: ["moodAggregations", "value"] },
@@ -94,14 +94,15 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                     {converToHours(row.communicationAggregations.minutes)}
                   </td>
                   <td>
-                    {converToHours(
-                      row.communicationAggregations.averageInteractionLength
-                    )}
+                    {Math.round(
+                      row.communicationAggregations.averageInteractionLength *
+                        10
+                    ) / 10}
                   </td>
                   <td>
-                    {converToHours(
-                      row.communicationAggregations.averageInteractions
-                    )}
+                    {Math.round(
+                      row.communicationAggregations.averageInteractions * 10
+                    ) / 10}
                   </td>
                   <td>
                     <div className={style["squad-table-progress"]}>

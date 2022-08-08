@@ -16,23 +16,16 @@ import { SquadPage } from "./pages/squad/squad";
 
 const App = () => {
   const [user, setUser] = React.useState<any>();
-  const [isLogged, setIsLogged] = React.useState<boolean>(true);
-
-  const { getAccount } = React.useContext(AccountContext);
+  const { getAccount, logged } = React.useContext(AccountContext);
   const getUser = async (session: any) => {
     const data = await getUserAPI(session);
     setUser(data);
   };
   React.useEffect(() => {
-    getAccount()
-      .then((session: any) => {
-        getUser(session);
-        setIsLogged(true);
-      })
-      .catch(() => {
-        setIsLogged(false);
-      });
-  }, [getAccount]);
+    getAccount().then((session: any) => {
+      getUser(session);
+    });
+  }, [getAccount, user]);
 
   const addPageLayout = (component: any, title?: string) => {
     let defaultTitle = "Vokalo";
@@ -40,7 +33,7 @@ const App = () => {
       defaultTitle = defaultTitle.concat(" | " + title);
     }
     return (
-      <Layout user={user} title={defaultTitle} hasNoSession={!isLogged}>
+      <Layout user={user} title={defaultTitle} isLogged={logged}>
         {component}
       </Layout>
     );

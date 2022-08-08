@@ -31,13 +31,12 @@ export const InteractionsComponent = ({
     vAxis: {
       textStyle: { color: "#C4C4C4" },
       baselineColor: "none",
+      baseline: 0,
     },
     hAxis: { textStyle: { color: "#C4C4C4" } },
     legend: isLineGraph ? { position: "bottom" } : "none",
   };
   const getTableChartData = () => {
-    console.log(widget);
-
     let header: any = [
       [widget.data?.xaxis?.name ? widget.data?.xaxis?.name : ""],
     ];
@@ -64,7 +63,6 @@ export const InteractionsComponent = ({
     return list.length > 1 ? sortList(list) : undefined;
   };
   const getLineChartData = () => {
-    console.log(widget);
     let result = widget.data?.dataSets?.find(
       (item: any) => item.name === sortBy
     );
@@ -128,6 +126,14 @@ export const InteractionsComponent = ({
       return widget;
     }
   };
+  React.useEffect(() => {
+    isLineGraph
+      ? isNotDefault
+        ? setSortBy(widget.data?.dataSets[1].name)
+        : setSortBy("All")
+      : setSortBy("Default");
+  }, [isLineGraph]);
+
   return (
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
@@ -140,7 +146,7 @@ export const InteractionsComponent = ({
               <li onClick={() => setSortBy("Descending")}>Descending</li>
             </ul>
           ) : (
-            <ul style={{ width: "130px" }}>
+            <ul style={{ minWidth: "130px" }}>
               {widget.data?.dataSets.map((item: any, key: number) => (
                 <li key={key} onClick={() => setSortBy(item.name)}>
                   {item.name}
@@ -180,7 +186,6 @@ export const InteractionsComponent = ({
             style={!isLineGraph ? {} : { opacity: 0.4 }}
             onClick={() => {
               onClick(false);
-              setSortBy("Default");
               resetFilter(selectedButton);
             }}
           ></span>
@@ -188,9 +193,7 @@ export const InteractionsComponent = ({
             style={!isLineGraph ? { opacity: 0.4 } : {}}
             onClick={() => {
               onClick(true);
-              setSortBy(
-                isNotDefault && isLineGraph ? widget.data.xaxis.data[1] : "All"
-              );
+              console.log("heree");
             }}
           ></span>
         </div>

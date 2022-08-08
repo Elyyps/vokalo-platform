@@ -27,24 +27,28 @@
     background-color: beige;
     &:first-child {
       background-color: variables.$POSITIVE-color;
+      position: relative;
     }
     &:last-child {
       background-color: variables.$NEGATIVE-color;
     }
     > div {
       padding: 8px 4px;
+      position: absolute;
+      top: 25%;
+      z-index: 2;
+      &:first-child {
+        left: 4px;
+      }
+      &:last-child {
+        left: 46px;
+      }
     }
     &:last-child > div {
       display: none;
     }
     &-none:last-child > div {
       display: block;
-    }
-
-    > div:last-child {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      width: calc(100% - 32px);
     }
   }
   &-complex {

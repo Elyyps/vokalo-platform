@@ -9,6 +9,6 @@ export type ISession = {
   creator?: IUser;
   participants?: IUser[];
   vokaloLive?: boolean;
-  recordings?: boolean;
+  hasRecordings?: boolean;
   coachScore?: number;
 };
