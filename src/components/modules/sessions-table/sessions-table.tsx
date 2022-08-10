@@ -34,7 +34,6 @@ export const SessionsTableComponent = ({
   });
 
   const sortedSession = React.useMemo(() => {
-    console.log(sessions);
     let sortableSession = [...sessions];
     return sortColumn(
       sortableSession,

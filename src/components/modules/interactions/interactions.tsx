@@ -22,7 +22,29 @@ export const InteractionsComponent = ({
     "Total",
   ]);
   const [sortBy, setSortBy] = React.useState<string>("Default");
+  const [data, setData] = React.useState();
+  const [colors, setColors] = React.useState();
+  const defaultColors = [
+    { name: "Total", value: "blue" },
+    { name: "Negative evaluation", value: "red" },
+    { name: "Orientation", value: "black" },
+    { name: "Positive evaluation", value: "green" },
+    { name: "Stimulation", value: "yellow" },
+  ];
+  const orderColors = () => {
+    let list: any = {};
+    const filteredList = defaultColors.filter((color) =>
+      selectedButton.includes(color.name)
+    );
+    const a: any = filteredList.map((item, index) => {
+      return { color: item.value };
+    });
+    const color = Object.assign(list, a);
+    console.log(selectedButton);
+    console.log(color);
 
+    setColors(color);
+  };
   const options = {
     curveType: "function",
     chartArea: {
@@ -33,8 +55,21 @@ export const InteractionsComponent = ({
       baselineColor: "none",
       baseline: 0,
     },
+    series: colors,
     hAxis: { textStyle: { color: "#C4C4C4" } },
     legend: isLineGraph ? { position: "bottom" } : "none",
+  };
+
+  const sortList = (list: any) => {
+    if (sortBy !== "Default") {
+      return list.sort((a: any, b: any) => {
+        if (a[1] && b[1]) {
+          return sortBy === "Ascending" ? a[1] - b[1] : b[1] - a[1];
+        }
+      });
+    } else {
+      return list;
+    }
   };
   const getTableChartData = () => {
     let header: any = [
@@ -86,18 +121,6 @@ export const InteractionsComponent = ({
       return list && list;
     }
   };
-
-  const sortList = (list: any) => {
-    if (sortBy !== "Default") {
-      return list.sort((a: any, b: any) => {
-        if (a[1] && b[1]) {
-          return sortBy === "Ascending" ? a[1] - b[1] : b[1] - a[1];
-        }
-      });
-    } else {
-      return list;
-    }
-  };
   const onButtonSelected = (name: string) => {
     let list: string[] = [];
     if (isLineGraph) {
@@ -126,14 +149,28 @@ export const InteractionsComponent = ({
       return widget;
     }
   };
+
   React.useEffect(() => {
     isLineGraph
       ? isNotDefault
         ? setSortBy(widget.data?.dataSets[1].name)
         : setSortBy("All")
       : setSortBy("Default");
+
+    setData(!isLineGraph ? getTableChartData() : getLineChartData());
   }, [isLineGraph]);
 
+  React.useEffect(() => {
+    if (isLineGraph) {
+      setData(getLineChartData());
+    } else {
+      setData(getTableChartData());
+    }
+  }, [isLineGraph, sortBy, selectedButton]);
+
+  React.useEffect(() => {
+    orderColors();
+  }, [selectedButton]);
   return (
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
@@ -175,7 +212,7 @@ export const InteractionsComponent = ({
       )}
       <Chart
         chartType={!isLineGraph ? "ColumnChart" : "LineChart"}
-        data={!isLineGraph ? getTableChartData() : getLineChartData()}
+        data={data}
         options={options}
         className={style["interactions-graph"]}
         width="100%"
@@ -193,7 +230,6 @@ export const InteractionsComponent = ({
             style={!isLineGraph ? { opacity: 0.4 } : {}}
             onClick={() => {
               onClick(true);
-              console.log("heree");
             }}
           ></span>
         </div>

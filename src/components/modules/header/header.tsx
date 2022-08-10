@@ -34,21 +34,24 @@ export const HeaderComponent = ({ user }: Props) => {
   return (
     <div className={style["header"]}>
       <div className={style["header-left"]}>
-        {user && pathname !== "/" && !pathname.includes("/squad/") && (
-          <DropdownComponent
-            title={team ? team.name : "All"}
-            contentPosition="right"
-          >
-            <ul>
-              {!isException() && <li onClick={() => setTeam("")}>All</li>}
-              {user.teams.map((team: any, key: number) => (
-                <li key={key} onClick={() => setTeam(team)}>
-                  {team.name}
-                </li>
-              ))}
-            </ul>
-          </DropdownComponent>
-        )}
+        {user &&
+          pathname !== "/" &&
+          !pathname.includes("/squad/") &&
+          !pathname.includes("/sessions/") && (
+            <DropdownComponent
+              title={team ? team.name : "All"}
+              contentPosition="right"
+            >
+              <ul>
+                {!isException() && <li onClick={() => setTeam("")}>All</li>}
+                {user.teams.map((team: any, key: number) => (
+                  <li key={key} onClick={() => setTeam(team)}>
+                    {team.name}
+                  </li>
+                ))}
+              </ul>
+            </DropdownComponent>
+          )}
         {!pathname.includes("/sessions/") && pathname !== "/" && (
           <DatePickerComponent
             contentPosition="right"

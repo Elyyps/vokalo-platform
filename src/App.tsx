@@ -16,7 +16,7 @@ import { SquadPage } from "./pages/squad/squad";
 
 const App = () => {
   const [user, setUser] = React.useState<any>();
-  const { getAccount, logged } = React.useContext(AccountContext);
+  const { getAccount } = React.useContext(AccountContext);
   const getUser = async (session: any) => {
     const data = await getUserAPI(session);
     setUser(data);
@@ -25,7 +25,7 @@ const App = () => {
     getAccount().then((session: any) => {
       getUser(session);
     });
-  }, [getAccount, user]);
+  }, [getAccount]);
 
   const addPageLayout = (component: any, title?: string) => {
     let defaultTitle = "Vokalo";
@@ -33,7 +33,7 @@ const App = () => {
       defaultTitle = defaultTitle.concat(" | " + title);
     }
     return (
-      <Layout user={user} title={defaultTitle} isLogged={logged}>
+      <Layout user={user} title={defaultTitle}>
         {component}
       </Layout>
     );

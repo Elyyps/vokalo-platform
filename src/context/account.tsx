@@ -2,8 +2,6 @@ import React from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import userPool from "../utils/userPool";
 
-let logged: boolean = true;
-
 const authenticate: any = async (username: string, password: string) => {};
 const getAccount: any = () => {};
 const logout: any = () => {};
@@ -12,23 +10,18 @@ const AccountContext = React.createContext({
   authenticate,
   getAccount,
   logout,
-  logged,
 });
 
 const AccountContextProvider = (props: any) => {
-  const [isLogged, setIsLogged] = React.useState(true);
-
   const getAccount = async () =>
     await new Promise((resolve, reject) => {
       const user = userPool.getCurrentUser();
       if (user) {
         user.getSession((err: any, account: any) => {
           if (err) {
-            setIsLogged(false);
             reject();
           } else {
             // console.log(account.accessToken.jwtToken);
-            setIsLogged(true);
             resolve(account);
           }
         });
@@ -68,7 +61,6 @@ const AccountContextProvider = (props: any) => {
     const user = userPool.getCurrentUser();
     if (user) {
       user.signOut();
-      setIsLogged(false);
     }
   };
 
@@ -78,7 +70,6 @@ const AccountContextProvider = (props: any) => {
         authenticate,
         getAccount,
         logout,
-        logged: isLogged,
       }}
     >
       {props.children}
