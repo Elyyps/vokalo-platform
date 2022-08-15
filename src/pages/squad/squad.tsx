@@ -33,10 +33,12 @@ export const SquadPage = ({ user }: ISquadPage) => {
     setList({ squads: data.profiles, widgets: data.profilesAggregations });
   };
   React.useEffect(() => {
-    getAccount().then((session: any) => {
-      getSquads(session);
-    });
-  }, [team, startDate, endDate, filter.value]);
+    if (user) {
+      getAccount().then((session: any) => {
+        getSquads(session);
+      });
+    }
+  }, [team, startDate, endDate, filter.value, user]);
 
   return (
     <div className={style["squad"]}>

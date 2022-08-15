@@ -41,13 +41,11 @@ const AccountContextProvider = (props: any) => {
         onSuccess: (data) => {
           // console.log("onSuccess:", data);
           resolve(data);
-          //setIsLogged(true);
         },
 
         onFailure: (err) => {
           // console.error("onFailure:", err);
           reject(err);
-          // setIsLogged(false);
         },
 
         newPasswordRequired: (data) => {

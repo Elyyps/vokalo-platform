@@ -34,21 +34,29 @@ export const FieldOverviewComponent = ({
       });
     } else return [];
   };
-  const [playersList, setPlayersList] = React.useState<IPlayer[]>(profiles);
+  const [playersList, setPlayersList] = React.useState<IPlayer[]>(
+    profiles ? profiles : []
+  );
   const [fieldData, setFieldData] =
     React.useState<IFieldOverview>(fieldOverview);
 
   const [currentPlayer, setCurrentPlayer] = React.useState<IPlayer>(
-    playersList[0]
+    playersList[0] && playersList[0]
   );
   const { getAccount } = React.useContext(AccountContext);
   const [selectedButton, setSelectedButton] = React.useState<string>("Total");
   const [range, setRange] = React.useState({
-    from: fieldOverview.matchData.startMinute,
-    to: fieldOverview.matchData.endMinute,
+    from: fieldOverview.matchData.startMinute
+      ? fieldOverview.matchData.startMinute
+      : 0,
+    to: fieldOverview.matchData.endMinute
+      ? fieldOverview.matchData.endMinute
+      : 0,
   });
   const [formation, setFormation] = React.useState<string>(
     fieldData.matchData.currentFormation
+      ? fieldData.matchData.currentFormation
+      : ""
   );
   const [isOpen, setIsOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);

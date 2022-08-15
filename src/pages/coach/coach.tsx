@@ -10,6 +10,7 @@ import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
+
 interface ICoachPage {
   user: any;
 }
@@ -17,6 +18,7 @@ export const CoachPage = ({ user }: ICoachPage) => {
   const [list, setList] = React.useState<any[]>();
   const { getAccount } = React.useContext(AccountContext);
   const { team, startDate, endDate } = React.useContext(FilterContext);
+
   const getCoach = async (session: any) => {
     const data = await getAPI(
       "coach",
@@ -28,11 +30,14 @@ export const CoachPage = ({ user }: ICoachPage) => {
     );
     setList(data.coachAggregations);
   };
+
   React.useEffect(() => {
-    getAccount().then((session: any) => {
-      getCoach(session);
-    });
-  }, [team, startDate, endDate]);
+    if (user) {
+      getAccount().then((session: any) => {
+        getCoach(session);
+      });
+    }
+  }, [team, startDate, endDate, user]);
 
   return list ? (
     <div className={style["coach"]}>

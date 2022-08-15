@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getUserAPI } from "./api/user";
 import "./App.scss";
 import Layout from "./components/Layout";

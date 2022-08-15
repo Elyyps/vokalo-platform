@@ -85,10 +85,14 @@ export const SessionDetailsPage = () => {
           <div
             className={` ${style["session-details-right"]} widget-container `}
           >
-            <FieldOverviewComponent
-              fieldOverview={list.widgets[4].data}
-              profiles={list.widgets[4].profiles}
-            />
+            {list.widgets[4].data && list.widgets[4].profiles ? (
+              <FieldOverviewComponent
+                fieldOverview={list.widgets[4].data}
+                profiles={list.widgets[4].profiles}
+              />
+            ) : (
+              "NO DATA"
+            )}
           </div>
         </div>
       )}

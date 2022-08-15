@@ -3,7 +3,6 @@ import { sidebarData } from "../api/sidebar";
 import { HeaderComponent } from "./modules/header/header";
 import { SidebarComponent } from "./modules/sidebar/sidebar";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   children?: any;
