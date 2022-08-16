@@ -18,17 +18,24 @@ interface IDatePickerComponent {
 }
 
 export const DatePickerComponent = (props: IDatePickerComponent) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isDefault, setIsDefault] = React.useState<boolean>(false);
   const [dateRange, setDateRange] = React.useState<IDateRange>({
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: props.dateRange.startDate,
+    endDate: props.dateRange.endDate,
   });
   const onSubmit = () => {
+    setIsDefault(false);
     props.onChange(dateRange);
   };
   const onReset = () => {
+    setDateRange({
+      startDate: new Date(),
+      endDate: new Date(),
+    });
+    setIsDefault(true);
     props.onReset();
   };
+
   const getTitle = () => {
     const start =
       dateRange.startDate &&
@@ -36,14 +43,19 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
     const end =
       dateRange.endDate && "To: " + convertDateToString(dateRange.endDate);
 
-    return dateRange ? start + " " + end : "Date range";
+    if (dateRange && !isDefault) {
+      return start + " " + end;
+    } else {
+      return "From: - To: -";
+    }
   };
+
   return (
     <div className={style["date-picker"]}>
       <DropdownComponent
         title={getTitle()}
         icon="/icons/date.svg"
-        onClick={() => setIsOpen(!isOpen)}
+        //onClick={() => setIsClosed(false)}
         contentPosition={props.contentPosition}
       >
         <div className={style["date-picker-content"]}>

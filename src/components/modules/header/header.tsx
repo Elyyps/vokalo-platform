@@ -1,8 +1,7 @@
 import React from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AccountContext } from "../../../context/account";
 import FilterContext from "../../../context/filter";
-import { ButtonComponent } from "../../cores/button/button";
 import { DatePickerComponent } from "../../cores/date-picker/date-picker";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./header.module.scss";
@@ -12,7 +11,6 @@ type Props = {
 export const HeaderComponent = ({ user }: Props) => {
   let navigate = useNavigate();
   const { pathname } = useLocation();
-
   const { logout } = React.useContext(AccountContext);
   const { team, setTeam, startDate, setStartDate, endDate, setEndDate } =
     React.useContext(FilterContext);
@@ -56,7 +54,7 @@ export const HeaderComponent = ({ user }: Props) => {
           <DatePickerComponent
             contentPosition="right"
             dateRange={{
-              startDate: startDate ? startDate : new Date(),
+              startDate: startDate,
               endDate: endDate,
             }}
             onChange={(range) => {

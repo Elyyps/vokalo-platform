@@ -15,9 +15,23 @@ export const PlayerSwapComponent = ({
   onClose,
 }: IPlayerSwapComponent) => {
   const [sliceFrom, setSliceFrom] = React.useState(0);
+  const wrapperRef = React.createRef<HTMLDivElement>();
+
+  React.useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        onClose();
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
+
   return (
     <div className={style["player-swap"]}>
-      <div className={style["player-swap-content"]}>
+      <div className={style["player-swap-content"]} ref={wrapperRef}>
         <div className={style["player-swap-cross"]}>
           <b onClick={onClose}>x</b>
         </div>

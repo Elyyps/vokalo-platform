@@ -18,13 +18,14 @@ const FilterContext = React.createContext({
 });
 
 export const FilterContextProvider = (props: any) => {
+  let threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
   const [selectedTeam, setSelectedTeam] = React.useState<string>("");
-  const [selectedStartDate, setSelectedStartDate] = React.useState<
-    Date | undefined
-  >();
-  const [selectedEndDate, setSelectedEndDate] = React.useState<
-    Date | undefined
-  >();
+  const [selectedStartDate, setSelectedStartDate] =
+    React.useState<Date>(threeMonthsAgo);
+  const [selectedEndDate, setSelectedEndDate] = React.useState<Date>(
+    new Date()
+  );
   return (
     <FilterContext.Provider
       value={{

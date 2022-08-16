@@ -3,6 +3,7 @@ import { playersData } from "./players";
 import axios from "axios";
 import { IProfile } from "../types/modules/squad";
 import { IPlayer } from "../types/cores/player";
+const API_URL = process.env.REACT_APP_API_URL;
 
 // export const FieldOverviewData = (): IFieldOverview => ({
 //   dataSets: [
@@ -128,14 +129,11 @@ export const getNewFormationAPI = async (
     },
   };
   return await axios
-    .put(
-      `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/formation?${filter}`,
-      {},
-      config
-    )
+    .put(`${API_URL}session/pitch-view/formation?${filter}`, {}, config)
     .then((response: any) => response.data)
     .catch(console.log);
 };
+
 export const getRangeAPI = async ({ accessToken }: any, filter: string) => {
   const config = {
     headers: {
@@ -144,14 +142,11 @@ export const getRangeAPI = async ({ accessToken }: any, filter: string) => {
     },
   };
   return await axios
-    .put(
-      `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/range?${filter}`,
-      {},
-      config
-    )
+    .put(`${API_URL}session/pitch-view/range?${filter}`, {}, config)
     .then((response: any) => response.data)
     .catch(console.log);
 };
+
 export const updatePlayerAPI = async (
   { accessToken }: any,
   players: IPlayer[],
@@ -165,8 +160,7 @@ export const updatePlayerAPI = async (
   };
   return await axios
     .post(
-      `https://data.stage.vokaloio.com/v1/platform/session/pitch-view/profiles?sessionId= ` +
-        sessionId,
+      `${API_URL}session/pitch-view/profiles?sessionId= ` + sessionId,
       players,
       config
     )

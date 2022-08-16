@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getFilterUrl } from "./getFilterUrl";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export const getAPI = async (
   url: string,
   { accessToken }: any,
@@ -17,10 +17,7 @@ export const getAPI = async (
   };
   let filtersList = getFilterUrl(team, startDate, endDate, filter);
   return await axios
-    .get(
-      `https://data.stage.vokaloio.com/v1/platform/${url}${filtersList}`,
-      config
-    )
+    .get(API_URL + url + filtersList, config)
     .then((response: any) => response.data)
     .catch(console.log);
 };

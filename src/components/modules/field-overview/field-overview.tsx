@@ -168,6 +168,7 @@ export const FieldOverviewComponent = ({
       changeRange(session);
     });
   }, [range]);
+
   return (
     fieldData && (
       <div className={style["field-overview"]}>
