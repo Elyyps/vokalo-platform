@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { getUserAPI } from "./api/user";
 import "./App.scss";
 import Layout from "./components/Layout";
@@ -16,7 +16,8 @@ import { SquadPage } from "./pages/squad/squad";
 
 const App = () => {
   const [user, setUser] = React.useState<any>();
-  const { getAccount } = React.useContext(AccountContext);
+
+  const { getAccount, isLogged } = React.useContext(AccountContext);
   const getUser = async (session: any) => {
     const data = await getUserAPI(session);
     setUser(data);
@@ -25,14 +26,16 @@ const App = () => {
     getAccount().then((session: any) => {
       getUser(session);
     });
-  }, [getAccount]);
+  }, [getAccount, isLogged]);
 
   const addPageLayout = (component: any, title?: string) => {
     let defaultTitle = "Vokalo";
     if (title) {
       defaultTitle = defaultTitle.concat(" | " + title);
     }
-    return (
+    return isLogged === false ? (
+      <Navigate to={"/login"} />
+    ) : (
       <Layout user={user} title={defaultTitle}>
         {component}
       </Layout>

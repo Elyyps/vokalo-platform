@@ -1,4 +1,5 @@
 import axios from "axios";
+const API_URL = process.env.REACT_APP_STAGE_API_URL;
 
 export const getUserAPI = async ({ accessToken }: any) => {
   const config = {
@@ -8,7 +9,7 @@ export const getUserAPI = async ({ accessToken }: any) => {
     },
   };
   return await axios
-    .get("https://data.stage.vokaloio.com/v1/platform/user", config)
+    .get(API_URL + "user", config)
     .then((response: any) => response.data.user)
     .catch(console.log);
 };

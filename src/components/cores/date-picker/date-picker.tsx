@@ -43,7 +43,7 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
     const end =
       dateRange.endDate && "To: " + convertDateToString(dateRange.endDate);
 
-    if (dateRange && !isDefault) {
+    if (dateRange && dateRange.endDate && dateRange.startDate && !isDefault) {
       return start + " " + end;
     } else {
       return "From: - To: -";

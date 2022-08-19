@@ -1,6 +1,6 @@
-import { IProfile } from "../types/modules/squad";
 import { getFilterUrl } from "../utils/getFilterUrl";
 import axios from "axios";
+const API_URL = process.env.REACT_APP_STAGE_API_URL;
 
 // export const squadData = (): IProfile[] => [
 //   {
@@ -73,10 +73,7 @@ export const getSquadAPI = async (
   };
   let filtersList = getFilterUrl(team, startDate, endDate, filter);
   return await axios
-    .get(
-      `https://data.stage.vokaloio.com/v1/platform/profiles${filtersList}`,
-      config
-    )
+    .get(`${API_URL}profiles${filtersList}`, config)
     .then((response: any) => response.data)
     .catch(console.log);
 };

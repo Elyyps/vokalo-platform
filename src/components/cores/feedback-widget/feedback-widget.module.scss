@@ -39,9 +39,11 @@
       z-index: 2;
       &:first-child {
         left: 4px;
+        width: 50px;
+        text-align: center;
       }
       &:last-child {
-        left: 46px;
+        left: 56px;
       }
     }
     &:last-child > div {

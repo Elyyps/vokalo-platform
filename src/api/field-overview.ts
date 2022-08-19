@@ -1,9 +1,6 @@
-import { IFieldOverview } from "../types/modules/field-overview";
-import { playersData } from "./players";
 import axios from "axios";
-import { IProfile } from "../types/modules/squad";
 import { IPlayer } from "../types/cores/player";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_STAGE_API_URL;
 
 // export const FieldOverviewData = (): IFieldOverview => ({
 //   dataSets: [
