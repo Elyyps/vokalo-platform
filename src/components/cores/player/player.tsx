@@ -49,7 +49,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         style={{ backgroundColor: props.color }}
         draggable
       >
-        <span>{props.value}</span>
+        {/* <span>{props.value}</span> */}
         {props.player.isReplaced && (
           <span className={style["player-replaced"]}>
             <ReactSVG src="/icons/change.svg" />
@@ -60,7 +60,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         className={style["player-name"]}
         style={{ visibility: props.player.ghost ? "hidden" : "visible" }}
       >
-        {props.player.firstName} {props.player.lastName}
+        {props.player.firstName.charAt(0)}.{props.player.lastName}
       </span>
     </div>
   );

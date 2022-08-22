@@ -19,7 +19,23 @@ const sortTrend = (list: any[], isAscending: boolean) => {
     return 0;
   });
 };
-
+const sortUsers = (list: any[], isAscending: boolean) => {
+  let result = list.sort((a, b) => {
+    if (a.firstName > b.firstName) {
+      return isAscending ? 1 : -1;
+    } else if (a.firstName < b.firstName) {
+      return !isAscending ? 1 : -1;
+    }
+    if (a.lastName > b.lastName) {
+      return isAscending ? 1 : -1;
+    } else if (a.lastName < b.lastName) {
+      return !isAscending ? 1 : -1;
+    } else {
+      return 0;
+    }
+  });
+  return result;
+};
 export const sortColumn = (
   list: any[],
   columnName: string,
@@ -29,6 +45,8 @@ export const sortColumn = (
   if (columnName !== null) {
     if (columnName === "mood") {
       return sortTrend(list, isAscending);
+    } else if (columnName === "name" || columnName === "coach") {
+      return sortUsers(list, isAscending);
     } else {
       let result = list.sort((a: any, b: any) => {
         if (isAscending) {

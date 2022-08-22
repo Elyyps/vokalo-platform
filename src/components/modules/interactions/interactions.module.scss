@@ -9,6 +9,10 @@
     @media (max-width: variables.$breakpoint-lg) {
       margin-bottom: 16px;
     }
+    ul {
+      overflow-y: auto;
+      max-height: 300px;
+    }
   }
   &-buttons {
     display: flex;

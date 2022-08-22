@@ -51,10 +51,10 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
             <Route index element={addPageLayout(<DashboardPage />)} />
-            <Route
+            {/* <Route
               path="/coach"
               element={addPageLayout(<CoachPage user={user} />, "Coachs")}
-            />
+            /> */}
             <Route
               path="/sessions"
               element={addPageLayout(<SessionsPage />, "Sessions")}

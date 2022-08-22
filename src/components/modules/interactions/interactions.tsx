@@ -37,7 +37,14 @@ export const InteractionsComponent = ({
       baseline: 0,
     },
     series: isLineGraph ? optionColors : [],
-    hAxis: { textStyle: { color: "#C4C4C4" } },
+    hAxis: {
+      textStyle: {
+        color: "#C4C4C4",
+        fontSize: 11,
+      },
+      slantedText: true,
+      slantedTextAngle: 80,
+    },
     legend: isLineGraph ? { position: "bottom" } : "none",
   };
 

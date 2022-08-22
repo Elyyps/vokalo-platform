@@ -5,7 +5,6 @@ import { IPlayer } from "../../../types/cores/player";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import { ButtonComponent } from "../../cores/button/button";
 import { IFieldOverview } from "../../../types/modules/field-overview";
-import { playersReplaceData } from "../../../api/players";
 import { PlayerSwapComponent } from "../../cores/player-swap/player-swap";
 import {
   getNewFormationAPI,
@@ -25,7 +24,10 @@ export const FieldOverviewComponent = ({
 }: IFieldOverviewComponent) => {
   const sortPlayer = (list: IPlayer[]) => {
     if (list.length) {
-      return list.sort((a, b) => {
+      const filtertedData = list.filter(
+        (player: IPlayer) => player.gridX >= 0 && player.gridY >= 0
+      );
+      return filtertedData.sort((a, b) => {
         if (a.gridX === b.gridX) {
           return a.gridY - b.gridY;
         } else {
@@ -88,8 +90,10 @@ export const FieldOverviewComponent = ({
     if (players) {
       getAccount().then(async (session: any) => {
         const result = await updatePlayerAPI(session, players, id);
-        const sortedList = sortPlayer(result.data.profiles);
-        setPlayersList(sortedList);
+        if (result) {
+          const sortedList = sortPlayer(result.data.profiles);
+          setPlayersList(sortedList);
+        }
       });
     }
   };
@@ -155,6 +159,12 @@ export const FieldOverviewComponent = ({
       setIsLoading(false);
     }
   };
+  const getReplacementPlayers = () => {
+    return profiles.filter(
+      (player) => player.gridX === -1 && player.gridY === -1
+    );
+  };
+
   React.useEffect(() => {
     sortPlayer(playersList);
   }, []);
@@ -218,7 +228,7 @@ export const FieldOverviewComponent = ({
             {isOpen && (
               <div className={style["field-overview-replacement"]}>
                 <PlayerSwapComponent
-                  players={playersReplaceData()}
+                  players={getReplacementPlayers()}
                   playerName={currentPlayer.firstName}
                   onClick={playerSelected}
                   onClose={() => setIsOpen(false)}
