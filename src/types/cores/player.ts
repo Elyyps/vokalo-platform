@@ -5,5 +5,5 @@ export type IPlayer = {
   gridX: number;
   gridY: number;
   ghost: boolean;
-  isReplaced?: boolean;
+  substituted?: boolean;
 };

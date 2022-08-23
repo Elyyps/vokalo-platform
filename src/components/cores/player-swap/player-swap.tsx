@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import style from "./player-swap.module.scss";
 import { IPlayer } from "../../../types/cores/player";
 import { ReactSVG } from "react-svg";

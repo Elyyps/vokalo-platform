@@ -203,6 +203,7 @@ export const InteractionsComponent = ({
             <ul style={{ minWidth: "130px" }}>
               {widget.data?.dataSets.map((item: any, key: number) => (
                 <li key={key} onClick={() => setSortBy(item.name)}>
+                  <input type={"checkbox"} />
                   {item.name}
                 </li>
               ))}

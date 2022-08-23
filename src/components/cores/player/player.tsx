@@ -50,7 +50,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         draggable
       >
         {/* <span>{props.value}</span> */}
-        {props.player.isReplaced && (
+        {props.player.substituted && (
           <span className={style["player-replaced"]}>
             <ReactSVG src="/icons/change.svg" />
           </span>

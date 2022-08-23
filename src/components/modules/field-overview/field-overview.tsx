@@ -74,12 +74,15 @@ export const FieldOverviewComponent = ({
     return fieldData.formations;
   }, [fieldData.formations]);
 
-  const updatePlayers = (playerTarget: IPlayer) => {
+  const updatePlayers = (playerTarget: IPlayer, isReclacement?: boolean) => {
     const players = [playerTarget, currentPlayer].map((player, index) => {
       const playerCopy = { ...player };
       if (index === 0) {
         playerCopy.gridX = currentPlayer.gridX;
         playerCopy.gridY = currentPlayer.gridY;
+        if (isReclacement) {
+          playerCopy.substituted = true;
+        }
       }
       if (index === 1) {
         playerCopy.gridX = playerTarget.gridX;
@@ -88,11 +91,13 @@ export const FieldOverviewComponent = ({
       return playerCopy;
     });
     if (players) {
+      console.log(players);
       getAccount().then(async (session: any) => {
         const result = await updatePlayerAPI(session, players, id);
         if (result) {
           const sortedList = sortPlayer(result.data.profiles);
           setPlayersList(sortedList);
+          setIsOpen(false);
         }
       });
     }
@@ -115,22 +120,22 @@ export const FieldOverviewComponent = ({
     setIsOpen(!isOpen);
     setCurrentPlayer(player);
   };
-  const playerSelected = (playerTarget: IPlayer) => {
-    const players = playersList.map((player) => {
-      const playerCopy = { ...player };
-      if (playerCopy.id === currentPlayer.id) {
-        playerCopy.firstName = playerTarget.firstName;
-        playerCopy.id = playerTarget.id;
-        playerCopy.isReplaced = true;
-      }
-      return playerCopy;
-    });
-    if (players) {
-      const sortedList = sortPlayer(players);
-      setPlayersList(sortedList);
-      setIsOpen(false);
-    }
-  };
+  // const playerSelected = (playerTarget: IPlayer) => {
+  //   const players = playersList.map((player) => {
+  //     const playerCopy = { ...player };
+  //     if (playerCopy.id === currentPlayer.id) {
+  //       playerCopy.firstName = playerTarget.firstName;
+  //       playerCopy.id = playerTarget.id;
+  //       playerCopy.substituted = true;
+  //     }
+  //     return playerCopy;
+  //   });
+  //   if (players) {
+  //     const sortedList = sortPlayer(players);
+  //     setPlayersList(sortedList);
+  //     setIsOpen(false);
+  //   }
+  // };
   const changeRange = async (session: any) => {
     if (
       range.to <= fieldData.matchData.endMinute &&
@@ -230,7 +235,7 @@ export const FieldOverviewComponent = ({
                 <PlayerSwapComponent
                   players={getReplacementPlayers()}
                   playerName={currentPlayer.firstName}
-                  onClick={playerSelected}
+                  onClick={(player) => updatePlayers(player, true)}
                   onClose={() => setIsOpen(false)}
                 />
               </div>

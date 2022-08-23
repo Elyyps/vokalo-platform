@@ -7,7 +7,7 @@ export const playersData = (): IPlayer[] => [
     id: 50,
     gridX: 0,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -16,7 +16,7 @@ export const playersData = (): IPlayer[] => [
     id: 51,
     gridX: 1,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -25,7 +25,7 @@ export const playersData = (): IPlayer[] => [
     id: 52,
     gridX: 1,
     gridY: 2,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -34,7 +34,7 @@ export const playersData = (): IPlayer[] => [
     id: 53,
     gridX: 1,
     gridY: 3,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -43,7 +43,7 @@ export const playersData = (): IPlayer[] => [
     id: 54,
     gridX: 1,
     gridY: 4,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -52,7 +52,7 @@ export const playersData = (): IPlayer[] => [
     id: 55,
     gridX: 2,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -61,7 +61,7 @@ export const playersData = (): IPlayer[] => [
     id: 56,
     gridX: 2,
     gridY: 2,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -70,7 +70,7 @@ export const playersData = (): IPlayer[] => [
     id: 57,
     gridX: 3,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -79,7 +79,7 @@ export const playersData = (): IPlayer[] => [
     id: 58,
     gridX: 3,
     gridY: 2,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -88,7 +88,7 @@ export const playersData = (): IPlayer[] => [
     id: 59,
     gridX: 3,
     gridY: 3,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -97,7 +97,7 @@ export const playersData = (): IPlayer[] => [
     id: 60,
     gridX: 4,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
 ];
@@ -108,7 +108,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 70,
     gridX: 0,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -117,7 +117,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 71,
     gridX: 1,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -126,7 +126,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 72,
     gridX: 1,
     gridY: 2,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -135,7 +135,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 73,
     gridX: 1,
     gridY: 3,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -144,7 +144,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 74,
     gridX: 1,
     gridY: 4,
-    isReplaced: true,
+    substituted: true,
     ghost: false,
   },
   {
@@ -153,7 +153,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 75,
     gridX: 2,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -162,7 +162,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 76,
     gridX: 2,
     gridY: 2,
-    isReplaced: true,
+    substituted: true,
     ghost: false,
   },
   {
@@ -171,7 +171,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 77,
     gridX: 3,
     gridY: 1,
-    isReplaced: true,
+    substituted: true,
     ghost: false,
   },
   {
@@ -180,7 +180,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 78,
     gridX: 3,
     gridY: 2,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -189,7 +189,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 79,
     gridX: 3,
     gridY: 3,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
   {
@@ -198,7 +198,7 @@ export const playersReplaceData = (): IPlayer[] => [
     id: 80,
     gridX: 4,
     gridY: 1,
-    isReplaced: false,
+    substituted: false,
     ghost: false,
   },
 ];
