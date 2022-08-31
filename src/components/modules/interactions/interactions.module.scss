@@ -12,6 +12,14 @@
     ul {
       overflow-y: auto;
       max-height: 300px;
+      > li {
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        > input {
+          margin-right: 4px;
+        }
+      }
     }
   }
   &-buttons {
@@ -34,6 +42,7 @@
   &-switch {
     display: flex;
     justify-content: center;
+    margin-top: 12px;
     > span {
       cursor: pointer;
       display: block;

@@ -18,6 +18,7 @@ interface IDatePickerComponent {
 }
 
 export const DatePickerComponent = (props: IDatePickerComponent) => {
+  const [isClosed, setIsClosed] = React.useState<boolean>(false);
   const [isDefault, setIsDefault] = React.useState<boolean>(false);
   const [dateRange, setDateRange] = React.useState<IDateRange>({
     startDate: props.dateRange.startDate,
@@ -25,14 +26,17 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
   });
   const onSubmit = () => {
     setIsDefault(false);
+    setIsClosed(true);
     props.onChange(dateRange);
   };
   const onReset = () => {
+    console.log("here");
     setDateRange({
       startDate: new Date(),
       endDate: new Date(),
     });
     setIsDefault(true);
+    setIsClosed(true);
     props.onReset();
   };
 
@@ -55,7 +59,8 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
       <DropdownComponent
         title={getTitle()}
         icon="/icons/date.svg"
-        //onClick={() => setIsClosed(false)}
+        isClosed={isClosed}
+        onClick={() => setIsClosed(false)}
         contentPosition={props.contentPosition}
       >
         <div className={style["date-picker-content"]}>

@@ -54,7 +54,9 @@ export const PlayerSwapComponent = ({
               onClick={() => onClick(player)}
             >
               <div>0</div>
-              <span>{player.firstName}</span>
+              <span>
+                {player.firstName.charAt(0)}.{player.lastName}
+              </span>
             </div>
           ))}
           <ReactSVG

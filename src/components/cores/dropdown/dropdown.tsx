@@ -12,7 +12,8 @@ export interface IDropdownComponent {
   contentPosition?: "right" | "left";
   variant?: "transparent" | "disabled";
   children: any;
-  onClick?: () => void;
+  isClosed?: boolean;
+  onClick?: (event: any) => void;
 }
 export const DropdownComponent = (props: IDropdownComponent) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -29,7 +30,12 @@ export const DropdownComponent = (props: IDropdownComponent) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, props, wrapperRef]);
-
+  React.useEffect(() => {
+    console.log(props.isClosed);
+    if (props.isClosed) {
+      setIsOpen(false);
+    }
+  }, [props.isClosed]);
   return (
     <div className={style["dropdown"]} ref={wrapperRef}>
       {props.isProfile ? (
@@ -51,6 +57,7 @@ export const DropdownComponent = (props: IDropdownComponent) => {
             variant={props.variant}
             onClick={() => {
               setIsOpen(!isOpen);
+              props.onClick && props.onClick(() => isOpen);
             }}
             isDropdown
             hasBorder={props.hasBorder}

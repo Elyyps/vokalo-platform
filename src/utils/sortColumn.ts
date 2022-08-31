@@ -21,14 +21,14 @@ const sortTrend = (list: any[], isAscending: boolean) => {
 };
 const sortUsers = (list: any[], isAscending: boolean) => {
   let result = list.sort((a, b) => {
-    if (a.firstName > b.firstName) {
+    if (a.firstName.toLowerCase() < b.firstName.toLowerCase()) {
       return isAscending ? 1 : -1;
-    } else if (a.firstName < b.firstName) {
+    } else if (a.firstName.toLowerCase() > b.firstName.toLowerCase()) {
       return !isAscending ? 1 : -1;
     }
-    if (a.lastName > b.lastName) {
+    if (a.lastName.toLowerCase() < b.lastName.toLowerCase()) {
       return isAscending ? 1 : -1;
-    } else if (a.lastName < b.lastName) {
+    } else if (a.lastName.toLowerCase() > b.lastName.toLowerCase()) {
       return !isAscending ? 1 : -1;
     } else {
       return 0;

@@ -3,6 +3,10 @@ import { Chart } from "react-google-charts";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./interactions.module.scss";
+type ISort = {
+  value: string;
+  index?: number;
+};
 interface IInteractionsComponent {
   widget: any;
   isLineGraph?: boolean;
@@ -21,7 +25,7 @@ export const InteractionsComponent = ({
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
   ]);
-  const [sortBy, setSortBy] = React.useState<string>("Default");
+  const [sortBy, setSortBy] = React.useState<ISort[]>([{ value: "Default" }]);
   const [data, setData] = React.useState();
   const [selectedColors, setSelectedColors] = React.useState<string[]>([]);
   const [optionColors, setOptionColors] = React.useState<string[]>();
@@ -36,23 +40,22 @@ export const InteractionsComponent = ({
       baselineColor: "none",
       baseline: 0,
     },
-    series: isLineGraph ? optionColors : [],
+    series: isLineGraph && sortBy.length === 1 ? optionColors : [],
     hAxis: {
       textStyle: {
         color: "#C4C4C4",
         fontSize: 11,
       },
-      slantedText: true,
-      slantedTextAngle: 80,
+      slantedText: !isLineGraph && true,
+      slantedTextAngle: !isLineGraph && 80,
     },
     legend: isLineGraph ? { position: "bottom" } : "none",
   };
-
   const sortList = (list: any) => {
-    if (sortBy !== "Default") {
+    if (sortBy[0].value !== "Default") {
       return list.sort((a: any, b: any) => {
         if (a[1] && b[1]) {
-          return sortBy === "Ascending" ? a[1] - b[1] : b[1] - a[1];
+          return sortBy[0].value === "Ascending" ? a[1] - b[1] : b[1] - a[1];
         }
       });
     } else {
@@ -91,7 +94,7 @@ export const InteractionsComponent = ({
   };
   const getLineChartData = () => {
     let result = widget.data?.dataSets?.find(
-      (item: any) => item.name === sortBy
+      (item: any) => sortBy[0].value === item.name
     );
     if (result) {
       let header: any = [
@@ -104,7 +107,7 @@ export const InteractionsComponent = ({
       let list: any = header;
       result.data?.xaxis?.data.forEach((item: any, index: number) => {
         if (item) {
-          list.push([result.data?.xaxis?.data[index]]);
+          list.push([item]);
           filteredList.forEach((element: any, key: number) => {
             list[index + 1].push(filteredList[key].data[index].value);
           });
@@ -113,9 +116,37 @@ export const InteractionsComponent = ({
       return list && list;
     }
   };
+  const getPlayersLineChartData = () => {
+    let result = widget.data?.dataSets?.filter((item: any, key: number) =>
+      sortBy.some((i) => i.value === item.name && i.index === key)
+    );
+    if (result) {
+      let header: any = [
+        [widget.data?.xaxis?.name ? widget.data?.xaxis?.name : ""],
+      ];
+      sortBy.forEach((element) => header[0].push(element.value));
+      let list: any = header;
+      result[0].data?.xaxis?.data.forEach((item: any) => {
+        list.push([item]);
+      });
+      result.forEach((part: any) => {
+        part.data?.yaxis?.forEach((item: any, index: number) => {
+          if (item.name === selectedButton[0]) {
+            result[0].data?.xaxis?.data.forEach((element: any, key: number) => {
+              list[key + 1].push(item.data[key] ? item.data[key].value : "");
+            });
+          }
+        });
+      });
+      return list && list;
+    }
+  };
   const getSelectedButtons = (name: string) => {
     let buttons: string[] = [];
     if (isLineGraph) {
+      if (sortBy.length > 1) {
+        resetSort();
+      }
       if (selectedButton.includes(name)) {
         buttons = selectedButton.filter((item) => item !== name);
       } else {
@@ -143,35 +174,59 @@ export const InteractionsComponent = ({
       setSelectedColors(colors);
     }
   };
-  const resetFilter = (buttons: string[], colors: string[]) => {
-    const lastButton: string = buttons[buttons.length - 1];
-    const lastColor: string = colors[colors.length - 1];
+  const resetFilter = () => {
+    const lastButton: string = selectedButton[selectedButton.length - 1];
+    const lastColor: string = selectedColors[selectedColors.length - 1];
     if (selectedButton.length) {
       setSelectedButton([lastButton]);
       setSelectedColors([lastColor]);
     }
   };
+  const resetSort = () => {
+    const lastOption = sortBy[sortBy.length - 1];
+    if (selectedButton.length) {
+      setSortBy([lastOption]);
+    }
+  };
   const getButtons = () => {
     if (isLineGraph) {
-      return widget.data?.dataSets?.find((item: any) => item.name === sortBy);
+      return widget.data?.dataSets?.find(
+        (item: any) => item.name === sortBy[0].value
+      );
     } else {
       return widget;
     }
   };
-
+  const getFilters = (name: string, index: number) => {
+    let list: any = [];
+    const result = sortBy.some((i) => i.value === name && i.index === index);
+    if (result) {
+      list =
+        sortBy.length > 1
+          ? sortBy.filter((item) => item.value !== name && item.index !== index)
+          : list;
+    } else {
+      list = sortBy.concat({ value: name, index: index });
+    }
+    setSortBy(list);
+  };
   React.useEffect(() => {
     isLineGraph
       ? isNotDefault
-        ? setSortBy(widget.data?.dataSets[1].name)
-        : setSortBy("All")
-      : setSortBy("Default");
+        ? setSortBy([{ value: widget.data?.dataSets[0].name, index: 0 }])
+        : setSortBy([{ value: "All", index: 0 }])
+      : setSortBy([{ value: "Default" }]);
 
     setData(!isLineGraph ? getTableChartData() : getLineChartData());
   }, [isLineGraph]);
 
   React.useEffect(() => {
     if (isLineGraph) {
-      setData(getLineChartData());
+      if (sortBy.length === 1) {
+        setData(getLineChartData());
+      } else {
+        setData(getPlayersLineChartData());
+      }
     } else {
       setData(getTableChartData());
     }
@@ -188,22 +243,40 @@ export const InteractionsComponent = ({
       }
     }
   }, [selectedColors, isLineGraph]);
+
+  React.useEffect(() => {
+    if (sortBy.length > 1) {
+      resetFilter();
+    }
+  }, [sortBy]);
   return (
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
         <h6>{widget.header}</h6>
-        <DropdownComponent title={sortBy} hasBorder>
+        <DropdownComponent title={sortBy[0].value} hasBorder>
           {!isLineGraph ? (
             <ul>
-              <li onClick={() => setSortBy("Default")}>Default</li>
-              <li onClick={() => setSortBy("Ascending")}>Ascending</li>
-              <li onClick={() => setSortBy("Descending")}>Descending</li>
+              <li onClick={() => setSortBy([{ value: "Default" }])}>Default</li>
+              <li onClick={() => setSortBy([{ value: "Ascending" }])}>
+                Ascending
+              </li>
+              <li onClick={() => setSortBy([{ value: "Descending" }])}>
+                Descending
+              </li>
             </ul>
           ) : (
             <ul style={{ minWidth: "130px" }}>
               {widget.data?.dataSets.map((item: any, key: number) => (
-                <li key={key} onClick={() => setSortBy(item.name)}>
-                  <input type={"checkbox"} />
+                <li key={key}>
+                  <input
+                    type={"checkbox"}
+                    checked={
+                      sortBy.some(
+                        (i) => i.value === item.name && i.index === key
+                      ) && true
+                    }
+                    onChange={() => getFilters(item.name, key)}
+                  />
                   {item.name}
                 </li>
               ))}
@@ -218,7 +291,7 @@ export const InteractionsComponent = ({
               title={element.name}
               key={key}
               variant={
-                selectedButton.includes(element.name)
+                selectedButton.some((i) => i.includes(element.name))
                   ? "transparent"
                   : "disabled"
               }
@@ -244,7 +317,7 @@ export const InteractionsComponent = ({
             style={!isLineGraph ? {} : { opacity: 0.4 }}
             onClick={() => {
               onClick(false);
-              resetFilter(selectedButton, selectedColors);
+              resetFilter();
             }}
           ></span>
           <span

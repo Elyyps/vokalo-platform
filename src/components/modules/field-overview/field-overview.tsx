@@ -234,7 +234,11 @@ export const FieldOverviewComponent = ({
               <div className={style["field-overview-replacement"]}>
                 <PlayerSwapComponent
                   players={getReplacementPlayers()}
-                  playerName={currentPlayer.firstName}
+                  playerName={
+                    currentPlayer.firstName.charAt(0) +
+                    "." +
+                    currentPlayer.lastName
+                  }
                   onClick={(player) => updatePlayers(player, true)}
                   onClose={() => setIsOpen(false)}
                 />
