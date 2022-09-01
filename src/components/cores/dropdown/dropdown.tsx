@@ -31,7 +31,6 @@ export const DropdownComponent = (props: IDropdownComponent) => {
     };
   }, [isOpen, props, wrapperRef]);
   React.useEffect(() => {
-    console.log(props.isClosed);
     if (props.isClosed) {
       setIsOpen(false);
     }

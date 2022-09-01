@@ -201,14 +201,13 @@ export const InteractionsComponent = ({
     let list: any = [];
     const result = sortBy.some((i) => i.value === name && i.index === index);
     if (result) {
-      list =
-        sortBy.length > 1
-          ? sortBy.filter((item) => item.value !== name && item.index !== index)
-          : list;
+      list = sortBy.filter(
+        (item) => item.value !== name && item.index !== index
+      );
     } else {
       list = sortBy.concat({ value: name, index: index });
     }
-    setSortBy(list);
+    list.length > 0 && setSortBy(list);
   };
   React.useEffect(() => {
     isLineGraph

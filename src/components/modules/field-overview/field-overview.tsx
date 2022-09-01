@@ -91,7 +91,6 @@ export const FieldOverviewComponent = ({
       return playerCopy;
     });
     if (players) {
-      console.log(players);
       getAccount().then(async (session: any) => {
         const result = await updatePlayerAPI(session, players, id);
         if (result) {
@@ -202,7 +201,7 @@ export const FieldOverviewComponent = ({
               </DropdownComponent>
             </div>
             <div className={style["field-overview-players"]}>
-              <div style={{ width: "100%" }}>
+              {/* <div style={{ width: "100%" }}>
                 <PlayerComponent
                   player={playersList[0]}
                   value={getPlayerValue(playersList[0].id)}
@@ -210,13 +209,16 @@ export const FieldOverviewComponent = ({
                   onPlayerDrop={() => ""}
                   onPlayerDrag={() => ""}
                 />
-              </div>
+              </div> */}
               {playersList &&
-                playersList.slice(1, 11).map((player, key) => (
+                playersList.slice(0, 11).map((player, key) => (
                   <div
                     key={key}
                     style={{
-                      width: `${getPlayerPosition(player.gridX)}% `,
+                      width:
+                        key === 0
+                          ? "100%"
+                          : `${getPlayerPosition(player.gridX)}% `,
                     }}
                     onClick={() => !player.ghost && playerClicked(player)}
                   >
