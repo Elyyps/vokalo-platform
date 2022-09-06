@@ -55,7 +55,7 @@ export const PlayerSwapComponent = ({
             >
               <div>0</div>
               <span>
-                {player.firstName.charAt(0)}.{player.lastName}
+                {player.lastName.length > 1 ? player.firstName.charAt(0) +"." + player.lastName : player.firstName}
               </span>
             </div>
           ))}
