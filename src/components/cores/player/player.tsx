@@ -60,8 +60,8 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         className={style["player-name"]}
         style={{ visibility: props.player.ghost ? "hidden" : "visible" }}
       >
-        {props.player.firstName.charAt(0)}.{props.player.lastName}
-      </span>
+        {!props.player.ghost ? props.player.firstName.charAt(0) + "." + props.player.lastName : ""}
+        </span>
     </div>
   );
 };
