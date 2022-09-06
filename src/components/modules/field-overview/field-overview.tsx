@@ -39,6 +39,15 @@ export const FieldOverviewComponent = ({
   const [playersList, setPlayersList] = React.useState<IPlayer[]>(
     profiles ? profiles : []
   );
+  const getReplacementPlayers = (list: IPlayer[]) => {
+    const filtertedList = list.filter(
+      (player) => player.gridX === -1 && player.gridY === -1
+    );
+    return filtertedList;
+  };
+  const [swapPlayersList, setSwapPlayersList] = React.useState<IPlayer[]>(
+    getReplacementPlayers(profiles)
+  );
   const [fieldData, setFieldData] =
     React.useState<IFieldOverview>(fieldOverview);
 
@@ -96,6 +105,8 @@ export const FieldOverviewComponent = ({
         if (result) {
           const sortedList = sortPlayer(result.data.profiles);
           setPlayersList(sortedList);
+          const swapPlayers = getReplacementPlayers(result.data.profiles);
+          setSwapPlayersList(swapPlayers);
           setIsOpen(false);
         }
       });
@@ -162,11 +173,6 @@ export const FieldOverviewComponent = ({
     if (sortedResult) {
       setIsLoading(false);
     }
-  };
-  const getReplacementPlayers = () => {
-    return profiles.filter(
-      (player) => player.gridX === -1 && player.gridY === -1
-    );
   };
 
   React.useEffect(() => {
@@ -235,7 +241,7 @@ export const FieldOverviewComponent = ({
             {isOpen && (
               <div className={style["field-overview-replacement"]}>
                 <PlayerSwapComponent
-                  players={getReplacementPlayers()}
+                  players={swapPlayersList}
                   playerName={
                     currentPlayer.firstName.charAt(0) +
                     "." +
