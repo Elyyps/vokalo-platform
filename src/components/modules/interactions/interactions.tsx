@@ -105,11 +105,15 @@ export const InteractionsComponent = ({
         selectedButton.includes(item.name)
       );
       let list: any = header;
+      let sortedList = filteredList.sort(
+        (a: any, b: any) =>
+          selectedButton.indexOf(a.name) - selectedButton.indexOf(b.name)
+      );
       result.data?.xaxis?.data.forEach((item: any, index: number) => {
         if (item) {
           list.push([item]);
-          filteredList.forEach((element: any, key: number) => {
-            list[index + 1].push(filteredList[key].data[index].value);
+          sortedList.forEach((element: any, key: number) => {
+            list[index + 1].push(sortedList[key].data[index].value);
           });
         }
       });
@@ -129,12 +133,22 @@ export const InteractionsComponent = ({
       result[0].data?.xaxis?.data.forEach((item: any) => {
         list.push([item]);
       });
-      result.forEach((part: any) => {
+      let idsToIndexes: string[] = [];
+      for (var i = 0; i < sortBy.length; i++) {
+        idsToIndexes.push(sortBy[i].value);
+      }
+      let sortedResult = result.sort(
+        (a: any, b: any) =>
+          idsToIndexes.indexOf(a.name) - idsToIndexes.indexOf(b.name)
+      );
+      sortedResult.forEach((part: any) => {
         part.data?.yaxis?.forEach((item: any, index: number) => {
           if (item.name === selectedButton[0]) {
-            result[0].data?.xaxis?.data.forEach((element: any, key: number) => {
-              list[key + 1].push(item.data[key] ? item.data[key].value : "");
-            });
+            sortedResult[0].data?.xaxis?.data.forEach(
+              (element: any, key: number) => {
+                list[key + 1].push(item.data[key] ? item.data[key].value : "");
+              }
+            );
           }
         });
       });

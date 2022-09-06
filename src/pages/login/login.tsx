@@ -11,9 +11,9 @@ export const LoginPage = () => {
   const account = React.useContext(AccountContext);
   const onSubmit = (e: any) => {
     account
-      .authenticate("jon@vokalo.io", "wqCn%C7i")
+      //.authenticate("jon@vokalo.io", "wqCn%C7i")
       // .authenticate("jon@vokalo.io", "Sqw5#I9V")wqCn%C7i
-      // .authenticate(e.username, e.password)
+      .authenticate(e.username, e.password)
       .then((data: any) => {
         navigate("/");
       })
