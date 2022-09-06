@@ -75,12 +75,22 @@ export const InteractionsComponent = ({
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
       if (!isLineGraph && item !== "/") {
-        item &&
+        if(item && item.includes(" ")) {
+          let firstName = widget.data?.xaxis?.data[index].split(" ")[0]
+          let firstNameStart = firstName[0]
+          let lastName = widget.data?.xaxis?.data[index].split(" ")[1]
+          if(lastName.length>1) {
           list.push([
-            widget.data?.xaxis?.data[index].split(" ")[0].split("")[0] +
-              "." +
-              widget.data?.xaxis?.data[index].split(" ")[1],
+            firstNameStart + "." + lastName,
           ]);
+          } else {
+            list.push([
+              firstName,
+           ]);
+          }
+        } else {
+          list.push([item.replace("-", "").replace("-", "")])
+        }
       } else {
         item && list.push([widget.data?.xaxis?.data[index]]);
       }
