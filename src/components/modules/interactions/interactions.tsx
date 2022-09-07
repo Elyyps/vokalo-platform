@@ -75,21 +75,17 @@ export const InteractionsComponent = ({
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
       if (!isLineGraph && item !== "/") {
-        if(item && item.includes(" ")) {
-          let firstName = widget.data?.xaxis?.data[index].split(" ")[0]
-          let firstNameStart = firstName[0]
-          let lastName = widget.data?.xaxis?.data[index].split(" ")[1]
-          if(lastName.length>1) {
-          list.push([
-            firstNameStart + "." + lastName,
-          ]);
+        if (item && item.includes(" ")) {
+          let firstName = widget.data?.xaxis?.data[index].split(" ")[0];
+          let firstNameStart = firstName[0];
+          let lastName = widget.data?.xaxis?.data[index].split(" ")[1];
+          if (lastName.length > 1) {
+            list.push([firstNameStart + "." + lastName]);
           } else {
-            list.push([
-              firstName,
-           ]);
+            list.push([firstName]);
           }
         } else {
-          list.push([item.replace("-", "").replace("-", "")])
+          list.push([item.replace("-", "").replace("-", "")]);
         }
       } else {
         item && list.push([widget.data?.xaxis?.data[index]]);
@@ -290,7 +286,7 @@ export const InteractionsComponent = ({
           ) : (
             <ul style={{ minWidth: "130px" }}>
               {widget.data?.dataSets.map((item: any, key: number) => (
-                <li key={key}>
+                <li key={key} onClick={() => getFilters(item.name, key)}>
                   <input
                     type={"checkbox"}
                     checked={
@@ -298,7 +294,6 @@ export const InteractionsComponent = ({
                         (i) => i.value === item.name && i.index === key
                       ) && true
                     }
-                    onChange={() => getFilters(item.name, key)}
                   />
                   {item.name}
                 </li>

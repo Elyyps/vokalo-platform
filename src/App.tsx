@@ -5,7 +5,6 @@ import "./App.scss";
 import Layout from "./components/Layout";
 import { AccountContext } from "./context/account";
 import { FilterContextProvider } from "./context/filter";
-import { CoachPage } from "./pages/coach/coach";
 import { DashboardPage } from "./pages/dashboard/dashboard";
 import { ForgotPasswordPage } from "./pages/forgot-password/forgot-password";
 import { LoginPage } from "./pages/login/login";
@@ -50,7 +49,10 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-            <Route index element={addPageLayout(<DashboardPage />)} />
+            <Route
+              index
+              element={addPageLayout(<DashboardPage user={user} />)}
+            />
             {/* <Route
               path="/coach"
               element={addPageLayout(<CoachPage user={user} />, "Coachs")}

@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
 import { converToDate } from "../../../utils/convertDate";
@@ -21,7 +21,7 @@ export const SessionsComponent = ({
   });
   const [columns, setColumns] = React.useState<any[]>([]);
   const { pathname } = useLocation();
-
+  const navigate = useNavigate();
   const getColor = (score: number) => {
     if (score <= 0.4) {
       return "NEGATIVE";
@@ -60,7 +60,7 @@ export const SessionsComponent = ({
 
   return sortedSession && columns?.length ? (
     <div className={style["sessions"]}>
-      <h6>Session</h6>
+      <h6>Sessions</h6>
       <div className={style["sessions-header"]}>
         {columns.map((column, key) => (
           <span
@@ -87,6 +87,7 @@ export const SessionsComponent = ({
                   ? { marginBottom: "16px" }
                   : { fontSize: "14px" }
               }
+              onClick={() => navigate("/sessions/" + session.id)}
             >
               <span>{converToDate(session.creationTimestamp)}</span>
               <span>

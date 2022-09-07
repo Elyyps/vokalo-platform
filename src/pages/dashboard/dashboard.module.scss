@@ -2,8 +2,10 @@
   > h1 {
     margin-top: 48px;
     margin-bottom: 32px;
+    width: fit-content;
     &:first-child {
       margin-top: 0;
+      cursor: pointer;
     }
   }
   &-bottom {

@@ -283,8 +283,8 @@ export const FieldOverviewComponent = ({
                 type={"number"}
                 max={fieldData.matchData.endMinute - 1}
                 min={0}
-                onChangeCapture={(e: any) =>
-                  e.target.value >= 0 &&
+                value={range.from && range.from}
+                onChange={(e: any) =>
                   setRange({ from: e.target.value, to: range.to })
                 }
               />
@@ -292,9 +292,9 @@ export const FieldOverviewComponent = ({
                 placeholder="End"
                 type={"number"}
                 min={1}
+                value={range.to && range.to}
                 max={fieldData.matchData.endMinute}
-                onChangeCapture={(e: any) =>
-                  e.target.value > 0 &&
+                onChange={(e: any) =>
                   setRange({ from: range.from, to: e.target.value })
                 }
               />
