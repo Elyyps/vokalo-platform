@@ -35,6 +35,9 @@ export const DropdownComponent = (props: IDropdownComponent) => {
       setIsOpen(false);
     }
   }, [props.isClosed]);
+  React.useEffect(() => {
+    if (props.isClosed === undefined) setIsOpen(false);
+  }, [props.title]);
   return (
     <div className={style["dropdown"]} ref={wrapperRef}>
       {props.isProfile ? (
