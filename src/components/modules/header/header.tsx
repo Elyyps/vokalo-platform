@@ -27,7 +27,7 @@ export const HeaderComponent = ({ user }: Props) => {
     if (user && user.teams) {
       setTeam(isException() ? user.teams[0] : "");
     }
-  }, [pathname]);
+  }, [pathname, team]);
 
   return (
     <div className={style["header"]}>
@@ -37,7 +37,13 @@ export const HeaderComponent = ({ user }: Props) => {
           !pathname.includes("/squad/") &&
           !pathname.includes("/sessions/") && (
             <DropdownComponent
-              title={team ? team.name : "All"}
+              title={
+                team
+                  ? team.name
+                  : user && isException()
+                  ? user.teams[0].name
+                  : "All"
+              }
               contentPosition="right"
             >
               <ul>
