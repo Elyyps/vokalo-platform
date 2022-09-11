@@ -1,5 +1,6 @@
 import React from "react";
+import style from "./empty-state.module.scss";
 
 export const EmptyStateComponent = () => {
-  return <div>-</div>;
+  return <div className={style["empty-state"]}>-</div>;
 };

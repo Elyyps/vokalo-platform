@@ -3,6 +3,7 @@ import { TrendComponent } from "../trend/trend";
 import style from "./usage-widget.module.scss";
 import { Chart } from "react-google-charts";
 import { IWidget } from "../../../types/cores/widget";
+import { EmptyStateComponent } from "../empty-state/empty-state";
 interface IUsageWidget {
   widget: IWidget;
 }
@@ -50,30 +51,34 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
           />
         )}
       </div>
-      <div className={style["usage-widget-content"]}>
-        <div className={widget.label && style["usage-widget-graph"]}>
-          <Chart
-            chartType={widget.label ? "LineChart" : "AreaChart"}
-            data={getChartData()}
-            options={options}
-            width="100%"
-            height="100%"
-          />
-        </div>
-        {widget.label && (
-          <div className={style["usage-widget-content-right"]}>
-            <span>Speech time</span>
-            <h3>{widget.label}</h3>
-            <div>
-              <small>{widget.subheader}</small>
-              <TrendComponent
-                trendLabel={widget.trendLabel}
-                trendDirection={widget.trendDirection}
-              />
-            </div>
+      {widget.data?.xaxis?.data && widget.data?.xaxis?.data?.length > 1 ? (
+        <div className={style["usage-widget-content"]}>
+          <div className={widget.label && style["usage-widget-graph"]}>
+            <Chart
+              chartType={widget.label ? "LineChart" : "AreaChart"}
+              data={getChartData()}
+              options={options}
+              width="100%"
+              height="100%"
+            />
           </div>
-        )}
-      </div>
+          {widget.label && (
+            <div className={style["usage-widget-content-right"]}>
+              <span>Speech time</span>
+              <h3>{widget.label}</h3>
+              <div>
+                <small>{widget.subheader}</small>
+                <TrendComponent
+                  trendLabel={widget.trendLabel}
+                  trendDirection={widget.trendDirection}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <EmptyStateComponent />
+      )}
     </div>
   );
 };

@@ -22,6 +22,7 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
     props.onSelect(value);
     setCurrentSelection(value);
   };
+
   return (
     <div className={style["page-header"]}>
       <h2

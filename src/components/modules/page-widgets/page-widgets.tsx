@@ -1,6 +1,7 @@
 import React from "react";
 import { IWidget } from "../../../types/cores/widget";
 import { ActivityWidget } from "../../cores/activity-widget/activity-widget";
+import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
 import { FeedbackWidget } from "../../cores/feedback-widget/feedback-widget";
 import { SentimentWidget } from "../../cores/sentiment-widget/sentiment-widget";
 import { UsageWidget } from "../../cores/usage-widget/usage-widget";
@@ -17,7 +18,11 @@ export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
           {widget.widgetType === "BASIC_LABEL" && (
             <div className="widget-container">
               <h6>{widget.header}</h6>
-              <h3 style={{ marginTop: "16px" }}>{widget.label}</h3>
+              {widget.label !== "NaN" ? (
+                <h3 style={{ marginTop: "16px" }}>{widget.label}</h3>
+              ) : (
+                <EmptyStateComponent />
+              )}
             </div>
           )}
           {widget.widgetType === "BASIC_PERCENTAGE_DISTRIBUTION_WIDGET" && (

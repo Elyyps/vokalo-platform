@@ -1,4 +1,5 @@
 import { IWidget } from "../../../types/cores/widget";
+import { EmptyStateComponent } from "../empty-state/empty-state";
 import { TrendComponent } from "../trend/trend";
 import style from "./activity-widget.module.scss";
 interface IActivityWidget {
@@ -15,13 +16,17 @@ export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
           trendDirection={widget.trendDirection}
         />
       </div>
-      <h3
-        className={
-          hasColor ? style[`activity-widget-${widget.trendDirection}`] : ""
-        }
-      >
-        {widget.label}
-      </h3>
+      {widget.label !== "NONE" ? (
+        <h3
+          className={
+            hasColor ? style[`activity-widget-${widget.trendDirection}`] : ""
+          }
+        >
+          {widget.label}
+        </h3>
+      ) : (
+        <EmptyStateComponent />
+      )}
     </div>
   );
 };

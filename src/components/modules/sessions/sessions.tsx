@@ -5,6 +5,7 @@ import { ISession } from "../../../types/modules/session";
 import { converToDate } from "../../../utils/convertDate";
 import { converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
+import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions.module.scss";
 interface ISessionsComponent {
@@ -56,26 +57,30 @@ export const SessionsComponent = ({
       sortConfig.column.param,
       sortConfig.ascending
     );
-  }, [sortConfig]);
+  }, [sortConfig, sessions]);
 
   return sortedSession && columns?.length ? (
     <div className={style["sessions"]}>
       <h6>Sessions</h6>
-      <div className={style["sessions-header"]}>
-        {columns.map((column, key) => (
-          <span
-            key={key}
-            onClick={() =>
-              setSortConfig({
-                column: { name: column.name, param: column.param },
-                ascending: !sortConfig.ascending,
-              })
-            }
-          >
-            {column.name} <ReactSVG src="/icons/arrow-down.svg" />
-          </span>
-        ))}
-      </div>
+      {sortedSession?.length ? (
+        <div className={style["sessions-header"]}>
+          {columns.map((column, key) => (
+            <span
+              key={key}
+              onClick={() =>
+                setSortConfig({
+                  column: { name: column.name, param: column.param },
+                  ascending: !sortConfig.ascending,
+                })
+              }
+            >
+              {column.name} <ReactSVG src="/icons/arrow-down.svg" />
+            </span>
+          ))}
+        </div>
+      ) : (
+        <EmptyStateComponent />
+      )}
       <div className={style["sessions-content"]}>
         {sortedSession
           .slice(0, isSquadSessions ? sessions.length : 5)

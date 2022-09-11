@@ -30,7 +30,6 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
     props.onChange(dateRange);
   };
   const onReset = () => {
-    console.log("here");
     setDateRange({
       startDate: new Date(),
       endDate: new Date(),
