@@ -1,6 +1,6 @@
 export const converToHours = (minutes: number) => {
   return (
-    `0${(minutes / 60) ^ 0}`.slice(-2) + "h" + ("0" + (minutes % 60)).slice(-2)
+    `${(minutes / 60) ^ 0}`.slice(-2) + ":" + ("0" + (minutes % 60)).slice(-2)+":00"
   );
 };
 export const converToMinutes = (value: number) => {

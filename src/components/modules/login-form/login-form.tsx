@@ -53,7 +53,6 @@ const InnerForm = (props: FormikProps<ILoginFormValues>) => {
             <Link to="/forgot-password">Forgot your password ?</Link>
           </small>
         </div>
-
         <div className={style["login-form-save"]}>
           <input type="checkbox" name="save" />
           <label htmlFor="save">Remember me</label>

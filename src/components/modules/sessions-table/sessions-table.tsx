@@ -50,7 +50,7 @@ export const SessionsTableComponent = ({
           <thead>
             <tr>
               <th>
-                <input type="checkbox" />
+                {/* <input type="checkbox" /> */}
               </th>
               {columns.map((column, key) => (
                 <th key={key}>
@@ -74,7 +74,7 @@ export const SessionsTableComponent = ({
               sortedSession.map((row: ISession, key) => (
                 <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
                   <td>
-                    <input type="checkbox" />
+                    {/* <input type="checkbox" /> */}
                   </td>
                   <td>{converToDate(row.creationTimestamp)}</td>
                   <td>
@@ -116,7 +116,7 @@ export const SessionsTableComponent = ({
                     </span>
                   </td>
                   <td>
-                    <DropdownComponent
+                    {/* <DropdownComponent
                       icon="/icons/more.svg"
                       variant="transparent"
                     >
@@ -127,7 +127,7 @@ export const SessionsTableComponent = ({
                       >
                         hello
                       </span>
-                    </DropdownComponent>
+                    </DropdownComponent> */}
                   </td>
                 </tr>
               ))

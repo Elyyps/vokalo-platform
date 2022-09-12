@@ -7,7 +7,7 @@ import style from "./login.module.scss";
 
 export const LoginPage = () => {
   let navigate = useNavigate();
-
+const [hasError,setHasError] = React.useState(false);
   const account = React.useContext(AccountContext);
   const onSubmit = (e: any) => {
     account
@@ -18,13 +18,15 @@ export const LoginPage = () => {
         navigate("/");
       })
       .catch((err: any) => {
+        setHasError(true)
         console.error("Failed to login!", err);
       });
   };
   return (
     <div className={style["login"]}>
       <LoginLayoutComponent>
-        <LoginFormComponent onSubmit={onSubmit} />
+       {hasError &&  <span className={style["login-error"]}>Error, please try to login again.</span>} 
+        <LoginFormComponent onSubmit={onSubmit}/>
       </LoginLayoutComponent>
     </div>
   );

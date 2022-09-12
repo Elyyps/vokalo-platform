@@ -72,8 +72,8 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
           </div>
           <div className={style["date-picker-content-bottom"]}>
             <div>
-              <span>match</span>
-              <span>training</span>
+              {/* <span>match</span>
+              <span>training</span> */}
             </div>
             <div>
               <ButtonComponent
