@@ -2,6 +2,7 @@ import React from "react";
 import { Chart } from "react-google-charts";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
+import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
 import style from "./interactions.module.scss";
 type ISort = {
   value: string;
@@ -26,7 +27,7 @@ export const InteractionsComponent = ({
     "Total",
   ]);
   const [sortBy, setSortBy] = React.useState<ISort[]>([{ value: "Default" }]);
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState<any[]>();
   const [selectedColors, setSelectedColors] = React.useState<string[]>([]);
   const [optionColors, setOptionColors] = React.useState<string[]>();
 
@@ -272,6 +273,7 @@ export const InteractionsComponent = ({
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
         <h6>{widget.header}</h6>
+         {data && data[1] && data[1].length > 1 && 
         <DropdownComponent title={sortBy[0].value} hasBorder>
           {!isLineGraph ? (
             <ul>
@@ -301,6 +303,7 @@ export const InteractionsComponent = ({
             </ul>
           )}
         </DropdownComponent>
+         }
       </div>
       {hasButtons && getButtons() && (
         <div className={style["interactions-buttons"]}>
@@ -322,13 +325,15 @@ export const InteractionsComponent = ({
           ))}
         </div>
       )}
+      {data && data[1] && data[1].length > 1 ?
       <Chart
         chartType={!isLineGraph ? "ColumnChart" : "LineChart"}
         data={data}
         options={options}
         className={style["interactions-graph"]}
         width="100%"
-      />
+      /> : <EmptyStateComponent />
+      }
       {hasButtons && (
         <div className={style["interactions-switch"]}>
           <span
