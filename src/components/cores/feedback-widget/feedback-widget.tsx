@@ -29,8 +29,7 @@ export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
                     : "feedback-widget-simple"
                 ]
               } ${
-                widget.elements &&
-                widget.elements[0].percentage === 0 &&
+                element.percentage === 0 &&
                 style["feedback-widget-simple-none"]
               }
             `}

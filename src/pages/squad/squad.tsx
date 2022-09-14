@@ -1,4 +1,5 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
@@ -18,14 +19,15 @@ export const SquadPage = ({ user }: ISquadPage) => {
     widgets: IWidget[];
   }>();
   const { getAccount } = React.useContext(AccountContext);
-  const { team, startDate, endDate } = React.useContext(FilterContext);
+  const [cookies] = useCookies(["team"]);
+  const { startDate, endDate } = React.useContext(FilterContext);
   const [filter, setFilter] = React.useState({ key: "role", value: "" });
 
   const getSquads = async (session: any) => {
     const data = await getAPI(
       "profiles",
       session,
-      team ? team.id : user.teams[0].id,
+      cookies.team.id ? cookies.team.id : user.teams[0].id,
       startDate,
       endDate,
       filter
@@ -38,7 +40,7 @@ export const SquadPage = ({ user }: ISquadPage) => {
         getSquads(session);
       });
     }
-  }, [team, startDate, endDate, filter.value, user]);
+  }, [cookies.team, startDate, endDate, filter.value, user]);
 
   return (
     <div className={style["squad"]}>

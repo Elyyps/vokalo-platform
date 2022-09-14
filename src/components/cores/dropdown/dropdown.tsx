@@ -9,7 +9,7 @@ export interface IDropdownComponent {
   isProfile?: boolean;
   hasPadding?: boolean;
   hasBorder?: boolean;
-  contentPosition?: "right" | "left";
+  contentPosition?: "right" | "left" | "top";
   variant?: "transparent" | "disabled";
   children: any;
   isClosed?: boolean;
@@ -74,7 +74,11 @@ export const DropdownComponent = (props: IDropdownComponent) => {
         }`}
         style={{
           padding: props.hasPadding ? "8px 16px" : 0,
-          top: !props.title ? "25px" : "45px",
+          top: !props.title
+            ? "25px"
+            : props.contentPosition === "top"
+            ? "-85px"
+            : "45px",
         }}
       >
         {props.children}

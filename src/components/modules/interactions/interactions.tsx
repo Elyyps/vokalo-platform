@@ -230,6 +230,13 @@ export const InteractionsComponent = ({
     }
     list.length > 0 && setSortBy(list);
   };
+  const getDropdownTitle = ()=>{
+    if(sortBy.length >1){
+      return sortBy.length +" selections"
+    }else {
+      return sortBy[0].value
+    }
+  }
   React.useEffect(() => {
     isLineGraph
       ? isNotDefault
@@ -274,7 +281,7 @@ export const InteractionsComponent = ({
       <div className={style["interactions-header"]}>
         <h6>{widget.header}</h6>
          {data && data[1] && data[1].length > 1 && 
-        <DropdownComponent title={sortBy[0].value} hasBorder>
+        <DropdownComponent title={getDropdownTitle()} hasBorder>
           {!isLineGraph ? (
             <ul>
               <li onClick={() => setSortBy([{ value: "Default" }])}>Default</li>
@@ -291,6 +298,7 @@ export const InteractionsComponent = ({
                 <li key={key} onClick={() => getFilters(item.name, key)}>
                   <input
                     type={"checkbox"}
+                    onChange={()=>""}
                     checked={
                       sortBy.some(
                         (i) => i.value === item.name && i.index === key

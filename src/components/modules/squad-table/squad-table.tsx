@@ -1,4 +1,5 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { IProfile } from "../../../types/modules/squad";
@@ -11,6 +12,7 @@ interface ISquadTableComponent {
   squad: IProfile[];
 }
 export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
+  const [cookies] = useCookies(["rows"]);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [sortConfig, setSortConfig] = React.useState<any>({
     column: { name: "name", param: [""] },
@@ -32,18 +34,20 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
     { name: "distribution", param: ["moodAggregations", "value"] },
     { name: "percentage", param: ["orientationAggregations", "value"] },
   ];
+  const rows = cookies.rows ? cookies.rows : 12;
   const getPercentage = (value: number) => {
     return Math.round(value * 100);
   };
   const sortedSquad = React.useMemo(() => {
     let sortableSquad = [...squad];
+
     return sortColumn(
       sortableSquad,
       sortConfig.column.name,
       sortConfig.column.param,
       sortConfig.ascending
     );
-  }, [sortConfig, squad]);
+  }, [sortConfig, squad, cookies.rows]);
 
   return sortedSquad ? (
     <div>
@@ -83,7 +87,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
           </thead>
           <tbody>
             {sortedSquad
-              .slice((currentPage - 1) * 10, currentPage * 10)
+              .slice((currentPage - 1) * rows, currentPage * rows)
               .map((row: IProfile, key) => (
                 <tr key={key} onClick={() => navigate("/squad/" + row.id)}>
                   <td>

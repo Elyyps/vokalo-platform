@@ -5,7 +5,6 @@ import { ISession } from "../../../types/modules/session";
 import { converToDate } from "../../../utils/convertDate";
 import { converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
-import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import { PaginationComponent } from "../../cores/pagination/pagination";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions-table.module.scss";
@@ -28,6 +27,7 @@ export const SessionsTableComponent = ({
     { name: "analyzed", param: ["analyzed"] },
   ];
   const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const [currentNumber, setCurrentNumber] = React.useState<number>(12);
   const [sortConfig, setSortConfig] = React.useState({
     column: { name: "date", param: [""] },
     ascending: true,
@@ -49,9 +49,7 @@ export const SessionsTableComponent = ({
         <table>
           <thead>
             <tr>
-              <th>
-                {/* <input type="checkbox" /> */}
-              </th>
+              <th>{/* <input type="checkbox" /> */}</th>
               {columns.map((column, key) => (
                 <th key={key}>
                   <span
@@ -73,9 +71,7 @@ export const SessionsTableComponent = ({
             {sortedSession ? (
               sortedSession.map((row: ISession, key) => (
                 <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
-                  <td>
-                    {/* <input type="checkbox" /> */}
-                  </td>
+                  <td>{/* <input type="checkbox" /> */}</td>
                   <td>{converToDate(row.creationTimestamp)}</td>
                   <td>
                     <TypeComponent type={row.type} />

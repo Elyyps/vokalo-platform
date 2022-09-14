@@ -1,33 +1,42 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AccountContext } from "../../../context/account";
 import FilterContext from "../../../context/filter";
 import { DatePickerComponent } from "../../cores/date-picker/date-picker";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./header.module.scss";
+
 type Props = {
   user: any;
 };
 export const HeaderComponent = ({ user }: Props) => {
   let navigate = useNavigate();
   const { pathname } = useLocation();
+  const [cookies, setCookie] = useCookies(["team"]);
   const { logout } = React.useContext(AccountContext);
-  const { team, setTeam, startDate, setStartDate, endDate, setEndDate } =
+  const { startDate, setStartDate, endDate, setEndDate } =
     React.useContext(FilterContext);
-
   const onLogout = () => {
     logout();
     navigate("/login");
+  };
+  const setTeam = (team: any) => {
+    setCookie("team", { name: team.name, id: team.id });
   };
   const isException = (): boolean => {
     const exceptions = ["/squad"];
     return exceptions.includes(pathname);
   };
   React.useEffect(() => {
-    if (user && user.teams) {
-      setTeam(isException() ? user.teams[0] : "");
+    if (!cookies.team?.id) {
+      if (isException()) {
+        setTeam(user && user.teams[0]);
+      } else {
+        setTeam({ name: "All", id: "" });
+      }
     }
-  }, [pathname, team]);
+  }, [pathname, user]);
 
   return (
     <div className={style["header"]}>
@@ -37,17 +46,13 @@ export const HeaderComponent = ({ user }: Props) => {
           !pathname.includes("/squad/") &&
           !pathname.includes("/sessions/") && (
             <DropdownComponent
-              title={
-                team
-                  ? team.name
-                  : user && isException()
-                  ? user.teams[0].name
-                  : "All"
-              }
+              title={cookies.team ? cookies.team.name : ""}
               contentPosition="right"
             >
               <ul>
-                {!isException() && <li onClick={() => setTeam("")}>All</li>}
+                {!isException() && (
+                  <li onClick={() => setTeam({ name: "All", id: "" })}>All</li>
+                )}
                 {user.teams.map((team: any, key: number) => (
                   <li key={key} onClick={() => setTeam(team)}>
                     {team.name}

@@ -60,6 +60,10 @@
       right: auto;
       left: 0;
     }
+    &-top {
+      background-color: red;
+      top: -80px;
+    }
   }
   .open svg {
     transform: rotate(180deg);
