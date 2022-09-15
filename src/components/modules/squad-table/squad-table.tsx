@@ -22,7 +22,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
   const columns = [
     { name: "name", param: ["name"] },
     { name: "type", param: ["role"] },
-    { name: "speech time", param: ["communicationAggregations", "minutes"] },
+    { name: "playing time", param: ["communicationAggregations", "minutes"] },
     {
       name: "average interaction length",
       param: ["communicationAggregations", "averageInteractionLength"],
