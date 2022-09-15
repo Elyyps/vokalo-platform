@@ -13,12 +13,13 @@ type Props = {
 export const HeaderComponent = ({ user }: Props) => {
   let navigate = useNavigate();
   const { pathname } = useLocation();
-  const [cookies, setCookie] = useCookies(["team"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["team"]);
   const { logout } = React.useContext(AccountContext);
   const { startDate, setStartDate, endDate, setEndDate } =
     React.useContext(FilterContext);
   const onLogout = () => {
     logout();
+    removeCookie("team");
     navigate("/login");
   };
   const setTeam = (team: any) => {

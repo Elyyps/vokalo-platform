@@ -4,6 +4,7 @@ import style from "./usage-widget.module.scss";
 import { Chart } from "react-google-charts";
 import { IWidget } from "../../../types/cores/widget";
 import { EmptyStateComponent } from "../empty-state/empty-state";
+import { Tooltip } from "../tooltip/tooltip";
 interface IUsageWidget {
   widget: IWidget;
 }
@@ -43,7 +44,10 @@ export const UsageWidget = ({ widget }: IUsageWidget) => {
   return (
     <div className={` ${style["usage-widget"]} widget-container`}>
       <div className="widget-header">
-        <h6>{widget.header}</h6>
+        <h6>
+          {widget.header}
+          {widget.tooltip && <Tooltip content={widget.tooltip} />}
+        </h6>
         {!widget.label && (
           <TrendComponent
             trendLabel={widget.trendLabel}
