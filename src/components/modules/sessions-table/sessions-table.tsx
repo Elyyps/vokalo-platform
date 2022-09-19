@@ -1,4 +1,5 @@
 import React from "react";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ISession } from "../../../types/modules/session";
@@ -26,13 +27,13 @@ export const SessionsTableComponent = ({
     { name: "recordings", param: ["recordings"] },
     { name: "analyzed", param: ["analyzed"] },
   ];
+  const [cookies] = useCookies(["rows"]);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
-  const [currentNumber, setCurrentNumber] = React.useState<number>(12);
   const [sortConfig, setSortConfig] = React.useState({
     column: { name: "date", param: [""] },
     ascending: true,
   });
-
+  const rows = cookies.rows ? cookies.rows : 12;
   const sortedSession = React.useMemo(() => {
     let sortableSession = [...sessions];
     return sortColumn(
@@ -41,7 +42,7 @@ export const SessionsTableComponent = ({
       sortConfig.column.param,
       sortConfig.ascending
     );
-  }, [sortConfig, sessions]);
+  }, [sortConfig, sessions, cookies.rows]);
 
   return sortedSession ? (
     <div>
@@ -69,50 +70,52 @@ export const SessionsTableComponent = ({
           </thead>
           <tbody>
             {sortedSession ? (
-              sortedSession.map((row: ISession, key) => (
-                <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
-                  <td>{/* <input type="checkbox" /> */}</td>
-                  <td>{converToDate(row.creationTimestamp)}</td>
-                  <td>
-                    <TypeComponent type={row.type} />
-                  </td>
-                  <td>{row.length && converToMinutes(row.length)}</td>
-                  <td>
-                    {row.creator?.firstName + " " + row.creator?.lastName}
-                  </td>
-                  <td>{row.participants?.length}</td>
-                  <td>
-                    <span
-                      className={`checkmark ${
-                        !row.hasRecordings && "checkmark-rotate"
-                      }`}
-                    >
-                      <ReactSVG
-                        src={
-                          row.hasRecordings
-                            ? "/icons/check.svg"
-                            : "/icons/cross.svg"
-                        }
-                      />
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      className={`checkmark ${
-                        !row.vokaloLive && "checkmark-rotate"
-                      }`}
-                    >
-                      <ReactSVG
-                        src={
-                          row.vokaloLive
-                            ? "/icons/check.svg"
-                            : "/icons/cross.svg"
-                        }
-                      />
-                    </span>
-                  </td>
-                  <td>
-                    {/* <DropdownComponent
+              sortedSession
+                .slice((currentPage - 1) * rows, currentPage * rows)
+                .map((row: ISession, key) => (
+                  <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
+                    <td>{/* <input type="checkbox" /> */}</td>
+                    <td>{converToDate(row.creationTimestamp)}</td>
+                    <td>
+                      <TypeComponent type={row.type} />
+                    </td>
+                    <td>{row.length && converToMinutes(row.length)}</td>
+                    <td>
+                      {row.creator?.firstName + " " + row.creator?.lastName}
+                    </td>
+                    <td>{row.participants?.length}</td>
+                    <td>
+                      <span
+                        className={`checkmark ${
+                          !row.hasRecordings && "checkmark-rotate"
+                        }`}
+                      >
+                        <ReactSVG
+                          src={
+                            row.hasRecordings
+                              ? "/icons/check.svg"
+                              : "/icons/cross.svg"
+                          }
+                        />
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        className={`checkmark ${
+                          !row.vokaloLive && "checkmark-rotate"
+                        }`}
+                      >
+                        <ReactSVG
+                          src={
+                            row.vokaloLive
+                              ? "/icons/check.svg"
+                              : "/icons/cross.svg"
+                          }
+                        />
+                      </span>
+                    </td>
+                    <td>
+                      {/* <DropdownComponent
                       icon="/icons/more.svg"
                       variant="transparent"
                     >
@@ -124,9 +127,9 @@ export const SessionsTableComponent = ({
                         hello
                       </span>
                     </DropdownComponent> */}
-                  </td>
-                </tr>
-              ))
+                    </td>
+                  </tr>
+                ))
             ) : (
               <tr>X</tr>
             )}
