@@ -18,6 +18,7 @@ export type IWidget = {
   header: string;
   subheader?: string;
   label?: string;
+  tooltip?:string;
   widgetType?: string;
   trendLabel?: number;
   trendDirection?: "POSITIVE" | "NEGATIVE" | "NEUTRAL";

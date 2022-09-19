@@ -1,6 +1,7 @@
 import React from "react";
 import { IWidget } from "../../../types/cores/widget";
 import { EmptyStateComponent } from "../empty-state/empty-state";
+import { Tooltip } from "../tooltip/tooltip";
 import { TrendComponent } from "../trend/trend";
 import style from "./sentiment-widget.module.scss";
 interface ISentimentWidget {
@@ -17,7 +18,9 @@ export const SentimentWidget = ({ widget }: ISentimentWidget) => {
   }, []);
   return (
     <div className={` ${style["sentiment-widget"]} widget-container `}>
-      <h6>{widget.header}</h6>
+      <h6>
+        {widget.header} {widget.tooltip && <Tooltip content={widget.tooltip} />}
+      </h6>
       {widget.data?.yaxis[0]?.data[0]?.value ? (
         <div className={style["sentiment-widget-content"]}>
           <h3>{widget.label}</h3>

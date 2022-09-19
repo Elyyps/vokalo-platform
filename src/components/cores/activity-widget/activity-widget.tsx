@@ -1,5 +1,6 @@
 import { IWidget } from "../../../types/cores/widget";
 import { EmptyStateComponent } from "../empty-state/empty-state";
+import { Tooltip } from "../tooltip/tooltip";
 import { TrendComponent } from "../trend/trend";
 import style from "./activity-widget.module.scss";
 interface IActivityWidget {
@@ -10,7 +11,10 @@ export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
   return (
     <div className={` ${style["activity-widget"]} widget-container `}>
       <div className="widget-header">
-        <h6>{widget.header}</h6>
+        <h6>
+          {widget.header}
+          {widget.tooltip && <Tooltip content={widget.tooltip} />}
+        </h6>
         <TrendComponent
           trendLabel={widget.trendLabel}
           trendDirection={widget.trendDirection}

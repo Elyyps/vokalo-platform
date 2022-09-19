@@ -1,6 +1,7 @@
 import React from "react";
 import { IWidget } from "../../../types/cores/widget";
 import { EmptyStateComponent } from "../empty-state/empty-state";
+import { Tooltip } from "../tooltip/tooltip";
 import style from "./feedback-widget.module.scss";
 
 interface IFeedbackWidget {
@@ -16,7 +17,10 @@ export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
   };
   return (
     <div className={` ${style["feedback-widget"]} widget-container `}>
-      <h6>{widget.header}</h6>
+      <h6>
+        {widget.header}
+        {widget.tooltip && <Tooltip content={widget.tooltip} />}
+      </h6>
       {!checkIfEmpty() ? (
         <div className={style["feedback-widget-percentage"]}>
           {widget.elements?.map((element, key) => (
@@ -29,8 +33,7 @@ export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
                     : "feedback-widget-simple"
                 ]
               } ${
-                element.percentage === 0 &&
-                style["feedback-widget-simple-none"]
+                element.percentage === 0 && style["feedback-widget-simple-none"]
               }
             `}
               style={{

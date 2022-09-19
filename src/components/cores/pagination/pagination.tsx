@@ -15,7 +15,7 @@ export const PaginationComponent = (props: IPaginationComponent) => {
   const setRows = (num: number) => {
     setCookie("rows", num);
   };
-  return props.list.length > 10 ? (
+  return props.list.length > 12 ? (
     <div className={style["pagination"]}>
       <div>
         <DropdownComponent
