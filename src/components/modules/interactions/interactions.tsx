@@ -352,7 +352,7 @@ export const InteractionsComponent = ({
       ) : (
         <EmptyStateComponent />
       )}
-      {hasButtons && (
+      {hasButtons && data && data[1] && data[1].length > 1 && (
         <div className={style["interactions-switch"]}>
           <span
             style={!isLineGraph ? {} : { opacity: 0.4 }}
