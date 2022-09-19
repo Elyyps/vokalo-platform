@@ -8,6 +8,7 @@ interface IPlayerComponent {
   color: string;
   onPlayerDrop: (playerTarget: IPlayer) => void;
   onPlayerDrag: (playerDrag: IPlayer) => void;
+  onClick?: () => void;
 }
 export const PlayerComponent = (props: IPlayerComponent) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -37,16 +38,19 @@ export const PlayerComponent = (props: IPlayerComponent) => {
   return (
     <div
       className={`${style["player"]} ${style["player-" + props.player.gridX]}`}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      onDragOver={handleDragOver}
-      onDrop={(e) => handleDrop(e, props.player)}
-      onClick={() => setIsOpen(!isOpen)}
       style={{ opacity: props.player.ghost ? 0.5 : 1 }}
     >
       <div
         className={style["player-number"]}
         style={{ backgroundColor: props.color }}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onDragOver={handleDragOver}
+        onDrop={(e) => handleDrop(e, props.player)}
+        onClick={() => {
+          setIsOpen(!isOpen);
+          props.onClick && props.onClick();
+        }}
         draggable
       >
         {/* <span>{props.value}</span> */}
@@ -60,8 +64,12 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         className={style["player-name"]}
         style={{ visibility: props.player.ghost ? "hidden" : "visible" }}
       >
-        {!props.player.ghost ? props.player.lastName.length > 1 ? props.player.firstName.charAt(0) +"." + props.player.lastName : props.player.firstName : ""}
-        </span>
+        {!props.player.ghost
+          ? props.player.lastName.length > 1
+            ? props.player.firstName.charAt(0) + "." + props.player.lastName
+            : props.player.firstName
+          : ""}
+      </span>
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import style from "./classifications.module.scss";
 import { IWidget } from "../../../types/cores/widget";
 import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
+import { Tooltip } from "../../cores/tooltip/tooltip";
 interface IClassificationComponent {
   widget: IWidget;
 }
@@ -10,7 +11,9 @@ export const ClassificationComponent = ({
 }: IClassificationComponent) => {
   return (
     <div className={` ${style["classifications"]} widget-container`}>
-      <span>{widget.header}</span>
+      <span>
+        {widget.header} {widget.tooltip && <Tooltip content={widget.tooltip} />}
+      </span>
       {widget.elements?.length ? (
         <div className={style["classifications-content"]}>
           {widget.elements?.map((element, key) => (

@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   justify-self: center;
-  cursor: pointer;
   &-number {
+    cursor: pointer;
     width: 45px;
     height: 45px;
     border-radius: 50%;
