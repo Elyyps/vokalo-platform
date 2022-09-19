@@ -22,11 +22,17 @@
     width: 32%;
     height: 100%;
     padding: 8px;
+    position: relative;
     @media (max-width: variables.$breakpoint-xl) {
       width: 35%;
     }
     @media (max-width: variables.$breakpoint-lg) {
       width: 38%;
+    }
+    > span {
+      position: absolute;
+      top: 16px;
+      left: 8px;
     }
   }
   &-widgets {

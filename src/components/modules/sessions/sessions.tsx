@@ -6,15 +6,18 @@ import { converToDate } from "../../../utils/convertDate";
 import { converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
+import { Tooltip } from "../../cores/tooltip/tooltip";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions.module.scss";
 interface ISessionsComponent {
   sessions: ISession[];
   isSquadSessions?: boolean;
+  tooltip?: string;
 }
 export const SessionsComponent = ({
   sessions,
   isSquadSessions,
+  tooltip,
 }: ISessionsComponent) => {
   const [sortConfig, setSortConfig] = React.useState<any>({
     column: { name: "date", param: ["creationTimestamp"] },
@@ -61,7 +64,7 @@ export const SessionsComponent = ({
 
   return sortedSession && columns?.length ? (
     <div className={style["sessions"]}>
-      <h6>Sessions</h6>
+      <h6>Sessions{tooltip && <Tooltip content={tooltip} />}</h6>
       {sortedSession?.length ? (
         <div className={style["sessions-header"]}>
           {columns.map((column, key) => (

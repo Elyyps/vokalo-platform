@@ -226,12 +226,12 @@ export const FieldOverviewComponent = ({
                           ? "100%"
                           : `${getPlayerPosition(player.gridX)}% `,
                     }}
-                    onClick={() => !player.ghost && playerClicked(player)}
                   >
                     <PlayerComponent
                       player={player}
                       value={player.ghost ? 0 : getPlayerValue(player.id)}
                       color={player.ghost ? "" : getPlayerColor(player.id)}
+                      onClick={() => !player.ghost && playerClicked(player)}
                       onPlayerDrag={(index) => setCurrentPlayer(index)}
                       onPlayerDrop={updatePlayers}
                     />

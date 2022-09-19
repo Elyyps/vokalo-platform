@@ -63,6 +63,7 @@ export const SquadDetailsPage = () => {
                 ? list.widgets[4].tableData
                 : list.widgets[4].graphData
             }
+            tooltip={list.widgets[4].tooltip}
             isLineGraph={isLineGraph}
             onClick={setIsLineGraph}
             hasButtons
@@ -73,6 +74,7 @@ export const SquadDetailsPage = () => {
           <SessionsComponent
             sessions={list.widgets[3].sessions}
             isSquadSessions
+            tooltip={list.widgets[3].tooltip}
           />
         </div>
       </div>

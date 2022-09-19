@@ -3,6 +3,7 @@ import { Chart } from "react-google-charts";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
+import { Tooltip } from "../../cores/tooltip/tooltip";
 import style from "./interactions.module.scss";
 type ISort = {
   value: string;
@@ -14,6 +15,7 @@ interface IInteractionsComponent {
   hasButtons?: boolean;
   onClick: (isLineGraph: boolean) => void;
   isNotDefault?: boolean;
+  tooltip?: string;
 }
 
 export const InteractionsComponent = ({
@@ -22,6 +24,7 @@ export const InteractionsComponent = ({
   onClick,
   hasButtons,
   isNotDefault,
+  tooltip,
 }: IInteractionsComponent) => {
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
@@ -230,13 +233,13 @@ export const InteractionsComponent = ({
     }
     list.length > 0 && setSortBy(list);
   };
-  const getDropdownTitle = ()=>{
-    if(sortBy.length >1){
-      return sortBy.length +" selections"
-    }else {
-      return sortBy[0].value
+  const getDropdownTitle = () => {
+    if (sortBy.length > 1) {
+      return sortBy.length + " selections";
+    } else {
+      return sortBy[0].value;
     }
-  }
+  };
   React.useEffect(() => {
     isLineGraph
       ? isNotDefault
@@ -279,39 +282,44 @@ export const InteractionsComponent = ({
   return (
     <div className={` ${style["interactions"]} widget-container`}>
       <div className={style["interactions-header"]}>
-        <h6>{widget.header}</h6>
-         {data && data[1] && data[1].length > 1 && 
-        <DropdownComponent title={getDropdownTitle()} hasBorder>
-          {!isLineGraph ? (
-            <ul>
-              <li onClick={() => setSortBy([{ value: "Default" }])}>Default</li>
-              <li onClick={() => setSortBy([{ value: "Ascending" }])}>
-                Ascending
-              </li>
-              <li onClick={() => setSortBy([{ value: "Descending" }])}>
-                Descending
-              </li>
-            </ul>
-          ) : (
-            <ul style={{ minWidth: "130px" }}>
-              {widget.data?.dataSets.map((item: any, key: number) => (
-                <li key={key} onClick={() => getFilters(item.name, key)}>
-                  <input
-                    type={"checkbox"}
-                    onChange={()=>""}
-                    checked={
-                      sortBy.some(
-                        (i) => i.value === item.name && i.index === key
-                      ) && true
-                    }
-                  />
-                  {item.name}
+        <h6>
+          {widget.header}
+          {tooltip && <Tooltip content={tooltip} />}
+        </h6>
+        {data && data[1] && data[1].length > 1 && (
+          <DropdownComponent title={getDropdownTitle()} hasBorder>
+            {!isLineGraph ? (
+              <ul>
+                <li onClick={() => setSortBy([{ value: "Default" }])}>
+                  Default
                 </li>
-              ))}
-            </ul>
-          )}
-        </DropdownComponent>
-         }
+                <li onClick={() => setSortBy([{ value: "Ascending" }])}>
+                  Ascending
+                </li>
+                <li onClick={() => setSortBy([{ value: "Descending" }])}>
+                  Descending
+                </li>
+              </ul>
+            ) : (
+              <ul style={{ minWidth: "130px" }}>
+                {widget.data?.dataSets.map((item: any, key: number) => (
+                  <li key={key} onClick={() => getFilters(item.name, key)}>
+                    <input
+                      type={"checkbox"}
+                      onChange={() => ""}
+                      checked={
+                        sortBy.some(
+                          (i) => i.value === item.name && i.index === key
+                        ) && true
+                      }
+                    />
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </DropdownComponent>
+        )}
       </div>
       {hasButtons && getButtons() && (
         <div className={style["interactions-buttons"]}>
@@ -333,16 +341,18 @@ export const InteractionsComponent = ({
           ))}
         </div>
       )}
-      {data && data[1] && data[1].length > 1 ?
-      <Chart
-        chartType={!isLineGraph ? "ColumnChart" : "LineChart"}
-        data={data}
-        options={options}
-        className={style["interactions-graph"]}
-        width="100%"
-      /> : <EmptyStateComponent />
-      }
-      {hasButtons && (
+      {data && data[1] && data[1].length > 1 ? (
+        <Chart
+          chartType={!isLineGraph ? "ColumnChart" : "LineChart"}
+          data={data}
+          options={options}
+          className={style["interactions-graph"]}
+          width="100%"
+        />
+      ) : (
+        <EmptyStateComponent />
+      )}
+      {hasButtons && data && data[1] && data[1].length > 1 && (
         <div className={style["interactions-switch"]}>
           <span
             style={!isLineGraph ? {} : { opacity: 0.4 }}

@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { EmptyStateComponent } from "../../components/cores/empty-state/empty-state";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
+import { Tooltip } from "../../components/cores/tooltip/tooltip";
 import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
@@ -61,7 +63,10 @@ export const SessionDetailsPage = () => {
             <div className={style["session-details-widgets"]}>
               {list.widgets.slice(0, 2).map((widget, key) => (
                 <div key={key} className="widget-container">
-                  <h6>{widget.header}</h6>
+                  <h6>
+                    {widget.header}
+                    {widget.tooltip && <Tooltip content={widget.tooltip} />}
+                  </h6>
                   <h3 style={{ marginTop: "16px" }}>{widget.label}</h3>
                 </div>
               ))}
@@ -76,6 +81,7 @@ export const SessionDetailsPage = () => {
                     ? list.widgets[3].tableData
                     : list.widgets[3].graphData
                 }
+                tooltip={list.widgets[3].tooltip}
                 isLineGraph={isLineGraph}
                 onClick={setIsLineGraph}
                 hasButtons
@@ -85,13 +91,16 @@ export const SessionDetailsPage = () => {
           <div
             className={` ${style["session-details-right"]} widget-container `}
           >
+            {list.widgets[4].tooltip && (
+              <Tooltip content={list.widgets[4].tooltip} />
+            )}
             {list.widgets[4].data && list.widgets[4].profiles ? (
               <FieldOverviewComponent
                 fieldOverview={list.widgets[4].data}
                 profiles={list.widgets[4].profiles}
               />
             ) : (
-              "NO DATA"
+              <EmptyStateComponent />
             )}
           </div>
         </div>

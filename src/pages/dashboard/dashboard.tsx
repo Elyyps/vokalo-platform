@@ -40,7 +40,11 @@ export const DashboardPage = ({ user }: IDashboard) => {
       <div className={style["dashboard-bottom"]}>
         <PageWidgetsComponent widgets={list?.sessions.slice(0, 4)} />
 
-        <InteractionsComponent widget={list?.sessions[4]} onClick={() => ""} />
+        <InteractionsComponent
+          widget={list?.sessions[4]}
+          onClick={() => ""}
+          tooltip={list?.sessions[4].tooltip}
+        />
       </div>
     </div>
   ) : (
