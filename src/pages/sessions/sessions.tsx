@@ -34,15 +34,17 @@ export const SessionsPage = (user: any) => {
     setList({ sessions: data.sessions, widgets: data.sessionsAggregations });
   };
   React.useEffect(() => {
-    getAccount().then((session: any) => {
-      getSessions(session);
-    });
+    if (user) {
+      getAccount().then((session: any) => {
+        getSessions(session);
+      });
+    }
   }, [cookies.team, startDate, endDate, filter.value]);
 
   return (
     <div className={style["sessions"]}>
       <PageHeaderComponent
-        title="Sessions"
+        title={"Sessions"}
         list={["Match", "Training"]}
         onSelect={(value: string) =>
           setFilter({ key: "type", value: value.toLocaleUpperCase() })

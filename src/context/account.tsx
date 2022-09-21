@@ -68,6 +68,7 @@ const AccountContextProvider = (props: any) => {
   const logout = () => {
     const user = userPool.getCurrentUser();
     if (user) {
+      setIsUserLogged(false);
       user.signOut();
     }
   };

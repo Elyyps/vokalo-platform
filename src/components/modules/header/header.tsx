@@ -30,9 +30,9 @@ export const HeaderComponent = ({ user }: Props) => {
     return exceptions.includes(pathname);
   };
   React.useEffect(() => {
-    if (!cookies.team?.id) {
+    if (!cookies.team?.id && user) {
       if (isException()) {
-        setTeam(user && user.teams[0]);
+        setTeam(user.teams[0]);
       } else {
         setTeam({ name: "All", id: "" });
       }
@@ -54,7 +54,7 @@ export const HeaderComponent = ({ user }: Props) => {
                 {!isException() && (
                   <li onClick={() => setTeam({ name: "All", id: "" })}>All</li>
                 )}
-                {user.teams.map((team: any, key: number) => (
+                {user.teams?.map((team: any, key: number) => (
                   <li key={key} onClick={() => setTeam(team)}>
                     {team.name}
                   </li>
