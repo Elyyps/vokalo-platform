@@ -29,7 +29,7 @@ export const DashboardPage = ({ user }: IDashboard) => {
     getAccount().then((session: any) => {
       getDashboard(session);
     });
-  }, []);
+  }, [user && user.teams]);
   return list ? (
     <div className={style["dashboard"]}>
       <h1 onClick={() => user && navigate("sessions/" + user.lastSession.id)}>

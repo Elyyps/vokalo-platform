@@ -7,26 +7,28 @@ import style from "./login.module.scss";
 
 export const LoginPage = () => {
   let navigate = useNavigate();
-const [hasError,setHasError] = React.useState(false);
+  const [hasError, setHasError] = React.useState(false);
   const account = React.useContext(AccountContext);
   const onSubmit = (e: any) => {
     account
-      //.authenticate("jon@vokalo.io", "wqCn%C7i")
-      // .authenticate("jon@vokalo.io", "Sqw5#I9V")wqCn%C7i
       .authenticate(e.username, e.password)
       .then((data: any) => {
         navigate("/");
       })
       .catch((err: any) => {
-        setHasError(true)
-        console.error("Failed to login!", err);
+        setHasError(true);
+        //console.error("Failed to login!", err);
       });
   };
   return (
     <div className={style["login"]}>
       <LoginLayoutComponent>
-       {hasError &&  <span className={style["login-error"]}>Error, please try to login again.</span>} 
-        <LoginFormComponent onSubmit={onSubmit}/>
+        {hasError && (
+          <span className={style["login-error"]}>
+            Error, please try to login again.
+          </span>
+        )}
+        <LoginFormComponent onSubmit={onSubmit} />
       </LoginLayoutComponent>
     </div>
   );

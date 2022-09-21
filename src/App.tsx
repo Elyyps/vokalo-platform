@@ -15,18 +15,19 @@ import { SquadPage } from "./pages/squad/squad";
 import { CookiesProvider } from "react-cookie";
 
 const App = () => {
-  const [user, setUser] = React.useState<any>();
-
+  const [user, setUser] = React.useState<any>(undefined);
   const { getAccount, isLogged } = React.useContext(AccountContext);
   const getUser = async (session: any) => {
     const data = await getUserAPI(session);
     setUser(data);
   };
   React.useEffect(() => {
-    getAccount().then((session: any) => {
-      getUser(session);
-    });
-  }, [getAccount, isLogged]);
+    getAccount()
+      .then((session: any) => {
+        getUser(session);
+      })
+      .catch(() => setUser(undefined));
+  }, [isLogged]);
 
   const addPageLayout = (component: any, title?: string) => {
     let defaultTitle = "Vokalo";
@@ -36,9 +37,11 @@ const App = () => {
     return isLogged === false ? (
       <Navigate to={"/login"} />
     ) : (
-      <Layout user={user} title={defaultTitle}>
-        {component}
-      </Layout>
+      user && (
+        <Layout user={user} title={defaultTitle}>
+          {component}
+        </Layout>
+      )
     );
   };
 

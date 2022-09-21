@@ -40,12 +40,12 @@ export const SquadPage = ({ user }: ISquadPage) => {
         getSquads(session);
       });
     }
-  }, [cookies.team, startDate, endDate, filter.value, user]);
+  }, [cookies.team, startDate, endDate, filter.value]);
 
   return (
     <div className={style["squad"]}>
       <PageHeaderComponent
-        title="Squad"
+        title={"Squad"}
         list={["Athlete", "Coach"]}
         onSelect={(value: string) =>
           setFilter({ key: "role", value: value.toLocaleUpperCase() })
