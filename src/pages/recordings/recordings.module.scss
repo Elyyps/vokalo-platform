@@ -1,0 +1,26 @@
+.recordings {
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  &-video {
+    width: 65%;
+    margin-bottom: 24px;
+  }
+  &-audio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    > div {
+      width: 18%;
+      margin-top: 16px;
+    }
+    &-playing > div {
+      cursor: pointer;
+    }
+  }
+}

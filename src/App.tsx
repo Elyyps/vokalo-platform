@@ -13,6 +13,7 @@ import { SessionsPage } from "./pages/sessions/sessions";
 import { SquadDetailsPage } from "./pages/squad-details/squad-details";
 import { SquadPage } from "./pages/squad/squad";
 import { CookiesProvider } from "react-cookie";
+import { RecordingsPage } from "./pages/recordings/recordings";
 
 const App = () => {
   const [user, setUser] = React.useState<any>(undefined);
@@ -78,8 +79,11 @@ const App = () => {
                 path="/squad/:id"
                 element={addPageLayout(<SquadDetailsPage />, "Squad")}
               />
-              {/* <Route path="/video-sync" element={<div>Video sync</div>} />
-            <Route path="/recordings" element={<div>Recordings</div>} /> */}
+              <Route
+                path="/video-sync"
+                element={addPageLayout(<RecordingsPage />, "Recordings")}
+              />
+              {/*<Route path="/recordings" element={<div>Recordings</div>} /> */}
               <Route
                 path="/settings"
                 element={addPageLayout(<div>Settings</div>, "Settings")}
