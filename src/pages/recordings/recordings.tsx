@@ -6,36 +6,87 @@ import style from "./recordings.module.scss";
 
 export const RecordingsPage = () => {
   const list = [
-    { name: "Alfred", isMuted: true, hasAudio: false, audio: "" },
+    {
+      name: "Alfred",
+      isMuted: true,
+      audio:
+        "https://vokalo-public.s3.eu-north-1.amazonaws.com/video-samples/Ryberg-b6966515-c0c5-40f0-af20-aef32326be38.mp3",
+      startsAt: 50,
+      endsAt: 110,
+    },
     {
       name: "Ben",
       isMuted: true,
-      hasAudio: true,
       audio:
-        "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
+        "https://vokalo-public.s3.eu-north-1.amazonaws.com/video-samples/Rytter-45c31073-ecb2-4767-91ff-22560b3aff12.mp3",
+      startsAt: 0,
+      endsAt: 60,
     },
-    { name: "Fred", isMuted: true, hasAudio: false, audio: "" },
-    { name: "Gabriel", isMuted: true, hasAudio: false, audio: "" },
+    {
+      name: "Fred",
+      isMuted: true,
+      audio: "",
+      startsAt: 50,
+      endsAt: 110,
+    },
+    {
+      name: "Gabriel",
+      isMuted: true,
+      audio: "",
+      startsAt: 10,
+      endsAt: 110,
+    },
     {
       name: "Carslen",
       isMuted: true,
-      hasAudio: true,
       audio:
         "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
+      startsAt: 50,
+      endsAt: 110,
     },
-    { name: "Daniel", isMuted: true, hasAudio: false, audio: "" },
-    { name: "Henry", isMuted: true, hasAudio: true, audio: "" },
-    { name: "Alfred", isMuted: true, hasAudio: true, audio: "" },
-    { name: "Gabriel", isMuted: true, hasAudio: false, audio: "" },
-    { name: "Daniel", isMuted: true, hasAudio: false, audio: "" },
+    {
+      name: "Daniel",
+      isMuted: true,
+      audio: "",
+      startsAt: 0,
+      endsAt: 110,
+    },
+    {
+      name: "Henry",
+      isMuted: true,
+      audio: "",
+      startsAt: 10,
+      endsAt: 110,
+    },
+    {
+      name: "Alfred",
+      isMuted: true,
+      audio: "",
+      startsAt: 0,
+      endsAt: 110,
+    },
+    {
+      name: "Gabriel",
+      isMuted: true,
+      audio: "",
+      startsAt: 50,
+      endsAt: 110,
+    },
+    {
+      name: "Daniel",
+      isMuted: true,
+      audio: "",
+      startsAt: 50,
+      endsAt: 110,
+    },
   ];
   const vid =
     "www.youtube.com/watch?v=55s3T7VRQSc&list=RD55s3T7VRQSc&start_radio=1&ab_channel=PlayingForChange";
   const videoLink =
-    "//vokalo-public.s3.eu-north-1.amazonaws.com/video-samples/SIF+U19+-+Haugesund+01+03+2022+(7-3).mp4";
+    "https://vokalo-public.s3.eu-north-1.amazonaws.com/video-samples/SIF+U19+-+Haugesund+01+03+2022+(7-3).mp4";
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
-  const [startsAt, setStartsAt] = React.useState<number>(0);
   const [audios, setAudios] = React.useState<any[]>(list);
+  const [startsAt, setStartsAt] = React.useState<any>(0);
 
   const onAudioClicked = (index: number) => {
     const newList = audios.map((item: any, key: number) => {
@@ -44,7 +95,6 @@ export const RecordingsPage = () => {
       }
       return item;
     });
-    console.log(newList);
     setAudios(newList);
   };
   return (
@@ -53,16 +103,21 @@ export const RecordingsPage = () => {
       <div className={style["recordings-container"]}>
         <div className={style["recordings-video"]}>
           <VideoPlayerComponent
-            src={videoLink}
+            src={vid}
             hasControl
-            startAt={36}
+            startAt={startsAt}
             onClick={setIsPlaying}
+            onChange={setStartsAt}
           />
         </div>
-        <div className={"widget-container"} style={{ width: "32%" }}>
-          All highlights
+        <div
+          className={` ${style["recordings-highlights-container"]} widget-container`}
+        >
+          <h6>All highlights</h6>
         </div>
-        <div className={"widget-container"} style={{ width: "100%" }}>
+        <div
+          className={` ${style["recordings-audio-container"]} widget-container`}
+        >
           <h6>Audios</h6>
           <div
             className={` ${style["recordings-audio"]} ${
@@ -73,8 +128,9 @@ export const RecordingsPage = () => {
               <AudioPlayerComponent
                 key={key}
                 {...item}
+                startsAt={item.startsAt + parseInt(startsAt)}
                 onClick={() =>
-                  item.hasAudio && isPlaying && onAudioClicked(key)
+                  item.audio.length && isPlaying && onAudioClicked(key)
                 }
               />
             ))}

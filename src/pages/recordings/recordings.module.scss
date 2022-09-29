@@ -1,3 +1,5 @@
+@use "src/variables";
+
 .recordings {
   &-container {
     display: flex;
@@ -9,6 +11,19 @@
   &-video {
     width: 65%;
     margin-bottom: 24px;
+    @media (max-width: variables.$breakpoint-lg) {
+      //width: 100%;
+    }
+  }
+  &-highlights {
+    &-container {
+      width: 33%;
+      height: 400px;
+      margin-bottom: 24px;
+      @media (max-width: variables.$breakpoint-lg) {
+        width: 25%;
+      }
+    }
   }
   &-audio {
     display: flex;
@@ -21,6 +36,9 @@
     }
     &-playing > div {
       cursor: pointer;
+    }
+    &-container {
+      width: 100%;
     }
   }
 }
