@@ -103,7 +103,7 @@ export const RecordingsPage = () => {
       <div className={style["recordings-container"]}>
         <div className={style["recordings-video"]}>
           <VideoPlayerComponent
-            src={vid}
+            src={videoLink}
             hasControl
             startAt={startsAt}
             onClick={setIsPlaying}

@@ -26,7 +26,9 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       } `}
       onClick={props.onClick}
     >
-      {props.name}({props.startsAt})
+      <span>
+        {props.name} <small>({props.startsAt})</small>
+      </span>
       {props.audio.length > 0 && (
         <div>
           <img src="/img/audio.png" />
