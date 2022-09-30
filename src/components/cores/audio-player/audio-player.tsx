@@ -1,7 +1,4 @@
 import React from "react";
-import ReactAudioPlayer from "react-audio-player";
-import ReactPlayer from "react-player/lazy";
-
 import style from "./audio-player.module.scss";
 
 interface IAudioPlayerComponent {
@@ -11,6 +8,7 @@ interface IAudioPlayerComponent {
   startsAt: number;
   endsAt: number;
   onClick: () => void;
+  isPlaying: boolean;
 }
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const playerRef = React.useRef<any>();
@@ -19,6 +17,11 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       playerRef.current.currentTime = props.startsAt;
     }
   }, [props.startsAt]);
+  React.useEffect(() => {
+    if (playerRef.current) {
+      props.isPlaying ? playerRef.current.play() : playerRef.current.pause();
+    }
+  }, [props.isPlaying]);
   return (
     <div
       className={`${style["audio-player"]} ${

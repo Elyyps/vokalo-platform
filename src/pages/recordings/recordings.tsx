@@ -40,7 +40,7 @@ export const RecordingsPage = () => {
       name: "Carslen",
       isMuted: true,
       audio:
-        "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
+        "http://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3",
       startsAt: 50,
       endsAt: 110,
     },
@@ -128,6 +128,7 @@ export const RecordingsPage = () => {
               <AudioPlayerComponent
                 key={key}
                 {...item}
+                isPlaying={isPlaying}
                 startsAt={item.startsAt + parseInt(startsAt)}
                 onClick={() =>
                   item.audio.length && isPlaying && onAudioClicked(key)
