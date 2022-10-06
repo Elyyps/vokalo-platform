@@ -244,7 +244,7 @@ export const InteractionsComponent = ({
     isLineGraph
       ? isNotDefault
         ? setSortBy([{ value: widget.data?.dataSets[0].name, index: 0 }])
-        : setSortBy([{ value: "All", index: 0 }])
+        : setSortBy([{ value: "Average", index: 0 }])
       : setSortBy([{ value: "Default" }]);
 
     setData(!isLineGraph ? getTableChartData() : getLineChartData());
