@@ -20,7 +20,6 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
   const { pathname } = useLocation();
 
   const [currentSelection, setCurrentSelection] = React.useState("");
-  React.useEffect(() => {}, [currentSelection]);
   const onSelect = (value: string) => {
     props.onSelect(value);
     setCurrentSelection(value);

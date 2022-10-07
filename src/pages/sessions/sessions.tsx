@@ -26,7 +26,7 @@ export const SessionsPage = (user: any) => {
     const data = await getAPI(
       "sessions",
       session,
-      cookies.team.id ? cookies.team.id : "",
+      cookies.team && cookies.team.id ? cookies.team.id : "",
       startDate,
       endDate,
       filter

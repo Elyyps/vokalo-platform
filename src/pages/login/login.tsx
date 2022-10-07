@@ -14,7 +14,7 @@ export const LoginPage = () => {
       // .authenticate("jon@vokalo.io", "wqCn%C7i")
       .authenticate(e.username, e.password)
       .then((data: any) => {
-        navigate("/");
+        navigate("/sessions");
       })
       .catch((err: any) => {
         setHasError(true);
