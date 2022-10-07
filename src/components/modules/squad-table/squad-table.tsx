@@ -34,7 +34,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
     { name: "distribution", param: ["moodAggregations", "value"] },
     { name: "percentage", param: ["orientationAggregations", "value"] },
   ];
-  const rows = cookies.rows ? cookies.rows : 12;
+  const rows = cookies.rows ? cookies.rows : 24;
   const getPercentage = (value: number) => {
     return Math.round(value * 100);
   };

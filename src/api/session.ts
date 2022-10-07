@@ -1,6 +1,22 @@
 import { ISession } from "../types/modules/session";
 import axios from "axios";
-import { getFilterUrl } from "../utils/getFilterUrl";
+const API_URL = process.env.REACT_APP_STAGE_API_URL;
+
+export const updateSessionTitleAPI = async (
+  { accessToken }: any,
+  filter: string
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken.jwtToken}`,
+    },
+  };
+  return await axios
+    .put(`${API_URL}session/?${filter}`, {}, config)
+    .then((response: any) => response.data)
+    .catch(console.log);
+};
 
 // export const sessionsTableData = (): ISession[] => [
 //   {

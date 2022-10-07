@@ -4,8 +4,9 @@ import { IUser } from "../cores/user";
 export type ISession = {
   id: string;
   creationTimestamp: string;
-  type: "match" | "practice";
+  type: "match" | "training";
   length?: number;
+  label?: string;
   creator?: IUser;
   participants?: IUser[];
   vokaloLive?: boolean;

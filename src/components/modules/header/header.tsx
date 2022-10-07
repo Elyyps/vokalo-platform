@@ -25,19 +25,19 @@ export const HeaderComponent = ({ user }: Props) => {
   const setTeam = (team: any) => {
     setCookie("team", { name: team.name, id: team.id });
   };
-  const isException = (): boolean => {
-    const exceptions = ["/squad"];
-    return exceptions.includes(pathname);
-  };
+  // const isException = (): boolean => {
+  //   const exceptions = ["/squad"];
+  //   return exceptions.includes(pathname);
+  // };
   React.useEffect(() => {
-    if (!cookies.team?.id && user) {
-      if (isException()) {
-        setTeam(user.teams[0]);
-      } else {
-        setTeam({ name: "All", id: "" });
-      }
+    if (!cookies.team?.id) {
+      setTeam({ name: "All", id: "" });
+      //   if (isException()) {
+      //     setTeam(user.teams[0]);
+      //   } else {
+      //   }
     }
-  }, [pathname, user]);
+  }, [pathname]);
 
   return (
     <div className={style["header"]}>
@@ -51,9 +51,7 @@ export const HeaderComponent = ({ user }: Props) => {
               contentPosition="right"
             >
               <ul>
-                {!isException() && (
-                  <li onClick={() => setTeam({ name: "All", id: "" })}>All</li>
-                )}
+                <li onClick={() => setTeam({ name: "All", id: "" })}>All</li>
                 {user.teams?.map((team: any, key: number) => (
                   <li key={key} onClick={() => setTeam(team)}>
                     {team.name}

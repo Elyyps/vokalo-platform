@@ -12,16 +12,25 @@
     width: 65%;
     margin-bottom: 24px;
     @media (max-width: variables.$breakpoint-lg) {
-      //width: 100%;
+      width: 73%;
     }
   }
-  &-highlights {
-    &-container {
-      width: 33%;
-      height: 400px;
-      margin-bottom: 24px;
-      @media (max-width: variables.$breakpoint-lg) {
-        width: 25%;
+  &-highlights-container {
+    width: 33%;
+    height: 400px;
+    margin-bottom: 24px;
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 25%;
+    }
+    ul {
+      padding-inline-start: 0px;
+      > li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        font-size: 16px;
+        cursor: pointer;
       }
     }
   }

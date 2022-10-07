@@ -10,7 +10,7 @@ interface IPaginationComponent {
 export const PaginationComponent = (props: IPaginationComponent) => {
   const [cookies, setCookie] = useCookies(["rows"]);
   const numberOfPages = Math.ceil(
-    props.list.length / (cookies.rows ? cookies.rows : 12)
+    props.list.length / (cookies.rows ? cookies.rows : 24)
   );
   const setRows = (num: number) => {
     setCookie("rows", num);
@@ -19,7 +19,7 @@ export const PaginationComponent = (props: IPaginationComponent) => {
     <div className={style["pagination"]}>
       <div>
         <DropdownComponent
-          title={cookies.rows ? cookies.rows + "" : "12"}
+          title={cookies.rows ? cookies.rows + "" : "24"}
           hasBorder
           contentPosition="top"
         >
