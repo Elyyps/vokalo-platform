@@ -14,6 +14,7 @@ import {
 import { useParams } from "react-router-dom";
 import { AccountContext } from "../../../context/account";
 import { LoaderComponent } from "../../cores/loader/loader";
+import { ReactSVG } from "react-svg";
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
   profiles: any[];
@@ -39,6 +40,7 @@ export const FieldOverviewComponent = ({
   const [playersList, setPlayersList] = React.useState<IPlayer[]>(
     profiles ? profiles : []
   );
+  const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
   const getReplacementPlayers = (list: IPlayer[]) => {
     const filtertedList = list.filter(
       (player) => player.gridX === -1 && player.gridY === -1
@@ -193,8 +195,18 @@ export const FieldOverviewComponent = ({
     fieldData && (
       <div className={style["field-overview"]}>
         {!isLoading ? (
-          <div className={style["field-overview-top"]}>
+          <div
+            className={` ${style["field-overview-top"]} ${
+              style[isFlipped ? "field-overview-top-rotate" : ""]
+            }  `}
+          >
             <div className={style["field-overview-formation"]}>
+              <span style={{ opacity: isFlipped ? "1" : "0.6" }}>
+                <ReactSVG
+                  src="/icons/change.svg"
+                  onClick={() => setIsFlipped(!isFlipped)}
+                />
+              </span>
               <DropdownComponent title={formation}>
                 <ul>
                   {formations &&
@@ -207,15 +219,6 @@ export const FieldOverviewComponent = ({
               </DropdownComponent>
             </div>
             <div className={style["field-overview-players"]}>
-              {/* <div style={{ width: "100%" }}>
-                <PlayerComponent
-                  player={playersList[0]}
-                  value={getPlayerValue(playersList[0].id)}
-                  color={getPlayerColor(playersList[0].id)}
-                  onPlayerDrop={() => ""}
-                  onPlayerDrag={() => ""}
-                />
-              </div> */}
               {playersList &&
                 playersList.slice(0, 11).map((player, key) => (
                   <div

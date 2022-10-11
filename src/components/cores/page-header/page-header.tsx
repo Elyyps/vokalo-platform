@@ -41,7 +41,7 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
           <ButtonComponent
             title={
               pathname.includes("/sessions/") && props.list
-                ? "Edit title"
+                ? "Edit session"
                 : "Filter"
             }
             icon="/icons/settings.svg"

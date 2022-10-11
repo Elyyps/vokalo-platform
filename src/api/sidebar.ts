@@ -7,7 +7,7 @@ export const sidebarData = (): ISidebar => ({
     // { title: "Coach", icon: "/icons/coach.svg", route: "/coach" },
     { title: "Sessions", icon: "/icons/sessions.svg", route: "/sessions" },
     { title: "Squad", icon: "/icons/squad.svg", route: "/squad" },
-    { title: "Video sync", icon: "/icons/video.svg", route: "/video-sync" },
+    // { title: "Video sync", icon: "/icons/video.svg", route: "/video-sync" },
     // {
     //   title: "Recordings",
     //   icon: "/icons/recordings.svg",

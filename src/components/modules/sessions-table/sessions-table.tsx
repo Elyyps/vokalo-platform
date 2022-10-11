@@ -20,6 +20,7 @@ export const SessionsTableComponent = ({
   let navigate = useNavigate();
   const columns = [
     { name: "date", param: ["creationTimestamp"] },
+    { name: "name", param: ["name"] },
     { name: "type", param: ["type"] },
     { name: "length", param: ["length"] },
     { name: "coach", param: ["creator", "firstName"] },
@@ -82,6 +83,7 @@ export const SessionsTableComponent = ({
                   >
                     <td>{/* <input type="checkbox" /> */}</td>
                     <td>{converToDate(row.creationTimestamp)}</td>
+                    <td>{row.label}</td>
                     <td>
                       <TypeComponent type={row.type} />
                     </td>
