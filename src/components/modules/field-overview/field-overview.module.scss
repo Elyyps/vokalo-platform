@@ -16,6 +16,19 @@
     @media (max-width: variables.$breakpoint-lg) {
       min-height: 355px;
     }
+    &-rotate {
+      background-image: url("../../../../public/img/field-flipped.png");
+      .field-overview-players {
+        transform: rotate(180deg);
+        > div {
+          transform: rotate(180deg);
+          margin-bottom: 24px;
+          @media (max-width: variables.$breakpoint-lg) {
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
   }
   &-players {
     padding: 16px 4px;
@@ -33,7 +46,25 @@
     position: absolute;
     top: 8px;
     right: 8px;
-    z-index: 100;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    > span {
+      margin-right: 8px;
+      padding: 0 2px;
+      background-color: black;
+      cursor: pointer;
+      border-radius: 50%;
+      border: 1px solid black;
+      svg {
+        margin: auto;
+        width: 13px;
+        height: 13px;
+        path {
+          fill: white;
+        }
+      }
+    }
     ul {
       font-size: 13px;
     }

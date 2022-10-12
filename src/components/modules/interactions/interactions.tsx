@@ -44,7 +44,11 @@ export const InteractionsComponent = ({
       baselineColor: "none",
       baseline: 0,
     },
-    series: isLineGraph && sortBy.length === 1 ? optionColors : [],
+    seriesType: !isLineGraph && "bars",
+    series:
+      isLineGraph && sortBy.length === 1
+        ? optionColors
+        : { 2: { type: "line" } },
     hAxis: {
       textStyle: {
         color: "#C4C4C4",
@@ -343,7 +347,7 @@ export const InteractionsComponent = ({
       )}
       {data && data[1] && data[1].length > 1 ? (
         <Chart
-          chartType={!isLineGraph ? "ColumnChart" : "LineChart"}
+          chartType={!isLineGraph ? "ComboChart" : "LineChart"}
           data={data}
           options={options}
           className={style["interactions-graph"]}

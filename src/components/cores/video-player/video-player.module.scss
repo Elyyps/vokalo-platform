@@ -1,0 +1,10 @@
+.video-player {
+  min-height: 400px;
+  width: 100%;
+  position: relative;
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

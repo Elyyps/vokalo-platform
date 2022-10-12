@@ -3,7 +3,7 @@ import { ISidebar } from "../types/modules/sidebar";
 export const sidebarData = (): ISidebar => ({
   logo: "Vokalo",
   items: [
-    { title: "Dashboard", icon: "/icons/dashboard.svg", route: "/" },
+    // { title: "Dashboard", icon: "/icons/dashboard.svg", route: "/" },
     // { title: "Coach", icon: "/icons/coach.svg", route: "/coach" },
     { title: "Sessions", icon: "/icons/sessions.svg", route: "/sessions" },
     { title: "Squad", icon: "/icons/squad.svg", route: "/squad" },

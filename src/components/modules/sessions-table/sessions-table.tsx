@@ -20,6 +20,7 @@ export const SessionsTableComponent = ({
   let navigate = useNavigate();
   const columns = [
     { name: "date", param: ["creationTimestamp"] },
+    { name: "name", param: ["name"] },
     { name: "type", param: ["type"] },
     { name: "length", param: ["length"] },
     { name: "coach", param: ["creator", "firstName"] },
@@ -33,7 +34,7 @@ export const SessionsTableComponent = ({
     column: { name: "date", param: [""] },
     ascending: true,
   });
-  const rows = cookies.rows ? cookies.rows : 12;
+  const rows = cookies.rows ? cookies.rows : 24;
   const sortedSession = React.useMemo(() => {
     let sortableSession = [...sessions];
     return sortColumn(
@@ -73,9 +74,16 @@ export const SessionsTableComponent = ({
               sortedSession
                 .slice((currentPage - 1) * rows, currentPage * rows)
                 .map((row: ISession, key) => (
-                  <tr key={key} onClick={() => navigate("/sessions/" + row.id)}>
+                  <tr
+                    key={key}
+                    onClick={(e: any) =>
+                      e.target.localName === "td" &&
+                      navigate("/sessions/" + row.id)
+                    }
+                  >
                     <td>{/* <input type="checkbox" /> */}</td>
                     <td>{converToDate(row.creationTimestamp)}</td>
+                    <td>{row.label}</td>
                     <td>
                       <TypeComponent type={row.type} />
                     </td>
@@ -114,20 +122,16 @@ export const SessionsTableComponent = ({
                         />
                       </span>
                     </td>
-                    <td>
-                      {/* <DropdownComponent
-                      icon="/icons/more.svg"
-                      variant="transparent"
-                    >
-                      <span
-                        onClick={() =>
-                          alert("this session:" + row.creationTimestamp)
-                        }
+                    {/* <td>
+                      <DropdownComponent
+                        icon="/icons/more.svg"
+                        variant="transparent"
                       >
-                        hello
-                      </span>
-                    </DropdownComponent> */}
-                    </td>
+                        <ul>
+                          <li onClick={() => setIsEdit(true)}>edit</li>
+                        </ul>
+                      </DropdownComponent>
+                    </td> */}
                   </tr>
                 ))
             ) : (
