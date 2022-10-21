@@ -52,4 +52,26 @@
       }
     }
   }
+  &-video {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 4px 8px;
+    width: fit-content;
+    border: 1px solid variables.$secondary-color;
+    background-color: #f3f3f3;
+    &:hover {
+      background-color: #dadada;
+    }
+    svg {
+      margin-right: 4px;
+      margin-top: 2px;
+      width: 14px;
+      height: 14px;
+    }
+    &-upload {
+      border-style: dashed;
+    }
+  }
 }

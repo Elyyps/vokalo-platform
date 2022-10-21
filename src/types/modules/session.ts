@@ -12,4 +12,5 @@ export type ISession = {
   vokaloLive?: boolean;
   hasRecordings?: boolean;
   coachScore?: number;
+  hasVideoConnected?: boolean;
 };

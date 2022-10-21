@@ -8,7 +8,7 @@ interface ITypeComponent {
 export const TypeComponent = ({ type, isActive, onClick }: ITypeComponent) => {
   return (
     <span
-      className={` ${style["type"]} ${style[isActive ? "type-active" : ""]}  `}
+      className={` ${style["type"]} ${style[isActive ? "type-active" : ""]} `}
       onClick={onClick}
     >
       <ReactSVG

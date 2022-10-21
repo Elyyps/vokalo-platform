@@ -18,6 +18,26 @@ export const updateSessionTitleAPI = async (
     .catch(console.log);
 };
 
+export const addVideoAPI = async (
+  { accessToken }: any,
+  files: any,
+  sessionId?: string
+) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken.jwtToken}`,
+    },
+  };
+  return await axios
+    .post(
+      `${API_URL}session/upload-session-video?sessionId= ` + sessionId,
+      files,
+      config
+    )
+    .then((response: any) => response.data)
+    .catch(console.log);
+};
 // export const sessionsTableData = (): ISession[] => [
 //   {
 //     creationTimestamp: "01/05/2022",

@@ -37,6 +37,7 @@ export const SessionDetailsPage = () => {
       endDate,
       { key: "sessionId", value: id }
     );
+
     setList({ session: data.session, widgets: data.sessionAggregations });
   };
   const changeTitle = async (title: string, type: string) => {
@@ -48,7 +49,7 @@ export const SessionDetailsPage = () => {
           "&sessionType=" +
           type.toUpperCase() +
           "&label=" +
-          title.toUpperCase()
+          title
       );
       if (result && list) {
         setList({ ...list, session: result.session });

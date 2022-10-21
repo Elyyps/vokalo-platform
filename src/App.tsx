@@ -80,7 +80,7 @@ const App = () => {
                 element={addPageLayout(<SquadDetailsPage />, "Squad")}
               />
               <Route
-                path="/video-sync"
+                path="/video-sync/:id"
                 element={addPageLayout(<RecordingsPage />, "Recordings")}
               />
               {/*<Route path="/recordings" element={<div>Recordings</div>} /> */}
