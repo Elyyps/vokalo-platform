@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { addVideoAPI } from "../../api/session";
 import { AudioPlayerComponent } from "../../components/cores/audio-player/audio-player";
+import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { VideoPlayerComponent } from "../../components/cores/video-player/video-player";
 import { AccountContext } from "../../context/account";
@@ -40,27 +41,9 @@ export const RecordingsPage = () => {
   };
   const onUpload = async (files: any) => {
     getAccount().then(async (session: any) => {
-      const data = await addVideoAPI(session, files, id);
+      const data = await addVideoAPI(session, files[0], id);
       console.log(data);
     });
-  };
-  // const onAudioClicked = (index: number) => {
-  //   const newList = audios.map((item: any, key: number) => {
-  //     if (key === index) {
-  //       item.isMuted = !item.isMuted;
-  //     }
-  //     return item;
-  //   });
-  //   setAudios(newList);
-  // };
-  const getAudio = (audio: any) => {
-    const time = startsAt * 1000;
-    if (audio.length > 1) {
-      const result = audio.find(
-        (item: any) => time >= item.startOffset && time <= item.endOffset
-      );
-      return result ? result : audio[0];
-    } else return audio;
   };
 
   React.useEffect(() => {
@@ -77,55 +60,59 @@ export const RecordingsPage = () => {
         list={[]}
         onSelect={() => ""}
       />
-      <div className={style["recordings-container"]}>
-        <div className={style["recordings-video"]}>
-          <VideoPlayerComponent
-            src={video}
-            hasControl
-            startAt={startsAt}
-            onClick={setIsPlaying}
-            onChange={setStartsAt}
-            onUpload={onUpload}
-          />
-        </div>
-        {/* <div
+      {video || audios ? (
+        <div className={style["recordings-container"]}>
+          <div className={style["recordings-video"]}>
+            <VideoPlayerComponent
+              src={video}
+              hasControl
+              startAt={startsAt}
+              onClick={setIsPlaying}
+              onChange={setStartsAt}
+              onUpload={onUpload}
+            />
+          </div>
+          {/* <div
           className={` ${style["recordings-highlights-container"]} widget-container`}
         >
           <h6>All highlights</h6>
         </div> */}
-        <div
-          className={` ${style["recordings-audio-container"]} widget-container`}
-        >
-          <h6>Audios </h6>
           <div
-            className={` ${style["recordings-audio"]} ${
-              isPlaying && style["recordings-audio-playing"]
-            } `}
+            className={` ${style["recordings-audio-container"]} widget-container`}
           >
-            {/* <AudioPlayerComponent
+            <h6>Audios </h6>
+            <div
+              className={` ${style["recordings-audio"]} ${
+                isPlaying && style["recordings-audio-playing"]
+              } `}
+            >
+              {/* <AudioPlayerComponent
               audios={list}
               currentTime={parseInt(startsAt) * 1000}
               isPlaying={isPlaying}
             /> */}
-            {audios.map((item: any, key: number) => (
-              <AudioPlayerComponent
-                key={key}
-                audios={item.audioRecordingData}
-                currentTime={parseInt(startsAt) * 1000}
-                isPlaying={isPlaying}
-                name={item.profile.firstName}
-                // startOffset={
-                //   parseInt(startsAt) * 1000 +
-                //   getAudio(item.audioRecordingData).startOffset
-                // }
-                // onClick={() =>
-                //   item.path.length && isPlaying && onAudioClicked(key)
-                // }
-              />
-            ))}
+              {audios.map((item: any, key: number) => (
+                <AudioPlayerComponent
+                  key={key}
+                  audios={item.audioRecordingData}
+                  currentTime={parseInt(startsAt) * 1000}
+                  isPlaying={isPlaying}
+                  name={item.profile.firstName}
+                  // startOffset={
+                  //   parseInt(startsAt) * 1000 +
+                  //   getAudio(item.audioRecordingData).startOffset
+                  // }
+                  // onClick={() =>
+                  //   item.path.length && isPlaying && onAudioClicked(key)
+                  // }
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <LoaderComponent />
+      )}
     </div>
   );
 };

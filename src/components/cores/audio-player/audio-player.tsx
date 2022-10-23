@@ -1,5 +1,4 @@
 import React from "react";
-import { LoaderComponent } from "../loader/loader";
 import style from "./audio-player.module.scss";
 
 interface IAudioComponent {
@@ -23,7 +22,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         props.currentTime >= item.startOffset &&
         props.currentTime <= item.endOffset
     );
-    return result ? result : props.audios[0];
+    return result && result;
   };
   // React.useEffect(() => {
   //   setAudio(getAudio());
@@ -46,7 +45,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       playerRef.current.currentTime = props.currentTime / 1000;
     }
   }, [props.currentTime]);
-  return (
+  return newAudio ? (
     <div
       className={`${style["audio-player"]}
       ${!isMuted && newAudio && newAudio.path && style["audio-player-active"]}
@@ -57,7 +56,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         <span>
           {props.name}
           {/* {newAudio.startOffset ? (
-            <small>({newAudio.startOffset / 1000})</small>
+            <small> ({props.currentTime + newAudio.startOffset})</small>
           ) : (
             ""
           )} */}
@@ -70,5 +69,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         </div>
       )}
     </div>
+  ) : (
+    <div className="widget-container" style={{ height: "56px" }} />
   );
 };

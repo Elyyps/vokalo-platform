@@ -3,7 +3,6 @@ import ReactPlayer from "react-player/lazy";
 import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
-import { LoaderComponent } from "../loader/loader";
 
 interface IVideoPlayerComponent {
   src: string;
@@ -16,15 +15,6 @@ interface IVideoPlayerComponent {
 export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   const playerRef = React.useRef<any>();
   const [isLoaded, setIsLoaded] = React.useState(false);
-  // const configuration = {
-  //   file: {
-  //     // attributes: {
-  //     //   crossOrigin: "true",
-  //     // },
-  //     forceVideo: true,
-  //     forceAudio: true,
-  //   },
-  // };
 
   const onReady = React.useCallback(() => {
     if (!isLoaded) {
@@ -41,16 +31,13 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
         <ReactPlayer
           ref={playerRef}
           url={props.src}
-          //config={configuration}
           width="100%"
           height="100%"
-          autoPlay
           controls={props.hasControl}
           onReady={onReady}
           onPlay={() => props.onClick(true)}
           onPause={() => props.onClick(false)}
           onProgress={() => props.onChange(playerRef.current.player.prevPlayed)}
-          // onError={(e) => console.error("onError", e)}
         />
       ) : (
         <div className={`${style["video-player-file"]} widget-container`}>

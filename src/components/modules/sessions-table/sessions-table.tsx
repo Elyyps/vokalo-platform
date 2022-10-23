@@ -131,10 +131,7 @@ export const SessionsTableComponent = ({
                              style["sessions-table-video-upload"]
                            }
                         `}
-                        onClick={(e: any) =>
-                          row.hasVideoConnected &&
-                          navigate("/video-sync/" + row.id)
-                        }
+                        onClick={(e: any) => navigate("/video-sync/" + row.id)}
                       >
                         <ReactSVG
                           src={
