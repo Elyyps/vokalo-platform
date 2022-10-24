@@ -40,10 +40,10 @@ export const RecordingsPage = () => {
     setAudios(data.videoSyncData.profileAudioRecordingData);
   };
   const onUpload = async (files: any) => {
-    getAccount().then(async (session: any) => {
-      const data = await addVideoAPI(session, files[0], id);
-      console.log(data);
-    });
+    console.log(files);
+    // getAccount().then(async (session: any) => {
+    //   const data = await addVideoAPI(session, files[0], id);
+    // });
   };
 
   React.useEffect(() => {

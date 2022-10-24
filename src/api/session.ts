@@ -20,22 +20,25 @@ export const updateSessionTitleAPI = async (
 
 export const addVideoAPI = async (
   { accessToken }: any,
-  files: any,
+  file: any,
   sessionId?: string
 ) => {
+  let formData = new FormData();
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${accessToken.jwtToken}`,
     },
   };
+  formData.append("file", file);
+  console.log(file);
   return await axios
     .post(
       `${API_URL}session/upload-session-video?sessionId= ` + sessionId,
-      files,
+      formData,
       config
     )
-    .then((response: any) => response.data)
+    .then((response: any) => console.log(response.data))
     .catch(console.log);
 };
 // export const sessionsTableData = (): ISession[] => [
