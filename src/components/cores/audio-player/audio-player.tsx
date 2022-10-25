@@ -41,8 +41,9 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
     }
   }, [props.isPlaying, newAudio]);
   React.useEffect(() => {
-    if (props.currentTime && playerRef.current) {
-      playerRef.current.currentTime = props.currentTime / 1000;
+    if (props.currentTime && playerRef.current && newAudio) {
+      playerRef.current.currentTime =
+        (props.currentTime - newAudio?.startOffset) / 1000;
     }
   }, [props.currentTime]);
   return (
@@ -56,7 +57,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         style["audio-player-active"]
       }
       `}
-      onClick={() => props.isPlaying && setIsMuted(!isMuted)}
+      onClick={() => setIsMuted(!isMuted)}
     >
       <span>
         {props.name}
@@ -69,8 +70,8 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
 
       {newAudio && newAudio.path && (
         <div>
-          {/* <img src="/img/audio.png" /> */}
-          <audio ref={playerRef} muted={isMuted} src={newAudio.path} controls />
+          {props.isPlaying && <img src="/img/audio.png" />}
+          <audio ref={playerRef} muted={isMuted} src={newAudio.path} />
         </div>
       )}
     </div>
