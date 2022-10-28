@@ -40,11 +40,9 @@
     align-items: center;
     flex-wrap: wrap;
     > div {
-      width: 32%;
-      height: 75px;
+      width: 33%;
+      height: 80px;
       margin-top: 16px;
-    }
-    &-playing > div {
       cursor: pointer;
     }
     &-container {

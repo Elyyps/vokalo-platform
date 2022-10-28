@@ -49,28 +49,15 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   return (
     <div
       className={`${style["audio-player"]}
-      ${
-        !isMuted &&
-        newAudio &&
-        newAudio.path &&
-        props.currentTime > 0 &&
-        style["audio-player-active"]
-      }
+      ${!isMuted && style["audio-player-active"]}
       `}
       onClick={() => setIsMuted(!isMuted)}
     >
-      <span>
-        {props.name}
-        {/* {newAudio.startOffset ? (
-            <small> ({props.currentTime + newAudio.startOffset})</small>
-          ) : (
-            ""
-          )} */}
-      </span>
+      <span>{props.name}</span>
 
       {newAudio && newAudio.path && (
         <div>
-          {/* {props.isPlaying && <img src="/img/audio.png" />} */}
+          {/* <img src="/img/audio.png" /> */}
           <audio ref={playerRef} muted={isMuted} src={newAudio.path} controls />
         </div>
       )}

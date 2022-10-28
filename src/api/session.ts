@@ -24,21 +24,22 @@ export const addVideoAPI = async (
   sessionId?: string
 ) => {
   let formData = new FormData();
+  formData.append("file", file);
+
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
+      "Access-Control-Allow-Origin": "*",
       Authorization: `Bearer ${accessToken.jwtToken}`,
     },
   };
-  formData.append("file", file);
-  console.log(file);
   return await axios
     .post(
-      `${API_URL}session/upload-session-video?sessionId= ` + sessionId,
+      `${API_URL}session/upload-session-video?sessionId=` + sessionId,
       formData,
       config
     )
-    .then((response: any) => console.log(response.data))
+    .then((response: any) => response.data)
     .catch(console.log);
 };
 // export const sessionsTableData = (): ISession[] => [
