@@ -1,0 +1,55 @@
+.modal {
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 600ms, visibility 600ms;
+  transition: opacity 550ms, visibility 550ms;
+  position: fixed; /* Stay in place */
+
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &__center-content {
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    margin: auto 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 200ms, visibility 200ms;
+    transition: opacity 200ms, visibility 200ms;
+  }
+
+  &-open {
+    visibility: visible;
+    opacity: 1;
+  }
+}

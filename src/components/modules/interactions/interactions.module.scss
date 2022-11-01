@@ -9,13 +9,24 @@
     @media (max-width: variables.$breakpoint-lg) {
       margin-bottom: 16px;
     }
+    > div {
+      display: flex;
+      align-items: center;
+      > span {
+        cursor: pointer;
+        margin-right: 16px;
+        width: 13px;
+        height: 13px;
+        border: 3px dashed black;
+      }
+    }
     ul {
       overflow-y: auto;
       max-height: 300px;
       > li {
         display: flex;
         align-items: center;
-        padding: 4px;
+        padding: 4px 8px;
         > input {
           margin-right: 4px;
         }
@@ -65,6 +76,25 @@
     }
     @media (max-width: variables.$breakpoint-lg) {
       height: 240px;
+    }
+  }
+  &-big {
+    min-width: 1000px;
+    .interactions-header {
+      margin-bottom: 24px;
+      h6 {
+        font-size: 24px;
+      }
+      div {
+        font-size: 16px;
+      }
+    }
+    .interactions-buttons div {
+      font-size: 16px;
+    }
+    .interactions-graph {
+      height: 380px;
+      width: 100%;
     }
   }
 }

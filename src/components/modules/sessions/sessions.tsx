@@ -48,7 +48,6 @@ export const SessionsComponent = ({
         { name: "score", param: ["score"] }
       );
     }
-    console.log(sessions);
     setColumns(list);
   }, [isSquadSessions]);
 

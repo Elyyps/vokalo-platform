@@ -3,6 +3,7 @@ import { Chart } from "react-google-charts";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
+import { LightBoxComponent } from "../../cores/lightbox/lightbox";
 import { Tooltip } from "../../cores/tooltip/tooltip";
 import style from "./interactions.module.scss";
 type ISort = {
@@ -29,19 +30,40 @@ export const InteractionsComponent = ({
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
   ]);
-  const [sortBy, setSortBy] = React.useState<ISort[]>([{ value: "Default" }]);
+  const [sortBy, setSortBy] = React.useState<ISort[]>([
+    { value: "Descending" },
+  ]);
   const [data, setData] = React.useState<any[]>();
   const [selectedColors, setSelectedColors] = React.useState<string[]>([]);
   const [optionColors, setOptionColors] = React.useState<string[]>();
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
+  const getXaxisTitle = () => {
+    if (isLineGraph) {
+      return widget.data.dataSets[0].data.xaxis.name
+        ? widget.data.dataSets[0].data.xaxis.name
+        : "";
+    }
+  };
+  const getYaxisTitle = () => {
+    if (isLineGraph) {
+      return widget.data.dataSets[0].data.yaxis.name
+        ? widget.data.dataSets[0].data.yaxis.name
+        : "Interactions";
+    } else {
+      return widget.data.yaxis.name
+        ? widget.data.yaxis.name
+        : "Interactions per minute";
+    }
+  };
   const options = {
     curveType: "function",
     chartArea: {
       width: "90%",
     },
     vAxis: {
+      title: getYaxisTitle(),
       textStyle: { color: "#C4C4C4" },
-      baselineColor: "none",
       baseline: 0,
     },
     seriesType: !isLineGraph && "bars",
@@ -50,12 +72,13 @@ export const InteractionsComponent = ({
         ? optionColors
         : { 2: { type: "line" } },
     hAxis: {
+      title: getXaxisTitle(),
       textStyle: {
         color: "#C4C4C4",
-        fontSize: 11,
+        fontSize: isOpen ? 14 : 11,
       },
-      slantedText: !isLineGraph && true,
-      slantedTextAngle: !isLineGraph && 80,
+      slantedText: !isLineGraph && widget.data.xaxis.name !== "Date" && true,
+      slantedTextAngle: !isLineGraph && widget.data.xaxis.name !== "Date" && 80,
     },
     legend: isLineGraph ? { position: "bottom" } : "none",
   };
@@ -109,6 +132,8 @@ export const InteractionsComponent = ({
     return list.length > 1 ? sortList(list) : undefined;
   };
   const getLineChartData = () => {
+    console.log(widget);
+
     let result = widget.data?.dataSets?.find(
       (item: any) => sortBy[0].value === item.name
     );
@@ -285,99 +310,118 @@ export const InteractionsComponent = ({
       resetFilter();
     }
   }, [sortBy]);
-  return (
-    <div className={` ${style["interactions"]} widget-container`}>
-      <div className={style["interactions-header"]}>
-        <h6>
-          {widget.header}
-          {tooltip && <Tooltip content={tooltip} />}
-        </h6>
-        {data && data[1] && data[1].length > 1 && (
-          <DropdownComponent title={getDropdownTitle()} hasBorder>
-            {!isLineGraph ? (
-              <ul>
-                <li onClick={() => setSortBy([{ value: "Default" }])}>
-                  Default
-                </li>
-                <li onClick={() => setSortBy([{ value: "Ascending" }])}>
-                  Ascending
-                </li>
-                <li onClick={() => setSortBy([{ value: "Descending" }])}>
-                  Descending
-                </li>
-              </ul>
-            ) : (
-              <ul style={{ minWidth: "130px" }}>
-                {widget.data?.dataSets.map((item: any, key: number) => (
-                  <li key={key} onClick={() => getFilters(item.name, key)}>
-                    <input
-                      type={"checkbox"}
-                      onChange={() => ""}
-                      checked={
-                        sortBy.some(
-                          (i) => i.value === item.name && i.index === key
-                        ) && true
-                      }
-                    />
-                    {item.name}
-                  </li>
-                ))}
-              </ul>
+  const returnContent = () => {
+    return (
+      <div
+        className={` ${style["interactions"]} ${
+          isOpen && style["interactions-big"]
+        } widget-container`}
+      >
+        <div className={style["interactions-header"]}>
+          <h6>
+            {widget.header}
+            {tooltip && <Tooltip content={tooltip} />}
+          </h6>
+          <div>
+            {!isOpen && <span onClick={() => setIsOpen(true)} />}
+            {data && data[1] && data[1].length > 1 && (
+              <DropdownComponent title={getDropdownTitle()} hasBorder>
+                {!isLineGraph ? (
+                  <ul>
+                    <li onClick={() => setSortBy([{ value: "Default" }])}>
+                      Alphabetically
+                    </li>
+                    <li onClick={() => setSortBy([{ value: "Ascending" }])}>
+                      Ascending
+                    </li>
+                    <li onClick={() => setSortBy([{ value: "Descending" }])}>
+                      Descending
+                    </li>
+                  </ul>
+                ) : (
+                  <ul style={{ minWidth: "130px" }}>
+                    {widget.data?.dataSets.map((item: any, key: number) => (
+                      <li key={key} onClick={() => getFilters(item.name, key)}>
+                        <input
+                          type={"checkbox"}
+                          onChange={() => ""}
+                          checked={
+                            sortBy.some(
+                              (i) => i.value === item.name && i.index === key
+                            ) && true
+                          }
+                        />
+                        {item.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </DropdownComponent>
             )}
-          </DropdownComponent>
+          </div>
+        </div>
+        {hasButtons && getButtons() && (
+          <div className={style["interactions-buttons"]}>
+            {getButtons().data?.yaxis?.map((element: any, key: number) => (
+              <ButtonComponent
+                title={element.name}
+                key={key}
+                variant={
+                  selectedButton.some((i) => i.includes(element.name))
+                    ? "transparent"
+                    : "disabled"
+                }
+                hasBorder
+                onClick={() => {
+                  element.name && getSelectedButtons(element.name);
+                  element.color && getSelectedColors(element.color);
+                }}
+              />
+            ))}
+          </div>
+        )}
+        {data && data[1] && data[1].length > 1 ? (
+          <Chart
+            chartType={!isLineGraph ? "ComboChart" : "LineChart"}
+            data={data}
+            options={options}
+            className={style["interactions-graph"]}
+            width="100%"
+          />
+        ) : (
+          <EmptyStateComponent />
+        )}
+        {hasButtons && data && data[1] && data[1].length > 1 && (
+          <div className={style["interactions-switch"]}>
+            <span
+              style={!isLineGraph ? {} : { opacity: 0.4 }}
+              onClick={() => {
+                onClick(false);
+                resetFilter();
+              }}
+            ></span>
+            <span
+              style={!isLineGraph ? { opacity: 0.4 } : {}}
+              onClick={() => {
+                onClick(true);
+                selectedColors.length === 0 &&
+                  selectedButton[0] === "Total" &&
+                  getSelectedColors("#000000");
+              }}
+            ></span>
+          </div>
         )}
       </div>
-      {hasButtons && getButtons() && (
-        <div className={style["interactions-buttons"]}>
-          {getButtons().data?.yaxis?.map((element: any, key: number) => (
-            <ButtonComponent
-              title={element.name}
-              key={key}
-              variant={
-                selectedButton.some((i) => i.includes(element.name))
-                  ? "transparent"
-                  : "disabled"
-              }
-              hasBorder
-              onClick={() => {
-                element.name && getSelectedButtons(element.name);
-                element.color && getSelectedColors(element.color);
-              }}
-            />
-          ))}
-        </div>
-      )}
-      {data && data[1] && data[1].length > 1 ? (
-        <Chart
-          chartType={!isLineGraph ? "ComboChart" : "LineChart"}
-          data={data}
-          options={options}
-          className={style["interactions-graph"]}
-          width="100%"
-        />
-      ) : (
-        <EmptyStateComponent />
-      )}
-      {hasButtons && data && data[1] && data[1].length > 1 && (
-        <div className={style["interactions-switch"]}>
-          <span
-            style={!isLineGraph ? {} : { opacity: 0.4 }}
-            onClick={() => {
-              onClick(false);
-              resetFilter();
-            }}
-          ></span>
-          <span
-            style={!isLineGraph ? { opacity: 0.4 } : {}}
-            onClick={() => {
-              onClick(true);
-              selectedColors.length === 0 &&
-                selectedButton[0] === "Total" &&
-                getSelectedColors("#000000");
-            }}
-          ></span>
-        </div>
-      )}
-    </div>
+    );
+  };
+  return !isOpen ? (
+    returnContent()
+  ) : (
+    <LightBoxComponent
+      isLightBoxOpen={isOpen}
+      setLightBoxOpen={() => setIsOpen(false)}
+    >
+      {returnContent()}
+    </LightBoxComponent>
   );
 };
