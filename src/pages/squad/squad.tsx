@@ -62,13 +62,7 @@ export const SquadPage = ({ user }: ISquadPage) => {
         getSquads(session);
       });
     }
-  }, [
-    cookies.team,
-    startDate,
-    endDate,
-    filter[0] && filter[0].value,
-    filter[1] && filter[1].value,
-  ]);
+  }, [cookies.team, startDate, endDate, filter]);
 
   return (
     <div className={style["squad"]}>
