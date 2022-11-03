@@ -18,6 +18,10 @@
         width: 13px;
         height: 13px;
         border: 3px dashed black;
+        @media (max-width: variables.$breakpoint-lg) {
+          width: 10px;
+          height: 10px;
+        }
       }
     }
     ul {
@@ -79,22 +83,26 @@
     }
   }
   &-big {
-    min-width: 1000px;
+    min-width: 1200px;
     .interactions-header {
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       h6 {
-        font-size: 24px;
+        font-size: 28px;
       }
       div {
-        font-size: 16px;
+        font-size: 18px;
       }
     }
     .interactions-buttons div {
-      font-size: 16px;
+      font-size: 20px;
     }
     .interactions-graph {
-      height: 380px;
+      height: 550px;
       width: 100%;
+    }
+    .interactions-switch > span {
+      width: 20px;
+      height: 20px;
     }
   }
 }

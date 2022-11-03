@@ -1,5 +1,6 @@
 import React from "react";
 import { useCookies } from "react-cookie";
+import { DropdownComponent } from "../../components/cores/dropdown/dropdown";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
@@ -21,8 +22,10 @@ export const SquadPage = ({ user }: ISquadPage) => {
   const { getAccount } = React.useContext(AccountContext);
   const [cookies] = useCookies(["team"]);
   const { startDate, endDate } = React.useContext(FilterContext);
-  const [filter, setFilter] = React.useState({ key: "role", value: "" });
+  const [filter, setFilter] = React.useState<any[]>([]);
+  const [buttonName, setButtonName] = React.useState<string>("Session Type");
 
+  const sessionTypes: string[] = ["", "Match", "Training"];
   const getSquads = async (session: any) => {
     const data = await getAPI(
       "profiles",
@@ -34,23 +37,74 @@ export const SquadPage = ({ user }: ISquadPage) => {
     );
     setList({ squads: data.profiles, widgets: data.profilesAggregations });
   };
+  const getSessionButtonTitle = (value: string) => {
+    value ? setButtonName(value) : setButtonName("Session type");
+  };
+  const setFilterValue = (type: string, value: string) => {
+    const result = filter.find((item) => item.key === type);
+    if (result) {
+      const newFilters = filter.map((item) => {
+        if (item.key === type) {
+          item.value = value.toLocaleUpperCase();
+        }
+        return item;
+      });
+      type === "sessionType" && getSessionButtonTitle(value);
+      setFilter(newFilters);
+    } else {
+      type === "sessionType" && getSessionButtonTitle(value);
+      setFilter(filter.concat({ key: type, value: value.toLocaleUpperCase() }));
+    }
+  };
   React.useEffect(() => {
     if (user) {
       getAccount().then((session: any) => {
         getSquads(session);
       });
     }
-  }, [cookies.team, startDate, endDate, filter.value]);
+  }, [
+    cookies.team,
+    startDate,
+    endDate,
+    filter[0] && filter[0].value,
+    filter[1] && filter[1].value,
+  ]);
 
   return (
     <div className={style["squad"]}>
       <PageHeaderComponent
+        hasTwoButtons
+        buttonTitle="Profile type"
         title={"Squad"}
         list={["Athlete", "Coach"]}
-        onSelect={(value: string) =>
-          setFilter({ key: "role", value: value.toLocaleUpperCase() })
-        }
-      />
+        onSelect={(value: string) => filter && setFilterValue("role", value)}
+      >
+        <DropdownComponent
+          title={buttonName}
+          icon="/icons/filter.svg"
+          hasBorder
+        >
+          <ul>
+            {sessionTypes.map((item, key) =>
+              !item.length ? (
+                <li
+                  key={key}
+                  onClick={() => filter && setFilterValue("sessionType", "")}
+                >
+                  All
+                </li>
+              ) : (
+                <li
+                  key={key}
+                  onClick={() => filter && setFilterValue("sessionType", item)}
+                >
+                  {item}
+                </li>
+              )
+            )}
+          </ul>
+        </DropdownComponent>
+      </PageHeaderComponent>
       {list ? (
         <div>
           <PageWidgetsComponent widgets={list.widgets} />

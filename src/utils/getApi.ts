@@ -15,6 +15,7 @@ export const getAPI = async (
       Authorization: `Bearer ${accessToken.jwtToken}`,
     },
   };
+  console.log(filter);
   let filtersList = getFilterUrl(team, startDate, endDate, filter);
   return await axios
     .get(API_URL + url + filtersList, config)

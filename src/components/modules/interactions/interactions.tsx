@@ -59,11 +59,11 @@ export const InteractionsComponent = ({
   const options = {
     curveType: "function",
     chartArea: {
-      width: "90%",
+      width: "85%",
     },
     vAxis: {
       title: getYaxisTitle(),
-      textStyle: { color: "#C4C4C4" },
+      textStyle: { color: "#C4C4C4", fontSize: isOpen ? 20 : 11 },
       baseline: 0,
     },
     seriesType: !isLineGraph && "bars",
@@ -75,12 +75,14 @@ export const InteractionsComponent = ({
       title: getXaxisTitle(),
       textStyle: {
         color: "#C4C4C4",
-        fontSize: isOpen ? 14 : 11,
+        fontSize: isOpen ? 20 : 11,
       },
       slantedText: !isLineGraph && widget.data.xaxis.name !== "Date" && true,
       slantedTextAngle: !isLineGraph && widget.data.xaxis.name !== "Date" && 80,
     },
-    legend: isLineGraph ? { position: "bottom" } : "none",
+    legend: isLineGraph
+      ? { position: "bottom", textStyle: { fontSize: isOpen && 18 } }
+      : "none",
   };
   const sortList = (list: any) => {
     if (sortBy[0].value !== "Default") {
@@ -291,7 +293,7 @@ export const InteractionsComponent = ({
     } else {
       setData(getTableChartData());
     }
-  }, [isLineGraph, sortBy, selectedButton]);
+  }, [isLineGraph, sortBy, selectedButton, widget]);
 
   React.useEffect(() => {
     if (selectedColors?.length) {

@@ -15,7 +15,7 @@ interface IVideoPlayerComponent {
 export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   const playerRef = React.useRef<any>();
   const [isLoaded, setIsLoaded] = React.useState(false);
-
+  const maxSize = 5368709120;
   const onReady = React.useCallback(() => {
     if (!isLoaded) {
       setIsLoaded(true);
@@ -42,13 +42,13 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
         />
       ) : (
         <div className={`${style["video-player-file"]} widget-container`}>
-          <Dropzone onDrop={props.onUpload}>
+          <Dropzone onDrop={props.onUpload} maxSize={maxSize}>
             {({ getRootProps, getInputProps }) => (
               <div {...getRootProps()}>
                 <ReactSVG src="/icons/upload.svg" />
                 <b>Select a file or drag and drop here</b>
                 <input {...getInputProps()} />
-                <p>MOV, MP4 or AVI file size no more than 3GB</p>
+                <p>MOV, MP4 or AVI file size no more than 5GB</p>
                 <button>select file</button>
               </div>
             )}
