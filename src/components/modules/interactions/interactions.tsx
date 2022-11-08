@@ -1,5 +1,6 @@
 import React from "react";
 import { Chart } from "react-google-charts";
+import { ReactSVG } from "react-svg";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
@@ -86,11 +87,13 @@ export const InteractionsComponent = ({
   };
   const sortList = (list: any) => {
     if (sortBy[0].value !== "Default") {
-      return list.sort((a: any, b: any) => {
-        if (a[1] && b[1]) {
+      let sorted = list.slice(1, list.length).sort((a: any, b: any) => {
+        if (b[1] >= 0 && a[1] >= 0) {
           return sortBy[0].value === "Ascending" ? a[1] - b[1] : b[1] - a[1];
         }
       });
+      sorted = [list[0]].concat(sorted);
+      return sorted;
     } else {
       return list;
     }
@@ -134,8 +137,6 @@ export const InteractionsComponent = ({
     return list.length > 1 ? sortList(list) : undefined;
   };
   const getLineChartData = () => {
-    console.log(widget);
-
     let result = widget.data?.dataSets?.find(
       (item: any) => sortBy[0].value === item.name
     );
@@ -383,13 +384,39 @@ export const InteractionsComponent = ({
           </div>
         )}
         {data && data[1] && data[1].length > 1 ? (
-          <Chart
-            chartType={!isLineGraph ? "ComboChart" : "LineChart"}
-            data={data}
-            options={options}
-            className={style["interactions-graph"]}
-            width="100%"
-          />
+          <div className={style["interactions-content"]}>
+            {hasButtons && (
+              <span
+                style={isLineGraph ? {} : { opacity: 0.4 }}
+                onClick={() => {
+                  onClick(false);
+                  resetFilter();
+                }}
+              >
+                <ReactSVG src="/icons/arrow-down.svg" />
+              </span>
+            )}
+            <Chart
+              chartType={!isLineGraph ? "ComboChart" : "LineChart"}
+              data={data}
+              options={options}
+              className={style["interactions-graph"]}
+              width="100%"
+            />
+            {hasButtons && (
+              <span
+                style={isLineGraph ? { opacity: 0.4 } : {}}
+                onClick={() => {
+                  onClick(true);
+                  selectedColors.length === 0 &&
+                    selectedButton[0] === "Total" &&
+                    getSelectedColors("#000000");
+                }}
+              >
+                <ReactSVG src="/icons/arrow-down.svg" />
+              </span>
+            )}
+          </div>
         ) : (
           <EmptyStateComponent />
         )}

@@ -31,7 +31,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
       name: "average interactions",
       param: ["communicationAggregations", "averageInteractions"],
     },
-    { name: "distribution", param: ["moodAggregations", "value"] },
+    // { name: "distribution", param: ["moodAggregations", "value"] },
     { name: "percentage", param: ["orientationAggregations", "value"] },
   ];
   const rows = cookies.rows ? cookies.rows : 24;
@@ -61,9 +61,9 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
               <th colSpan={3} scope="colgroup">
                 Communication
               </th>
-              <th colSpan={1} scope="colgroup">
+              {/* <th colSpan={1} scope="colgroup">
                 Feedback
-              </th>
+              </th> */}
               <th colSpan={1} scope="colgroup">
                 Orientation
               </th>
@@ -108,7 +108,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                       row.communicationAggregations.averageInteractions * 10
                     ) / 10}
                   </td>
-                  <td>
+                  {/* <td>
                     <div className={style["squad-table-progress"]}>
                       <div
                         style={{
@@ -118,7 +118,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                         }}
                       />
                     </div>
-                  </td>
+                  </td> */}
                   <td>
                     <TrendComponent
                       trendLabel={getPercentage(

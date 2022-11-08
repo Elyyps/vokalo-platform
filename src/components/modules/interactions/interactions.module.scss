@@ -1,6 +1,21 @@
 @use "src/variables";
 
 .interactions {
+  &-content {
+    display: flex;
+    align-items: center;
+    > span {
+      transform: rotate(90deg);
+      margin: 0 6px;
+      cursor: pointer;
+      &:last-child {
+        transform: rotate(-90deg);
+      }
+    }
+    > div {
+      width: calc(100%) !important;
+    }
+  }
   &-header {
     display: flex;
     justify-content: space-between;
@@ -75,6 +90,7 @@
   }
   &-graph {
     height: 320px;
+    width: 100%;
     @media (max-width: variables.$breakpoint-xl) {
       height: 280px;
     }

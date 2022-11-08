@@ -1,10 +1,11 @@
 @use "src/variables";
 
 .tooltip {
-  margin-left: 8px;
+  margin: 2px 4px 0 4px;
   background-color: variables.$secondary-color;
   border: 1px solid white;
   width: 15px;
+  min-width: 15px;
   height: 15px;
   display: flex;
   justify-content: center;
@@ -16,7 +17,6 @@
   @media (max-width: variables.$breakpoint-lg) {
     width: 13px;
     height: 13px;
-    margin-left: 4px;
   }
   > small {
     color: white;

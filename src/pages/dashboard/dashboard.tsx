@@ -39,7 +39,6 @@ export const DashboardPage = ({ user }: IDashboard) => {
       <h1>Last 30 days</h1>
       <div className={style["dashboard-bottom"]}>
         <PageWidgetsComponent widgets={list?.sessions.slice(0, 4)} />
-
         <InteractionsComponent
           widget={list?.sessions[4]}
           onClick={() => ""}
