@@ -12,7 +12,7 @@
     width: 65%;
     margin-bottom: 24px;
     @media (max-width: variables.$breakpoint-lg) {
-      width: 73%;
+      width: 75%;
     }
   }
   &-highlights-container {
@@ -40,10 +40,9 @@
     align-items: center;
     flex-wrap: wrap;
     > div {
-      width: 18%;
+      width: 33%;
+      height: 80px;
       margin-top: 16px;
-    }
-    &-playing > div {
       cursor: pointer;
     }
     &-container {

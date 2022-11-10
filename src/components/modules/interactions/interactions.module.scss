@@ -1,6 +1,21 @@
 @use "src/variables";
 
 .interactions {
+  &-content {
+    display: flex;
+    align-items: center;
+    > span {
+      transform: rotate(90deg);
+      margin: 0 6px;
+      cursor: pointer;
+      &:last-child {
+        transform: rotate(-90deg);
+      }
+    }
+    > div {
+      width: calc(100%) !important;
+    }
+  }
   &-header {
     display: flex;
     justify-content: space-between;
@@ -9,13 +24,28 @@
     @media (max-width: variables.$breakpoint-lg) {
       margin-bottom: 16px;
     }
+    > div {
+      display: flex;
+      align-items: center;
+      > span {
+        cursor: pointer;
+        margin-right: 16px;
+        width: 13px;
+        height: 13px;
+        border: 3px dashed black;
+        @media (max-width: variables.$breakpoint-lg) {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
     ul {
       overflow-y: auto;
       max-height: 300px;
       > li {
         display: flex;
         align-items: center;
-        padding: 4px;
+        padding: 4px 8px;
         > input {
           margin-right: 4px;
         }
@@ -60,11 +90,35 @@
   }
   &-graph {
     height: 320px;
+    width: 100%;
     @media (max-width: variables.$breakpoint-xl) {
       height: 280px;
     }
     @media (max-width: variables.$breakpoint-lg) {
       height: 240px;
+    }
+  }
+  &-big {
+    min-width: 1200px;
+    .interactions-header {
+      margin-bottom: 32px;
+      h6 {
+        font-size: 28px;
+      }
+      div {
+        font-size: 18px;
+      }
+    }
+    .interactions-buttons div {
+      font-size: 20px;
+    }
+    .interactions-graph {
+      height: 550px;
+      width: 100%;
+    }
+    .interactions-switch > span {
+      width: 20px;
+      height: 20px;
     }
   }
 }

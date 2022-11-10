@@ -18,10 +18,11 @@ export type IWidget = {
   header: string;
   subheader?: string;
   label?: string;
-  tooltip?:string;
+  tooltip?: string;
   widgetType?: string;
   trendLabel?: number;
   trendDirection?: "POSITIVE" | "NEGATIVE" | "NEUTRAL";
   elements?: IWidgetElements[];
   data?: IGraph;
+  subLabels?: any[];
 };

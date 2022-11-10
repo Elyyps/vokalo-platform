@@ -24,9 +24,10 @@ export const SessionsTableComponent = ({
     { name: "type", param: ["type"] },
     { name: "length", param: ["length"] },
     { name: "coach", param: ["creator", "firstName"] },
-    { name: "participants", param: ["participants"] },
+    // { name: "participants", param: ["participants"] },
     { name: "recordings", param: ["recordings"] },
     { name: "analyzed", param: ["analyzed"] },
+    { name: "video", param: ["hasVideoConnected"] },
   ];
   const [cookies] = useCookies(["rows"]);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
@@ -91,7 +92,7 @@ export const SessionsTableComponent = ({
                     <td>
                       {row.creator?.firstName + " " + row.creator?.lastName}
                     </td>
-                    <td>{row.participants?.length}</td>
+                    {/* <td>{row.participants?.length}</td> */}
                     <td>
                       <span
                         className={`checkmark ${
@@ -122,6 +123,27 @@ export const SessionsTableComponent = ({
                         />
                       </span>
                     </td>
+                    <td>
+                      <span
+                        className={` ${style["sessions-table-video"]} 
+                           ${
+                             !row.hasVideoConnected &&
+                             style["sessions-table-video-upload"]
+                           }
+                        `}
+                        onClick={(e: any) => navigate("/video-sync/" + row.id)}
+                      >
+                        <ReactSVG
+                          src={
+                            row.hasVideoConnected
+                              ? "/icons/check.svg"
+                              : "/icons/cross.svg"
+                          }
+                        />
+                        {row.hasVideoConnected ? "Complete" : "Upload"}
+                      </span>
+                    </td>
+                    <td></td>
                     {/* <td>
                       <DropdownComponent
                         icon="/icons/more.svg"

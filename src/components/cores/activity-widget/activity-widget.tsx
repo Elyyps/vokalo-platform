@@ -15,21 +15,33 @@ export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
           {widget.header}
           {widget.tooltip && <Tooltip content={widget.tooltip} />}
         </h6>
-        <TrendComponent
-          trendLabel={widget.trendLabel}
-          trendDirection={widget.trendDirection}
-        />
+        {widget.trendLabel && (
+          <TrendComponent
+            trendLabel={widget.trendLabel}
+            trendDirection={widget.trendDirection}
+          />
+        )}
       </div>
       {widget.label !== "NONE" ? (
         <h3
           className={
             hasColor ? style[`activity-widget-${widget.trendDirection}`] : ""
           }
+          style={widget.subLabels && { fontSize: "24px" }}
         >
-          {widget.label}
+          {widget.subLabels && "1. "} {widget.label}
         </h3>
       ) : (
         <EmptyStateComponent />
+      )}
+      {widget.subLabels && (
+        <ul>
+          {widget.subLabels.map((item, key) => (
+            <li key={key}>
+              {key + 2}. {item}
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

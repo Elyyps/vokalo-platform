@@ -38,11 +38,10 @@ export const SessionsComponent = ({
   React.useEffect(() => {
     let list: any[] = [
       { name: "date", param: ["creationTimestamp"] },
+      isSquadSessions && { name: "name", param: ["label"] },
       { name: "type", param: ["type"] },
     ];
-    if (isSquadSessions) {
-      list.push({ name: "length", param: ["length"] });
-    } else {
+    if (!isSquadSessions) {
       list.push(
         { name: "vokalo", param: ["vokaloLive"] },
         { name: "recordings", param: ["recordings"] },
@@ -98,12 +97,12 @@ export const SessionsComponent = ({
               onClick={() => navigate("/sessions/" + session.id)}
             >
               <span>{converToDate(session.creationTimestamp)}</span>
+              {session.length && pathname !== "/coach" && (
+                <span>{session.label}</span>
+              )}
               <span>
                 <TypeComponent type={session.type} />
               </span>
-              {session.length && pathname !== "/coach" && (
-                <span>{converToMinutes(session.length)}</span>
-              )}
               {!isSquadSessions && (
                 <span
                   className={`checkmark ${

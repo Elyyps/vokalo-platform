@@ -9,6 +9,7 @@ interface IPageHeaderComponent {
   title: string;
   hasReturn?: boolean;
   hasTwoButtons?: boolean;
+  buttonTitle?: string;
   route?: string;
   children?: any;
   list: string[];
@@ -37,18 +38,18 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
         {props.title}
       </h2>
       <div>
-        {props.hasTwoButtons && (
-          <ButtonComponent
-            title={
-              pathname.includes("/sessions/") && props.list
-                ? "Edit session"
-                : "Filter"
-            }
-            icon="/icons/settings.svg"
-            hasBorder
-            onClick={props.onClick}
-          />
-        )}
+        {props.hasTwoButtons && props.children}
+        {/* <ButtonComponent
+             title={
+               pathname.includes("/sessions/") && props.list
+                 ? "Edit session"
+                 : "Filter"
+             }
+             icon="/icons/settings.svg"
+             hasBorder
+             onClick={props.onClick}
+           /> */}
+
         {props.list.length > 0 && (
           <DropdownComponent
             title={
@@ -56,6 +57,8 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
                 ? currentSelection
                 : pathname.includes("/sessions/") && props.list
                 ? props.list[0]
+                : props.buttonTitle
+                ? props.buttonTitle
                 : "Filter"
             }
             icon="/icons/filter.svg"
