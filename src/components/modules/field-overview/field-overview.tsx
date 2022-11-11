@@ -58,14 +58,14 @@ export const FieldOverviewComponent = ({
   );
   const { getAccount } = React.useContext(AccountContext);
   const [selectedButton, setSelectedButton] = React.useState<string>("Total");
-  const [range, setRange] = React.useState({
-    from: fieldOverview.matchData.startMinute
-      ? fieldOverview.matchData.startMinute
-      : 0,
-    to: fieldOverview.matchData.endMinute
-      ? fieldOverview.matchData.endMinute
-      : 0,
-  });
+  // const [range, setRange] = React.useState({
+  //   from: fieldOverview.matchData.startMinute
+  //     ? fieldOverview.matchData.startMinute
+  //     : 0,
+  //   to: fieldOverview.matchData.endMinute
+  //     ? fieldOverview.matchData.endMinute
+  //     : 0,
+  // });
   const [formation, setFormation] = React.useState<string>(
     fieldData.matchData.currentFormation
       ? fieldData.matchData.currentFormation
@@ -121,6 +121,13 @@ export const FieldOverviewComponent = ({
     const player = dataSet?.data.find((data) => data.profileId === playerId);
     return player ? Math.round(player.value * 100) : 0;
   };
+  const getPlayerLabel = (playerId: number) => {
+    const dataSet = fieldData.dataSets.find(
+      (data) => data.name === selectedButton
+    );
+    const player = dataSet?.data.find((data) => data.profileId === playerId);
+    return player ? player.label : 0;
+  };
   const getPlayerColor = (playerId: number) => {
     const playerValue = getPlayerValue(playerId);
     const result = Math.trunc(playerValue / (100 / colors.length));
@@ -128,10 +135,10 @@ export const FieldOverviewComponent = ({
       ? colors[colors.length - 1]
       : colors[result];
   };
-  const playerClicked = (player: IPlayer) => {
-    setIsOpen(!isOpen);
-    setCurrentPlayer(player);
-  };
+  // const playerClicked = (player: IPlayer) => {
+  //   setIsOpen(!isOpen);
+  //   setCurrentPlayer(player);
+  // };
   // const playerSelected = (playerTarget: IPlayer) => {
   //   const players = playersList.map((player) => {
   //     const playerCopy = { ...player };
@@ -148,22 +155,22 @@ export const FieldOverviewComponent = ({
   //     setIsOpen(false);
   //   }
   // };
-  const changeRange = async (session: any) => {
-    if (
-      range.to <= fieldData.matchData.endMinute &&
-      range.from < fieldData.matchData.endMinute
-    ) {
-      setIsLoading(true);
-      const result = await getRangeAPI(
-        session,
-        "sessionId=" + id + "&from=" + range.from + "&to=" + range.to
-      );
-      if (result.data) {
-        setFieldData(result.data.data);
-        setIsLoading(false);
-      }
-    }
-  };
+  // const changeRange = async (session: any) => {
+  //   if (
+  //     range.to <= fieldData.matchData.endMinute &&
+  //     range.from < fieldData.matchData.endMinute
+  //   ) {
+  //     setIsLoading(true);
+  //     const result = await getRangeAPI(
+  //       session,
+  //       "sessionId=" + id + "&from=" + range.from + "&to=" + range.to
+  //     );
+  //     if (result.data) {
+  //       setFieldData(result.data.data);
+  //       setIsLoading(false);
+  //     }
+  //   }
+  // };
   const changeFormation = async (session: any) => {
     setIsLoading(true);
     const result = await getNewFormationAPI(
@@ -185,11 +192,11 @@ export const FieldOverviewComponent = ({
       changeFormation(session);
     });
   }, [formation]);
-  React.useEffect(() => {
-    getAccount().then((session: any) => {
-      changeRange(session);
-    });
-  }, [range]);
+  // React.useEffect(() => {
+  //   getAccount().then((session: any) => {
+  //     changeRange(session);
+  //   });
+  // }, [range]);
 
   return (
     fieldData && (
@@ -218,23 +225,31 @@ export const FieldOverviewComponent = ({
                 </ul>
               </DropdownComponent>
             </div>
-            <div className={style["field-overview-players"]}>
+            <div
+              className={style["field-overview-players"]}
+              style={formation === "Training" ? { paddingTop: "44px" } : {}}
+            >
               {playersList &&
-                playersList.slice(0, 11).map((player, key) => (
+                playersList.map((player, key) => (
                   <div
                     key={key}
-                    style={{
-                      width:
-                        key === 0
-                          ? "100%"
-                          : `${getPlayerPosition(player.gridX)}% `,
-                    }}
+                    style={
+                      formation !== "Training"
+                        ? {
+                            width:
+                              key === 0
+                                ? "100%"
+                                : `${getPlayerPosition(player.gridX)}% `,
+                          }
+                        : { width: "20%" }
+                    }
                   >
                     <PlayerComponent
                       player={player}
+                      label={player.ghost ? 0 : getPlayerLabel(player.id)}
                       value={player.ghost ? 0 : getPlayerValue(player.id)}
                       color={player.ghost ? "" : getPlayerColor(player.id)}
-                      onClick={() => !player.ghost && playerClicked(player)}
+                      //onClick={() => !player.ghost && playerClicked(player)}
                       onPlayerDrag={(index) => setCurrentPlayer(index)}
                       onPlayerDrop={updatePlayers}
                     />
@@ -262,7 +277,7 @@ export const FieldOverviewComponent = ({
           </div>
         )}
         <div className={style["field-overview-bottom"]}>
-          <div className={style["field-overview-gradient"]}>
+          {/* <div className={style["field-overview-gradient"]}>
             <div>
               <span>Few</span>
               <span>Many</span>
@@ -278,9 +293,9 @@ export const FieldOverviewComponent = ({
                 ></span>
               ))}
             </div>
-          </div>
+          </div> */}
           <div className={style["field-overview-buttons"]}>
-            <div>
+            {/* <div>
               <input
                 placeholder="Start"
                 type={"number"}
@@ -311,7 +326,7 @@ export const FieldOverviewComponent = ({
                   })
                 }
               />
-            </div>
+            </div> */}
 
             <div>
               {fieldData.dataSets.map((data, key) => (

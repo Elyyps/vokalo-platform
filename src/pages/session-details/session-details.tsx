@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { updateSessionTitleAPI } from "../../api/session";
+import { ButtonComponent } from "../../components/cores/button/button";
 import { EmptyStateComponent } from "../../components/cores/empty-state/empty-state";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { ModalComponent } from "../../components/cores/modal/modal";
@@ -82,8 +83,14 @@ export const SessionDetailsPage = () => {
         hasTwoButtons
         list={[]}
         onSelect={() => ""}
-        onClick={() => setIsEdit(true)}
-      />
+      >
+        <ButtonComponent
+          title={"Edit session"}
+          icon="/icons/settings.svg"
+          hasBorder
+          onClick={() => setIsEdit(true)}
+        />
+      </PageHeaderComponent>
       {isEdit && (
         <ModalComponent
           onClick={changeTitle}
