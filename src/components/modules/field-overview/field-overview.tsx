@@ -52,7 +52,7 @@ export const FieldOverviewComponent = ({
   );
   const [fieldData, setFieldData] =
     React.useState<IFieldOverview>(fieldOverview);
-
+  const [sliceFrom, setSliceFrom] = React.useState(0);
   const [currentPlayer, setCurrentPlayer] = React.useState<IPlayer>(
     playersList[0] && playersList[0]
   );
@@ -249,14 +249,14 @@ export const FieldOverviewComponent = ({
                       label={player.ghost ? 0 : getPlayerLabel(player.id)}
                       value={player.ghost ? 0 : getPlayerValue(player.id)}
                       color={player.ghost ? "" : getPlayerColor(player.id)}
-                      //onClick={() => !player.ghost && playerClicked(player)}
+                      //  onClick={() => !player.ghost && playerClicked(player)}
                       onPlayerDrag={(index) => setCurrentPlayer(index)}
                       onPlayerDrop={updatePlayers}
                     />
                   </div>
                 ))}
             </div>
-            {isOpen && (
+            {/* {isOpen && (
               <div className={style["field-overview-replacement"]}>
                 <PlayerSwapComponent
                   players={swapPlayersList}
@@ -269,7 +269,7 @@ export const FieldOverviewComponent = ({
                   onClose={() => setIsOpen(false)}
                 />
               </div>
-            )}
+            )} */}
           </div>
         ) : (
           <div className={style["field-overview-top"]}>
@@ -327,7 +327,13 @@ export const FieldOverviewComponent = ({
                 }
               />
             </div> */}
-
+            <div>
+              <PlayerSwapComponent
+                players={swapPlayersList}
+                onDrag={(index) => setCurrentPlayer(index)}
+                onDrop={updatePlayers}
+              />
+            </div>
             <div>
               {fieldData.dataSets.map((data, key) => (
                 <ButtonComponent
