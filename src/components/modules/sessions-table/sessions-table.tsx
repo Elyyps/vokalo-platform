@@ -27,7 +27,7 @@ export const SessionsTableComponent = ({
     // { name: "participants", param: ["participants"] },
     { name: "recordings", param: ["recordings"] },
     { name: "analyzed", param: ["analyzed"] },
-    { name: "video", param: ["hasVideoConnected"] },
+    //{ name: "video", param: ["hasVideoConnected"] },
   ];
   const [cookies] = useCookies(["rows"]);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
@@ -123,7 +123,7 @@ export const SessionsTableComponent = ({
                         />
                       </span>
                     </td>
-                    <td>
+                    {/*<td>
                       <span
                         className={` ${style["sessions-table-video"]} 
                            ${
@@ -142,7 +142,7 @@ export const SessionsTableComponent = ({
                         />
                         {row.hasVideoConnected ? "Complete" : "Upload"}
                       </span>
-                    </td>
+                        </td>*/}
                     <td></td>
                     {/* <td>
                       <DropdownComponent
