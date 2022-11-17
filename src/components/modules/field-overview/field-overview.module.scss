@@ -131,6 +131,44 @@
       }
     }
   }
+  &-bottom {
+    > div:first-child {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba($color: #dadada, $alpha: 0.4);
+      padding: 8px 2px;
+      border: 1px solid variables.$tertiary-color;
+      margin-bottom: 8px;
+      svg {
+        cursor: pointer;
+      }
+      .field-overview-swaps {
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% - 30px);
+        > div {
+          width: 24%;
+          margin-bottom: 8px;
+          > div {
+            border-color: variables.$primary-color;
+            width: 42px;
+            height: 42px;
+            @media (max-width: variables.$breakpoint-lg) {
+              width: 36px;
+              height: 36px;
+            }
+          }
+          > span {
+            background-color: rgba(
+              $color: variables.$primary-color,
+              $alpha: 0.6
+            );
+          }
+        }
+      }
+    }
+  }
   &-replacement {
     position: absolute;
     top: 0;

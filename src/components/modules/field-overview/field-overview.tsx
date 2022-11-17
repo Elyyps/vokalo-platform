@@ -52,7 +52,6 @@ export const FieldOverviewComponent = ({
   );
   const [fieldData, setFieldData] =
     React.useState<IFieldOverview>(fieldOverview);
-  const [sliceFrom, setSliceFrom] = React.useState(0);
   const [currentPlayer, setCurrentPlayer] = React.useState<IPlayer>(
     playersList[0] && playersList[0]
   );
@@ -72,6 +71,7 @@ export const FieldOverviewComponent = ({
       : ""
   );
   const [isOpen, setIsOpen] = React.useState(false);
+  const [sliceFrom, setSliceFrom] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const colors = ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"];
   const { id } = useParams();
@@ -277,6 +277,47 @@ export const FieldOverviewComponent = ({
           </div>
         )}
         <div className={style["field-overview-bottom"]}>
+          <div>
+            {swapPlayersList.length > 8 && (
+              <ReactSVG
+                src="/icons/arrow-down.svg"
+                style={{
+                  transform: "rotate(90deg)",
+                  opacity: sliceFrom === 1 ? 0.3 : 1,
+                }}
+                onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 8)}
+              />
+            )}
+            <div className={style["field-overview-swaps"]}>
+              {swapPlayersList
+                .slice(sliceFrom, sliceFrom + 8)
+                .map((player, key) => (
+                  <PlayerComponent
+                    player={player}
+                    label={player.ghost ? 0 : getPlayerLabel(player.id)}
+                    value={player.ghost ? 0 : getPlayerValue(player.id)}
+                    color={player.ghost ? "" : getPlayerColor(player.id)}
+                    onPlayerDrag={(index) => setCurrentPlayer(index)}
+                    onPlayerDrop={updatePlayers}
+                    key={key}
+                  />
+                ))}
+            </div>
+
+            {swapPlayersList.length > 8 && (
+              <ReactSVG
+                src="/icons/arrow-down.svg"
+                style={{
+                  transform: "rotate(270deg)",
+                  opacity: sliceFrom === swapPlayersList.length - 8 ? 0.3 : 1,
+                }}
+                onClick={() =>
+                  sliceFrom < swapPlayersList.length - 8 &&
+                  setSliceFrom(sliceFrom + 8)
+                }
+              />
+            )}
+          </div>
           {/* <div className={style["field-overview-gradient"]}>
             <div>
               <span>Few</span>
@@ -327,13 +368,6 @@ export const FieldOverviewComponent = ({
                 }
               />
             </div> */}
-            <div>
-              <PlayerSwapComponent
-                players={swapPlayersList}
-                onDrag={(index) => setCurrentPlayer(index)}
-                onDrop={updatePlayers}
-              />
-            </div>
             <div>
               {fieldData.dataSets.map((data, key) => (
                 <ButtonComponent

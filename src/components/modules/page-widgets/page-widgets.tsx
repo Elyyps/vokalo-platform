@@ -1,6 +1,7 @@
 import React from "react";
 import { IWidget } from "../../../types/cores/widget";
 import { ActivityWidget } from "../../cores/activity-widget/activity-widget";
+import { ClassificationWidget } from "../../cores/classifications-widget/classifications-widget";
 import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
 import { FeedbackWidget } from "../../cores/feedback-widget/feedback-widget";
 import { SentimentWidget } from "../../cores/sentiment-widget/sentiment-widget";
@@ -33,7 +34,7 @@ export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
             <FeedbackWidget widget={widget} />
           )}
           {widget.widgetType === "PERCENTAGE_DISTRIBUTION_WIDGET" && (
-            <FeedbackWidget widget={widget} />
+            <ClassificationWidget widget={widget} />
           )}
           {widget.widgetType === "SMALL_TABLE_WITH_TRENDING_LABEL" && (
             <SentimentWidget widget={widget} />
@@ -50,61 +51,6 @@ export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
           )}
         </div>
       ))}
-
-      {/*  <ActivityWidget
-              widget={{
-                header: "Most active athlete",
-                label: "Brian B.",
-                trendLabel: 25,
-                trendDirection: "POSITIVE",
-              }}
-            /> 
-            <UsageWidget
-        widget={{
-          header: "Usage",
-          label: "7.240",
-          subHeader: "previous 15 days",
-          trendLabel: 55,
-          trendDirection: "POSITIVE",
-          graph: {
-            yAxis: {
-              name: "age",
-              data: [0, 2, 4, 8, 5, 6, 2],
-            },
-            xAxis: {
-              name: "weight",
-              data: [0, 1, 2, 3, 4, 5, 6],
-            },
-          },
-        }}
-      />
-      
-      <SentimentWidget
-        widget={{
-          header: "Sentiment",
-          label: "Good",
-          subHeader: "previous 15 days",
-          trendLabel: 55,
-          trendDirection: "POSITIVE",
-          graph: {
-            yAxis: {
-              data: [42, 95, 75, 50, 40, 55, 80],
-            },
-          },
-        }}
-      /> 
-      <FeedbackWidget
-              widget={{
-                header: "Feedback",
-                elements: [
-                  { percentage: 25, color: "#2C2F51", label: "POSITIVE" },
-                  { percentage: 35, color: "#486FD4", label: "STIMULATION" },
-                  { percentage: 20, color: "#91AAE8", label: "ORIENTATION" },
-                  { percentage: 20, color: "#D3D3D3", label: "NEGATIVE" },
-                ],
-              }}
-            />
-       */}
     </div>
   );
 };

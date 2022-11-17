@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { ClassificationWidget } from "../../components/cores/classifications-widget/classifications-widget";
 import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
@@ -56,7 +57,7 @@ export const SquadDetailsPage = () => {
       <div className={style["squad-details-content"]}>
         <div className={style["squad-details-left"]}>
           <PageWidgetsComponent widgets={list.widgets.slice(0, 2)} />
-          <ClassificationComponent widget={list.widgets[2]} />
+          <ClassificationWidget widget={list.widgets[2]} isBig />
           <InteractionsComponent
             widget={
               !isLineGraph

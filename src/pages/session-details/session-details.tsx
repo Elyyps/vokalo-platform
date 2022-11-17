@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { updateSessionTitleAPI } from "../../api/session";
 import { ButtonComponent } from "../../components/cores/button/button";
+import { ClassificationWidget } from "../../components/cores/classifications-widget/classifications-widget";
 import { EmptyStateComponent } from "../../components/cores/empty-state/empty-state";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { ModalComponent } from "../../components/cores/modal/modal";
@@ -113,7 +114,7 @@ export const SessionDetailsPage = () => {
             ))}
           </div>
           <div className={style["session-details-classification"]}>
-            <ClassificationComponent widget={list.widgets[2]} />
+            <ClassificationWidget widget={list.widgets[2]} isBig />
           </div>
           <div className={style["session-details-graph"]}>
             <InteractionsComponent
