@@ -145,8 +145,9 @@
       }
       .field-overview-swaps {
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
-        width: calc(100% - 30px);
+        width: 100%;
         > div {
           width: 24%;
           margin-bottom: 8px;
