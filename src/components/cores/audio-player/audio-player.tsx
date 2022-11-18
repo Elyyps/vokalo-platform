@@ -57,7 +57,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
 
       {newAudio && newAudio.path && (
         <div>
-          {/* <img src="/img/audio.png" /> */}
+          <img src="/img/audio.png" />
           <audio ref={playerRef} muted={isMuted} src={newAudio.path} />
         </div>
       )}

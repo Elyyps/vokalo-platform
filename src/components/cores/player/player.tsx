@@ -5,6 +5,7 @@ import style from "./player.module.scss";
 interface IPlayerComponent {
   player: IPlayer;
   value: number;
+  label: number;
   color: string;
   onPlayerDrop: (playerTarget: IPlayer) => void;
   onPlayerDrag: (playerDrag: IPlayer) => void;
@@ -53,7 +54,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         }}
         draggable
       >
-        {/* <span>{props.value}</span> */}
+        <span>{props.label}</span>
         {props.player.substituted && (
           <span className={style["player-replaced"]}>
             <ReactSVG src="/icons/change.svg" />

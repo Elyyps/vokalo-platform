@@ -55,7 +55,7 @@
     }
     > div {
       @media (min-width: variables.$breakpoint-xl) {
-        height: calc(50% - 12px);
+        height: calc(50% - 24px);
         &:first-child {
           margin-bottom: 24px;
         }
@@ -71,7 +71,10 @@
       width: 100%;
     }
     > div {
-      height: 100%;
+      height: calc(100% - 24px);
+      @media (max-width: variables.$breakpoint-xl) {
+        height: 100%;
+      }
     }
   }
   &-graph {

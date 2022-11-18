@@ -39,17 +39,6 @@ export const PageHeaderComponent = (props: IPageHeaderComponent) => {
       </h2>
       <div>
         {props.hasTwoButtons && props.children}
-        {/* <ButtonComponent
-             title={
-               pathname.includes("/sessions/") && props.list
-                 ? "Edit session"
-                 : "Filter"
-             }
-             icon="/icons/settings.svg"
-             hasBorder
-             onClick={props.onClick}
-           /> */}
-
         {props.list.length > 0 && (
           <DropdownComponent
             title={
