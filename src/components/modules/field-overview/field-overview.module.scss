@@ -145,11 +145,10 @@
       }
       .field-overview-swaps {
         display: flex;
-        justify-content: center;
         flex-wrap: wrap;
         width: 100%;
         > div {
-          width: 24%;
+          width: 25%;
           margin-bottom: 8px;
           > div {
             border-color: variables.$primary-color;

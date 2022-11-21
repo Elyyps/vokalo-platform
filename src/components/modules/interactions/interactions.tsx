@@ -86,7 +86,7 @@ export const InteractionsComponent = ({
       : "none",
   };
   const sortList = (list: any) => {
-    if (sortBy[0].value !== "Default") {
+    if (sortBy[0].value !== "Alphabetically") {
       let sorted = list.slice(1, list.length).sort((a: any, b: any) => {
         if (b[1] >= 0 && a[1] >= 0) {
           return sortBy[0].value === "Ascending" ? a[1] - b[1] : b[1] - a[1];
@@ -279,7 +279,7 @@ export const InteractionsComponent = ({
       ? isNotDefault
         ? setSortBy([{ value: widget.data?.dataSets[0].name, index: 0 }])
         : setSortBy([{ value: "Average", index: 0 }])
-      : setSortBy([{ value: "Default" }]);
+      : setSortBy([{ value: "Descending" }]);
 
     setData(!isLineGraph ? getTableChartData() : getLineChartData());
   }, [isLineGraph]);
@@ -331,7 +331,9 @@ export const InteractionsComponent = ({
               <DropdownComponent title={getDropdownTitle()} hasBorder>
                 {!isLineGraph ? (
                   <ul>
-                    <li onClick={() => setSortBy([{ value: "Default" }])}>
+                    <li
+                      onClick={() => setSortBy([{ value: "Alphabetically" }])}
+                    >
                       Alphabetically
                     </li>
                     <li onClick={() => setSortBy([{ value: "Ascending" }])}>
