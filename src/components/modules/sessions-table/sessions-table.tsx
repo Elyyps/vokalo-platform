@@ -7,6 +7,7 @@ import { converToDate } from "../../../utils/convertDate";
 import { converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { PaginationComponent } from "../../cores/pagination/pagination";
+import { TrendComponent } from "../../cores/trend/trend";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions-table.module.scss";
 
@@ -25,8 +26,20 @@ export const SessionsTableComponent = ({
     { name: "length", param: ["length"] },
     { name: "coach", param: ["creator", "firstName"] },
     // { name: "participants", param: ["participants"] },
-    { name: "recordings", param: ["recordings"] },
-    { name: "analyzed", param: ["analyzed"] },
+    // { name: "recordings", param: ["recordings"] },
+    // { name: "analyzed", param: ["analyzed"] },
+    {
+      name: "Average Interaction Length",
+      param: ["communicationAggregations", "averageInteractionLength"],
+    },
+    {
+      name: "Average Interactions",
+      param: ["communicationAggregations", "averageInteraction"],
+    },
+    {
+      name: "Orientation percentage",
+      param: ["orientationAggregations", "value"],
+    },
     //{ name: "video", param: ["hasVideoConnected"] },
   ];
   const [cookies] = useCookies(["rows"]);
@@ -36,8 +49,12 @@ export const SessionsTableComponent = ({
     ascending: true,
   });
   const rows = cookies.rows ? cookies.rows : 24;
+  const getPercentage = (value: number) => {
+    return Math.round(value * 100);
+  };
   const sortedSession = React.useMemo(() => {
     let sortableSession = [...sessions];
+    console.log(sortableSession);
     return sortColumn(
       sortableSession,
       sortConfig.column.name,
@@ -84,7 +101,7 @@ export const SessionsTableComponent = ({
                   >
                     <td>{/* <input type="checkbox" /> */}</td>
                     <td>{converToDate(row.creationTimestamp)}</td>
-                    <td>{row.label}</td>
+                    <td style={{ minWidth: "200px" }}>{row.label}</td>
                     <td>
                       <TypeComponent type={row.type} />
                     </td>
@@ -93,7 +110,7 @@ export const SessionsTableComponent = ({
                       {row.creator?.firstName + " " + row.creator?.lastName}
                     </td>
                     {/* <td>{row.participants?.length}</td> */}
-                    <td>
+                    {/* <td>
                       <span
                         className={`checkmark ${
                           !row.hasRecordings && "checkmark-rotate"
@@ -107,8 +124,8 @@ export const SessionsTableComponent = ({
                           }
                         />
                       </span>
-                    </td>
-                    <td>
+                    </td> */}
+                    {/* <td>
                       <span
                         className={`checkmark ${
                           !row.vokaloLive && "checkmark-rotate"
@@ -122,8 +139,34 @@ export const SessionsTableComponent = ({
                           }
                         />
                       </span>
+                    </td> */}
+                    <td>
+                      {row.communicationAggregations &&
+                        Math.round(
+                          row.communicationAggregations
+                            .averageInteractionLength * 10
+                        ) / 10}
                     </td>
-                    {/*<td>
+                    <td>
+                      {row.communicationAggregations &&
+                        Math.round(
+                          row.communicationAggregations.averageInteractions * 10
+                        ) / 10}
+                    </td>
+                    <td>
+                      {row.orientationAggregations && (
+                        <TrendComponent
+                          trendLabel={getPercentage(
+                            row.orientationAggregations.value
+                          )}
+                          trendDirection={
+                            row.orientationAggregations.trendDirection
+                          }
+                        />
+                      )}
+                    </td>
+                    {/*
+                    <td>
                       <span
                         className={` ${style["sessions-table-video"]} 
                            ${
@@ -142,7 +185,8 @@ export const SessionsTableComponent = ({
                         />
                         {row.hasVideoConnected ? "Complete" : "Upload"}
                       </span>
-                        </td>*/}
+                    </td>
+                        */ }
                     <td></td>
                     {/* <td>
                       <DropdownComponent
