@@ -31,8 +31,8 @@
           height: 18px;
         }
       }
-      &:nth-last-child(-n + 5) {
-        max-width: 80px;
+      &:nth-last-child(-n + 6) {
+        max-width: 100px;
       }
       &:last-child {
         width: 15px;
@@ -56,6 +56,11 @@
       }
     }
   }
+  &-language svg {
+    width: 22px;
+    height: 18px;
+  }
+
   &-video {
     cursor: pointer;
     display: flex;

@@ -24,4 +24,5 @@ export type ISession = {
   hasVideoConnected?: boolean;
   communicationAggregations?: ICommunicationAggregation;
   orientationAggregations?: IAggregation;
+  analysis_language?: string;
 };

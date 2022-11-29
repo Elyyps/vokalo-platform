@@ -25,28 +25,29 @@ export const DashboardPage = ({ user }: IDashboard) => {
       sessions: data.sessionAggregations,
     });
   };
-  React.useEffect(() => {
-    getAccount().then((session: any) => {
-      getDashboard(session);
-    });
-  }, [user && user.teams]);
-  return list ? (
-    <div className={style["dashboard"]}>
-      <h1 onClick={() => user && navigate("sessions/" + user.lastSession.id)}>
-        Last session
-      </h1>
-      <PageWidgetsComponent widgets={list?.lastSession} />
-      <h1>Last 30 days</h1>
-      <div className={style["dashboard-bottom"]}>
-        <PageWidgetsComponent widgets={list?.sessions.slice(0, 4)} />
-        <InteractionsComponent
-          widget={list?.sessions[4]}
-          onClick={() => ""}
-          tooltip={list?.sessions[4].tooltip}
-        />
-      </div>
-    </div>
-  ) : (
-    <LoaderComponent />
-  );
+  // React.useEffect(() => {
+  //   getAccount().then((session: any) => {
+  //     getDashboard(session);
+  //   });
+  // }, [user && user.teams]);
+  // return list ? (
+  //   <div className={style["dashboard"]}>
+  //     <h1 onClick={() => user && navigate("sessions/" + user.lastSession.id)}>
+  //       Last session
+  //     </h1>
+  //     <PageWidgetsComponent widgets={list?.lastSession} />
+  //     <h1>Last 30 days</h1>
+  //     <div className={style["dashboard-bottom"]}>
+  //       <PageWidgetsComponent widgets={list?.sessions.slice(0, 4)} />
+  //       <InteractionsComponent
+  //         widget={list?.sessions[4]}
+  //         onClick={() => ""}
+  //         tooltip={list?.sessions[4].tooltip}
+  //       />
+  //     </div>
+  //   </div>
+  // ) : (
+  //   <LoaderComponent />
+  // );
+  return <h1>Dashboard</h1>;
 };

@@ -26,7 +26,7 @@ export const Tooltip = ({ content }: ITooltip) => {
       onClick={() => setIsOpen(!isOpen)}
     >
       <small>i</small>
-      {isOpen && <div>{content}</div>}
+      {isOpen && <div dangerouslySetInnerHTML={{ __html: content }}></div>}
     </span>
   );
 };

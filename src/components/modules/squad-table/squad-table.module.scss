@@ -35,14 +35,13 @@
         background-color: rgba($color: #dadada, $alpha: 0.2);
       }
     }
+
     th,
     td {
-      text-align: center;
       padding: 8px;
       &:last-child > div {
         display: flex;
         align-items: center;
-        justify-content: center;
       }
       &:nth-child(2n + 1):not(:first-child),
       &:nth-child(4) {
@@ -53,7 +52,6 @@
       th > span {
         width: 100%;
         display: flex;
-        justify-content: center;
         cursor: pointer;
         font-weight: normal;
         svg {

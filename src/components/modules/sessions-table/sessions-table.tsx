@@ -40,6 +40,7 @@ export const SessionsTableComponent = ({
       name: "Orientation percentage",
       param: ["orientationAggregations", "value"],
     },
+    { name: "language", param: ["analysis_language"] },
     { name: "video", param: ["hasVideoConnected"] },
   ];
   const [cookies] = useCookies(["rows"]);
@@ -54,7 +55,6 @@ export const SessionsTableComponent = ({
   };
   const sortedSession = React.useMemo(() => {
     let sortableSession = [...sessions];
-    console.log(sortableSession);
     return sortColumn(
       sortableSession,
       sortConfig.column.name,
@@ -164,6 +164,19 @@ export const SessionsTableComponent = ({
                           }
                         />
                       )}
+                    </td>
+                    <td>
+                      <span className={style["sessions-table-language"]}>
+                        {row.analysis_language && (
+                          <ReactSVG
+                            src={
+                              row.analysis_language === "da-dk"
+                                ? "/icons/dk-flag.svg"
+                                : "/icons/uk-flag.svg"
+                            }
+                          />
+                        )}
+                      </span>
                     </td>
                     <td>
                       <span

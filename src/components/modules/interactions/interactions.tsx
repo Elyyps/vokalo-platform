@@ -18,6 +18,8 @@ interface IInteractionsComponent {
   onClick: (isLineGraph: boolean) => void;
   isNotDefault?: boolean;
   tooltip?: string;
+  interval?: number;
+  onIntervalChange?: (value: number) => void;
 }
 
 export const InteractionsComponent = ({
@@ -27,6 +29,8 @@ export const InteractionsComponent = ({
   hasButtons,
   isNotDefault,
   tooltip,
+  onIntervalChange,
+  interval,
 }: IInteractionsComponent) => {
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
@@ -71,7 +75,7 @@ export const InteractionsComponent = ({
     series:
       isLineGraph && sortBy.length === 1
         ? optionColors
-        : { 2: { type: "line" } },
+        : { 1: { type: "line" } },
     hAxis: {
       title: getXaxisTitle(),
       textStyle: {
@@ -102,12 +106,16 @@ export const InteractionsComponent = ({
     let header: any = [
       [widget.data?.xaxis?.name ? widget.data?.xaxis?.name : ""],
     ];
-    header[0].push("", { role: "style" });
+    // header[0].push("", { role: "style" });
+    header[0].push("", "Average");
     let filteredList =
       widget.data?.yaxis &&
       widget.data?.yaxis.filter((item: any) =>
         selectedButton.includes(item.name)
       );
+    let total = 0;
+    filteredList[0].data.map((a: any, key: any) => (total += a.value));
+    const average = total / filteredList[0].data.length;
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
       if (!isLineGraph && item !== "/") {
@@ -128,10 +136,11 @@ export const InteractionsComponent = ({
       } else {
         item && list.push([widget.data?.xaxis?.data[index]]);
       }
+
       item &&
         filteredList.forEach((element: any, key: number) => {
           list[index + 1].push(filteredList[key].data[index].value);
-          list[index + 1].push(filteredList[key].data[index].color);
+          list[index + 1].push(average);
         });
     });
     return list.length > 1 ? sortList(list) : undefined;
@@ -327,6 +336,16 @@ export const InteractionsComponent = ({
           </h6>
           <div>
             {!isOpen && <span onClick={() => setIsOpen(true)} />}
+            {data && onIntervalChange && isLineGraph && (
+              <DropdownComponent title={`${interval}`} hasBorder>
+                <ul>
+                  <li onClick={() => onIntervalChange(1)}>1</li>
+                  <li onClick={() => onIntervalChange(2)}>2</li>
+                  <li onClick={() => onIntervalChange(5)}>5</li>
+                  <li onClick={() => onIntervalChange(10)}>10</li>
+                </ul>
+              </DropdownComponent>
+            )}
             {data && data[1] && data[1].length > 1 && (
               <DropdownComponent title={getDropdownTitle()} hasBorder>
                 {!isLineGraph ? (

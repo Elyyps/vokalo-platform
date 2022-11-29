@@ -18,7 +18,9 @@ export const SquadDetailsPage = () => {
     profile: any;
     widgets: any[];
   }>();
-  const [isLineGraph, setIsLineGraph] = React.useState<boolean>(false);
+  const [isLineGraph, setIsLineGraph] = React.useState<boolean>(true);
+  const [interval, setInterval] = React.useState<number>(1);
+
   const { getAccount } = React.useContext(AccountContext);
   const { team, startDate, endDate } = React.useContext(FilterContext);
   const [filter, setFilter] = React.useState({ key: "role", value: "" });
@@ -31,6 +33,10 @@ export const SquadDetailsPage = () => {
         value: id,
       },
       filter,
+      {
+        key: "intervalLength",
+        value: interval,
+      },
     ]);
     setList({ profile: data.profile, widgets: data.profileAggregations });
   };
@@ -41,7 +47,7 @@ export const SquadDetailsPage = () => {
     getAccount().then((session: any) => {
       getSquadDetails(session);
     });
-  }, [team, startDate, endDate, filter]);
+  }, [team, startDate, endDate, filter, interval]);
 
   return list ? (
     <div className={style["squad-details"]}>
@@ -67,6 +73,8 @@ export const SquadDetailsPage = () => {
             tooltip={list.widgets[4].tooltip}
             isLineGraph={isLineGraph}
             onClick={setIsLineGraph}
+            onIntervalChange={setInterval}
+            interval={interval}
             hasButtons
             isNotDefault
           />

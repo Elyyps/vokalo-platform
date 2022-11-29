@@ -19,8 +19,9 @@ import { getAPI } from "../../utils/getApi";
 import style from "./session-details.module.scss";
 
 export const SessionDetailsPage = () => {
-  const [isLineGraph, setIsLineGraph] = React.useState<boolean>(false);
+  const [isLineGraph, setIsLineGraph] = React.useState<boolean>(true);
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
+  const [interval, setInterval] = React.useState<number>(1);
 
   const [list, setList] = React.useState<{
     session: ISession;
@@ -37,7 +38,10 @@ export const SessionDetailsPage = () => {
       team && team.id,
       startDate,
       endDate,
-      { key: "sessionId", value: id }
+      [
+        { key: "sessionId", value: id },
+        { key: "intervalLength", value: interval },
+      ]
     );
 
     setList({ session: data.session, widgets: data.sessionAggregations });
@@ -63,7 +67,7 @@ export const SessionDetailsPage = () => {
     getAccount().then((session: any) => {
       getSessionDetails(session);
     });
-  }, []);
+  }, [interval]);
 
   const getTitle = () => {
     if (list?.session) {
@@ -126,6 +130,8 @@ export const SessionDetailsPage = () => {
               tooltip={list.widgets[3].tooltip}
               isLineGraph={isLineGraph}
               onClick={setIsLineGraph}
+              onIntervalChange={setInterval}
+              interval={interval}
               hasButtons
             />
           </div>
