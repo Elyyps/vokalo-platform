@@ -210,7 +210,7 @@ export const FieldOverviewComponent = ({
             <div className={style["field-overview-formation"]}>
               <span style={{ opacity: isFlipped ? "1" : "0.6" }}>
                 <ReactSVG
-                  src="/icons/change.svg"
+                  src="/icons/up-down-arrow.svg"
                   onClick={() => setIsFlipped(!isFlipped)}
                 />
               </span>

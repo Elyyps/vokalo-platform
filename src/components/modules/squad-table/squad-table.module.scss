@@ -16,6 +16,9 @@
         padding-top: 24px;
         font-size: 13px;
         color: variables.$secondary-color;
+        @media (max-width: variables.$breakpoint-lg) {
+          padding-top: 12px;
+        }
         &:nth-child(2n) {
           background-color: rgba(
             $color: variables.$tertiary-color,

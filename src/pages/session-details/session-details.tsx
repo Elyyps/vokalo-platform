@@ -8,7 +8,6 @@ import { LoaderComponent } from "../../components/cores/loader/loader";
 import { ModalComponent } from "../../components/cores/modal/modal";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { Tooltip } from "../../components/cores/tooltip/tooltip";
-import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
 import { AccountContext } from "../../context/account";

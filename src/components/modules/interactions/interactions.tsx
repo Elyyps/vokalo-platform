@@ -39,12 +39,14 @@ export const InteractionsComponent = ({
     { value: "Descending" },
   ]);
   const [data, setData] = React.useState<any[]>();
-  const [selectedColors, setSelectedColors] = React.useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = React.useState<string[]>([
+    "#000000",
+  ]);
   const [optionColors, setOptionColors] = React.useState<string[]>();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const getXaxisTitle = () => {
-    if (isLineGraph) {
+    if (isLineGraph && widget.data && widget.data.dataSets[0]) {
       return widget.data.dataSets[0].data.xaxis.name
         ? widget.data.dataSets[0].data.xaxis.name
         : "";
@@ -52,7 +54,7 @@ export const InteractionsComponent = ({
   };
   const getYaxisTitle = () => {
     if (isLineGraph) {
-      return widget.data.dataSets[0].data.yaxis.name
+      return widget.data?.dataSets[0]?.data?.yaxis.name
         ? widget.data.dataSets[0].data.yaxis.name
         : "Interactions";
     } else {
@@ -70,6 +72,8 @@ export const InteractionsComponent = ({
       title: getYaxisTitle(),
       textStyle: { color: "#C4C4C4", fontSize: isOpen ? 20 : 11 },
       baseline: 0,
+      viewWindowMode: "explicit",
+      viewWindow: { min: 0 },
     },
     seriesType: !isLineGraph && "bars",
     series:
@@ -82,8 +86,9 @@ export const InteractionsComponent = ({
         color: "#C4C4C4",
         fontSize: isOpen ? 20 : 11,
       },
-      slantedText: !isLineGraph && widget.data.xaxis.name !== "Date" && true,
-      slantedTextAngle: !isLineGraph && widget.data.xaxis.name !== "Date" && 80,
+      slantedText: !isLineGraph && widget.data?.xaxis.name !== "Date" && true,
+      slantedTextAngle:
+        !isLineGraph && widget.data?.xaxis.name !== "Date" && 80,
     },
     legend: isLineGraph
       ? { position: "bottom", textStyle: { fontSize: isOpen && 18 } }
@@ -286,7 +291,7 @@ export const InteractionsComponent = ({
   React.useEffect(() => {
     isLineGraph
       ? isNotDefault
-        ? setSortBy([{ value: widget.data?.dataSets[0].name, index: 0 }])
+        ? setSortBy([{ value: widget.data?.dataSets[0]?.name, index: 0 }])
         : setSortBy([{ value: "Average", index: 0 }])
       : setSortBy([{ value: "Descending" }]);
 

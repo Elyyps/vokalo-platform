@@ -27,7 +27,7 @@ export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
           className={
             hasColor ? style[`activity-widget-${widget.trendDirection}`] : ""
           }
-          style={widget.subLabels && { fontSize: "24px" }}
+          style={widget.subLabels && { fontSize: "22px" }}
         >
           {widget.subLabels && "1. "} {widget.label}
         </h3>
