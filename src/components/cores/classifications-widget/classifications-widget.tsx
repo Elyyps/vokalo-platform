@@ -2,6 +2,7 @@ import React from "react";
 import style from "./classifications-widget.module.scss";
 import { IWidget } from "../../../types/cores/widget";
 import { Tooltip } from "../tooltip/tooltip";
+import { EmptyStateComponent } from "../empty-state/empty-state";
 interface IClassificationWidget {
   widget: IWidget;
   isBig?: boolean;
@@ -26,7 +27,13 @@ export const ClassificationWidget = ({
       >
         {widget.elements?.map((element, key) => (
           <div key={key}>
-            <span>{getPercentage(element.percentage)}</span>
+            <span>
+              {element.percentage > 0 ? (
+                getPercentage(element.percentage)
+              ) : (
+                <EmptyStateComponent />
+              )}
+            </span>
             <small>{element.label}</small>
           </div>
         ))}

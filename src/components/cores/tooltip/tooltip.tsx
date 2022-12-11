@@ -26,7 +26,12 @@ export const Tooltip = ({ content }: ITooltip) => {
       onClick={() => setIsOpen(!isOpen)}
     >
       <small>i</small>
-      {isOpen && <div dangerouslySetInnerHTML={{ __html: content }}></div>}
+      {isOpen && (
+        <div
+          dangerouslySetInnerHTML={{ __html: content }}
+          style={{ minWidth: content.includes("<ul>") ? "300px" : "180px" }}
+        ></div>
+      )}
     </span>
   );
 };

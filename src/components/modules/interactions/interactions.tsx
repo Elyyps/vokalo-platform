@@ -1,5 +1,6 @@
 import React from "react";
 import { Chart } from "react-google-charts";
+import { useLocation } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { ButtonComponent } from "../../cores/button/button";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
@@ -44,6 +45,7 @@ export const InteractionsComponent = ({
   ]);
   const [optionColors, setOptionColors] = React.useState<string[]>();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const { pathname } = useLocation();
 
   const getXaxisTitle = () => {
     if (isLineGraph && widget.data && widget.data.dataSets[0]) {
@@ -285,7 +287,9 @@ export const InteractionsComponent = ({
     if (sortBy.length > 1) {
       return sortBy.length + " selections";
     } else {
-      return sortBy[0].value;
+      return sortBy[0].value === "Alphabetically" && pathname.includes("/squad")
+        ? "By date"
+        : sortBy[0].value;
     }
   };
   React.useEffect(() => {
@@ -327,6 +331,7 @@ export const InteractionsComponent = ({
       resetFilter();
     }
   }, [sortBy]);
+
   const returnContent = () => {
     return (
       <div
@@ -358,7 +363,9 @@ export const InteractionsComponent = ({
                     <li
                       onClick={() => setSortBy([{ value: "Alphabetically" }])}
                     >
-                      Alphabetically
+                      {pathname.includes("/squad")
+                        ? "By date"
+                        : "Alphabetically"}
                     </li>
                     <li onClick={() => setSortBy([{ value: "Ascending" }])}>
                       Ascending
@@ -413,9 +420,9 @@ export const InteractionsComponent = ({
           <div className={style["interactions-content"]}>
             {hasButtons && (
               <span
-                style={isLineGraph ? {} : { opacity: 0.4 }}
+                // style={isLineGraph ? {} : { opacity: 0.4 }}
                 onClick={() => {
-                  onClick(false);
+                  onClick(!isLineGraph);
                   resetFilter();
                 }}
               >
@@ -431,9 +438,10 @@ export const InteractionsComponent = ({
             />
             {hasButtons && (
               <span
-                style={isLineGraph ? { opacity: 0.4 } : {}}
+                // style={isLineGraph ? { opacity: 0.4 } : {}}
                 onClick={() => {
-                  onClick(true);
+                  onClick(!isLineGraph);
+                  isLineGraph && resetFilter();
                   selectedColors.length === 0 &&
                     selectedButton[0] === "Total" &&
                     getSelectedColors("#000000");

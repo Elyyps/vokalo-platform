@@ -78,6 +78,19 @@ export const SessionDetailsPage = () => {
       );
     } else return "";
   };
+  const tool = `
+  <h6>Heatmap:</h6>
+ <p>
+ The number on each player is their average interactions/min in the match.
+  </p>
+ <ul> 
+ You can: 
+ <li> Drag’n drop players in their position</li>
+ <li> Change playing direction</li>
+ <li> Change team formation</li>
+ <li> Change between interaction types.</li>
+ </ul>
+ `;
   return list ? (
     <div className={style["session-details"]}>
       <PageHeaderComponent
@@ -136,9 +149,7 @@ export const SessionDetailsPage = () => {
           </div>
         </div>
         <div className={` ${style["session-details-right"]} widget-container `}>
-          {list.widgets[4].tooltip && (
-            <Tooltip content={list.widgets[4].tooltip} />
-          )}
+          {list.widgets[4].tooltip && <Tooltip content={tool} />}
           {list.widgets[4].data && list.widgets[4].profiles ? (
             <FieldOverviewComponent
               fieldOverview={list.widgets[4].data}

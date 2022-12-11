@@ -29,6 +29,7 @@
       }
       > small {
         color: variables.$secondary-color;
+        text-align: center;
       }
     }
   }
@@ -43,7 +44,7 @@
         margin-bottom: 12px;
       }
       span {
-        font-size: 36px;
+        font-size: 32px;
         @media (max-width: variables.$breakpoint-xl) {
           font-size: 28px;
         }

@@ -154,16 +154,17 @@ export const SessionsTableComponent = ({
                         ) / 10}
                     </td>
                     <td>
-                      {row.orientationAggregations && (
-                        <TrendComponent
-                          trendLabel={getPercentage(
-                            row.orientationAggregations.value
-                          )}
-                          trendDirection={
-                            row.orientationAggregations.trendDirection
-                          }
-                        />
-                      )}
+                      {row.orientationAggregations &&
+                        // <TrendComponent
+                        //   trendLabel={getPercentage(
+                        //     row.orientationAggregations.value
+                        //   )}
+                        //   trendDirection={
+                        //     row.orientationAggregations.trendDirection
+                        //   }
+                        // />
+                        getPercentage(row.orientationAggregations.value)}
+                      %
                     </td>
                     <td>
                       <span className={style["sessions-table-language"]}>

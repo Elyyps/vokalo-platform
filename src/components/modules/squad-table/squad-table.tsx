@@ -120,14 +120,15 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                     </div>
                   </td> */}
                   <td>
-                    <TrendComponent
+                    {/* <TrendComponent
                       trendLabel={getPercentage(
                         row.orientationAggregations.value
                       )}
                       trendDirection={
                         row.orientationAggregations.trendDirection
                       }
-                    />
+                    /> */}
+                    {getPercentage(row.orientationAggregations.value)}%
                   </td>
                 </tr>
               ))}
