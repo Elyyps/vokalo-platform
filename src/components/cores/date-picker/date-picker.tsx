@@ -74,8 +74,8 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
                 {
                   label: "Last Year",
                   range: () => ({
-                    startDate: startOfYear(addYears(new Date(), -1)),
-                    endDate: endOfYear(addYears(new Date(), -1)),
+                    startDate: addYears(new Date(), -1),
+                    endDate: new Date(),
                   }),
                   isSelected(range: any) {
                     const definedRange: any = this.range();

@@ -78,18 +78,29 @@ export const SessionDetailsPage = () => {
       );
     } else return "";
   };
-  const tool = `
-  <h6>Heatmap:</h6>
- <p>
- The number on each player is their average interactions/min in the match.
-  </p>
+  const fieldTip = `<p>The number on each player is their average interactions/min in the match.</p>
+You can: 
  <ul> 
- You can: 
- <li> Drag’n drop players in their position</li>
- <li> Change playing direction</li>
- <li> Change team formation</li>
- <li> Change between interaction types.</li>
+ <li>Drag’n drop players in their position</li>
+ <li>Change playing direction</li>
+ <li>Change team formation</li>
+ <li>Change between interaction types.</li>
  </ul>
+ `;
+  const graphTip = `<p>This section consists of a graph and a chart changed by the arrows..
+
+The graph shows interactions over time (average = team), and the chart compares players’ average interactions/min.</p>
+<span>You can:</span>
+ <ul> 
+ <li>Enlarge graph</li>
+ <li>Select players for comparison in graph</li>
+ <li>Change minute interval of graph</li>
+ <li>Change interaction type</li>
+ </ul>
+ `;
+  const distrubutionTip = `<p>Total interactions categorized into four different communication types by percentages for the session.
+
+Note: The total sum of the four categories can be more than 100% because one interaction can e.g. be positive and orientation at the same time.</p>
  `;
   return list ? (
     <div className={style["session-details"]}>
@@ -130,7 +141,11 @@ export const SessionDetailsPage = () => {
             ))}
           </div>
           <div className={style["session-details-classification"]}>
-            <ClassificationWidget widget={list.widgets[2]} isBig />
+            <ClassificationWidget
+              widget={list.widgets[2]}
+              isBig
+              tempoTooltip={distrubutionTip}
+            />
           </div>
           <div className={style["session-details-graph"]}>
             <InteractionsComponent
@@ -139,7 +154,8 @@ export const SessionDetailsPage = () => {
                   ? list.widgets[3].tableData
                   : list.widgets[3].graphData
               }
-              tooltip={list.widgets[3].tooltip}
+              //tooltip={list.widgets[3].tooltip}
+              tooltip={graphTip}
               isLineGraph={isLineGraph}
               onClick={setIsLineGraph}
               onIntervalChange={setInterval}
@@ -149,7 +165,7 @@ export const SessionDetailsPage = () => {
           </div>
         </div>
         <div className={` ${style["session-details-right"]} widget-container `}>
-          {list.widgets[4].tooltip && <Tooltip content={tool} />}
+          {list.widgets[4].tooltip && <Tooltip content={fieldTip} />}
           {list.widgets[4].data && list.widgets[4].profiles ? (
             <FieldOverviewComponent
               fieldOverview={list.widgets[4].data}

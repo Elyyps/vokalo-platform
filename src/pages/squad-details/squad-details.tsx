@@ -48,7 +48,20 @@ export const SquadDetailsPage = () => {
       getSquadDetails(session);
     });
   }, [team, startDate, endDate, filter, interval]);
-
+  const sessionTip = `Sessions where the player has been recorded within selected period and applied filters`;
+  const distrubutionTip = `<p>Total interactions categorized into four different communication types by percentages within selected period and applied filters.
+  
+Note: The total sum of the four categories can be more than 100% because one interaction can e.g. be positive and orientation at the same time.</p>`;
+  const graphTip = `<p>This section consists of a graph and a chart changed by the arrows.
+  
+The graph shows interactions over time, and the chart compares the player´s average interaction across sessions.</p>
+<span>You can:</span>
+ <ul> 
+ <li>Enlarge graph</li>
+ <li>Select sessions for comparison in graph</li>
+ <li>Change minute interval of graph</li>
+ <li>Change interaction type</li>
+ </ul>`;
   return list ? (
     <div className={style["squad-details"]}>
       <PageHeaderComponent
@@ -63,14 +76,18 @@ export const SquadDetailsPage = () => {
       <div className={style["squad-details-content"]}>
         <div className={style["squad-details-left"]}>
           <PageWidgetsComponent widgets={list.widgets.slice(0, 2)} />
-          <ClassificationWidget widget={list.widgets[2]} isBig />
+          <ClassificationWidget
+            widget={list.widgets[2]}
+            isBig
+            tempoTooltip={distrubutionTip}
+          />
           <InteractionsComponent
             widget={
               !isLineGraph
                 ? list.widgets[4].tableData
                 : list.widgets[4].graphData
             }
-            tooltip={list.widgets[4].tooltip}
+            tooltip={graphTip} // tooltip={list.widgets[4].tooltip}
             isLineGraph={isLineGraph}
             onClick={setIsLineGraph}
             onIntervalChange={setInterval}
@@ -83,7 +100,8 @@ export const SquadDetailsPage = () => {
           <SessionsComponent
             sessions={list.widgets[3].sessions}
             isSquadSessions
-            tooltip={list.widgets[3].tooltip}
+            //tooltip={list.widgets[3].tooltip}
+            tooltip={sessionTip}
           />
         </div>
       </div>

@@ -46,6 +46,10 @@
     visibility: hidden;
     -webkit-transition: opacity 200ms, visibility 200ms;
     transition: opacity 200ms, visibility 200ms;
+    > div {
+      max-height: 90vh;
+      max-width: 90vw;
+    }
   }
 
   &-open {

@@ -97,7 +97,16 @@ export const InteractionsComponent = ({
       : "none",
   };
   const sortList = (list: any) => {
-    if (sortBy[0].value !== "Alphabetically") {
+    if (sortBy[0].value === "Alphabetically") {
+      return list;
+    } else if (sortBy[0].value === "By date") {
+      console.log(list);
+      let sorted = list.slice(1, list.length).sort((a: any, b: any) => {
+        return a[0] - b[0];
+      });
+      sorted = [list[0]].concat(sorted);
+      return sorted;
+    } else {
       let sorted = list.slice(1, list.length).sort((a: any, b: any) => {
         if (b[1] >= 0 && a[1] >= 0) {
           return sortBy[0].value === "Ascending" ? a[1] - b[1] : b[1] - a[1];
@@ -105,8 +114,6 @@ export const InteractionsComponent = ({
       });
       sorted = [list[0]].concat(sorted);
       return sorted;
-    } else {
-      return list;
     }
   };
   const getTableChartData = () => {
@@ -287,9 +294,7 @@ export const InteractionsComponent = ({
     if (sortBy.length > 1) {
       return sortBy.length + " selections";
     } else {
-      return sortBy[0].value === "Alphabetically" && pathname.includes("/squad")
-        ? "By date"
-        : sortBy[0].value;
+      return sortBy[0].value;
     }
   };
   React.useEffect(() => {
@@ -361,7 +366,15 @@ export const InteractionsComponent = ({
                 {!isLineGraph ? (
                   <ul>
                     <li
-                      onClick={() => setSortBy([{ value: "Alphabetically" }])}
+                      onClick={() =>
+                        setSortBy([
+                          {
+                            value: pathname.includes("/squad")
+                              ? "By date"
+                              : "Alphabetically",
+                          },
+                        ])
+                      }
                     >
                       {pathname.includes("/squad")
                         ? "By date"

@@ -6,10 +6,12 @@ import { EmptyStateComponent } from "../empty-state/empty-state";
 interface IClassificationWidget {
   widget: IWidget;
   isBig?: boolean;
+  tempoTooltip?: string;
 }
 export const ClassificationWidget = ({
   widget,
   isBig,
+  tempoTooltip,
 }: IClassificationWidget) => {
   const getPercentage = (value: number) => {
     return Math.round(value * 100) + "%";
@@ -18,7 +20,9 @@ export const ClassificationWidget = ({
     <div className={` ${style["classifications-widget"]} widget-container`}>
       <h6>
         {widget.header}
-        {widget.tooltip && <Tooltip content={widget.tooltip} />}
+        {widget.tooltip && (
+          <Tooltip content={tempoTooltip ? tempoTooltip : widget.tooltip} />
+        )}
       </h6>
       <div
         className={` ${style["classifications-widget-content"]} ${
