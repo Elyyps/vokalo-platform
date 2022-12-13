@@ -100,7 +100,6 @@ export const InteractionsComponent = ({
     if (sortBy[0].value === "Alphabetically") {
       return list;
     } else if (sortBy[0].value === "By date") {
-      console.log(list);
       let sorted = list.slice(1, list.length).sort((a: any, b: any) => {
         return a[0] - b[0];
       });
