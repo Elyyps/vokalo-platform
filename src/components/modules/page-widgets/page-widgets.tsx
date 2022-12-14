@@ -13,6 +13,13 @@ interface IPageWidgetsComponent {
   widgets: IWidget[];
 }
 export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
+  const getToolTip = (header: string) => {
+    if (header.includes("Session")) {
+      return `Total number of sessions within selected period and applied filters.`;
+    } else {
+      return `Average interactions within selected period and applied filters.`;
+    }
+  };
   return (
     <div className={style["page-widgets"]}>
       {widgets.map((widget, key) => (
@@ -21,7 +28,9 @@ export const PageWidgetsComponent = ({ widgets }: IPageWidgetsComponent) => {
             <div className="widget-container">
               <h6>
                 {widget.header}
-                {widget.tooltip && <Tooltip content={widget.tooltip} />}
+                {widget.tooltip && (
+                  <Tooltip content={getToolTip(widget.header)} />
+                )}
               </h6>
               {widget.label !== "NaN" ? (
                 <h3 style={{ marginTop: "16px" }}>{widget.label}</h3>

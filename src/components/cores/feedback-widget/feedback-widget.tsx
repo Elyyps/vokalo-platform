@@ -19,7 +19,13 @@ export const FeedbackWidget = ({ widget }: IFeedbackWidget) => {
     <div className={` ${style["feedback-widget"]} widget-container `}>
       <h6>
         {widget.header}
-        {widget.tooltip && <Tooltip content={widget.tooltip} />}
+        {widget.tooltip && (
+          <Tooltip
+            content={
+              "Difference between match and training sessions within selected period and applied filters."
+            }
+          />
+        )}
       </h6>
       {!checkIfEmpty() ? (
         <div className={style["feedback-widget-percentage"]}>

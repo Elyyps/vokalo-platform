@@ -76,11 +76,7 @@ The graph shows interactions over time, and the chart compares the player´s ave
       <div className={style["squad-details-content"]}>
         <div className={style["squad-details-left"]}>
           <PageWidgetsComponent widgets={list.widgets.slice(0, 2)} />
-          <ClassificationWidget
-            widget={list.widgets[2]}
-            isBig
-            tempoTooltip={distrubutionTip}
-          />
+          <ClassificationWidget widget={list.widgets[2]} isBig />
           <InteractionsComponent
             widget={
               !isLineGraph

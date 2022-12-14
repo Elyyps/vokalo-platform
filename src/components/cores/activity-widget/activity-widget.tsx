@@ -8,12 +8,19 @@ interface IActivityWidget {
   hasColor?: boolean;
 }
 export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
+  const getToolTip = (header: string) => {
+    if (header === "Most Active Athlete") {
+      return `Athlete with most interactions within selected period and applied filters.`;
+    } else {
+      return `Athlete with most orientation interactions within selected period and applied filters.`;
+    }
+  };
   return (
     <div className={` ${style["activity-widget"]} widget-container `}>
       <div className="widget-header">
         <h6>
           {widget.header}
-          {widget.tooltip && <Tooltip content={widget.tooltip} />}
+          {widget.tooltip && <Tooltip content={getToolTip(widget.header)} />}
         </h6>
         {widget.trendLabel && (
           <TrendComponent

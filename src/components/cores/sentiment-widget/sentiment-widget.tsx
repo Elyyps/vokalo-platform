@@ -16,10 +16,12 @@ export const SentimentWidget = ({ widget }: ISentimentWidget) => {
     );
     setHight(heightSorted[0].value);
   }, []);
+  const tip =
+    "Average interactions for matches within selected period and applied filters.";
   return (
     <div className={` ${style["sentiment-widget"]} widget-container `}>
       <h6>
-        {widget.header} {widget.tooltip && <Tooltip content={widget.tooltip} />}
+        {widget.header} {widget.tooltip && <Tooltip content={tip} />}
       </h6>
       {widget.data?.yaxis[0]?.data[0]?.value ? (
         <div className={style["sentiment-widget-content"]}>

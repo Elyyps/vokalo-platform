@@ -15,6 +15,11 @@
       margin-bottom: 24px;
       width: 48%;
     }
+    &:last-child {
+      > div h6 span div {
+        left: -130px;
+      }
+    }
     > div {
       min-height: 100%;
     }

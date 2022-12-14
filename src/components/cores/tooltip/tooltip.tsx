@@ -29,7 +29,7 @@ export const Tooltip = ({ content }: ITooltip) => {
       {isOpen && (
         <div
           dangerouslySetInnerHTML={{ __html: content }}
-          style={{ minWidth: content.includes("<p>") ? "320px" : "200px" }}
+          style={{ minWidth: content.includes("<p>") ? "320px" : "220px" }}
         ></div>
       )}
     </span>
