@@ -33,11 +33,12 @@ export const InteractionsComponent = ({
   onIntervalChange,
   interval,
 }: IInteractionsComponent) => {
+  const { pathname } = useLocation();
   const [selectedButton, setSelectedButton] = React.useState<string[]>([
     "Total",
   ]);
   const [sortBy, setSortBy] = React.useState<ISort[]>([
-    { value: "Descending" },
+    { value: pathname.includes("/squad") ? "By date" : "Descending" },
   ]);
   const [data, setData] = React.useState<any[]>();
   const [selectedColors, setSelectedColors] = React.useState<string[]>([
@@ -45,7 +46,6 @@ export const InteractionsComponent = ({
   ]);
   const [optionColors, setOptionColors] = React.useState<string[]>();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const { pathname } = useLocation();
 
   const getXaxisTitle = () => {
     if (isLineGraph && widget.data && widget.data.dataSets[0]) {
@@ -132,10 +132,9 @@ export const InteractionsComponent = ({
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
       if (!isLineGraph && item !== "/") {
-        if( widget["type"]=='PROFILE_INTERACTION_GRAPHS') {
+        if (widget["type"] == "PROFILE_INTERACTION_GRAPHS") {
           list.push([item]);
-        }
-        else if (item && item.includes(" ")) {
+        } else if (item && item.includes(" ")) {
           let firstName = widget.data?.xaxis?.data[index].split(" ")[0];
           let firstNameStart = firstName[0];
           let lastName = widget.data?.xaxis?.data[index].split(" ")[1];
@@ -302,7 +301,9 @@ export const InteractionsComponent = ({
       ? isNotDefault
         ? setSortBy([{ value: widget.data?.dataSets[0]?.name, index: 0 }])
         : setSortBy([{ value: "Average", index: 0 }])
-      : setSortBy([{ value: "Descending" }]);
+      : setSortBy([
+          { value: pathname.includes("/squad") ? "By date" : "Descending" },
+        ]);
 
     setData(!isLineGraph ? getTableChartData() : getLineChartData());
   }, [isLineGraph]);
