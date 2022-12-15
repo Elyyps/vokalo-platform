@@ -13,6 +13,8 @@ export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
       return `Athlete with most interactions within selected period and applied filters.`;
     } else if (header.includes("Orientation")) {
       return `Orientation percentage of total interactions within selected period and applied filters.`;
+    } else if (header === "Team Average Interactions Per Minute") {
+      return `Average interaction per minute within selected period and applied filters.`;
     } else {
       return `Athlete with most orientation interactions within selected period and applied filters.`;
     }
