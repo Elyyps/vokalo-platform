@@ -49,9 +49,7 @@ export const SquadDetailsPage = () => {
     });
   }, [team, startDate, endDate, filter, interval]);
   const sessionTip = `Sessions where the player has been recorded within selected period and applied filters`;
-  const distrubutionTip = `<p>Total interactions categorized into four different communication types by percentages within selected period and applied filters.
-  
-Note: The total sum of the four categories can be more than 100% because one interaction can e.g. be positive and orientation at the same time.</p>`;
+
   const graphTip = `<p>This section consists of a graph and a chart changed by the arrows.
   
 The graph shows interactions over time, and the chart compares the player´s average interaction across sessions.</p>
@@ -62,6 +60,7 @@ The graph shows interactions over time, and the chart compares the player´s ave
  <li>Change minute interval of graph</li>
  <li>Change interaction type</li>
  </ul>`;
+
   return list ? (
     <div className={style["squad-details"]}>
       <PageHeaderComponent

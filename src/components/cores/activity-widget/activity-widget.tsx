@@ -11,6 +11,8 @@ export const ActivityWidget = ({ widget, hasColor }: IActivityWidget) => {
   const getToolTip = (header: string) => {
     if (header === "Most Active Athlete") {
       return `Athlete with most interactions within selected period and applied filters.`;
+    } else if (header.includes("Orientation")) {
+      return `Orientation percentage of total interactions within selected period and applied filters.`;
     } else {
       return `Athlete with most orientation interactions within selected period and applied filters.`;
     }

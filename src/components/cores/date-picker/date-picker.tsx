@@ -7,6 +7,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { convertDateToString } from "../../../utils/convertDate";
 import { addYears, endOfYear, isSameDay, startOfYear } from "date-fns";
+import { staticRanges } from "./staticRanges";
 
 interface IDateRange {
   endDate: Date | undefined;
@@ -69,23 +70,7 @@ export const DatePickerComponent = (props: IDatePickerComponent) => {
             <DateRangePicker
               rangeColors={["#ee6c4d", "#5085f0"]}
               ranges={[dateRange]}
-              staticRanges={[
-                ...defaultStaticRanges,
-                {
-                  label: "Last Year",
-                  range: () => ({
-                    startDate: addYears(new Date(), -1),
-                    endDate: new Date(),
-                  }),
-                  isSelected(range: any) {
-                    const definedRange: any = this.range();
-                    return (
-                      isSameDay(range.startDate, definedRange.startDate) &&
-                      isSameDay(range.endDate, definedRange.endDate)
-                    );
-                  },
-                },
-              ]}
+              staticRanges={staticRanges}
               onChange={(range: any) => setDateRange(range.range1)}
             />
           </div>
