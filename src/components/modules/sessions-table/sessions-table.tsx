@@ -166,6 +166,7 @@ export const SessionsTableComponent = ({
                         getPercentage(row.orientationAggregations.value)}
                       %
                     </td>
+                    {/*
                     <td>
                       <span className={style["sessions-table-language"]}>
                         {row.analysis_language && (

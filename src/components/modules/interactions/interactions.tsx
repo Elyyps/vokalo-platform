@@ -132,9 +132,10 @@ export const InteractionsComponent = ({
     let list: any = header;
     widget.data?.xaxis?.data.forEach((item: any, index: number) => {
       if (!isLineGraph && item !== "/") {
-        if (widget["type"] == "PROFILE_INTERACTION_GRAPHS") {
+        if( widget["type"]=='PROFILE_INTERACTION_GRAPHS') {
           list.push([item]);
-        } else if (item && item.includes(" ")) {
+        }
+        else if (item && item.includes(" ")) {
           let firstName = widget.data?.xaxis?.data[index].split(" ")[0];
           let firstNameStart = firstName[0];
           let lastName = widget.data?.xaxis?.data[index].split(" ")[1];
