@@ -21,7 +21,7 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   const [path, setPath] = React.useState("");
   const [isUpdate, setIsUpdate] = React.useState(false);
   const maxSize = 5368709120;
-  const params = [{ width: 500, height: 350 }];
+  const params = [{ width: 500, height: 300 }];
   const onReady = React.useCallback(() => {
     if (!isLoaded) {
       setIsLoaded(true);
@@ -31,28 +31,42 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
     }
   }, []);
   const vid =
-    "/FC5N07/sessions/23648327-cf2c-4e69-9e98-217100c553ca/video/session.mp4";
+    "/S1FBOK/sessions/96dfde02-cf46-4d63-906e-6947d9dba62d/video/session.mp4";
 
   return (
     <div className={style["video-player"]}>
       {props.src ? (
-        <IKContext
-          urlEndpoint="https://ik.imagekit.io/nnpd6k7xo"
-          publicKey="public_zlbXp1HFaAmANYlw+NUhsRknzPU="
-          transformationPosition="path"
-          authenticationEndpoint="s3://vokalo-prod/clubs"
-        >
-          <IKVideo
-            ref={playerRef}
-            path={vid}
-            transformation={params}
-            controls
-            muted
-            onPlay={() => props.onClick(true)}
-            onPause={() => props.onClick(false)}
-            onProgress={(e: any) => props.onChange(e.target.currentTime)}
-          />
-        </IKContext>
+        <div style={{ display: "flex" }}>
+          {isUpdate && (
+            <IKContext
+              urlEndpoint="https://ik.imagekit.io/nnpd6k7xo"
+              publicKey="public_zlbXp1HFaAmANYlw+NUhsRknzPU="
+              transformationPosition="path"
+              authenticationEndpoint="s3://vokalo-prod/clubs"
+            >
+              <IKVideo
+                ref={playerRef}
+                path={path}
+                //transformation={params}
+                controls
+                muted
+                onPlay={() => props.onClick(true)}
+                onPause={() => props.onClick(false)}
+                onProgress={(e: any) => props.onChange(e.target.currentTime)}
+              />
+            </IKContext>
+          )}
+          <div>
+            <input
+              placeholder="here"
+              onChange={(e) => setPath(e.target.value)}
+            />
+            <ButtonComponent
+              title="Apply"
+              onClick={() => setIsUpdate(!isUpdate)}
+            />
+          </div>
+        </div>
       ) : (
         <div className={`${style["video-player-file"]} widget-container`}>
           {/* <ReactPlayer

@@ -23,7 +23,10 @@ export const RecordingsPage = () => {
       key: "sessionId",
       value: id,
     });
-    setVideo(data.videoSyncData.videoData.path);
+    setVideo(
+      "/FC5N07/sessions/23648327-cf2c-4e69-9e98-217100c553ca/video/session.mp4"
+    );
+    // setVideo(data.videoSyncData.videoData.path);
     setAudios(data.videoSyncData.profileAudioRecordingData);
   };
   const onUpload = async (files: any) => {
