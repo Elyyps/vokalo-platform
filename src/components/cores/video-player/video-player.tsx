@@ -31,15 +31,15 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
     }
   }, []);
   const vid =
-    "/FC1H4M/sessions/44bd6a33-a94e-433a-9d34-4be6339d90fc/video/session.mp4";
+    "/FC5N07/sessions/23648327-cf2c-4e69-9e98-217100c553ca/video/session.mp4";
 
   return (
     <div className={style["video-player"]}>
       {props.src ? (
         <IKContext
-          urlEndpoint="https://ik.imagekit.io/nnpd6k7xo" // Required. Default URL-endpoint is https://ik.imagekit.io/your_imagekit_id
-          publicKey="public_zlbXp1HFaAmANYlw+NUhsRknzPU=" // optional
-          transformationPosition="path" // optional
+          urlEndpoint="https://ik.imagekit.io/nnpd6k7xo"
+          publicKey="public_zlbXp1HFaAmANYlw+NUhsRknzPU="
+          transformationPosition="path"
           authenticationEndpoint="s3://vokalo-prod/clubs"
         >
           <IKVideo
@@ -50,11 +50,7 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
             muted
             onPlay={() => props.onClick(true)}
             onPause={() => props.onClick(false)}
-            //onReady={onReady}
             onProgress={(e: any) => props.onChange(e.target.currentTime)}
-            // onProgress={() =>
-            //   props.onChange(playerRef.current.player.prevPlayed)
-            // }
           />
         </IKContext>
       ) : (
