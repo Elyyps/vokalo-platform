@@ -31,49 +31,32 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
     }
   }, []);
   const vid =
-    "/VBGR4V/sessions/8574a9cb-c386-48ac-a9ef-210a6c14a226/video/session.mp4";
+    "/FC1H4M/sessions/44bd6a33-a94e-433a-9d34-4be6339d90fc/video/session.mp4";
 
   return (
     <div className={style["video-player"]}>
       {props.src ? (
-        <div style={{ display: "flex", width: "100%" }}>
-          {isUpdate && (
-            <IKContext
-              urlEndpoint="https://ik.imagekit.io/nnpd6k7xo" // Required. Default URL-endpoint is https://ik.imagekit.io/your_imagekit_id
-              publicKey="public_zlbXp1HFaAmANYlw+NUhsRknzPU=" // optional
-              transformationPosition="path" // optional
-              authenticationEndpoint="s3://vokalo-prod/clubs"
-            >
-              <IKVideo
-                ref={playerRef}
-                path={isUpdate && path.length ? path : vid}
-                transformation={params}
-                controls
-                muted
-                onPlay={() => props.onClick(true)}
-                onPause={() => props.onClick(false)}
-                //onReady={onReady}
-                // onProgress={() =>
-                //   props.onChange(playerRef.current.player.prevPlayed)
-                // }
-              />
-            </IKContext>
-          )}
-          <div style={{ display: "flex" }}>
-            <input
-              style={{ marginLeft: "24px", height: "30px", width: "250px" }}
-              type={"text"}
-              placeholder="enter video url"
-              onChange={(e) => setPath(e.target.value)}
-            />
-            <div style={{ marginLeft: "24px", height: "50px", width: "150px" }}>
-              <ButtonComponent
-                title="Apply"
-                onClick={() => setIsUpdate(!isUpdate)}
-              />
-            </div>
-          </div>
-        </div>
+        <IKContext
+          urlEndpoint="https://ik.imagekit.io/nnpd6k7xo" // Required. Default URL-endpoint is https://ik.imagekit.io/your_imagekit_id
+          publicKey="public_zlbXp1HFaAmANYlw+NUhsRknzPU=" // optional
+          transformationPosition="path" // optional
+          authenticationEndpoint="s3://vokalo-prod/clubs"
+        >
+          <IKVideo
+            ref={playerRef}
+            path={vid}
+            transformation={params}
+            controls
+            muted
+            onPlay={() => props.onClick(true)}
+            onPause={() => props.onClick(false)}
+            //onReady={onReady}
+            onProgress={(e: any) => props.onChange(e.target.currentTime)}
+            // onProgress={() =>
+            //   props.onChange(playerRef.current.player.prevPlayed)
+            // }
+          />
+        </IKContext>
       ) : (
         <div className={`${style["video-player-file"]} widget-container`}>
           {/* <ReactPlayer
