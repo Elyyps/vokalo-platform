@@ -26,7 +26,6 @@ export const SessionsTableComponent = ({
     { name: "length", param: ["length"] },
     { name: "coach", param: ["creator", "firstName"] },
     // { name: "participants", param: ["participants"] },
-    // { name: "recordings", param: ["recordings"] },
     // { name: "analyzed", param: ["analyzed"] },
     {
       name: "Average Interaction Length",
@@ -41,7 +40,8 @@ export const SessionsTableComponent = ({
       param: ["orientationAggregations", "value"],
     },
     { name: "language", param: ["analysis_language"] },
-    // { name: "video", param: ["hasVideoConnected"] },
+    // { name: "recordings", param: ["recordings"] },
+    { name: "video", param: ["hasVideoConnected"] },
   ];
   const [cookies] = useCookies(["rows"]);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
@@ -180,7 +180,7 @@ export const SessionsTableComponent = ({
                         )}
                       </span>
                     </td>
-                    {/* <td>
+                    <td>
                       <span
                         className={` ${style["sessions-table-video"]} 
                            ${
@@ -199,7 +199,7 @@ export const SessionsTableComponent = ({
                         />
                         {row.hasVideoConnected ? "Complete" : "Upload"}
                       </span>
-                    </td> */}
+                    </td>
                     <td></td>
                     {/* <td>
                       <DropdownComponent
