@@ -37,12 +37,11 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   }, [props.currentTime]);
 
   React.useEffect(() => {
-    const playing = props.isPlaying;
     if (playerRef.current) {
-      if (playing) {
+      if (props.isPlaying) {
         playerRef.current
           .play()
-          .then(playing)
+          .then(props.isPlaying)
           .catch(() => console.log(""));
       } else {
         playerRef.current.pause();

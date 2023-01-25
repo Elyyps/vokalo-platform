@@ -28,7 +28,7 @@ export const RecordingsPage = () => {
       value: id,
     });
 
-    //console.log(data.videoSyncData.profileAudioRecordingData);
+    // console.log(data.videoSyncData.videoData.path);
     setVideo(data.videoSyncData.videoData.path);
     setAudios(data.videoSyncData.profileAudioRecordingData);
   };
@@ -77,7 +77,7 @@ export const RecordingsPage = () => {
                   src={video}
                   hasControl
                   startAt={startsAt}
-                  onClick={(playing) => setIsPlaying(!playing)}
+                  onClick={setIsPlaying}
                   onChange={setStartsAt}
                   onUpload={onUpload}
                 />
