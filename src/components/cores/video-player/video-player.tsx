@@ -73,6 +73,8 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
           onPlay={() => props.onClick(true)}
           onPause={() => props.onClick(false)}
           onProgress={() => props.onChange(playerRef.current.player.prevPlayed)}
+          onWaiting={() => props.onClick(false)}
+          onPlaying={() => props.onClick(true)}
         />
       ) : (
         <div className={`${style["video-player-file"]} widget-container`}>
