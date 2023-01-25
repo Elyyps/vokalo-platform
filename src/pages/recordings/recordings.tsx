@@ -5,7 +5,9 @@ import { AudioPlayerComponent } from "../../components/cores/audio-player/audio-
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { VideoPlayerComponent } from "../../components/cores/video-player/video-player";
+import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { AccountContext } from "../../context/account";
+import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
 import style from "./recordings.module.scss";
 
@@ -14,7 +16,9 @@ export const RecordingsPage = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [audios, setAudios] = React.useState<any[]>([]);
   const [video, setVideo] = React.useState<string>("");
+  const [players, setPlayers] = React.useState<any>([]);
   const [startsAt, setStartsAt] = React.useState<any>(0);
+  const { team, startDate, endDate } = React.useContext(FilterContext);
   const { getAccount } = React.useContext(AccountContext);
   const { id } = useParams();
 
@@ -26,6 +30,7 @@ export const RecordingsPage = () => {
     setVideo(
       "/FC5N07/sessions/23648327-cf2c-4e69-9e98-217100c553ca/video/session.mp4"
     );
+    //console.log(data.videoSyncData.profileAudioRecordingData);
     // setVideo(data.videoSyncData.videoData.path);
     setAudios(data.videoSyncData.profileAudioRecordingData);
   };
@@ -38,10 +43,22 @@ export const RecordingsPage = () => {
       }
     });
   };
-
+  const getSessionDetails = async (session: any) => {
+    const data = await getAPI(
+      "session",
+      session,
+      team && team.id,
+      startDate,
+      endDate,
+      [{ key: "sessionId", value: id }]
+    );
+    // console.log(data.sessionAggregations[4]);
+    setPlayers(data.sessionAggregations[4]);
+  };
   React.useEffect(() => {
     getAccount().then((session: any) => {
       getVideoData(session);
+      getSessionDetails(session);
     });
   }, [isLoading]);
   return (
@@ -57,14 +74,16 @@ export const RecordingsPage = () => {
         <div className={style["recordings-container"]}>
           <div className={style["recordings-video"]}>
             {!isLoading ? (
-              <VideoPlayerComponent
-                src={video}
-                hasControl
-                startAt={startsAt}
-                onClick={setIsPlaying}
-                onChange={setStartsAt}
-                onUpload={onUpload}
-              />
+              <div className="widget-container">
+                <VideoPlayerComponent
+                  src={video}
+                  hasControl
+                  startAt={startsAt}
+                  onClick={(playing) => setIsPlaying(!playing)}
+                  onChange={setStartsAt}
+                  onUpload={onUpload}
+                />
+              </div>
             ) : (
               <div
                 className="widget-container"
@@ -78,11 +97,17 @@ export const RecordingsPage = () => {
               </div>
             )}
           </div>
-          {/* <div
-          className={` ${style["recordings-highlights-container"]} widget-container`}
-        >
-          <h6>All highlights</h6>
-        </div> */}
+          <div
+            className={` ${style["recordings-highlights-container"]} widget-container`}
+          >
+            {players.data && players.profiles && (
+              <FieldOverviewComponent
+                fieldOverview={players.data}
+                profiles={players.profiles}
+                isAudio
+              />
+            )}
+          </div>
           <div
             className={` ${style["recordings-audio-container"]} widget-container`}
           >

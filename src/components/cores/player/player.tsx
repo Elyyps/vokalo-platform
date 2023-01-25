@@ -4,7 +4,7 @@ import { IPlayer } from "../../../types/cores/player";
 import style from "./player.module.scss";
 interface IPlayerComponent {
   player: IPlayer;
-  value: number;
+  value: number | any;
   label: number;
   color: string;
   onPlayerDrop: (playerTarget: IPlayer) => void;
@@ -12,7 +12,6 @@ interface IPlayerComponent {
   onClick?: () => void;
 }
 export const PlayerComponent = (props: IPlayerComponent) => {
-  const [isOpen, setIsOpen] = React.useState(false);
   const handleDragStart = (e: any) => {
     const data = JSON.stringify({ type: "card" });
     e.dataTransfer.setData("text/plain", data);
@@ -49,7 +48,6 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, props.player)}
         onClick={() => {
-          setIsOpen(!isOpen);
           props.onClick && props.onClick();
         }}
         draggable

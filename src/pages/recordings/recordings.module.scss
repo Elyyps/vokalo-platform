@@ -4,24 +4,25 @@
   &-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    //align-items: center;
     flex-wrap: wrap;
     width: 100%;
   }
   &-video {
     width: 65%;
     margin-bottom: 24px;
-    @media (max-width: variables.$breakpoint-lg) {
-      width: 75%;
+    > div {
+      height: 100%;
+      video {
+        width: 100%;
+      }
     }
   }
   &-highlights-container {
     width: 33%;
-    height: 400px;
+    // height: 400px;
     margin-bottom: 24px;
-    @media (max-width: variables.$breakpoint-lg) {
-      width: 25%;
-    }
+
     ul {
       padding-inline-start: 0px;
       > li {

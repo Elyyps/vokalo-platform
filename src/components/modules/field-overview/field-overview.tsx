@@ -18,10 +18,12 @@ import { ReactSVG } from "react-svg";
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
   profiles: any[];
+  isAudio?: boolean;
 }
 export const FieldOverviewComponent = ({
   fieldOverview,
   profiles,
+  isAudio,
 }: IFieldOverviewComponent) => {
   const sortPlayer = (list: IPlayer[]) => {
     if (list.length) {
@@ -70,7 +72,7 @@ export const FieldOverviewComponent = ({
       ? fieldData.matchData.currentFormation
       : ""
   );
-  const [isOpen, setIsOpen] = React.useState(false);
+  // const [isOpen, setIsOpen] = React.useState(false);
   const [sliceFrom, setSliceFrom] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
   const colors = ["#D3D3D3", "#A7BAEA", "#6488E5", "#375FCA", "#2C2F51"];
@@ -109,7 +111,7 @@ export const FieldOverviewComponent = ({
           setPlayersList(sortedList);
           const swapPlayers = getReplacementPlayers(result.data.profiles);
           setSwapPlayersList(swapPlayers);
-          setIsOpen(false);
+          // setIsOpen(false);
         }
       });
     }
@@ -247,9 +249,19 @@ export const FieldOverviewComponent = ({
                     <PlayerComponent
                       player={player}
                       label={player.ghost ? 0 : getPlayerLabel(player.id)}
-                      value={player.ghost ? 0 : getPlayerValue(player.id)}
-                      color={player.ghost ? "" : getPlayerColor(player.id)}
-                      //  onClick={() => !player.ghost && playerClicked(player)}
+                      value={
+                        player.ghost ? (
+                          0
+                        ) : !isAudio ? (
+                          getPlayerValue(player.id)
+                        ) : (
+                          <ReactSVG src="/icons/up-down-arrow.svg" />
+                        )
+                      }
+                      color={
+                        player.ghost || isAudio ? "" : getPlayerColor(player.id)
+                      }
+                      onClick={() => console.log("here")}
                       onPlayerDrag={(index) => setCurrentPlayer(index)}
                       onPlayerDrop={updatePlayers}
                     />
@@ -276,49 +288,50 @@ export const FieldOverviewComponent = ({
             <LoaderComponent />
           </div>
         )}
-        <div className={style["field-overview-bottom"]}>
-          <div>
-            {swapPlayersList.length > 8 && (
-              <ReactSVG
-                src="/icons/arrow-down.svg"
-                style={{
-                  transform: "rotate(90deg)",
-                  opacity: sliceFrom === 1 ? 0.3 : 1,
-                }}
-                onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 8)}
-              />
-            )}
-            <div className={style["field-overview-swaps"]}>
-              {swapPlayersList
-                .slice(sliceFrom, sliceFrom + 8)
-                .map((player, key) => (
-                  <PlayerComponent
-                    player={player}
-                    label={player.ghost ? 0 : getPlayerLabel(player.id)}
-                    value={player.ghost ? 0 : getPlayerValue(player.id)}
-                    color={player.ghost ? "" : getPlayerColor(player.id)}
-                    onPlayerDrag={(index) => setCurrentPlayer(index)}
-                    onPlayerDrop={updatePlayers}
-                    key={key}
-                  />
-                ))}
-            </div>
+        {!isAudio && (
+          <div className={style["field-overview-bottom"]}>
+            <div>
+              {swapPlayersList.length > 8 && (
+                <ReactSVG
+                  src="/icons/arrow-down.svg"
+                  style={{
+                    transform: "rotate(90deg)",
+                    opacity: sliceFrom === 1 ? 0.3 : 1,
+                  }}
+                  onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 8)}
+                />
+              )}
+              <div className={style["field-overview-swaps"]}>
+                {swapPlayersList
+                  .slice(sliceFrom, sliceFrom + 8)
+                  .map((player, key) => (
+                    <PlayerComponent
+                      player={player}
+                      label={player.ghost ? 0 : getPlayerLabel(player.id)}
+                      value={player.ghost ? 0 : getPlayerValue(player.id)}
+                      color={player.ghost ? "" : getPlayerColor(player.id)}
+                      onPlayerDrag={(index) => setCurrentPlayer(index)}
+                      onPlayerDrop={updatePlayers}
+                      key={key}
+                    />
+                  ))}
+              </div>
 
-            {swapPlayersList.length > 8 && (
-              <ReactSVG
-                src="/icons/arrow-down.svg"
-                style={{
-                  transform: "rotate(270deg)",
-                  opacity: sliceFrom === swapPlayersList.length - 8 ? 0.3 : 1,
-                }}
-                onClick={() =>
-                  sliceFrom < swapPlayersList.length - 8 &&
-                  setSliceFrom(sliceFrom + 8)
-                }
-              />
-            )}
-          </div>
-          {/* <div className={style["field-overview-gradient"]}>
+              {swapPlayersList.length > 8 && (
+                <ReactSVG
+                  src="/icons/arrow-down.svg"
+                  style={{
+                    transform: "rotate(270deg)",
+                    opacity: sliceFrom === swapPlayersList.length - 8 ? 0.3 : 1,
+                  }}
+                  onClick={() =>
+                    sliceFrom < swapPlayersList.length - 8 &&
+                    setSliceFrom(sliceFrom + 8)
+                  }
+                />
+              )}
+            </div>
+            {/* <div className={style["field-overview-gradient"]}>
             <div>
               <span>Few</span>
               <span>Many</span>
@@ -335,8 +348,8 @@ export const FieldOverviewComponent = ({
               ))}
             </div>
           </div> */}
-          <div className={style["field-overview-buttons"]}>
-            {/* <div>
+            <div className={style["field-overview-buttons"]}>
+              {/* <div>
               <input
                 placeholder="Start"
                 type={"number"}
@@ -368,23 +381,26 @@ export const FieldOverviewComponent = ({
                 }
               />
             </div> */}
-            <div>
-              {fieldData.dataSets.map((data, key) => (
-                <ButtonComponent
-                  title={data.name}
-                  icon={`/icons/` + data.icon}
-                  key={key}
-                  variant={
-                    selectedButton === data.name ? "transparent" : "disabled"
-                  }
-                  hasBorder
-                  position="top"
-                  onClick={() => setSelectedButton(data.name ? data.name : "")}
-                />
-              ))}
+              <div>
+                {fieldData.dataSets.map((data, key) => (
+                  <ButtonComponent
+                    title={data.name}
+                    icon={`/icons/` + data.icon}
+                    key={key}
+                    variant={
+                      selectedButton === data.name ? "transparent" : "disabled"
+                    }
+                    hasBorder
+                    position="top"
+                    onClick={() =>
+                      setSelectedButton(data.name ? data.name : "")
+                    }
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     )
   );

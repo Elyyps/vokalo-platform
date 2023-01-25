@@ -35,9 +35,18 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const newAudio = React.useMemo(() => {
     return getAudio();
   }, [props.currentTime]);
+
   React.useEffect(() => {
+    const playing = props.isPlaying;
     if (playerRef.current) {
-      props.isPlaying ? playerRef.current.play() : playerRef.current.pause();
+      if (playing) {
+        playerRef.current
+          .play()
+          .then(playing)
+          .catch(() => console.log(""));
+      } else {
+        playerRef.current.pause();
+      }
     }
   }, [props.isPlaying, newAudio]);
   React.useEffect(() => {
