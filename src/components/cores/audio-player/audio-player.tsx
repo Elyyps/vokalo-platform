@@ -9,7 +9,6 @@ interface IAudioComponent {
 interface IAudioPlayerComponent {
   isPlaying: boolean;
   currentTime: number;
-  name: string;
   audios: IAudioComponent[];
 }
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
@@ -61,8 +60,6 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       `}
       onClick={() => setIsMuted(!isMuted)}
     >
-      <span>{props.name}</span>
-
       {newAudio && newAudio.path && (
         <div>
           <img src="/img/audio.png" />

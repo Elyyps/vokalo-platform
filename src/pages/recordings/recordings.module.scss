@@ -9,20 +9,18 @@
     width: 100%;
   }
   &-video {
-    width: 65%;
+    width: 64%;
     margin-bottom: 24px;
     > div {
       height: 100%;
       video {
+        border-radius: 15px;
         width: 100%;
       }
     }
   }
   &-highlights-container {
-    width: 33%;
-    // height: 400px;
-    margin-bottom: 24px;
-
+    width: 35%;
     ul {
       padding-inline-start: 0px;
       > li {

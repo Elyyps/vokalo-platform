@@ -4,12 +4,13 @@ import { IPlayer } from "../../../types/cores/player";
 import style from "./player.module.scss";
 interface IPlayerComponent {
   player: IPlayer;
-  value: number | any;
+  value: number;
   label: number;
   color: string;
   onPlayerDrop: (playerTarget: IPlayer) => void;
   onPlayerDrag: (playerDrag: IPlayer) => void;
   onClick?: () => void;
+  children?: any;
 }
 export const PlayerComponent = (props: IPlayerComponent) => {
   const handleDragStart = (e: any) => {
@@ -41,18 +42,15 @@ export const PlayerComponent = (props: IPlayerComponent) => {
       style={{ opacity: props.player.ghost ? 0.5 : 1 }}
     >
       <div
-        className={style["player-number"]}
+        className={` ${style["player-number"]} `}
         style={{ backgroundColor: props.color }}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, props.player)}
-        onClick={() => {
-          props.onClick && props.onClick();
-        }}
         draggable
       >
-        <span>{props.label}</span>
+        {!props.children ? <span>{props.label}</span> : props.children}
         {props.player.substituted && (
           <span className={style["player-replaced"]}>
             <ReactSVG src="/icons/change.svg" />

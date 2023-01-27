@@ -249,15 +249,7 @@ export const FieldOverviewComponent = ({
                     <PlayerComponent
                       player={player}
                       label={player.ghost ? 0 : getPlayerLabel(player.id)}
-                      value={
-                        player.ghost ? (
-                          0
-                        ) : !isAudio ? (
-                          getPlayerValue(player.id)
-                        ) : (
-                          <ReactSVG src="/icons/up-down-arrow.svg" />
-                        )
-                      }
+                      value={player.ghost ? 0 : getPlayerValue(player.id)}
                       color={
                         player.ghost || isAudio ? "" : getPlayerColor(player.id)
                       }

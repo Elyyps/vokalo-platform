@@ -5,6 +5,7 @@ import { AudioPlayerComponent } from "../../components/cores/audio-player/audio-
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { VideoPlayerComponent } from "../../components/cores/video-player/video-player";
+import { FieldAudioOverviewComponent } from "../../components/modules/field-audio-overview/field-audio-overview";
 import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
@@ -16,19 +17,49 @@ export const RecordingsPage = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [audios, setAudios] = React.useState<any[]>([]);
   const [video, setVideo] = React.useState<string>("");
+  const [field, setField] = React.useState<any>();
   const [players, setPlayers] = React.useState<any>([]);
   const [startsAt, setStartsAt] = React.useState<any>(0);
   const { team, startDate, endDate } = React.useContext(FilterContext);
   const { getAccount } = React.useContext(AccountContext);
   const { id } = useParams();
 
+  const getFieldData = async (session: any) => {
+    const data = await getAPI(
+      "session",
+      session,
+      team && team.id,
+      startDate,
+      endDate,
+      [{ key: "sessionId", value: id }]
+    );
+    return data;
+  };
+  const getPlayerAudio = (players: any[], list: any[]) => {
+    const newList = list.map((item: any, index) => {
+      const profile = players.find(
+        (player: any) => player.id === item.profile.id
+      );
+      if (profile) {
+        item.profile = profile;
+      }
+      return item;
+      //if(item.profile.id === )
+    });
+    setPlayers(newList);
+    //  if(item.profile.id )
+  };
   const getVideoData = async (session: any) => {
     const data = await getAPI("session/video-audio", session, "", "", "", {
       key: "sessionId",
       value: id,
     });
-
-    // console.log(data.videoSyncData.videoData.path);
+    const fieldData = await getFieldData(session);
+    setField(fieldData.sessionAggregations[4].data);
+    getPlayerAudio(
+      fieldData.sessionAggregations[4].profiles,
+      data.videoSyncData.profileAudioRecordingData
+    );
     setVideo(data.videoSyncData.videoData.path);
     setAudios(data.videoSyncData.profileAudioRecordingData);
   };
@@ -41,24 +72,12 @@ export const RecordingsPage = () => {
       }
     });
   };
-  const getSessionDetails = async (session: any) => {
-    const data = await getAPI(
-      "session",
-      session,
-      team && team.id,
-      startDate,
-      endDate,
-      [{ key: "sessionId", value: id }]
-    );
-    // console.log(data.sessionAggregations[4]);
-    setPlayers(data.sessionAggregations[4]);
-  };
+
   React.useEffect(() => {
     getAccount().then((session: any) => {
       getVideoData(session);
-      getSessionDetails(session);
     });
-  }, [isLoading]);
+  }, []);
   return (
     <div className={style["recordings"]}>
       <PageHeaderComponent
@@ -72,16 +91,14 @@ export const RecordingsPage = () => {
         <div className={style["recordings-container"]}>
           <div className={style["recordings-video"]}>
             {!isLoading ? (
-              <div className="widget-container">
-                <VideoPlayerComponent
-                  src={video}
-                  hasControl
-                  startAt={startsAt}
-                  onClick={setIsPlaying}
-                  onChange={setStartsAt}
-                  onUpload={onUpload}
-                />
-              </div>
+              <VideoPlayerComponent
+                src={video}
+                hasControl
+                startAt={startsAt}
+                onClick={setIsPlaying}
+                onChange={setStartsAt}
+                onUpload={onUpload}
+              />
             ) : (
               <div
                 className="widget-container"
@@ -98,15 +115,16 @@ export const RecordingsPage = () => {
           <div
             className={` ${style["recordings-highlights-container"]} widget-container`}
           >
-            {players.data && players.profiles && (
-              <FieldOverviewComponent
-                fieldOverview={players.data}
-                profiles={players.profiles}
-                isAudio
+            {field && players && (
+              <FieldAudioOverviewComponent
+                fieldOverview={field}
+                profiles={players}
+                currentTime={parseInt(startsAt) * 1000}
+                isPlaying={isPlaying}
               />
             )}
           </div>
-          <div
+          {/* <div
             className={` ${style["recordings-audio-container"]} widget-container`}
           >
             <h6>Audios </h6>
@@ -121,7 +139,7 @@ export const RecordingsPage = () => {
                 />
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       ) : (
         <LoaderComponent />
