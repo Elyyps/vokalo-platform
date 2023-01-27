@@ -196,7 +196,7 @@ export const FieldAudioOverviewComponent = ({
                 onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 8)}
               />
             )}
-            <div className={style["field-audio-overview-swaps"]}>
+            {/* <div className={style["field-audio-overview-swaps"]}>
               {swapPlayersList
                 .slice(sliceFrom, sliceFrom + 8)
                 .map((player, key) => (
@@ -210,7 +210,7 @@ export const FieldAudioOverviewComponent = ({
                     key={key}
                   />
                 ))}
-            </div>
+            </div> */}
 
             {/* {swapPlayersList.length > 8 && (
                 <ReactSVG

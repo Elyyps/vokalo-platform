@@ -253,7 +253,7 @@ export const FieldOverviewComponent = ({
                       color={
                         player.ghost || isAudio ? "" : getPlayerColor(player.id)
                       }
-                      onClick={() => console.log("here")}
+                      onClick={() => console.log("-")}
                       onPlayerDrag={(index) => setCurrentPlayer(index)}
                       onPlayerDrop={updatePlayers}
                     />

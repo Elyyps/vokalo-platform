@@ -14,7 +14,7 @@ interface IAudioPlayerComponent {
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const playerRef = React.useRef<any>();
   //const [audio, setAudio] = React.useState<IAudioComponent>();
-  const [isMuted, setIsMuted] = React.useState<boolean>(false);
+  const [isMuted, setIsMuted] = React.useState<boolean>(true);
   const getAudio = () => {
     const result = props.audios.find(
       (item: any) =>
