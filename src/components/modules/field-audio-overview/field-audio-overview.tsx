@@ -21,7 +21,6 @@ export const FieldAudioOverviewComponent = ({
   isPlaying,
 }: IFieldOverviewComponent) => {
   const sortPlayer = (list: any[]) => {
-    console.log(list);
     if (list.length) {
       const filtertedData = list.filter(
         (player: any) => player.profile.gridX >= 0 && player.profile.gridY >= 0
@@ -56,7 +55,7 @@ export const FieldAudioOverviewComponent = ({
   const [currentPlayer, setCurrentPlayer] = React.useState<any>(
     playersList[0] && playersList[0]
   );
-  const [formation, setFormation] = React.useState<string>("4-4-2");
+  const [formation, setFormation] = React.useState<string>("4-3-3");
   const [sliceFrom, setSliceFrom] = React.useState(0);
 
   const [isLoading, setIsLoading] = React.useState(false);
