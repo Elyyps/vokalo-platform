@@ -8,6 +8,7 @@ import { AccountContext } from "../../../context/account";
 import { LoaderComponent } from "../../cores/loader/loader";
 import { ReactSVG } from "react-svg";
 import { AudioPlayerComponent } from "../../cores/audio-player/audio-player";
+import { IPlayer } from "../../../types/cores/player";
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
   profiles: any[];
@@ -20,7 +21,7 @@ export const FieldAudioOverviewComponent = ({
   currentTime,
   isPlaying,
 }: IFieldOverviewComponent) => {
-  const sortPlayer = (list: any[]) => {
+  const sortPlayers = (list: any[]) => {
     if (list.length) {
       const filtertedData = list.filter(
         (player: any) => player.profile.gridX >= 0 && player.profile.gridY >= 0
@@ -34,16 +35,13 @@ export const FieldAudioOverviewComponent = ({
       });
     } else return [];
   };
-  const { id } = useParams();
-  const { getAccount } = React.useContext(AccountContext);
-
   const [playersList, setPlayersList] = React.useState<any[]>(
     profiles ? profiles : []
   );
   const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
   const getReplacementPlayers = (list: any[]) => {
     const filtertedList = list.filter(
-      (player) => player.profile.gridX === -1 && player.profile.gridY === -1
+      (player) => player.gridX === -1 && player.gridY === -1
     );
     return filtertedList;
   };
@@ -55,7 +53,11 @@ export const FieldAudioOverviewComponent = ({
   const [currentPlayer, setCurrentPlayer] = React.useState<any>(
     playersList[0] && playersList[0]
   );
-  const [formation, setFormation] = React.useState<string>("4-3-3");
+  const [formation, setFormation] = React.useState<string>(
+    fieldData.matchData.currentFormation
+      ? fieldData.matchData.currentFormation
+      : ""
+  );
   const [sliceFrom, setSliceFrom] = React.useState(0);
 
   const [isLoading, setIsLoading] = React.useState(false);
@@ -70,28 +72,32 @@ export const FieldAudioOverviewComponent = ({
   }, [fieldData.formations]);
 
   const updatePlayers = (playerTarget: any, isReclacement?: boolean) => {
-    const players = [playerTarget, currentPlayer].map((player, index) => {
-      const playerCopy = { ...player };
-      if (index === 0) {
-        playerCopy.profile.gridX = currentPlayer.profile.gridX;
-        playerCopy.profile.gridY = currentPlayer.profile.gridY;
+    const players = playersList.map((player, index) => {
+      const playerCopy: any = { ...player.profile };
+
+      if (playerCopy.id === playerTarget.id) {
+        playerCopy.gridX = currentPlayer.gridX;
+        playerCopy.gridY = currentPlayer.gridY;
         if (isReclacement) {
-          playerCopy.profile.substituted = true;
+          playerCopy.substituted = true;
         }
       }
-      if (index === 1) {
-        playerCopy.profile.gridX = playerTarget.profile.gridX;
-        playerCopy.profile.gridY = playerTarget.profile.gridY;
+      if (playerCopy.id === currentPlayer.id) {
+        playerCopy.gridX = playerTarget.gridX;
+        playerCopy.gridY = playerTarget.gridY;
       }
-      return playerCopy;
+      return { ...player, profile: playerCopy };
     });
     if (players) {
       const swapPlayers = getReplacementPlayers(players);
       setSwapPlayersList(swapPlayers);
-      const sortedList = sortPlayer(players);
+      const sortedList = sortPlayers(players);
+      setIsLoading(true);
       setPlayersList(sortedList);
+      setIsLoading(false);
     }
   };
+
   // const changeFormation = () => {
   //   setIsLoading(true);
   //   const sortedResult = sortPlayer(playersList);
@@ -100,9 +106,10 @@ export const FieldAudioOverviewComponent = ({
   //     setIsLoading(false);
   //   }
   // };
+
   React.useEffect(() => {
     setIsLoading(true);
-    const sortedResult = sortPlayer(playersList);
+    const sortedResult = sortPlayers(playersList);
     setPlayersList(sortedResult);
     if (sortedResult) {
       setIsLoading(false);
@@ -125,16 +132,7 @@ export const FieldAudioOverviewComponent = ({
                   onClick={() => setIsFlipped(!isFlipped)}
                 />
               </span>
-              <DropdownComponent title={formation}>
-                <ul>
-                  {formations &&
-                    formations.map((item: string, key: number) => (
-                      <li key={key} onClick={() => setFormation(item)}>
-                        {item}
-                      </li>
-                    ))}
-                </ul>
-              </DropdownComponent>
+              <b>{formation}</b>
             </div>
             <div
               className={style["field-audio-overview-players"]}
@@ -164,7 +162,7 @@ export const FieldAudioOverviewComponent = ({
                           label={0}
                           value={0}
                           color={""}
-                          onPlayerDrag={(index) => setCurrentPlayer(index)}
+                          onPlayerDrag={setCurrentPlayer}
                           onPlayerDrop={updatePlayers}
                         >
                           <AudioPlayerComponent
@@ -196,7 +194,7 @@ export const FieldAudioOverviewComponent = ({
                 onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 8)}
               />
             )}
-            {/* <div className={style["field-audio-overview-swaps"]}>
+            <div className={style["field-audio-overview-swaps"]}>
               {swapPlayersList
                 .slice(sliceFrom, sliceFrom + 8)
                 .map((player, key) => (
@@ -210,7 +208,7 @@ export const FieldAudioOverviewComponent = ({
                     key={key}
                   />
                 ))}
-            </div> */}
+            </div>
 
             {/* {swapPlayersList.length > 8 && (
                 <ReactSVG
