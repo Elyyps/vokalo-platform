@@ -39,8 +39,8 @@ export const FieldAudioOverviewComponent = ({
     profiles ? profiles : []
   );
   const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
-  const getReplacementPlayers = (list: any) => {
-    return list.filter(
+  const getReplacementPlayers = () => {
+    return playersList.filter(
       (player: any) =>
         player.profile.gridX === -1 && player.profile.gridY === -1
     );
@@ -156,10 +156,10 @@ export const FieldAudioOverviewComponent = ({
             <LoaderComponent />
           </div>
         )}
-        {getReplacementPlayers(playersList).length && (
+        {getReplacementPlayers().length > 0 && (
           <div className={style["field-audio-overview-bottom"]}>
             <div>
-              {getReplacementPlayers(playersList).length > 4 && (
+              {getReplacementPlayers().length > 4 && (
                 <ReactSVG
                   src="/icons/arrow-down.svg"
                   style={{
@@ -170,7 +170,7 @@ export const FieldAudioOverviewComponent = ({
                 />
               )}
               <div className={style["field-audio-overview-swaps"]}>
-                {getReplacementPlayers(playersList)
+                {getReplacementPlayers()
                   .slice(sliceFrom, sliceFrom + 4)
                   .map(
                     (player: any, key: number) =>
@@ -188,19 +188,18 @@ export const FieldAudioOverviewComponent = ({
                   )}
               </div>
 
-              {getReplacementPlayers(playersList).length > 4 && (
+              {getReplacementPlayers().length > 4 && (
                 <ReactSVG
                   src="/icons/arrow-down.svg"
                   style={{
                     transform: "rotate(270deg)",
                     opacity:
-                      sliceFrom ===
-                      getReplacementPlayers(playersList).length - 4
+                      sliceFrom === getReplacementPlayers().length - 4
                         ? 0.3
                         : 1,
                   }}
                   onClick={() =>
-                    sliceFrom < getReplacementPlayers(playersList).length - 4 &&
+                    sliceFrom < getReplacementPlayers().length - 4 &&
                     setSliceFrom(sliceFrom + 4)
                   }
                 />
