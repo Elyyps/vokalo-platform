@@ -13,7 +13,7 @@
     border-radius: 10px 10px 0 0;
     position: relative;
     @media (max-width: variables.$breakpoint-lg) {
-      min-height: 355px;
+      min-height: 340px;
     }
     &-rotate {
       background-image: url("../../../../public/img/field-flipped.png");
@@ -37,7 +37,7 @@
     > div:not(:last-child) {
       margin-bottom: 28px;
       @media (max-width: variables.$breakpoint-lg) {
-        margin-bottom: 20px;
+        margin-bottom: 16px;
       }
     }
   }
@@ -78,7 +78,6 @@
     > div {
       &:first-child {
         border-bottom: 1px solid variables.$tertiary-color;
-        //  border-top: 1px solid variables.$tertiary-color;
         margin-bottom: 8px;
         display: flex;
         align-items: center;
@@ -113,7 +112,6 @@
       background-color: rgba($color: #dadada, $alpha: 0.4);
       padding: 8px 2px;
       border: 1px solid variables.$tertiary-color;
-      margin-bottom: 8px;
       svg {
         cursor: pointer;
       }
@@ -123,7 +121,6 @@
         width: 100%;
         > div {
           width: 25%;
-          margin-bottom: 8px;
           > div {
             border-color: variables.$primary-color;
             width: 42px;

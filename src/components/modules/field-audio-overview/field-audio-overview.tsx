@@ -23,7 +23,10 @@ export const FieldAudioOverviewComponent = ({
 }: IFieldOverviewComponent) => {
   const sortPlayers = (list: any[]) => {
     if (list.length) {
-      return list.sort((a, b) => {
+      const filtertedData = list.filter(
+        (player: any) => player.profile.gridX >= 0 && player.profile.gridY >= 0
+      );
+      return filtertedData.sort((a, b) => {
         if (a.profile.gridX === b.profile.gridX) {
           return a.profile.gridY - b.profile.gridY;
         } else {
@@ -36,11 +39,11 @@ export const FieldAudioOverviewComponent = ({
     profiles ? profiles : []
   );
   const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
-  const getReplacementPlayers = () => {
-    const filtertedList = playersList.filter(
-      (player) => player.profile.gridX === -1 && player.profile.gridY === -1
+  const getReplacementPlayers = (list: any) => {
+    return list.filter(
+      (player: any) =>
+        player.profile.gridX === -1 && player.profile.gridY === -1
     );
-    return filtertedList;
   };
   const [currentPlayer, setCurrentPlayer] = React.useState<any>(
     playersList[0] && playersList[0]
@@ -78,19 +81,15 @@ export const FieldAudioOverviewComponent = ({
       return { ...player, profile: playerCopy };
     });
     if (players) {
-      const sortedList = sortPlayers(players);
-      setPlayersList(sortedList);
+      //const sortedList = sortPlayers(players);
+      setPlayersList(players);
     }
   };
 
-  React.useEffect(() => {
-    setIsLoading(true);
-    const sortedResult = sortPlayers(playersList);
-    setPlayersList(sortedResult);
-    if (sortedResult) {
-      setIsLoading(false);
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   const sortedResult = sortPlayers(playersList);
+  //   setPlayersList(sortedResult);
+  // }, []);
 
   return (
     fieldOverview && (
@@ -115,44 +114,41 @@ export const FieldAudioOverviewComponent = ({
               style={formation === "Training" ? { paddingTop: "44px" } : {}}
             >
               {playersList &&
-                playersList
-                  .filter(
-                    (player) =>
-                      player.profile.gridX > -1 &&
-                      player.profile.gridX !== undefined
-                  )
-                  .map((player, key) => (
-                    <div
-                      key={key}
-                      style={
-                        formation !== "Training"
-                          ? {
-                              width:
-                                key === 0
-                                  ? "100%"
-                                  : `${getPlayerPosition(
-                                      player.profile.gridX
-                                    )}% `,
-                            }
-                          : { width: "20%" }
-                      }
-                    >
-                      <PlayerComponent
-                        player={player.profile}
-                        label={0}
-                        value={0}
-                        color={""}
-                        onPlayerDrag={setCurrentPlayer}
-                        onPlayerDrop={updatePlayers}
+                sortPlayers(playersList).map(
+                  (player, key) =>
+                    player.profile.gridX !== undefined && (
+                      <div
+                        key={key}
+                        style={
+                          formation !== "Training"
+                            ? {
+                                width:
+                                  key === 0
+                                    ? "100%"
+                                    : `${getPlayerPosition(
+                                        player.profile.gridX
+                                      )}% `,
+                              }
+                            : { width: "20%" }
+                        }
                       >
-                        <AudioPlayerComponent
-                          audios={player.audioRecordingData}
-                          currentTime={currentTime}
-                          isPlaying={isPlaying}
-                        />
-                      </PlayerComponent>
-                    </div>
-                  ))}
+                        <PlayerComponent
+                          player={player.profile}
+                          label={0}
+                          value={0}
+                          color={""}
+                          onPlayerDrag={setCurrentPlayer}
+                          onPlayerDrop={updatePlayers}
+                        >
+                          <AudioPlayerComponent
+                            audios={player.audioRecordingData}
+                            currentTime={currentTime}
+                            isPlaying={isPlaying}
+                          />
+                        </PlayerComponent>
+                      </div>
+                    )
+                )}
             </div>
           </div>
         ) : (
@@ -160,54 +156,58 @@ export const FieldAudioOverviewComponent = ({
             <LoaderComponent />
           </div>
         )}
+        {getReplacementPlayers(playersList).length && (
+          <div className={style["field-audio-overview-bottom"]}>
+            <div>
+              {getReplacementPlayers(playersList).length > 4 && (
+                <ReactSVG
+                  src="/icons/arrow-down.svg"
+                  style={{
+                    transform: "rotate(90deg)",
+                    opacity: sliceFrom === 1 ? 0.3 : 1,
+                  }}
+                  onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 4)}
+                />
+              )}
+              <div className={style["field-audio-overview-swaps"]}>
+                {getReplacementPlayers(playersList)
+                  .slice(sliceFrom, sliceFrom + 4)
+                  .map(
+                    (player: any, key: number) =>
+                      player.profile.gridX < 0 && (
+                        <PlayerComponent
+                          player={player.profile}
+                          label={0}
+                          value={0}
+                          color={""}
+                          onPlayerDrag={(index) => setCurrentPlayer(index)}
+                          onPlayerDrop={(player) => updatePlayers(player, true)}
+                          key={key}
+                        />
+                      )
+                  )}
+              </div>
 
-        <div className={style["field-audio-overview-bottom"]}>
-          <div>
-            {getReplacementPlayers().length > 4 && (
-              <ReactSVG
-                src="/icons/arrow-down.svg"
-                style={{
-                  transform: "rotate(90deg)",
-                  opacity: sliceFrom === 1 ? 0.3 : 1,
-                }}
-                onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 4)}
-              />
-            )}
-            <div className={style["field-audio-overview-swaps"]}>
-              {playersList
-                .slice(sliceFrom, sliceFrom + 4)
-                .map(
-                  (player, key) =>
-                    player.profile.gridX < 0 && (
-                      <PlayerComponent
-                        player={player.profile}
-                        label={0}
-                        value={0}
-                        color={""}
-                        onPlayerDrag={(index) => setCurrentPlayer(index)}
-                        onPlayerDrop={(player) => updatePlayers(player, true)}
-                        key={key}
-                      />
-                    )
-                )}
+              {getReplacementPlayers(playersList).length > 4 && (
+                <ReactSVG
+                  src="/icons/arrow-down.svg"
+                  style={{
+                    transform: "rotate(270deg)",
+                    opacity:
+                      sliceFrom ===
+                      getReplacementPlayers(playersList).length - 4
+                        ? 0.3
+                        : 1,
+                  }}
+                  onClick={() =>
+                    sliceFrom < getReplacementPlayers(playersList).length - 4 &&
+                    setSliceFrom(sliceFrom + 4)
+                  }
+                />
+              )}
             </div>
-
-            {getReplacementPlayers().length > 4 && (
-              <ReactSVG
-                src="/icons/arrow-down.svg"
-                style={{
-                  transform: "rotate(270deg)",
-                  opacity:
-                    sliceFrom === getReplacementPlayers().length - 4 ? 0.3 : 1,
-                }}
-                onClick={() =>
-                  sliceFrom < getReplacementPlayers().length - 4 &&
-                  setSliceFrom(sliceFrom + 4)
-                }
-              />
-            )}
           </div>
-        </div>
+        )}
       </div>
     )
   );

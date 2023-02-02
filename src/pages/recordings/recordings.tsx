@@ -44,10 +44,8 @@ export const RecordingsPage = () => {
         item.profile = profile;
       }
       return item;
-      //if(item.profile.id === )
     });
     setPlayers(newList);
-    //  if(item.profile.id )
   };
   const getVideoData = async (session: any) => {
     const data = await getAPI("session/video-audio", session, "", "", "", {
