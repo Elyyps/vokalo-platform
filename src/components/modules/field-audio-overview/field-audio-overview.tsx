@@ -1,14 +1,11 @@
 import React from "react";
 import style from "./field-audio-overview.module.scss";
 import { PlayerComponent } from "../../cores/player/player";
-import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import { IFieldOverview } from "../../../types/modules/field-overview";
-import { useParams } from "react-router-dom";
-import { AccountContext } from "../../../context/account";
 import { LoaderComponent } from "../../cores/loader/loader";
 import { ReactSVG } from "react-svg";
 import { AudioPlayerComponent } from "../../cores/audio-player/audio-player";
-import { IPlayer } from "../../../types/cores/player";
+
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
   profiles: any[];
@@ -81,15 +78,9 @@ export const FieldAudioOverviewComponent = ({
       return { ...player, profile: playerCopy };
     });
     if (players) {
-      //const sortedList = sortPlayers(players);
       setPlayersList(players);
     }
   };
-
-  // React.useEffect(() => {
-  //   const sortedResult = sortPlayers(playersList);
-  //   setPlayersList(sortedResult);
-  // }, []);
 
   return (
     fieldOverview && (
