@@ -16,12 +16,11 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const playerRef = React.useRef<any>();
   const [audio, setAudio] = React.useState<any>();
   const getAudio = () => {
-    const result = props.audios.find(
+    return props.audios.find(
       (item: any) =>
         props.currentTime >= item.startOffset &&
         props.currentTime <= item.endOffset
     );
-    setAudio(result);
   };
 
   React.useEffect(() => {
@@ -35,10 +34,12 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         playerRef.current.pause();
       }
     }
-  }, [props.isPlaying]);
+  }, [props]);
 
   React.useEffect(() => {
-    getAudio();
+    const newAudio = getAudio();
+    setAudio(newAudio);
+
     if (props.currentTime && playerRef.current && audio) {
       playerRef.current.currentTime =
         (props.currentTime - audio?.startOffset) / 1000;
