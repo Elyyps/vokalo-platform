@@ -40,6 +40,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
     <div
       className={`${style["player"]} ${style["player-" + props.player.gridX]}`}
       style={{ opacity: props.player.ghost ? 0.5 : 1 }}
+      onClick={props.onClick}
     >
       <div
         className={` ${style["player-number"]} `}

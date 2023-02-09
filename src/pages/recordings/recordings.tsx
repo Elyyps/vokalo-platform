@@ -43,7 +43,7 @@ export const RecordingsPage = () => {
       if (profile) {
         item.profile = profile;
       }
-      return item;
+      return { ...item, isMuted: true };
     });
     setPlayers(newList);
   };

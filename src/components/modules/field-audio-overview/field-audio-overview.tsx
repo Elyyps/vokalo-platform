@@ -81,7 +81,19 @@ export const FieldAudioOverviewComponent = ({
       setPlayersList(players);
     }
   };
-
+  const mutePlayer = (selectedPlayer: any) => {
+    const players = playersList.map((player, index) => {
+      const playerCopy: any = { ...player };
+      if (playerCopy.profile.id === selectedPlayer.id) {
+        return { ...playerCopy, isMuted: !playerCopy.isMuted };
+      } else {
+        return playerCopy;
+      }
+    });
+    if (players) {
+      setPlayersList(players);
+    }
+  };
   return (
     fieldOverview && (
       <div className={style["field-audio-overview"]}>
@@ -130,11 +142,13 @@ export const FieldAudioOverviewComponent = ({
                           color={""}
                           onPlayerDrag={setCurrentPlayer}
                           onPlayerDrop={updatePlayers}
+                          onClick={() => mutePlayer(player.profile)}
                         >
                           <AudioPlayerComponent
                             audios={player.audioRecordingData}
                             currentTime={currentTime}
                             isPlaying={isPlaying}
+                            isMuted={player.isMuted}
                           />
                         </PlayerComponent>
                       </div>
@@ -155,9 +169,9 @@ export const FieldAudioOverviewComponent = ({
                   src="/icons/arrow-down.svg"
                   style={{
                     transform: "rotate(90deg)",
-                    opacity: sliceFrom === 1 ? 0.3 : 1,
+                    opacity: sliceFrom === 0 ? 0.3 : 1,
                   }}
-                  onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 4)}
+                  onClick={() => sliceFrom > 0 && setSliceFrom(sliceFrom - 4)}
                 />
               )}
               <div className={style["field-audio-overview-swaps"]}>
@@ -173,12 +187,19 @@ export const FieldAudioOverviewComponent = ({
                           color={""}
                           onPlayerDrag={(index) => setCurrentPlayer(index)}
                           onPlayerDrop={(player) => updatePlayers(player, true)}
+                          onClick={() => mutePlayer(player.profile)}
                           key={key}
-                        />
+                        >
+                          <AudioPlayerComponent
+                            audios={player.audioRecordingData}
+                            currentTime={currentTime}
+                            isPlaying={isPlaying}
+                            isMuted={player.isMuted}
+                          />
+                        </PlayerComponent>
                       )
                   )}
               </div>
-
               {getReplacementPlayers().length > 4 && (
                 <ReactSVG
                   src="/icons/arrow-down.svg"

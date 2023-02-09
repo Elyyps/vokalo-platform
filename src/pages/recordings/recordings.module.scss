@@ -9,8 +9,8 @@
     width: 100%;
   }
   &-video {
-    width: 64%;
-    margin-bottom: 24px;
+    width: 68%;
+    //margin-bottom: 24px;
     > div {
       height: 100%;
       video {
@@ -20,7 +20,7 @@
     }
   }
   &-highlights-container {
-    width: 35%;
+    width: 30%;
     ul {
       padding-inline-start: 0px;
       > li {

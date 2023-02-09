@@ -27,7 +27,7 @@ export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
         <div className={style["sidebar-items"]}>
           <ul>
             {sidebarModule.items.map((item, key) => (
-              <li key={key} onClick={() => setIsOpen(!isOpen)}>
+              <li key={key} onClick={() => setIsOpen(false)}>
                 <MenuItemComponent {...item} />
               </li>
             ))}

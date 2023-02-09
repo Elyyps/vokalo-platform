@@ -2,44 +2,48 @@
 
 .sidebar {
   background-color: variables.$primary-color;
-  width: 280px;
-  transition: width 0.5s ease-in-out;
-  @media (max-width: variables.$breakpoint-lg) {
-    z-index: 1000;
-    width: 50px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+  // width: 280px;
+  // transition: width 0.5s ease-in-out;
+  // @media (max-width: variables.$breakpoint-lg) {
+  z-index: 1000;
+  width: 50px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  // }
+  > div {
+    height: calc(100vh - 72px);
   }
   &-open {
-    @media (max-width: variables.$breakpoint-lg) {
-      width: 240px;
-      z-index: 1000;
+    //  @media (max-width: variables.$breakpoint-lg) {
+    width: 240px;
+    z-index: 1000;
 
-      .sidebar-logo {
-        justify-content: space-between;
-        margin-bottom: 48px;
-        > img {
-          cursor: pointer;
-          width: 110px;
-          transition: width 0.5s ease-in-out;
-        }
-      }
-      .sidebar-items {
-        > ul {
-          visibility: visible;
-          > li {
-            transition: opacity 2s;
-            opacity: 1;
-            width: 100%;
-          }
-        }
-        > div {
-          display: none;
-        }
+    .sidebar-logo {
+      justify-content: space-between;
+      > img {
+        cursor: pointer;
+        width: 110px;
+        transition: width 0.5s ease-in-out;
       }
     }
+    .sidebar-items {
+      > ul {
+        visibility: visible;
+        > li {
+          transition: opacity 2s;
+          width: 100%;
+          span {
+            opacity: 1;
+          }
+        }
+      }
+      > div {
+        display: none;
+      }
+    }
+    // }
   }
 
   &-logo {
@@ -47,62 +51,64 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    @media (min-width: variables.$breakpoint-lg) {
-      margin-bottom: 72px;
-    }
+    // @media (min-width: variables.$breakpoint-lg) {
+    margin-bottom: 72px;
+    //}
     > img {
-      width: 150px;
+      //width: 150px;
       height: 100%;
       object-fit: contain;
       cursor: pointer;
-      @media (max-width: variables.$breakpoint-lg) {
-        width: 0;
-      }
+      //@media (max-width: variables.$breakpoint-lg) {
+      width: 0;
+      //  }
     }
     svg {
       cursor: pointer;
       width: 25px;
       height: 15px;
       fill: white;
-      display: none;
-      @media (max-width: variables.$breakpoint-lg) {
-        display: block;
-      }
+      //display: none;
+      // @media (max-width: variables.$breakpoint-lg) {
+      display: block;
+      //  }
     }
   }
   &-items {
-    height: calc(100% - 25px);
+    height: calc(100% - 80px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     > div {
-      display: none;
-      @media (max-width: variables.$breakpoint-lg) {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin-bottom: 45px;
-        > img {
-          transform: rotate(270deg);
-          width: 100px;
-          object-fit: contain;
-          cursor: pointer;
-        }
+      // display: none;
+      // @media (max-width: variables.$breakpoint-lg) {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      margin-bottom: 45px;
+      > img {
+        transform: rotate(270deg);
+        width: 100px;
+        object-fit: contain;
+        cursor: pointer;
       }
+      // }
     }
     > ul {
       list-style: none;
       padding: 0;
       margin: 0;
-      @media (max-width: variables.$breakpoint-lg) {
-        visibility: hidden;
-      }
+      //  @media (max-width: variables.$breakpoint-lg) {
+      //  visibility: hidden;
+      // }
       > li {
         margin-bottom: 12px;
         font-size: 20px;
         @media (max-width: variables.$breakpoint-lg) {
-          opacity: 0;
           font-size: 16px;
+        }
+        span {
+          opacity: 0;
         }
       }
     }

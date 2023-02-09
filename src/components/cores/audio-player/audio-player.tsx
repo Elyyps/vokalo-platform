@@ -9,31 +9,20 @@ interface IAudioComponent {
 interface IAudioPlayerComponent {
   isPlaying: boolean;
   currentTime: number;
+  isMuted?: boolean;
   audios: IAudioComponent[];
 }
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const playerRef = React.useRef<any>();
-  //const [audio, setAudio] = React.useState<IAudioComponent>();
-  const [isMuted, setIsMuted] = React.useState<boolean>(true);
+  const [audio, setAudio] = React.useState<any>();
   const getAudio = () => {
     const result = props.audios.find(
       (item: any) =>
         props.currentTime >= item.startOffset &&
         props.currentTime <= item.endOffset
     );
-    return result && result;
+    setAudio(result);
   };
-  // React.useEffect(() => {
-  //   setAudio(getAudio());
-  // }, []);
-  // React.useEffect(() => {
-  //   if (getAudio()?.path !== audio?.path) {
-  //     setAudio(getAudio());
-  //   }
-  // }, [props.currentTime]);
-  const newAudio = React.useMemo(() => {
-    return getAudio();
-  }, [props.currentTime]);
 
   React.useEffect(() => {
     if (playerRef.current) {
@@ -41,29 +30,29 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         playerRef.current
           .play()
           .then(props.isPlaying)
-          .catch(() => console.log(""));
+          .catch(() => "");
       } else {
         playerRef.current.pause();
       }
     }
-  }, [props.isPlaying, newAudio]);
+  }, [props.isPlaying]);
+
   React.useEffect(() => {
-    if (props.currentTime && playerRef.current && newAudio) {
+    getAudio();
+    if (props.currentTime && playerRef.current && audio) {
       playerRef.current.currentTime =
-        (props.currentTime - newAudio?.startOffset) / 1000;
+        (props.currentTime - audio?.startOffset) / 1000;
     }
   }, [props.currentTime]);
   return (
     <div
       className={`${style["audio-player"]}
-      ${!isMuted && style["audio-player-active"]}
-      `}
-      onClick={() => setIsMuted(!isMuted)}
+       ${!props.isMuted && style["audio-player-active"]}`}
     >
-      {newAudio && newAudio.path && (
+      {audio && (
         <div>
           <img src="/img/audio.png" />
-          <audio ref={playerRef} muted={isMuted} src={newAudio.path} />
+          <audio ref={playerRef} src={audio.path} muted={props.isMuted} />
         </div>
       )}
     </div>
