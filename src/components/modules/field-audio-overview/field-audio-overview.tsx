@@ -164,19 +164,19 @@ export const FieldAudioOverviewComponent = ({
         {getReplacementPlayers().length > 0 && (
           <div className={style["field-audio-overview-bottom"]}>
             <div>
-              {getReplacementPlayers().length > 4 && (
+              {getReplacementPlayers().length > 8 && (
                 <ReactSVG
                   src="/icons/arrow-down.svg"
                   style={{
                     transform: "rotate(90deg)",
                     opacity: sliceFrom === 0 ? 0.3 : 1,
                   }}
-                  onClick={() => sliceFrom > 0 && setSliceFrom(sliceFrom - 4)}
+                  onClick={() => sliceFrom > 0 && setSliceFrom(sliceFrom - 8)}
                 />
               )}
               <div className={style["field-audio-overview-swaps"]}>
                 {getReplacementPlayers()
-                  .slice(sliceFrom, sliceFrom + 4)
+                  .slice(sliceFrom, sliceFrom + 8)
                   .map(
                     (player: any, key: number) =>
                       player.profile.gridX < 0 && (
@@ -200,7 +200,7 @@ export const FieldAudioOverviewComponent = ({
                       )
                   )}
               </div>
-              {getReplacementPlayers().length > 4 && (
+              {getReplacementPlayers().length > 8 && (
                 <ReactSVG
                   src="/icons/arrow-down.svg"
                   style={{
@@ -211,8 +211,8 @@ export const FieldAudioOverviewComponent = ({
                         : 1,
                   }}
                   onClick={() =>
-                    sliceFrom < getReplacementPlayers().length - 4 &&
-                    setSliceFrom(sliceFrom + 4)
+                    sliceFrom < getReplacementPlayers().length - 8 &&
+                    setSliceFrom(sliceFrom + 8)
                   }
                 />
               )}

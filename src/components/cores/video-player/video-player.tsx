@@ -3,6 +3,7 @@ import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
 import ReactPlayer from "react-player";
+import ReactHlsPlayer from "react-hls-player";
 
 interface IVideoPlayerComponent {
   src: string;
@@ -28,14 +29,14 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   return (
     <div className={style["video-player"]}>
       {props.src ? (
-        <ReactPlayer
-          ref={playerRef}
-          url={props.src}
+        <ReactHlsPlayer
+          playerRef={playerRef}
+          src={props.src}
           muted
           width="100%"
           height="100%"
           controls={props.hasControl}
-          onReady={onReady}
+          // onReady={onReady}
           onPlay={() => props.onClick(true)}
           onPause={() => props.onClick(false)}
           onProgress={() => props.onChange(playerRef.current.player.prevPlayed)}

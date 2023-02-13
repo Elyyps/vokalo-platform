@@ -12,9 +12,31 @@ interface IAudioPlayerComponent {
   isMuted?: boolean;
   audios: IAudioComponent[];
 }
+
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
-  const playerRef = React.useRef<any>();
+  const playerRef = React.useRef<any>(null);
   const [audio, setAudio] = React.useState<any>();
+  let analyser;
+  let dataArray;
+
+  // React.useEffect(() => {
+  //   const audioElement = playerRef.current;
+  //   const audioContext = new AudioContext();
+
+  //   analyser = audioContext.createAnalyser();
+  //   analyser.connect(audioContext.destination);
+  //   dataArray = new Uint8Array(analyser.frequencyBinCount);
+  //   analyser.getByteTimeDomainData(dataArray);
+
+  //   console.log(analyser);
+  // }, [props.isMuted]);
+  const toggleOscillator = () => {
+    // if (!props.isMuted) {
+    //   playerRef.current.suspend();
+    // } else {
+    //   playerRef.current.resume();
+    // }
+  };
   const getAudio = () => {
     return props.audios.find(
       (item: any) =>
@@ -49,6 +71,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
     <div
       className={`${style["audio-player"]}
        ${!props.isMuted && style["audio-player-active"]}`}
+      onClick={toggleOscillator}
     >
       {audio && (
         <div>
