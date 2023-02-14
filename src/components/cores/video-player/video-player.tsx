@@ -28,7 +28,7 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
 
   return (
     <div className={style["video-player"]}>
-      hello
+      hello deployment
       {props.src ? (
         <ReactHlsPlayer
           playerRef={playerRef}
