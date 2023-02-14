@@ -3,7 +3,7 @@ import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
 import ReactPlayer from "react-player";
-import ReactHlsPlayer from "react-hls-player";
+//import ReactHlsPlayer from "react-hls-player";
 
 interface IVideoPlayerComponent {
   src: string;
@@ -28,11 +28,10 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
 
   return (
     <div className={style["video-player"]}>
-      hello deployment
       {props.src ? (
-        <ReactHlsPlayer
-          playerRef={playerRef}
-          src={props.src}
+        <ReactPlayer
+          ref={playerRef}
+          url={props.src}
           muted
           width="100%"
           height="100%"
