@@ -2,10 +2,7 @@ import React from "react";
 import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
-import ReactPlayer from "react-player";
-import { Player } from "video-react";
 
-//import ReactHlsPlayer from "react-hls-player";
 interface IVideoPlayerComponent {
   src: string;
   startAt?: number;
@@ -18,28 +15,18 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   const playerRef = React.useRef<any>();
   const [isLoaded, setIsLoaded] = React.useState(true);
   const maxSize = 5368709120;
-  const onReady = React.useCallback(() => {
-    if (!isLoaded) {
-      setIsLoaded(true);
-      if (props.startAt) {
-        playerRef.current.seekTo(props.startAt, "seconds");
-      }
-    }
-  }, []);
+  // const onReady = React.useCallback(() => {
+  //   if (!isLoaded) {
+  //     setIsLoaded(true);
+  //     if (props.startAt) {
+  //       playerRef.current.seekTo(props.startAt, "seconds");
+  //     }
+  //   }
+  // }, []);
 
   return (
     <div className={style["video-player"]}>
       {props.src ? (
-        // <ReactPlayer
-        //   ref={playerRef}
-        //   url={props.src}
-        //   muted
-        //   width="100%"
-        //   height="100%"
-        //   controls={props.hasControl}
-        // onReady={onReady}
-
-        // />
         <video
           ref={playerRef}
           width="100%"
@@ -47,7 +34,7 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
           controls
           onPlay={() => props.onClick(true)}
           onPause={() => props.onClick(false)}
-          onProgress={(e: any) => props.onChange(e.target.currentTime)}
+          onTimeUpdate={(e: any) => props.onChange(e.target.currentTime)}
           onWaiting={() => props.onClick(false)}
           onPlaying={() => props.onClick(true)}
           preload="auto"
