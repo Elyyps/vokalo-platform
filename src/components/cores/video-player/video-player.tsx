@@ -32,6 +32,7 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
           width="100%"
           height="100%"
           controls
+          muted
           onPlay={() => props.onClick(true)}
           onPause={() => props.onClick(false)}
           onTimeUpdate={(e: any) => props.onChange(e.target.currentTime)}
