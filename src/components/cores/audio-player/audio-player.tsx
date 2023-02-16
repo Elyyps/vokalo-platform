@@ -46,10 +46,10 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
     }
   };
   React.useEffect(() => {
-    if (playerRef.current) {
+    if (playerRef.current && isLoaded) {
       onVideoPlay();
     }
-  }, [props]);
+  }, [props.isPlaying, props.isMuted]);
   React.useEffect(() => {
     getUpdateTime();
   }, [props.currentTime, props.isMuted]);
@@ -60,7 +60,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
        ${!props.isMuted && style["audio-player-active"]}`}
     >
       {audio && (
-        <div onClick={() => console.log(audio)}>
+        <div>
           <audio
             ref={playerRef}
             src={audio.path}
