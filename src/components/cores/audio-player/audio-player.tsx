@@ -15,10 +15,6 @@ interface IAudioPlayerComponent {
 }
 
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
-  const playerRef = React.useRef<any>(null);
-  const [audio, setAudio] = React.useState<any>();
-  const [isLoaded, setIsLoaded] = React.useState(false);
-
   const getAudio = () => {
     return props.audios.find(
       (item: any) =>
@@ -26,41 +22,52 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         props.currentTime <= item.endOffset
     );
   };
-
+  const playerRef = React.useRef<any>(null);
+  const [audio, setAudio] = React.useState<any>(getAudio());
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const onVideoPlay = () => {
+    if (props.isPlaying) {
+      playerRef.current
+        .play()
+        .then(props.isPlaying)
+        .catch(() => "");
+    } else {
+      playerRef.current.pause();
+    }
+  };
+  const getUpdateTime = () => {
+    const newAudio = getAudio();
+    if (newAudio) {
+      let startAt = newAudio?.startOffset >= 0 ? newAudio?.startOffset : 0;
+      if (playerRef.current) {
+        playerRef.current.currentTime = (props.currentTime - startAt) / 1000;
+      }
+      setAudio(newAudio);
+    }
+  };
   React.useEffect(() => {
     if (playerRef.current) {
-      if (props.isPlaying) {
-        playerRef.current
-          .play()
-          .then(props.isPlaying)
-          .catch(() => "");
-      } else {
-        playerRef.current.pause();
-      }
+      onVideoPlay();
     }
   }, [props]);
-
   React.useEffect(() => {
-    const newAudio = getAudio();
-    setAudio(newAudio);
-    if (props.currentTime && playerRef.current && audio) {
-      playerRef.current.currentTime =
-        (props.currentTime - audio?.startOffset) / 1000;
-    }
-  }, [props.currentTime]);
+    getUpdateTime();
+  }, [props.currentTime, props.isMuted]);
+
   return (
     <div
       className={`${style["audio-player"]}
        ${!props.isMuted && style["audio-player-active"]}`}
     >
       {audio && (
-        <div>
+        <div onClick={() => console.log(audio)}>
           <audio
             ref={playerRef}
             src={audio.path}
             muted={props.isMuted}
             onLoadStart={() => setIsLoaded(false)}
             onCanPlay={() => setIsLoaded(true)}
+            preload="auto"
           />
           {isLoaded ? <img src="/img/audio.png" /> : <b>. . .</b>}
         </div>

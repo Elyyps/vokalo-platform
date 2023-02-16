@@ -20,7 +20,7 @@ export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
           <img
             src="/img/logo.png"
             alt="vokalo logo"
-            onClick={() => navigate("/")}
+            //  onClick={() => navigate("/")}
           />
           <ReactSVG src="/icons/menu.svg" onClick={() => setIsOpen(!isOpen)} />
         </div>
@@ -36,7 +36,7 @@ export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
             <img
               src="/img/logo.png"
               alt="vokalo logo"
-              onClick={() => navigate("/")}
+              //  onClick={() => navigate("/")}
             />
           </div>
         </div>

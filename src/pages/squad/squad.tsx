@@ -30,7 +30,7 @@ export const SquadPage = ({ user }: ISquadPage) => {
     const data = await getAPI(
       "profiles",
       session,
-      cookies.team.id ? cookies.team.id : "",
+      cookies.team && cookies.team.id ? cookies.team.id : "",
       startDate,
       endDate,
       filter
