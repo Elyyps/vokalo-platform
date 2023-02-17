@@ -25,6 +25,16 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const playerRef = React.useRef<any>(null);
   const [audio, setAudio] = React.useState<any>(getAudio());
   const [isLoaded, setIsLoaded] = React.useState(false);
+  // const getFrequency = () => {
+  //   var audioContext = new AudioContext();
+  //   var analyser = audioContext.createAnalyser();
+  //   analyser.connect(audioContext.destination);
+  //   //var source = audioContext.createMediaElementSource(audio);
+
+  //   var freqDomain = new Float32Array(analyser.frequencyBinCount);
+  //   analyser.getFloatFrequencyData(freqDomain);
+  //   console.log(analyser.getFloatFrequencyData(freqDomain));
+  // };
   const onVideoPlay = () => {
     if (props.isPlaying) {
       playerRef.current

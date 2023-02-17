@@ -2,6 +2,7 @@ import React from "react";
 import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
+import ReactHlsPlayer from "react-hls-player";
 
 interface IVideoPlayerComponent {
   src: string;
@@ -13,22 +14,15 @@ interface IVideoPlayerComponent {
 }
 export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   const playerRef = React.useRef<any>();
-  const [isLoaded, setIsLoaded] = React.useState(true);
   const maxSize = 5368709120;
-  // const onReady = React.useCallback(() => {
-  //   if (!isLoaded) {
-  //     setIsLoaded(true);
-  //     if (props.startAt) {
-  //       playerRef.current.seekTo(props.startAt, "seconds");
-  //     }
-  //   }
-  // }, []);
 
   return (
     <div className={style["video-player"]}>
+      hls
       {props.src ? (
-        <video
-          ref={playerRef}
+        <ReactHlsPlayer
+          src={props.src}
+          playerRef={playerRef}
           width="100%"
           height="100%"
           controls
@@ -39,9 +33,7 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
           onWaiting={() => props.onClick(false)}
           onPlaying={() => props.onClick(true)}
           preload="auto"
-        >
-          <source src={props.src} />
-        </video>
+        />
       ) : (
         <div className={`${style["video-player-file"]} widget-container`}>
           <Dropzone onDrop={props.onUpload} maxSize={maxSize}>
