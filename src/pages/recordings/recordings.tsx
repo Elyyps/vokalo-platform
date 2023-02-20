@@ -1,12 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { addVideoAPI } from "../../api/session";
-import { AudioPlayerComponent } from "../../components/cores/audio-player/audio-player";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { VideoPlayerComponent } from "../../components/cores/video-player/video-player";
 import { FieldAudioOverviewComponent } from "../../components/modules/field-audio-overview/field-audio-overview";
-import { FieldOverviewComponent } from "../../components/modules/field-overview/field-overview";
 import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
@@ -111,7 +109,7 @@ export const RecordingsPage = () => {
             )}
           </div>
           <div
-            className={` ${style["recordings-highlights-container"]} widget-container`}
+            className={` ${style["recordings-field-container"]} widget-container`}
           >
             {field && players && (
               <FieldAudioOverviewComponent

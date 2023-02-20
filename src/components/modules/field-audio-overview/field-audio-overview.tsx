@@ -32,14 +32,15 @@ export const FieldAudioOverviewComponent = ({
       });
     } else return [];
   };
-  const [playersList, setPlayersList] = React.useState<any[]>(
-    profiles ? profiles : []
-  );
+  const [playersList, setPlayersList] = React.useState<any[]>(profiles);
   const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
   const getReplacementPlayers = () => {
-    return playersList.filter(
-      (player: any) =>
-        player.profile.gridX === -1 && player.profile.gridY === -1
+    return (
+      playersList &&
+      playersList.filter(
+        (player: any) =>
+          player.profile.gridX === -1 && player.profile.gridY === -1
+      )
     );
   };
   const [currentPlayer, setCurrentPlayer] = React.useState<any>(
@@ -94,6 +95,11 @@ export const FieldAudioOverviewComponent = ({
       setPlayersList(players);
     }
   };
+  React.useEffect(() => {
+    if (profiles) {
+      setPlayersList(profiles);
+    }
+  }, [profiles]);
   return (
     fieldOverview && (
       <div className={style["field-audio-overview"]}>

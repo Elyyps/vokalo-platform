@@ -2,6 +2,7 @@ import React from "react";
 import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
+import ReactHlsPlayer from "react-hls-player";
 
 interface IVideoPlayerComponent {
   src: string;
@@ -17,23 +18,25 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
 
   return (
     <div className={style["video-player"]}>
+      hello hls
       {props.src ? (
-        <video
-          ref={playerRef}
-          width="100%"
-          height="100%"
-          controls
-          muted
-          onPlay={() => props.onClick(true)}
-          onPause={() => props.onClick(false)}
-          onTimeUpdate={(e: any) => props.onChange(e.target.currentTime)}
-          onWaiting={() => props.onClick(false)}
-          onPlaying={() => props.onClick(true)}
-          preload="auto"
-        >
-          <source src={props.src} />
-        </video>
+        <ReactHlsPlayer playerRef={playerRef} src={props.src} />
       ) : (
+        // <video
+        //   ref={playerRef}
+        //   width="100%"
+        //   height="100%"
+        //   controls
+        //   muted
+        //   onPlay={() => props.onClick(true)}
+        //   onPause={() => props.onClick(false)}
+        //   onTimeUpdate={(e: any) => props.onChange(e.target.currentTime)}
+        //   onWaiting={() => props.onClick(false)}
+        //   onPlaying={() => props.onClick(true)}
+        //   preload="auto"
+        // >
+        //   <source src={props.src} />
+        // </video>
         <div className={`${style["video-player-file"]} widget-container`}>
           <Dropzone onDrop={props.onUpload} maxSize={maxSize}>
             {({ getRootProps, getInputProps }) => (

@@ -1,5 +1,4 @@
 import React from "react";
-import { LoaderComponent } from "../loader/loader";
 import style from "./audio-player.module.scss";
 
 interface IAudioComponent {
@@ -25,16 +24,6 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const playerRef = React.useRef<any>(null);
   const [audio, setAudio] = React.useState<any>(getAudio());
   const [isLoaded, setIsLoaded] = React.useState(false);
-  // const getFrequency = () => {
-  //   var audioContext = new AudioContext();
-  //   var analyser = audioContext.createAnalyser();
-  //   analyser.connect(audioContext.destination);
-  //   //var source = audioContext.createMediaElementSource(audio);
-
-  //   var freqDomain = new Float32Array(analyser.frequencyBinCount);
-  //   analyser.getFloatFrequencyData(freqDomain);
-  //   console.log(analyser.getFloatFrequencyData(freqDomain));
-  // };
   const onVideoPlay = () => {
     if (props.isPlaying) {
       playerRef.current
@@ -72,8 +61,9 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       {audio && (
         <div>
           <audio
+            id="my-audio"
             ref={playerRef}
-            src={audio.path}
+            src={"/Kalimba.mp3"}
             muted={props.isMuted}
             onLoadStart={() => setIsLoaded(false)}
             onCanPlay={() => setIsLoaded(true)}
