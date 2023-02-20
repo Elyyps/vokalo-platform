@@ -23,7 +23,7 @@ export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   const maxSize = 5368709120;
   return (
     <div className={style["video-player"]}>
-      hello hls
+      hls
       {props.src ? (
         <ReactHlsPlayer
           playerRef={playerRef}
