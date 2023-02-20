@@ -12,15 +12,24 @@ interface IVideoPlayerComponent {
   onChange: (time: number) => void;
   onUpload: (files: any) => void;
 }
+let config = {
+  xhrSetup: function (xhr: any, url: string) {
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhr.setRequestHeader("Access-Control-Allow-Headers", "*");
+  },
+};
 export const VideoPlayerComponent = (props: IVideoPlayerComponent) => {
   const playerRef = React.useRef<any>();
   const maxSize = 5368709120;
-
   return (
     <div className={style["video-player"]}>
       hello hls
       {props.src ? (
-        <ReactHlsPlayer playerRef={playerRef} src={props.src} />
+        <ReactHlsPlayer
+          playerRef={playerRef}
+          hlsConfig={config}
+          src={props.src}
+        />
       ) : (
         // <video
         //   ref={playerRef}
