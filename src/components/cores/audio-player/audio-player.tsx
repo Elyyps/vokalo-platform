@@ -1,5 +1,6 @@
-import React from "react";
+import React, { HTMLProps, RefObject } from "react";
 import style from "./audio-player.module.scss";
+import AudioVisualizer from "./audio-visualizer";
 
 interface IAudioComponent {
   path: string;
@@ -12,7 +13,6 @@ interface IAudioPlayerComponent {
   isMuted?: boolean;
   audios: IAudioComponent[];
 }
-
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const getAudio = () => {
     return props.audios.find(
@@ -21,9 +21,10 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
         props.currentTime <= item.endOffset
     );
   };
-  const playerRef = React.useRef<any>(null);
+  const playerRef = React.useRef<any>();
   const [audio, setAudio] = React.useState<any>(getAudio());
   const [isLoaded, setIsLoaded] = React.useState(false);
+
   const onVideoPlay = () => {
     if (props.isPlaying) {
       playerRef.current
@@ -44,6 +45,19 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       setAudio(newAudio);
     }
   };
+  // const getSound = () => {
+  //   if (!playerRef.current) return;
+
+  //   const audioContext = new (window.AudioContext ||
+  //     (window as any).webkitAudioContext)();
+  //   const analyser = audioContext.createAnalyser();
+  //   const source = audioContext.createMediaElementSource(audio.current);
+  //   source.connect(analyser);
+  //   analyser.connect(audioContext.destination);
+  //   const frequencyBinCountArray = new Uint8Array(analyser.frequencyBinCount);
+  //   console.log(frequencyBinCountArray);
+  //   setIsLoaded(true);
+  // };
   React.useEffect(() => {
     if (playerRef.current && isLoaded) {
       onVideoPlay();
@@ -61,15 +75,23 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       {audio && (
         <div>
           <audio
-            id="my-audio"
             ref={playerRef}
-            src={"/Kalimba.mp3"}
+            src={audio.path}
             muted={props.isMuted}
             onLoadStart={() => setIsLoaded(false)}
             onCanPlay={() => setIsLoaded(true)}
             preload="auto"
           />
-          {isLoaded ? <img src="/img/audio.png" /> : <b>. . .</b>}
+          {isLoaded ? (
+            <div className={style["audio-player-image"]}>
+              {[...Array(8)].map((item, i) => (
+                <span key={i} className={style["audio-player-image-" + i]} />
+              ))}
+            </div>
+          ) : (
+            <b>. . .</b>
+          )}
+          <AudioVisualizer audio={playerRef} isMuted={props.isMuted} />
         </div>
       )}
     </div>

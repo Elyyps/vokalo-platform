@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { addVideoAPI } from "../../api/session";
 import { LoaderComponent } from "../../components/cores/loader/loader";
@@ -59,15 +59,18 @@ export const RecordingsPage = () => {
     setVideo(data.videoSyncData.videoData.path);
     setAudios(data.videoSyncData.profileAudioRecordingData);
   };
-  const onUpload = async (files: any) => {
-    setIsLoading(true);
-    getAccount().then(async (session: any) => {
-      const data = await addVideoAPI(session, files[0], id);
-      if (data) {
-        setIsLoading(false);
-      }
-    });
-  };
+  const onUpload = useMemo(
+    () => async (files: any) => {
+      setIsLoading(true);
+      getAccount().then(async (session: any) => {
+        const data = await addVideoAPI(session, files[0], id);
+        if (data) {
+          setIsLoading(false);
+        }
+      });
+    },
+    []
+  );
 
   React.useEffect(() => {
     getAccount().then((session: any) => {
