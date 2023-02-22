@@ -1,4 +1,4 @@
-import React, { HTMLProps, RefObject } from "react";
+import React from "react";
 import style from "./audio-player.module.scss";
 import AudioVisualizer from "./audio-visualizer";
 
@@ -45,19 +45,6 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
       setAudio(newAudio);
     }
   };
-  // const getSound = () => {
-  //   if (!playerRef.current) return;
-
-  //   const audioContext = new (window.AudioContext ||
-  //     (window as any).webkitAudioContext)();
-  //   const analyser = audioContext.createAnalyser();
-  //   const source = audioContext.createMediaElementSource(audio.current);
-  //   source.connect(analyser);
-  //   analyser.connect(audioContext.destination);
-  //   const frequencyBinCountArray = new Uint8Array(analyser.frequencyBinCount);
-  //   console.log(frequencyBinCountArray);
-  //   setIsLoaded(true);
-  // };
   React.useEffect(() => {
     if (playerRef.current && isLoaded) {
       onVideoPlay();

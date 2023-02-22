@@ -2,7 +2,6 @@
   "name": "vokalo-platform",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://vokalo-prod.s3.eu-north-1.amazonaws.com/",
   "dependencies": {
     "@types/jest": "^27.5.0",
     "@types/node": "^16.11.33",
@@ -11,7 +10,6 @@
     "amazon-cognito-identity-js": "^5.2.9",
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",
-    "decibel-meter": "^2.0.0",
     "formik": "^2.2.9",
     "react": "^17.0.2",
     "react-cookie": "^4.1.1",
