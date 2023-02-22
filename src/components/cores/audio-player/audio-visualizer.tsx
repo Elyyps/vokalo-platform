@@ -34,19 +34,32 @@ function RealAudioVisualizer({
       const frequencyBinCountArray = new Uint8Array(analyser.frequencyBinCount);
       analyser.getByteFrequencyData(frequencyBinCountArray);
       context.clearRect(0, 0, canvas.current.width, canvas.current.height);
-      context.fillStyle = "#000000";
+      context.lineWidth = 3;
+      context.strokeStyle = "#06f";
       context.beginPath();
       const startingPoint = 0.5 * Math.PI;
       //21 21 20
-      context.arc(
-        24,
-        24,
-        23,
-        startingPoint,
-        frequencyBinCountArray[1] > 0
-          ? (frequencyBinCountArray[1] / 250) * Math.PI
-          : startingPoint
-      );
+      if (window.innerWidth < 1272) {
+        context.arc(
+          21,
+          21,
+          20,
+          startingPoint,
+          frequencyBinCountArray[1] > 0
+            ? (frequencyBinCountArray[1] / 250) * Math.PI
+            : startingPoint
+        );
+      } else {
+        context.arc(
+          24,
+          24,
+          23,
+          startingPoint,
+          frequencyBinCountArray[1] > 0
+            ? (frequencyBinCountArray[1] / 250) * Math.PI
+            : startingPoint
+        );
+      }
       context.stroke();
       animationFrame = requestAnimationFrame(render);
     }
