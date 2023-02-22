@@ -109,6 +109,7 @@ export const FieldAudioOverviewComponent = ({
               style[isFlipped ? "field-audio-overview-top-rotate" : ""]
             }  `}
           >
+            e1
             <div className={style["field-audio-overview-formation"]}>
               <span style={{ opacity: isFlipped ? "1" : "0.6" }}>
                 <ReactSVG

@@ -29,6 +29,7 @@ function RealAudioVisualizer({
     const source = audioContext.createMediaElementSource(audio.current);
     source.connect(analyser);
     analyser.connect(audioContext.destination);
+    audioContext.resume();
 
     function render() {
       const frequencyBinCountArray = new Uint8Array(analyser.frequencyBinCount);
