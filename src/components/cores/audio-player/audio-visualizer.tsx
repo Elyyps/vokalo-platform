@@ -19,17 +19,14 @@ function RealAudioVisualizer({
   useEffect(() => {
     if (!canvas.current) return;
     if (!audio.current) return;
-    //const aud = new Audio("/Kalimba.mp3");
+
     let animationFrame: number;
-    // audio.current.load();
     const audioContext = new (window.AudioContext ||
       (window as any).webkitAudioContext)();
 
     const analyser = audioContext.createAnalyser();
     const context = canvas.current.getContext("2d");
     const source = audioContext.createMediaElementSource(audio.current);
-    // audio.current.crossOrigin = "anonymous";
-    //  console.log(context);
     source.connect(analyser);
     analyser.connect(audioContext.destination);
 
