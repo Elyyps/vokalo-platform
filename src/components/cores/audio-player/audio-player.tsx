@@ -81,6 +81,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
             onLoadStart={() => setIsLoaded(false)}
             onCanPlay={() => setIsLoaded(true)}
             preload="auto"
+            crossOrigin="anonymous"
           />
           {isLoaded ? (
             <div className={style["audio-player-image"]}>
