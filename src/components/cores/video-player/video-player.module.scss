@@ -22,8 +22,8 @@
         opacity: 1;
       }
       svg {
-        width: 25px;
-        height: 25px;
+        width: 40px;
+        height: 40px;
         stroke: black;
       }
       &:first-child {
@@ -38,7 +38,7 @@
         border-radius: 0 20px 20px 0;
 
         svg {
-          transform: rotate(-90deg);
+          //transform: rotate(-90deg);
         }
       }
     }

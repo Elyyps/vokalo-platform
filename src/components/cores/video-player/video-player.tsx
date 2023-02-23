@@ -25,9 +25,11 @@ export const VideoPlayerComponent = React.memo(
       <div className={style["video-player"]}>
         {props.src ? (
           <div className={style["video-player-container"]}>
-            <div onDoubleClick={() => changeTime(-10)}>
-              <ReactSVG src="/icons/arrow-down.svg" />
-            </div>
+            {playerRef && playerRef.current && (
+              <div onDoubleClick={() => changeTime(-10)}>
+                <ReactSVG src="/icons/arrow-down.svg" />
+              </div>
+            )}
             <video
               src={props.src}
               ref={playerRef}
@@ -42,9 +44,11 @@ export const VideoPlayerComponent = React.memo(
               onPlaying={() => props.onClick(true)}
               preload="auto"
             />
-            <div onDoubleClick={() => changeTime(10)}>
-              <ReactSVG src="/icons/arrow-down.svg" />
-            </div>
+            {playerRef && playerRef.current && (
+              <div onDoubleClick={() => changeTime(10)}>
+                <ReactSVG src="/icons/forward.svg" />
+              </div>
+            )}
           </div>
         ) : (
           <div className={`${style["video-player-file"]} widget-container`}>
