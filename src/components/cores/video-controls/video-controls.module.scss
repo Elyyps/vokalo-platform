@@ -1,0 +1,59 @@
+@use "src/variables";
+
+.video-controls {
+  padding: 12px 0;
+  background-color: rgba($color: variables.$primary-color, $alpha: 0.8);
+  border-radius: 10px;
+  color: white;
+
+  &-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 8px;
+    padding: 0 4px;
+
+    > div {
+      margin: 0 12px;
+    }
+    > small {
+      font-size: 12px;
+    }
+  }
+  &-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+    padding: 0 4px;
+    > div {
+      display: flex;
+      align-items: center;
+      > span {
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 15px;
+
+        > div > div {
+          display: flex;
+          align-items: center;
+        }
+        b {
+          font-size: 13px;
+        }
+        svg {
+          width: 20px;
+          height: 20px;
+          stroke: white;
+        }
+        &:hover {
+          background-color: rgba($color: #ffffff, $alpha: 0.1);
+        }
+      }
+    }
+  }
+  .big-icon svg {
+    width: 23px;
+    height: 23px;
+  }
+}

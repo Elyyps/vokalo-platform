@@ -2,6 +2,8 @@ import React from "react";
 import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
+import { VideoControlsComponent } from "../video-controls/video-controls";
+import { LoaderComponent } from "../loader/loader";
 
 interface IVideoPlayerComponent {
   src: string;
@@ -15,6 +17,8 @@ interface IVideoPlayerComponent {
 export const VideoPlayerComponent = React.memo(
   (props: IVideoPlayerComponent) => {
     const playerRef = React.useRef<any>();
+    const [isLoading, setIsLoading] = React.useState(true);
+
     const maxSize = 5368709120;
     const changeTime = (value: number) => {
       if (playerRef && playerRef.current) {
@@ -25,30 +29,39 @@ export const VideoPlayerComponent = React.memo(
       <div className={style["video-player"]}>
         {props.src ? (
           <div className={style["video-player-container"]}>
-            {playerRef && playerRef.current && (
-              <div onDoubleClick={() => changeTime(-10)}>
-                <ReactSVG src="/icons/arrow-down.svg" />
+            <div style={{ position: "relative" }}>
+              <video
+                src={props.src}
+                ref={playerRef}
+                width="100%"
+                height="100%"
+                muted
+                onCanPlay={() => setIsLoading(false)}
+                onPlay={() => props.onClick(true)}
+                onPause={() => props.onClick(false)}
+                onTimeUpdate={(e: any) => props.onChange(e.target.currentTime)}
+                onWaiting={() => props.onClick(false)}
+                onPlaying={() => props.onClick(true)}
+                preload="auto"
+                poster="/img/black.png"
+              />
+              <div className={style["video-player-button"]}>
+                {isLoading ? (
+                  <LoaderComponent />
+                ) : (
+                  playerRef.current.paused && (
+                    <ReactSVG
+                      src="/icons/play.svg"
+                      onClick={() => playerRef.current.play()}
+                    />
+                  )
+                )}
               </div>
-            )}
-            <video
-              src={props.src}
-              ref={playerRef}
-              width="100%"
-              height="100%"
-              controls
-              muted
-              onPlay={() => props.onClick(true)}
-              onPause={() => props.onClick(false)}
-              onTimeUpdate={(e: any) => props.onChange(e.target.currentTime)}
-              onWaiting={() => props.onClick(false)}
-              onPlaying={() => props.onClick(true)}
-              preload="auto"
+            </div>
+            <VideoControlsComponent
+              audio={playerRef.current}
+              onChange={(time) => (playerRef.current.currentTime = time)}
             />
-            {playerRef && playerRef.current && (
-              <div onDoubleClick={() => changeTime(10)}>
-                <ReactSVG src="/icons/forward.svg" />
-              </div>
-            )}
           </div>
         ) : (
           <div className={`${style["video-player-file"]} widget-container`}>

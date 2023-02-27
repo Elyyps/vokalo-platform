@@ -79,7 +79,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
           ) : (
             <b>. . .</b>
           )}
-          <AudioVisualizer audio={playerRef} isMuted={props.isMuted} />
+          {/* <AudioVisualizer audio={playerRef} isMuted={props.isMuted} /> */}
         </div>
       )}
     </div>
