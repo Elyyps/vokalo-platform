@@ -32,11 +32,10 @@ function RealAudioVisualizer({
     analyser.connect(audioContext.destination);
     audioContext.resume();
     const getAmplitude = (value: number) => {
-      console.log(value);
       if (value >= 150 && value < 170) {
-        return 1 * Math.PI;
+        return Math.PI * (value / 300) * 1;
       } else if (value >= 170 && value < 210) {
-        return 1.5 * Math.PI;
+        return Math.PI * (value / 300) * 1.5;
       } else if (value >= 210) {
         return 0;
       }
