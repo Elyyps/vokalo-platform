@@ -27,13 +27,14 @@ function RealAudioVisualizer({
     const analyser = audioContext.createAnalyser();
     const context = canvas.current.getContext("2d");
     const source = audioContext.createMediaElementSource(audio.current);
-    analyser.fftSize = 256;
+    // analyser.fftSize = 256;
     source.connect(analyser);
     analyser.connect(audioContext.destination);
     audioContext.resume();
     const getAmplitude = (value: number) => {
+      console.log(value);
       if (value >= 150 && value < 170) {
-        return Math.PI * (value / 300) * 1;
+        return Math.PI * (value / 100) * 1;
       } else if (value >= 170 && value < 210) {
         return Math.PI * (value / 300) * 1.5;
       } else if (value >= 210) {
