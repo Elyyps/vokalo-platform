@@ -18,13 +18,8 @@ export const VideoPlayerComponent = React.memo(
   (props: IVideoPlayerComponent) => {
     const playerRef = React.useRef<any>();
     const [isLoading, setIsLoading] = React.useState(true);
-
     const maxSize = 5368709120;
-    const changeTime = (value: number) => {
-      if (playerRef && playerRef.current) {
-        playerRef.current.currentTime = playerRef.current.currentTime + value;
-      }
-    };
+
     return (
       <div className={style["video-player"]}>
         {props.src ? (

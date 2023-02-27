@@ -27,10 +27,20 @@ function RealAudioVisualizer({
     const analyser = audioContext.createAnalyser();
     const context = canvas.current.getContext("2d");
     const source = audioContext.createMediaElementSource(audio.current);
+    analyser.fftSize = 256;
     source.connect(analyser);
     analyser.connect(audioContext.destination);
     audioContext.resume();
-
+    const getAmplitude = (value: number) => {
+      console.log(value);
+      if (value >= 150 && value < 170) {
+        return 1 * Math.PI;
+      } else if (value >= 170 && value < 210) {
+        return 1.5 * Math.PI;
+      } else if (value >= 210) {
+        return 0;
+      }
+    };
     function render() {
       const frequencyBinCountArray = new Uint8Array(analyser.frequencyBinCount);
       analyser.getByteFrequencyData(frequencyBinCountArray);
@@ -39,15 +49,14 @@ function RealAudioVisualizer({
       context.strokeStyle = "#06f";
       context.beginPath();
       const startingPoint = 0.5 * Math.PI;
-      //21 21 20
       if (window.innerWidth < 1272) {
         context.arc(
           21,
           21,
           20,
           startingPoint,
-          frequencyBinCountArray[1] > 0
-            ? (frequencyBinCountArray[1] / 250) * Math.PI
+          frequencyBinCountArray[0] > 0
+            ? getAmplitude(frequencyBinCountArray[1])
             : startingPoint
         );
       } else {
@@ -56,8 +65,8 @@ function RealAudioVisualizer({
           24,
           23,
           startingPoint,
-          frequencyBinCountArray[1] > 0
-            ? (frequencyBinCountArray[1] / 250) * Math.PI
+          frequencyBinCountArray[0] > 0
+            ? (frequencyBinCountArray[1] / 1000) * Math.PI
             : startingPoint
         );
       }
