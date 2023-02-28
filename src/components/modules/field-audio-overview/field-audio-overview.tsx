@@ -103,6 +103,7 @@ export const FieldAudioOverviewComponent = ({
   return (
     fieldOverview && (
       <div className={style["field-audio-overview"]}>
+        V1.1
         {!isLoading ? (
           <div
             className={` ${style["field-audio-overview-top"]} ${
