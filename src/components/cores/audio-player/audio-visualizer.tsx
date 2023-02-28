@@ -34,13 +34,10 @@ function RealAudioVisualizer({
 
     const getAmplitude = (value: number) => {
       if (value >= 150 && value < 170) {
-        console.log("level 1 : " + Math.PI * 1 + value / 1000);
         return Math.PI * 1 + value / 1000;
       } else if (value >= 170 && value < 200) {
-        console.log("level 2 : " + Math.PI * 1.5 + value / 1000);
         return Math.PI * 1.5 + value / 1000;
       } else if (value >= 200) {
-        console.log("level 3 : " + 0 + value / 1000);
         return 0 + value / 1000;
       }
     };
