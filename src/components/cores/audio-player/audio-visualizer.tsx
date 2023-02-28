@@ -27,7 +27,7 @@ function RealAudioVisualizer({
     const analyser = audioContext.createAnalyser();
     const context = canvas.current.getContext("2d");
     const source = audioContext.createMediaElementSource(audio.current);
-    // analyser.fftSize = 256;
+    analyser.fftSize = 256;
     source.connect(analyser);
     analyser.connect(audioContext.destination);
     audioContext.resume();
@@ -79,7 +79,7 @@ function RealAudioVisualizer({
       analyser.disconnect();
       source.disconnect();
     };
-  }, [audio, canvas]);
+  }, []);
 
   return (
     <div ref={container} {...props} className={style["audio-player-canvas"]}>
