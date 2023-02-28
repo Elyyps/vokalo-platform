@@ -27,18 +27,20 @@ function RealAudioVisualizer({
     const analyser = audioContext.createAnalyser();
     const context = canvas.current.getContext("2d");
     const source = audioContext.createMediaElementSource(audio.current);
-    // analyser.fftSize = 256;
+    analyser.fftSize = 256;
     source.connect(analyser);
     analyser.connect(audioContext.destination);
     audioContext.resume();
     const getAmplitude = (value: number) => {
-      console.log(value);
       if (value >= 150 && value < 170) {
-        return Math.PI * (value / 100) * 1;
-      } else if (value >= 170 && value < 210) {
-        return Math.PI * (value / 300) * 1.5;
-      } else if (value >= 210) {
-        return 0;
+        console.log("level 1 : " + Math.PI * 1 + value / 1000);
+        return Math.PI * 1 + value / 1000;
+      } else if (value >= 170 && value < 200) {
+        console.log("level 2 : " + Math.PI * 1.5 + value / 1000);
+        return Math.PI * 1.5 + value / 1000;
+      } else if (value >= 200) {
+        console.log("level 3 : " + 0 + value / 1000);
+        return 0 + value / 1000;
       }
     };
     function render() {
@@ -56,7 +58,7 @@ function RealAudioVisualizer({
           20,
           startingPoint,
           frequencyBinCountArray[0] > 0
-            ? getAmplitude(frequencyBinCountArray[1])
+            ? getAmplitude(frequencyBinCountArray[0])
             : startingPoint
         );
       } else {
@@ -66,7 +68,7 @@ function RealAudioVisualizer({
           23,
           startingPoint,
           frequencyBinCountArray[0] > 0
-            ? (frequencyBinCountArray[1] / 1000) * Math.PI
+            ? getAmplitude(frequencyBinCountArray[0])
             : startingPoint
         );
       }
