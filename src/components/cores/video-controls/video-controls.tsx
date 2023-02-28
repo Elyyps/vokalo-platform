@@ -3,13 +3,14 @@ import { ReactSVG } from "react-svg";
 import { Range } from "react-range";
 import style from "./video-controls.module.scss";
 import { converToMinutes } from "../../../utils/convertTime";
+import { DropdownComponent } from "../dropdown/dropdown";
+import { VolumeComponent } from "./volume";
 
 interface IVideoControlsComponent {
   audio: any;
   onChange: (time: number) => void;
 }
 export const VideoControlsComponent = (props: IVideoControlsComponent) => {
-  //const [time, setTime] = React.useState<number>(0);
   const openFullscreen = () => {
     if (props.audio.requestFullscreen) {
       props.audio.requestFullscreen();
@@ -20,7 +21,10 @@ export const VideoControlsComponent = (props: IVideoControlsComponent) => {
 
   React.useEffect(() => {
     props.audio && props.audio.load();
+    // props.audio ? (props.audio.volume = 0) : "";
+    props.audio && (props.audio.volume = 0);
   }, [props.audio]);
+  React.useEffect(() => {}, []);
   return props.audio ? (
     <div className={style["video-controls"]}>
       <div className={style["video-controls-top"]}>
@@ -107,22 +111,7 @@ export const VideoControlsComponent = (props: IVideoControlsComponent) => {
           </span>
         </div>
         <div>
-          <span
-            className={style["big-icon"]}
-            onClick={() =>
-              props.audio.volume === 0
-                ? (props.audio.volume = 1)
-                : (props.audio.volume = 0)
-            }
-          >
-            <ReactSVG
-              src={`/icons/${
-                props.audio && props.audio.volume === 0
-                  ? "volume-muted.svg"
-                  : "volume-up.svg"
-              }`}
-            />
-          </span>
+          <VolumeComponent onChange={(e) => (props.audio.volume = e)} />
           <span onClick={openFullscreen}>
             <ReactSVG src="/icons/fullscreen.svg" />
           </span>

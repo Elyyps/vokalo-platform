@@ -77,8 +77,9 @@ export const DropdownComponent = (props: IDropdownComponent) => {
           top: !props.title
             ? "25px"
             : props.contentPosition === "top"
-            ? "-85px"
+            ? ""
             : "45px",
+          bottom: props.contentPosition === "top" ? "35px" : "",
         }}
       >
         {props.children}

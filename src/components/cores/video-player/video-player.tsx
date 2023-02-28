@@ -30,7 +30,6 @@ export const VideoPlayerComponent = React.memo(
                 ref={playerRef}
                 width="100%"
                 height="100%"
-                muted
                 onCanPlay={() => setIsLoading(false)}
                 onPlay={() => props.onClick(true)}
                 onPause={() => props.onClick(false)}
