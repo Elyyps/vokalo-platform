@@ -85,7 +85,6 @@ export const RecordingsPage = () => {
     { id: 0, sessionId: "", content: "Tag number 2", time: 50 },
     { id: 0, sessionId: "", content: "Tag number 3", time: 50 },
     { id: 0, sessionId: "", content: "Tag number 4", time: 50 },
-    { id: 0, sessionId: "", content: "Tag number 5", time: 50 },
   ];
   return (
     <div className={style["recordings"]}>
@@ -124,19 +123,19 @@ export const RecordingsPage = () => {
               </div>
             )}
           </div>
-          <div
-            className={` ${style["recordings-field-container"]} widget-container`}
-          >
-            {field && players && (
+          {field && players && (
+            <div
+              className={` ${style["recordings-field-container"]} widget-container`}
+            >
               <FieldAudioOverviewComponent
                 fieldOverview={field}
                 profiles={players}
                 currentTime={parseInt(startsAt) * 1000}
                 isPlaying={isPlaying}
               />
-            )}
-            <AddTagsComponent time={parseInt(startsAt) * 1000} />
-          </div>
+              <AddTagsComponent time={parseInt(startsAt) * 1000} />
+            </div>
+          )}
         </div>
       ) : (
         <LoaderComponent />

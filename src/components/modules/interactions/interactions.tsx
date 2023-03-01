@@ -351,7 +351,11 @@ export const InteractionsComponent = ({
             {tooltip && <Tooltip content={tooltip} />}
           </h6>
           <div>
-            {!isOpen && <span onClick={() => setIsOpen(true)} />}
+            {!isOpen && (
+              <span onClick={() => setIsOpen(true)}>
+                <ReactSVG src="/icons/fullscreen.svg" />
+              </span>
+            )}
             {data && onIntervalChange && isLineGraph && (
               <DropdownComponent title={`${interval}`} hasBorder>
                 <ul>

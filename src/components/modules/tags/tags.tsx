@@ -9,7 +9,7 @@ export const TagsComponent = (props: ITagsComponent) => {
     <div className={style["tags"]}>
       {props.tags.map((tag, key) => (
         <div className={` ${style["tags-item"]} widget-container`} key={key}>
-          {tag.content}
+          {tag.content} <span>X</span>
         </div>
       ))}
     </div>
