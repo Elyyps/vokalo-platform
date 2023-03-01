@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom";
 import { addVideoAPI } from "../../api/session";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
-import { VideoPlayerComponent } from "../../components/cores/video-player/video-player";
+import { VideoPlayerComponent } from "../../components/modules/video-player/video-player";
 import { FieldAudioOverviewComponent } from "../../components/modules/field-audio-overview/field-audio-overview";
+import { AddTagsComponent } from "../../components/modules/tags/add-tag";
+import { TagsComponent } from "../../components/modules/tags/tags";
 import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
 import style from "./recordings.module.scss";
+import { ITag } from "../../types/cores/tag";
 
 export const RecordingsPage = () => {
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
@@ -77,6 +80,13 @@ export const RecordingsPage = () => {
       getVideoData(session);
     });
   }, []);
+  const tags: ITag[] = [
+    { id: 0, sessionId: "", content: "Tag number 1", time: 50 },
+    { id: 0, sessionId: "", content: "Tag number 2", time: 50 },
+    { id: 0, sessionId: "", content: "Tag number 3", time: 50 },
+    { id: 0, sessionId: "", content: "Tag number 4", time: 50 },
+    { id: 0, sessionId: "", content: "Tag number 5", time: 50 },
+  ];
   return (
     <div className={style["recordings"]}>
       <PageHeaderComponent
@@ -90,14 +100,17 @@ export const RecordingsPage = () => {
         <div className={style["recordings-container"]}>
           <div className={style["recordings-video"]}>
             {!isLoading ? (
-              <VideoPlayerComponent
-                src={video}
-                hasControl
-                startAt={startsAt}
-                onClick={setIsPlaying}
-                onChange={setStartsAt}
-                onUpload={onUpload}
-              />
+              <div>
+                <VideoPlayerComponent
+                  src={video}
+                  hasControl
+                  startAt={startsAt}
+                  onClick={setIsPlaying}
+                  onChange={setStartsAt}
+                  onUpload={onUpload}
+                />
+                <TagsComponent tags={tags} />
+              </div>
             ) : (
               <div
                 className="widget-container"
@@ -122,23 +135,8 @@ export const RecordingsPage = () => {
                 isPlaying={isPlaying}
               />
             )}
+            <AddTagsComponent time={parseInt(startsAt) * 1000} />
           </div>
-          {/* <div
-            className={` ${style["recordings-audio-container"]} widget-container`}
-          >
-            <h6>Audios </h6>
-            <div className={style["recordings-audio"]}>
-              {audios.map((item: any, key: number) => (
-                <AudioPlayerComponent
-                  key={key}
-                  audios={item.audioRecordingData}
-                  currentTime={parseInt(startsAt) * 1000}
-                  isPlaying={isPlaying}
-                  name={item.profile.firstName}
-                />
-              ))}
-            </div>
-          </div> */}
         </div>
       ) : (
         <LoaderComponent />

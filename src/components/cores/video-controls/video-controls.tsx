@@ -3,7 +3,6 @@ import { ReactSVG } from "react-svg";
 import { Range } from "react-range";
 import style from "./video-controls.module.scss";
 import { converToMinutes } from "../../../utils/convertTime";
-import { DropdownComponent } from "../dropdown/dropdown";
 import { VolumeComponent } from "./volume";
 
 interface IVideoControlsComponent {
@@ -21,10 +20,9 @@ export const VideoControlsComponent = (props: IVideoControlsComponent) => {
 
   React.useEffect(() => {
     props.audio && props.audio.load();
-    // props.audio ? (props.audio.volume = 0) : "";
     props.audio && (props.audio.volume = 0);
   }, [props.audio]);
-  React.useEffect(() => {}, []);
+
   return props.audio ? (
     <div className={style["video-controls"]}>
       <div className={style["video-controls-top"]}>

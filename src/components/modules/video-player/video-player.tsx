@@ -2,8 +2,8 @@ import React from "react";
 import style from "./video-player.module.scss";
 import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
-import { VideoControlsComponent } from "../video-controls/video-controls";
-import { LoaderComponent } from "../loader/loader";
+import { VideoControlsComponent } from "../../cores/video-controls/video-controls";
+import { LoaderComponent } from "../../cores/loader/loader";
 
 interface IVideoPlayerComponent {
   src: string;
