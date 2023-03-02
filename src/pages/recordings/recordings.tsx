@@ -81,10 +81,10 @@ export const RecordingsPage = () => {
     });
   }, []);
   const tags: ITag[] = [
-    { id: 0, sessionId: "", content: "Tag number 1", time: 50 },
-    { id: 0, sessionId: "", content: "Tag number 2", time: 50 },
-    { id: 0, sessionId: "", content: "Tag number 3", time: 50 },
-    { id: 0, sessionId: "", content: "Tag number 4", time: 50 },
+    { id: 0, sessionId: "", content: "Tag number 1", time: 508888 },
+    { id: 0, sessionId: "", content: "Tag number 2", time: 30824 },
+    { id: 0, sessionId: "", content: "Tag number 3", time: 80000 },
+    { id: 0, sessionId: "", content: "Tag number 4", time: 30824 },
   ];
   return (
     <div className={style["recordings"]}>

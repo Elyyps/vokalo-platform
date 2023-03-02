@@ -16,7 +16,7 @@ export const AddTagsComponent = (props: IAddTagsComponent) => {
             <h6>
               Tag: <small>({converToMinutes(props.time)})</small>
             </h6>
-            <textarea rows={4}></textarea>
+            <textarea rows={4} />
           </div>
           <div className={style["tags-content-right"]}>
             <ButtonComponent

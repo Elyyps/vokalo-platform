@@ -98,16 +98,9 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
                     {converToHours(row.communicationAggregations.minutes)}
                   </td>
                   <td>
-                    {Math.round(
-                      row.communicationAggregations.averageInteractionLength *
-                        10
-                    ) / 10}
+                    {row.communicationAggregations.averageInteractionLength}
                   </td>
-                  <td>
-                    {Math.round(
-                      row.communicationAggregations.averageInteractions * 10
-                    ) / 10}
-                  </td>
+                  <td>{row.communicationAggregations.averageInteractions}</td>
                   {/* <td>
                     <div className={style["squad-table-progress"]}>
                       <div

@@ -38,6 +38,7 @@ export const SquadDetailsPage = () => {
         value: interval,
       },
     ]);
+    console.log(data);
     setList({ profile: data.profile, widgets: data.profileAggregations });
   };
   const getTitle = () => {
