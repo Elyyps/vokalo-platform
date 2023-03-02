@@ -2,6 +2,14 @@
 
 .tags {
   margin-top: 8px;
+  > div {
+    min-height: 45px;
+  }
+  &-list {
+    > div {
+      width: 100%;
+    }
+  }
   &-content {
     border-top: 2px solid variables.$tertiary-color;
     padding-top: 8px;
@@ -24,29 +32,6 @@
       margin-top: 16px;
       > div:first-child {
         margin-bottom: 8px;
-      }
-    }
-  }
-  &-item {
-    padding: 8px;
-    margin-top: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    > span {
-      display: flex;
-      align-items: center;
-      svg {
-        width: 18px;
-        height: 18px;
-        stroke: black;
-        margin-left: 4px;
-        padding: 4px;
-        border-radius: 15px;
-        cursor: pointer;
-        &:hover {
-          background-color: rgba($color: #000000, $alpha: 0.1);
-        }
       }
     }
   }
