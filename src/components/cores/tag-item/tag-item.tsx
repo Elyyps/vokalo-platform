@@ -16,7 +16,7 @@ export const TagItemComponent = ({ tag }: ITagItemComponent) => {
         <div style={{ minHeight: "35px" }}>
           <div>
             <small>
-              <b>{converToMinutes(tag.time)}</b>
+              <b>{converToMinutes(tag.time * 1000)}</b>
             </small>
             {tag.content}
           </div>

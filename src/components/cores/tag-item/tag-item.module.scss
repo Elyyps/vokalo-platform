@@ -3,7 +3,9 @@
 .tag-item {
   width: 100%;
   padding: 8px;
-  margin-top: 16px;
+  &:not(:first-child) {
+    margin-top: 16px;
+  }
   > div {
     display: flex;
     align-items: center;
@@ -24,6 +26,7 @@
       width: 100%;
       padding: 6px 2px;
       border-radius: 5px;
+      border-width: 2px;
       margin-right: 8px;
     }
     > span {
@@ -34,8 +37,7 @@
     svg {
       width: 18px;
       height: 18px;
-      stroke: black;
-      padding: 4px;
+      padding: 8px;
       border-radius: 15px;
       cursor: pointer;
       &:hover {

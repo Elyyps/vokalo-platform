@@ -1,11 +1,15 @@
 @use "src/variables";
 
 .tags {
-  margin-top: 8px;
+  margin-top: 16px;
   > div {
     min-height: 45px;
   }
   &-list {
+    overflow-y: auto;
+    max-height: 250px;
+    border-radius: 10px;
+    padding: 0 8px 8px 0;
     > div {
       width: 100%;
     }
@@ -24,6 +28,8 @@
       > textarea {
         width: 100%;
         border-radius: 5px;
+        border-width: 2px;
+        padding: 6px 4px;
       }
     }
     &-right {

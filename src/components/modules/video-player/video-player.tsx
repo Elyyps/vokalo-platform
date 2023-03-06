@@ -4,11 +4,13 @@ import Dropzone from "react-dropzone";
 import { ReactSVG } from "react-svg";
 import { VideoControlsComponent } from "../../cores/video-controls/video-controls";
 import { LoaderComponent } from "../../cores/loader/loader";
+import { ITag } from "../../../types/cores/tag";
 
 interface IVideoPlayerComponent {
   src: string;
   startAt?: number;
   hasControl?: boolean;
+  tags: ITag[];
   onClick: (playing: boolean) => void;
   onChange: (time: number) => void;
   onUpload: (files: any) => void;
@@ -19,7 +21,6 @@ export const VideoPlayerComponent = React.memo(
     const playerRef = React.useRef<any>();
     const [isLoading, setIsLoading] = React.useState(true);
     const maxSize = 5368709120;
-
     return (
       <div className={style["video-player"]}>
         {props.src ? (
@@ -53,6 +54,7 @@ export const VideoPlayerComponent = React.memo(
               </div>
             </div>
             <VideoControlsComponent
+              tags={props.tags}
               audio={playerRef.current}
               onChange={(time) => (playerRef.current.currentTime = time)}
             />

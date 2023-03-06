@@ -1,22 +1,42 @@
 @use "src/variables";
 
 .video-controls {
-  padding: 12px 0;
+  //padding-top: 16px;
+  padding-bottom: 8px;
   background-color: rgba($color: variables.$primary-color, $alpha: 1);
   border-radius: 10px;
   color: white;
+  &-progress {
+    width: 100%;
+    margin: 0 12px;
+    > div:first-child {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 16px;
+      > span {
+        position: absolute;
+        bottom: 1px;
+        z-index: 10;
+        border-top: 12px solid rgba($color: #06f, $alpha: 0.5);
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
 
+        &:hover {
+          cursor: pointer;
+          border-top-color: rgba($color: #06f, $alpha: 1);
+        }
+      }
+    }
+  }
   &-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0 8px;
     padding: 0 4px;
-
-    > div {
-      margin: 0 12px;
-    }
     > small {
+      margin-top: 12px;
       font-size: 12px;
     }
   }

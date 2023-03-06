@@ -81,20 +81,17 @@ export const RecordingsPage = () => {
     });
   }, []);
   const tags: ITag[] = [
-    { id: 0, sessionId: "", content: "Tag number 4", time: 30824 },
-    { id: 0, sessionId: "", content: "Tag number 2", time: 308248 },
-    { id: 0, sessionId: "", content: "Tag number 1", time: 1508888 },
-    { id: 0, sessionId: "", content: "Tag number 3", time: 4180000 },
+    { id: 0, sessionId: "", content: "Tag number 1", time: 1508 },
+    { id: 0, sessionId: "", content: "Tag number 4", time: 3082 },
+    { id: 0, sessionId: "", content: "Tag number 3", time: 4180 },
+    { id: 0, sessionId: "", content: "Tag number 2", time: 5248 },
+    { id: 0, sessionId: "", content: "Tag number 1", time: 1508 },
+    { id: 0, sessionId: "", content: "Tag number 4", time: 3082 },
+    { id: 0, sessionId: "", content: "Tag number 3", time: 4180 },
+    { id: 0, sessionId: "", content: "Tag number 2", time: 5248 },
   ];
   return (
     <div className={style["recordings"]}>
-      <PageHeaderComponent
-        hasReturn
-        route="sessions"
-        title={"Video sync"}
-        list={[]}
-        onSelect={() => ""}
-      />
       {video || audios ? (
         <div className={style["recordings-container"]}>
           <div className={style["recordings-video"]}>
@@ -107,6 +104,7 @@ export const RecordingsPage = () => {
                   onClick={setIsPlaying}
                   onChange={setStartsAt}
                   onUpload={onUpload}
+                  tags={tags}
                 />
                 <TagsComponent tags={tags} />
               </div>

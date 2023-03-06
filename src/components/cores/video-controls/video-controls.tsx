@@ -4,8 +4,10 @@ import { Range } from "react-range";
 import style from "./video-controls.module.scss";
 import { converToMinutes } from "../../../utils/convertTime";
 import { VolumeComponent } from "./volume";
+import { ITag } from "../../../types/cores/tag";
 
 interface IVideoControlsComponent {
+  tags: ITag[];
   audio: any;
   onChange: (time: number) => void;
 }
@@ -17,54 +19,71 @@ export const VideoControlsComponent = (props: IVideoControlsComponent) => {
       props.audio.webkitRequestFullscreen();
     }
   };
-
+  const getTagPosition = (value: number) => {
+    return (value * 100) / props.audio.duration;
+  };
   React.useEffect(() => {
     props.audio && props.audio.load();
     props.audio && (props.audio.volume = 0);
   }, [props.audio]);
 
-  return props.audio ? (
+  return props.audio && props.audio.readyState !== 0 ? (
     <div className={style["video-controls"]}>
       <div className={style["video-controls-top"]}>
         <small>
           {props.audio ? converToMinutes(props.audio.currentTime * 1000) : "-"}
         </small>
-        <Range
-          min={0}
-          max={props.audio.duration}
-          values={
-            props.audio && props.audio.currentTime
-              ? [props.audio.currentTime]
-              : [0]
-          }
-          onChange={(values) => values && props.onChange(values[0])}
-          renderTrack={({ props, children }) => (
-            <div
-              {...props}
-              style={{
-                ...props.style,
-                height: "6px",
-                width: "100%",
-                borderRadius: "5px",
-                backgroundColor: "#c4c4c4",
-              }}
-            >
-              {children}
+        <div className={style["video-controls-progress"]}>
+          {props.tags && (
+            <div>
+              {props.tags.map((tag, key) => (
+                <span
+                  key={key}
+                  style={{
+                    left: `calc(${getTagPosition(tag.time) + "%"}  - 8px)`,
+                  }}
+                ></span>
+              ))}
             </div>
           )}
-          renderThumb={({ props }) => (
-            <div
-              {...props}
-              style={{
-                ...props.style,
-                height: "10px",
-                width: "10px",
-                borderRadius: "50%",
-                backgroundColor: "#ffffff",
-              }}
-            />
-          )}
-        />
+          <Range
+            min={0}
+            max={props.audio.duration}
+            values={
+              props.audio && props.audio.currentTime
+                ? [props.audio.currentTime]
+                : [0]
+            }
+            onChange={(values) => values && props.onChange(values[0])}
+            renderTrack={({ props, children }) => (
+              <div
+                {...props}
+                style={{
+                  ...props.style,
+                  height: "6px",
+                  width: "100%",
+                  borderRadius: "5px",
+                  backgroundColor: "#c4c4c4",
+                }}
+              >
+                {children}
+              </div>
+            )}
+            renderThumb={({ props }) => (
+              <div
+                {...props}
+                style={{
+                  ...props.style,
+                  marginLeft: "-5px",
+                  height: "10px",
+                  width: "10px",
+                  borderRadius: "50%",
+                  backgroundColor: "#ffffff",
+                }}
+              />
+            )}
+          />
+        </div>
         <small>
           {props.audio ? converToMinutes(props.audio.duration * 1000) : "-"}
         </small>
