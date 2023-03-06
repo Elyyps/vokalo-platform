@@ -17,7 +17,15 @@
       display: flex;
       align-items: center;
     }
-
+    small {
+      color: variables.$primary-color;
+      &::after {
+        content: "|";
+        font-size: 16px;
+        padding: 0 8px;
+        color: rgba($color: variables.$primary-color, $alpha: 0.3);
+      }
+    }
     > textarea {
       width: 100%;
       padding: 6px 2px;
@@ -29,15 +37,7 @@
   &-title {
     display: flex;
     align-items: center;
-    > small {
-      color: variables.$primary-color;
-      &::after {
-        content: "|";
-        font-size: 16px;
-        padding: 0 8px;
-        color: rgba($color: variables.$primary-color, $alpha: 0.3);
-      }
-    }
+
     > span > span {
       width: 8px;
       height: 8px;
