@@ -81,14 +81,41 @@ export const RecordingsPage = () => {
     });
   }, []);
   const tags: ITag[] = [
-    { id: 0, sessionId: "", content: "Tag number 1", time: 1508 },
-    { id: 0, sessionId: "", content: "Tag number 4", time: 3082 },
-    { id: 0, sessionId: "", content: "Tag number 3", time: 4180 },
-    { id: 0, sessionId: "", content: "Tag number 2", time: 5248 },
-    { id: 0, sessionId: "", content: "Tag number 1", time: 1508 },
-    { id: 0, sessionId: "", content: "Tag number 4", time: 3082 },
-    { id: 0, sessionId: "", content: "Tag number 3", time: 4180 },
-    { id: 0, sessionId: "", content: "Tag number 2", time: 5248 },
+    {
+      id: 0,
+      sessionId: "",
+      content: "Tag number 2",
+      time: 5248,
+      color: "#ffffff",
+    },
+    {
+      id: 0,
+      sessionId: "",
+      content: "Tag number 1",
+      time: 3800,
+      color: "#21ce71",
+    },
+    {
+      id: 0,
+      sessionId: "",
+      content: "Tag number 4",
+      time: 3082,
+      color: "#f05056",
+    },
+    {
+      id: 0,
+      sessionId: "",
+      content: "Tag number 3",
+      time: 4180,
+      color: "#06f",
+    },
+    {
+      id: 0,
+      sessionId: "",
+      content: "Tag number 1",
+      time: 1508,
+      color: "#ffffff",
+    },
   ];
   return (
     <div className={style["recordings"]}>

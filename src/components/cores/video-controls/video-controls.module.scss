@@ -18,13 +18,14 @@
         position: absolute;
         bottom: 1px;
         z-index: 10;
-        border-top: 12px solid rgba($color: #06f, $alpha: 0.5);
+        opacity: 0.5;
+        border-top: 12px solid transparent;
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
 
         &:hover {
           cursor: pointer;
-          border-top-color: rgba($color: #06f, $alpha: 1);
+          opacity: 1;
         }
       }
     }

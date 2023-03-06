@@ -14,13 +14,16 @@ export const TagItemComponent = ({ tag }: ITagItemComponent) => {
     <div className={` ${style["tag-item"]} widget-container`}>
       {!isEdit ? (
         <div style={{ minHeight: "35px" }}>
-          <div>
+          <div className={style["tag-item-title"]}>
             <small>
               <b>{converToMinutes(tag.time * 1000)}</b>
             </small>
-            {tag.content}
+            <span>
+              <span style={{ backgroundColor: tag.color }} />
+              {tag.content}
+            </span>
           </div>
-          <span>
+          <span className={style["tag-item-buttons"]}>
             <ReactSVG src="/icons/edit.svg" onClick={() => setIsEdit(true)} />
             <ReactSVG src="/icons/delete.svg" />
           </span>

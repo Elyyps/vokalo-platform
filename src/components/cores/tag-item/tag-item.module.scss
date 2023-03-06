@@ -13,7 +13,23 @@
     > div > div:first-child {
       margin-bottom: 8px;
     }
-    small {
+    span {
+      display: flex;
+      align-items: center;
+    }
+
+    > textarea {
+      width: 100%;
+      padding: 6px 2px;
+      border-radius: 5px;
+      border-width: 2px;
+      margin-right: 8px;
+    }
+  }
+  &-title {
+    display: flex;
+    align-items: center;
+    > small {
       color: variables.$primary-color;
       &::after {
         content: "|";
@@ -22,18 +38,15 @@
         color: rgba($color: variables.$primary-color, $alpha: 0.3);
       }
     }
-    > textarea {
-      width: 100%;
-      padding: 6px 2px;
-      border-radius: 5px;
-      border-width: 2px;
-      margin-right: 8px;
+    > span > span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid variables.$primary-color;
+      margin-right: 6px;
     }
-    > span {
-      display: flex;
-      align-items: center;
-    }
-
+  }
+  &-buttons {
     svg {
       width: 18px;
       height: 18px;

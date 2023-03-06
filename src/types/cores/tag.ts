@@ -3,4 +3,5 @@ export type ITag = {
   sessionId: string;
   content: string;
   time: number;
+  color: string;
 };

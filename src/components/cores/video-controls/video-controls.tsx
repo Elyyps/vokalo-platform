@@ -40,6 +40,7 @@ export const VideoControlsComponent = (props: IVideoControlsComponent) => {
                 <span
                   key={key}
                   style={{
+                    borderTopColor: tag.color,
                     left: `calc(${getTagPosition(tag.time) + "%"}  - 8px)`,
                   }}
                 ></span>
