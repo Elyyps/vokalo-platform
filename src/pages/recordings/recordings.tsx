@@ -84,16 +84,9 @@ export const RecordingsPage = () => {
     {
       id: 0,
       sessionId: "",
-      content: "Tag number 2",
-      time: 5248,
-      color: "#ffffff",
-    },
-    {
-      id: 0,
-      sessionId: "",
       content: "Tag number 1",
-      time: 3800,
-      color: "#21ce71",
+      time: 1508,
+      color: "#ffffff",
     },
     {
       id: 0,
@@ -105,6 +98,13 @@ export const RecordingsPage = () => {
     {
       id: 0,
       sessionId: "",
+      content: "Tag number 1",
+      time: 3800,
+      color: "#21ce71",
+    },
+    {
+      id: 0,
+      sessionId: "",
       content: "Tag number 3",
       time: 4180,
       color: "#06f",
@@ -112,8 +112,8 @@ export const RecordingsPage = () => {
     {
       id: 0,
       sessionId: "",
-      content: "Tag number 1",
-      time: 1508,
+      content: "Tag number 2",
+      time: 5248,
       color: "#ffffff",
     },
   ];

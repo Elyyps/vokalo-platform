@@ -9,6 +9,7 @@ export interface IDropdownComponent {
   isProfile?: boolean;
   hasPadding?: boolean;
   hasBorder?: boolean;
+  isColor?: boolean;
   contentPosition?: "right" | "left" | "top";
   variant?: "transparent" | "disabled";
   children: any;
@@ -62,6 +63,7 @@ export const DropdownComponent = (props: IDropdownComponent) => {
               props.onClick && props.onClick(() => isOpen);
             }}
             isDropdown
+            isColor={props.isColor}
             hasBorder={props.hasBorder}
           />
         </div>
@@ -74,11 +76,12 @@ export const DropdownComponent = (props: IDropdownComponent) => {
         }`}
         style={{
           padding: props.hasPadding ? "8px 16px" : 0,
-          top: !props.title
-            ? "25px"
-            : props.contentPosition === "top"
-            ? ""
-            : "45px",
+          top:
+            !props.title || props.isColor
+              ? "25px"
+              : props.contentPosition === "top"
+              ? ""
+              : "45px",
           bottom: props.contentPosition === "top" ? "35px" : "",
         }}
       >

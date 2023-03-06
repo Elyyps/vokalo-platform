@@ -20,24 +20,29 @@
     display: flex;
     align-items: center;
     &-left {
-      width: calc(100% - 86px);
+      flex: 1;
+      margin-right: 8px;
       > h6 {
         margin-bottom: 8px;
         align-items: center;
       }
       > textarea {
-        width: 100%;
+        width: 95%;
         border-radius: 5px;
         border-width: 2px;
         padding: 6px 4px;
       }
     }
     &-right {
-      width: 70px;
-      margin-left: 16px;
-      margin-top: 16px;
       > div:first-child {
-        margin-bottom: 8px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+      > div:not(:first-child) {
+        width: 75px;
+        margin-top: 8px;
       }
     }
   }
