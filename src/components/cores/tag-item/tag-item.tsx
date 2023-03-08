@@ -17,14 +17,14 @@ export const TagItemComponent = ({ tag }: ITagItemComponent) => {
         <div style={{ minHeight: "35px" }}>
           <div className={style["tag-item-title"]}>
             <small>
-              <b>{converToMinutes(tag.time * 1000)}</b>
+              <b>{converToMinutes(tag.tagTime * 1000)}</b>
             </small>
             <span>
               <span
                 className={style["tag-item-color"]}
                 style={{ backgroundColor: tag.color }}
               />
-              {tag.content}
+              {tag.comment}
             </span>
           </div>
           <span className={style["tag-item-icons"]}>
@@ -36,10 +36,10 @@ export const TagItemComponent = ({ tag }: ITagItemComponent) => {
       ) : (
         <div style={{ minHeight: "70px" }}>
           <small>
-            <b>{converToMinutes(tag.time)}</b>
+            <b>{converToMinutes(tag.tagTime)}</b>
           </small>
           <ColorPickerComponent color={tag.color} onSelect={setColor} />
-          <textarea rows={4} value={tag.content} onChange={() => ""} />
+          <textarea rows={4} value={tag.comment} onChange={() => ""} />
           <div className={style["tag-item-buttons"]}>
             <ButtonComponent
               title="Save"

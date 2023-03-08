@@ -1,16 +1,25 @@
+import { time } from "console";
 import React from "react";
+import { ITag } from "../../../types/cores/tag";
 import { converToMinutes } from "../../../utils/convertTime";
 import { ButtonComponent } from "../../cores/button/button";
 import { ColorPickerComponent } from "../../cores/color-picker/color-picker";
-import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import style from "./tags.module.scss";
+
 interface IAddTagsComponent {
   time: number;
+  onSave: (color: string, comment: string) => void;
 }
+
 export const AddTagsComponent = (props: IAddTagsComponent) => {
   const [isOpen, setOpen] = React.useState<boolean>(false);
   const [color, setColor] = React.useState<string>("#06f");
-
+  const [comment, setComment] = React.useState<string>("");
+  const clearInput = () => {
+    setOpen(false);
+    setColor("#06f");
+    setComment("");
+  };
   return (
     <div className={style["tags"]}>
       {isOpen ? (
@@ -19,27 +28,30 @@ export const AddTagsComponent = (props: IAddTagsComponent) => {
             <h6>
               Tag: <small>({converToMinutes(props.time)})</small>
             </h6>
-            <textarea rows={4} />
+            <textarea
+              rows={4}
+              onChangeCapture={(e: any) => setComment(e.target.value)}
+            />
           </div>
           <div className={style["tags-content-right"]}>
             <ColorPickerComponent color={color} onSelect={setColor} />
             <ButtonComponent
               title="Save"
-              variant="secondary"
-              onClick={() => setOpen(false)}
+              variant={comment && color ? "secondary" : "disabled"}
+              onClick={() => props.onSave(color, comment)}
             />
             <ButtonComponent
               title="Cancel"
               variant="secondary"
-              onClick={() => setOpen(false)}
+              onClick={clearInput}
             />
           </div>
         </div>
       ) : (
         <ButtonComponent
           title="Add Tag"
-          variant="secondary"
-          onClick={() => setOpen(true)}
+          variant={props.time > 0 ? "secondary" : "disabled"}
+          onClick={() => props.time > 0 && setOpen(true)}
         />
       )}
     </div>

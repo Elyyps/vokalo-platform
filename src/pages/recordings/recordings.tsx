@@ -12,10 +12,12 @@ import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
 import style from "./recordings.module.scss";
 import { ITag } from "../../types/cores/tag";
+import { addVideoTagsAPI } from "../../api/tags";
 
 export const RecordingsPage = () => {
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [tags, setTags] = React.useState<any[]>([]);
   const [audios, setAudios] = React.useState<any[]>([]);
   const [video, setVideo] = React.useState<string>("");
   const [field, setField] = React.useState<any>();
@@ -25,6 +27,37 @@ export const RecordingsPage = () => {
   const { getAccount } = React.useContext(AccountContext);
   const { id } = useParams();
 
+  const getTags = async (session: any) => {
+    const data = await getAPI("session/video-tags", session, "", "", "", {
+      key: "sessionId",
+      value: id,
+    });
+    setTags(data.videoTags);
+  };
+  const addTag = async (color: string, comment: string) => {
+    if (comment) {
+      getAccount().then(async (session: any) => {
+        await addVideoTagsAPI(session, [
+          {
+            key: "sessionId",
+            value: id,
+          },
+          {
+            key: "comment",
+            value: comment,
+          },
+          {
+            key: "color",
+            value: "%23" + color.substring(1),
+          },
+          {
+            key: "tagTime",
+            value: parseInt(startsAt),
+          },
+        ]);
+      });
+    }
+  };
   const getFieldData = async (session: any) => {
     const data = await getAPI(
       "session",
@@ -46,6 +79,7 @@ export const RecordingsPage = () => {
       }
       return { ...item, isMuted: true };
     });
+    console.log(newList);
     setPlayers(newList);
   };
   const getVideoData = async (session: any) => {
@@ -80,43 +114,11 @@ export const RecordingsPage = () => {
       getVideoData(session);
     });
   }, []);
-  const tags: ITag[] = [
-    {
-      id: 0,
-      sessionId: "",
-      content: "Tag number 1",
-      time: 1508,
-      color: "#ffffff",
-    },
-    {
-      id: 0,
-      sessionId: "",
-      content: "Tag number 4",
-      time: 3082,
-      color: "#f05056",
-    },
-    {
-      id: 0,
-      sessionId: "",
-      content: "Tag number 1",
-      time: 3800,
-      color: "#21ce71",
-    },
-    {
-      id: 0,
-      sessionId: "",
-      content: "Tag number 3",
-      time: 4180,
-      color: "#06f",
-    },
-    {
-      id: 0,
-      sessionId: "",
-      content: "Tag number 2",
-      time: 5248,
-      color: "#ffffff",
-    },
-  ];
+  React.useEffect(() => {
+    getAccount().then((session: any) => {
+      getTags(session);
+    });
+  }, [tags]);
   return (
     <div className={style["recordings"]}>
       {video || audios ? (
@@ -158,7 +160,10 @@ export const RecordingsPage = () => {
                 currentTime={parseInt(startsAt) * 1000}
                 isPlaying={isPlaying}
               />
-              <AddTagsComponent time={parseInt(startsAt) * 1000} />
+              <AddTagsComponent
+                time={parseInt(startsAt) * 1000}
+                onSave={addTag}
+              />
             </div>
           )}
         </div>

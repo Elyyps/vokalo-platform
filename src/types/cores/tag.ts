@@ -1,7 +1,8 @@
 export type ITag = {
-  id: number;
+  id?: number;
   sessionId: string;
-  content: string;
-  time: number;
+  // clubCode: string;
+  comment: string;
   color: string;
+  tagTime: number;
 };
