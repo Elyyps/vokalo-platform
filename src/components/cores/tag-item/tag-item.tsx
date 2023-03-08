@@ -47,7 +47,7 @@ export const TagItemComponent = ({
       ) : (
         <div style={{ minHeight: "70px" }}>
           <small>
-            <b>{converToMinutes(tag.tagTime)}</b>
+            <b>{converToMinutes(tag.tagTime * 1000)}</b>
           </small>
           <ColorPickerComponent color={color} onSelect={setColor} />
           <textarea
