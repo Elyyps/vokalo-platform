@@ -7,10 +7,12 @@ import { ColorPickerComponent } from "../color-picker/color-picker";
 import style from "./tag-item.module.scss";
 interface ITagItemComponent {
   tag: ITag;
+  onDelete: (id: string) => void;
 }
-export const TagItemComponent = ({ tag }: ITagItemComponent) => {
+export const TagItemComponent = ({ tag, onDelete }: ITagItemComponent) => {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const [color, setColor] = React.useState<string>("#06f");
+
   return (
     <div className={` ${style["tag-item"]} widget-container`}>
       {!isEdit ? (
@@ -30,7 +32,10 @@ export const TagItemComponent = ({ tag }: ITagItemComponent) => {
           <span className={style["tag-item-icons"]}>
             <ReactSVG src="/icons/export.svg" />
             <ReactSVG src="/icons/edit.svg" onClick={() => setIsEdit(true)} />
-            <ReactSVG src="/icons/delete.svg" />
+            <ReactSVG
+              src="/icons/delete.svg"
+              onClick={() => onDelete(tag.id)}
+            />
           </span>
         </div>
       ) : (

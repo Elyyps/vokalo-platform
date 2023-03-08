@@ -1,5 +1,5 @@
 export type ITag = {
-  id?: number;
+  id: string;
   sessionId: string;
   // clubCode: string;
   comment: string;

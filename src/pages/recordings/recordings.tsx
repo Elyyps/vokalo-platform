@@ -10,7 +10,7 @@ import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
 import style from "./recordings.module.scss";
-import { addVideoTagsAPI } from "../../api/tags";
+import { addVideoTagsAPI, deleteVideoTagAPI } from "../../api/tags";
 
 export const RecordingsPage = () => {
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
@@ -56,6 +56,21 @@ export const RecordingsPage = () => {
         getTags(session);
       });
     }
+  };
+  const onDelete = (tagId: string) => {
+    getAccount().then(async (session: any) => {
+      await deleteVideoTagAPI(session, [
+        {
+          key: "sessionId",
+          value: id,
+        },
+        {
+          key: "videoTagId",
+          value: tagId,
+        },
+      ]);
+      getTags(session);
+    });
   };
   const getFieldData = async (session: any) => {
     const data = await getAPI(
@@ -129,7 +144,7 @@ export const RecordingsPage = () => {
               onUpload={onUpload}
               tags={tags}
             />
-            <TagsComponent tags={tags} />
+            <TagsComponent tags={tags} onDelete={onDelete} />
           </div>
           {field && players && (
             <div
