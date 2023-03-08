@@ -7,11 +7,17 @@ import { ColorPickerComponent } from "../color-picker/color-picker";
 import style from "./tag-item.module.scss";
 interface ITagItemComponent {
   tag: ITag;
+  onEdit: (tag: ITag) => void;
   onDelete: (id: string) => void;
 }
-export const TagItemComponent = ({ tag, onDelete }: ITagItemComponent) => {
+export const TagItemComponent = ({
+  tag,
+  onDelete,
+  onEdit,
+}: ITagItemComponent) => {
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
-  const [color, setColor] = React.useState<string>("#06f");
+  const [color, setColor] = React.useState<string>(tag.color);
+  const [comment, setComment] = React.useState<string>(tag.comment);
 
   return (
     <div className={` ${style["tag-item"]} widget-container`}>
@@ -43,13 +49,20 @@ export const TagItemComponent = ({ tag, onDelete }: ITagItemComponent) => {
           <small>
             <b>{converToMinutes(tag.tagTime)}</b>
           </small>
-          <ColorPickerComponent color={tag.color} onSelect={setColor} />
-          <textarea rows={4} value={tag.comment} onChange={() => ""} />
+          <ColorPickerComponent color={color} onSelect={setColor} />
+          <textarea
+            rows={4}
+            value={comment}
+            onChange={(e: any) => setComment(e.target.value)}
+          />
           <div className={style["tag-item-buttons"]}>
             <ButtonComponent
               title="Save"
               variant="secondary"
-              onClick={() => setIsEdit(false)}
+              onClick={() => {
+                onEdit({ ...tag, color: color, comment: comment });
+                setIsEdit(false);
+              }}
             />
             <ButtonComponent
               title="Cancel"

@@ -11,6 +11,7 @@ export const ColorPickerComponent = (props: IColorPickerComponent) => {
     <div className={style["color-picker"]}>
       <DropdownComponent
         variant="transparent"
+        contentPosition="right"
         hasBorder
         isColor
         title={props.color}

@@ -10,7 +10,12 @@ import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
 import style from "./recordings.module.scss";
-import { addVideoTagsAPI, deleteVideoTagAPI } from "../../api/tags";
+import {
+  addVideoTagsAPI,
+  deleteVideoTagAPI,
+  editVideoTagsAPI,
+} from "../../api/tags";
+import { ITag } from "../../types/cores/tag";
 
 export const RecordingsPage = () => {
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
@@ -67,6 +72,33 @@ export const RecordingsPage = () => {
         {
           key: "videoTagId",
           value: tagId,
+        },
+      ]);
+      getTags(session);
+    });
+  };
+  const onEdit = (tag: ITag) => {
+    getAccount().then(async (session: any) => {
+      await editVideoTagsAPI(session, [
+        {
+          key: "sessionId",
+          value: id,
+        },
+        {
+          key: "videoTagId",
+          value: tag.id,
+        },
+        {
+          key: "comment",
+          value: tag.comment,
+        },
+        {
+          key: "color",
+          value: "%23" + tag.color.substring(1),
+        },
+        {
+          key: "tagTime",
+          value: tag.tagTime,
         },
       ]);
       getTags(session);
@@ -144,7 +176,7 @@ export const RecordingsPage = () => {
               onUpload={onUpload}
               tags={tags}
             />
-            <TagsComponent tags={tags} onDelete={onDelete} />
+            <TagsComponent tags={tags} onDelete={onDelete} onEdit={onEdit} />
           </div>
           {field && players && (
             <div
