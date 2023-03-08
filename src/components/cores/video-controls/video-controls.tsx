@@ -43,6 +43,7 @@ export const VideoControlsComponent = (props: IVideoControlsComponent) => {
                     borderTopColor: tag.color,
                     left: `calc(${getTagPosition(tag.tagTime) + "%"}  - 8px)`,
                   }}
+                  onClick={() => (props.audio.currentTime = tag.tagTime)}
                 ></span>
               ))}
             </div>

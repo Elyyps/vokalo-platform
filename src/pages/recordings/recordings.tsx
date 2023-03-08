@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { addVideoAPI } from "../../api/session";
 import { LoaderComponent } from "../../components/cores/loader/loader";
-import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
 import { VideoPlayerComponent } from "../../components/modules/video-player/video-player";
 import { FieldAudioOverviewComponent } from "../../components/modules/field-audio-overview/field-audio-overview";
 import { AddTagsComponent } from "../../components/modules/tags/add-tag";
@@ -11,7 +10,6 @@ import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { getAPI } from "../../utils/getApi";
 import style from "./recordings.module.scss";
-import { ITag } from "../../types/cores/tag";
 import { addVideoTagsAPI } from "../../api/tags";
 
 export const RecordingsPage = () => {
@@ -55,6 +53,7 @@ export const RecordingsPage = () => {
             value: parseInt(startsAt),
           },
         ]);
+        getTags(session);
       });
     }
   };
@@ -112,43 +111,25 @@ export const RecordingsPage = () => {
   React.useEffect(() => {
     getAccount().then((session: any) => {
       getVideoData(session);
-    });
-  }, []);
-  React.useEffect(() => {
-    getAccount().then((session: any) => {
       getTags(session);
     });
-  }, [tags]);
+  }, []);
+
   return (
     <div className={style["recordings"]}>
       {video || audios ? (
         <div className={style["recordings-container"]}>
           <div className={style["recordings-video"]}>
-            {!isLoading ? (
-              <div>
-                <VideoPlayerComponent
-                  src={video}
-                  hasControl
-                  startAt={startsAt}
-                  onClick={setIsPlaying}
-                  onChange={setStartsAt}
-                  onUpload={onUpload}
-                  tags={tags}
-                />
-                <TagsComponent tags={tags} />
-              </div>
-            ) : (
-              <div
-                className="widget-container"
-                style={{
-                  height: "400px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <LoaderComponent />
-              </div>
-            )}
+            <VideoPlayerComponent
+              src={video}
+              hasControl
+              startAt={startsAt}
+              onClick={setIsPlaying}
+              onChange={setStartsAt}
+              onUpload={onUpload}
+              tags={tags}
+            />
+            <TagsComponent tags={tags} />
           </div>
           {field && players && (
             <div
