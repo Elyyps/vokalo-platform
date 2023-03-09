@@ -9,6 +9,7 @@ import style from "./tags.module.scss";
 interface IAddTagsComponent {
   time: number;
   onSave: (color: string, comment: string) => void;
+  onClick: () => void;
 }
 
 export const AddTagsComponent = (props: IAddTagsComponent) => {
@@ -38,7 +39,10 @@ export const AddTagsComponent = (props: IAddTagsComponent) => {
             <ButtonComponent
               title="Save"
               variant={comment && color ? "secondary" : "disabled"}
-              onClick={() => props.onSave(color, comment)}
+              onClick={() => {
+                props.onSave(color, comment);
+                clearInput();
+              }}
             />
             <ButtonComponent
               title="Cancel"
@@ -51,7 +55,10 @@ export const AddTagsComponent = (props: IAddTagsComponent) => {
         <ButtonComponent
           title="Add Tag"
           variant={props.time > 0 ? "secondary" : "disabled"}
-          onClick={() => props.time > 0 && setOpen(true)}
+          onClick={() => {
+            props.time > 0 && setOpen(true);
+            props.time > 0 && props.onClick();
+          }}
         />
       )}
     </div>

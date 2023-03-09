@@ -3,6 +3,7 @@
 .tag-item {
   width: 100%;
   padding: 8px;
+  position: relative;
   &:not(:first-child) {
     margin-top: 16px;
   }
@@ -64,6 +65,29 @@
   &-buttons {
     > div:first-child {
       margin-bottom: 8px;
+    }
+  }
+  &-delete {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: variables.$primary-color;
+    border-radius: 10px;
+    > div {
+      width: 100%;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      > div:first-child {
+        margin-right: 12px;
+        background-color: red;
+        &:hover {
+          background-color: white;
+        }
+      }
     }
   }
 }

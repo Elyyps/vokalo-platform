@@ -18,6 +18,7 @@ import {
 import { ITag } from "../../types/cores/tag";
 
 export const RecordingsPage = () => {
+  const playerRef = React.useRef<any>();
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [tags, setTags] = React.useState<any[]>([]);
@@ -170,7 +171,9 @@ export const RecordingsPage = () => {
             <VideoPlayerComponent
               src={video}
               hasControl
+              isPlaying={isPlaying}
               startAt={startsAt}
+              playerRef={playerRef}
               onClick={setIsPlaying}
               onChange={setStartsAt}
               onUpload={onUpload}
@@ -191,6 +194,7 @@ export const RecordingsPage = () => {
               <AddTagsComponent
                 time={parseInt(startsAt) * 1000}
                 onSave={addTag}
+                onClick={() => playerRef.current.pause()}
               />
             </div>
           )}

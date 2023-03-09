@@ -15,6 +15,7 @@ export const TagItemComponent = ({
   onDelete,
   onEdit,
 }: ITagItemComponent) => {
+  const [isDelete, setIsDelete] = React.useState<boolean>(false);
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
   const [color, setColor] = React.useState<string>(tag.color);
   const [comment, setComment] = React.useState<string>(tag.comment);
@@ -40,7 +41,7 @@ export const TagItemComponent = ({
             <ReactSVG src="/icons/edit.svg" onClick={() => setIsEdit(true)} />
             <ReactSVG
               src="/icons/delete.svg"
-              onClick={() => onDelete(tag.id)}
+              onClick={() => setIsDelete(true)}
             />
           </span>
         </div>
@@ -68,6 +69,25 @@ export const TagItemComponent = ({
               title="Cancel"
               variant="secondary"
               onClick={() => setIsEdit(false)}
+            />
+          </div>
+        </div>
+      )}
+      {isDelete && (
+        <div className={style["tag-item-delete"]}>
+          <div>
+            <ButtonComponent
+              title="Delete"
+              variant="secondary"
+              onClick={() => {
+                onDelete(tag.id);
+                setIsDelete(false);
+              }}
+            />
+            <ButtonComponent
+              title="Cancel"
+              variant="secondary"
+              onClick={() => setIsDelete(false)}
             />
           </div>
         </div>

@@ -10,7 +10,9 @@ interface IVideoPlayerComponent {
   src: string;
   startAt?: number;
   hasControl?: boolean;
+  isPlaying?: boolean;
   tags: ITag[];
+  playerRef: any;
   onClick: (playing: boolean) => void;
   onChange: (time: number) => void;
   onUpload: (files: any) => void;
@@ -18,9 +20,11 @@ interface IVideoPlayerComponent {
 
 export const VideoPlayerComponent = React.memo(
   (props: IVideoPlayerComponent) => {
-    const playerRef = React.useRef<any>();
     const [isLoading, setIsLoading] = React.useState(true);
     const maxSize = 5368709120;
+    React.useEffect(() => {
+      //-   if (!props.isPlaying) playerRef.current.pause();
+    }, [props.isPlaying]);
     return (
       <div className={style["video-player"]}>
         {props.src ? (
@@ -28,7 +32,7 @@ export const VideoPlayerComponent = React.memo(
             <div style={{ position: "relative" }}>
               <video
                 src={props.src}
-                ref={playerRef}
+                ref={props.playerRef}
                 width="100%"
                 height="100%"
                 onCanPlay={() => setIsLoading(false)}
@@ -44,10 +48,10 @@ export const VideoPlayerComponent = React.memo(
                 {isLoading ? (
                   <LoaderComponent />
                 ) : (
-                  playerRef.current.paused && (
+                  props.playerRef.current.paused && (
                     <ReactSVG
                       src="/icons/play.svg"
-                      onClick={() => playerRef.current.play()}
+                      onClick={() => props.playerRef.current.play()}
                     />
                   )
                 )}
@@ -55,8 +59,8 @@ export const VideoPlayerComponent = React.memo(
             </div>
             <VideoControlsComponent
               tags={props.tags}
-              audio={playerRef.current}
-              onChange={(time) => (playerRef.current.currentTime = time)}
+              audio={props.playerRef.current}
+              onChange={(time) => (props.playerRef.current.currentTime = time)}
             />
           </div>
         ) : (
