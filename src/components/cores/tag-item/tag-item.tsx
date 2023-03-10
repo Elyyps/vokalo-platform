@@ -7,11 +7,13 @@ import { ColorPickerComponent } from "../color-picker/color-picker";
 import style from "./tag-item.module.scss";
 interface ITagItemComponent {
   tag: ITag;
+  onClick: (time: number) => void;
   onEdit: (tag: ITag) => void;
   onDelete: (id: string) => void;
 }
 export const TagItemComponent = ({
   tag,
+  onClick,
   onDelete,
   onEdit,
 }: ITagItemComponent) => {
@@ -28,7 +30,7 @@ export const TagItemComponent = ({
             <small>
               <b>{converToMinutes(tag.tagTime * 1000)}</b>
             </small>
-            <span>
+            <span onClick={() => tag.tagTime > 0 && onClick(tag.tagTime)}>
               <span
                 className={style["tag-item-color"]}
                 style={{ backgroundColor: tag.color }}

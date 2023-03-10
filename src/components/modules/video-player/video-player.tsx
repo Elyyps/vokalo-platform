@@ -22,9 +22,7 @@ export const VideoPlayerComponent = React.memo(
   (props: IVideoPlayerComponent) => {
     const [isLoading, setIsLoading] = React.useState(true);
     const maxSize = 5368709120;
-    React.useEffect(() => {
-      //-   if (!props.isPlaying) playerRef.current.pause();
-    }, [props.isPlaying]);
+
     return (
       <div className={style["video-player"]}>
         {props.src ? (
@@ -38,8 +36,13 @@ export const VideoPlayerComponent = React.memo(
                 onCanPlay={() => setIsLoading(false)}
                 onPlay={() => props.onClick(true)}
                 onPause={() => props.onClick(false)}
-                onTimeUpdate={(e: any) => props.onChange(e.target.currentTime)}
-                onWaiting={() => props.onClick(false)}
+                onTimeUpdate={(e: any) => {
+                  props.onChange(e.target.currentTime);
+                }}
+                onWaiting={() => {
+                  props.onClick(false);
+                  setIsLoading(true);
+                }}
                 onPlaying={() => props.onClick(true)}
                 preload="auto"
                 poster="/img/black.png"

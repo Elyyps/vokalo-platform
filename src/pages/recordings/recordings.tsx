@@ -179,7 +179,12 @@ export const RecordingsPage = () => {
               onUpload={onUpload}
               tags={tags}
             />
-            <TagsComponent tags={tags} onDelete={onDelete} onEdit={onEdit} />
+            <TagsComponent
+              tags={tags}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              onClick={(time: number) => (playerRef.current.currentTime = time)}
+            />
           </div>
           {field && players && (
             <div

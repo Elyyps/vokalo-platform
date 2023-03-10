@@ -4,6 +4,7 @@
   width: 100%;
   padding: 8px;
   position: relative;
+
   &:not(:first-child) {
     margin-top: 16px;
   }
@@ -34,8 +35,9 @@
     > span {
       display: flex;
       align-items: center;
-      > span {
-        cursor: default;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
       }
     }
   }
