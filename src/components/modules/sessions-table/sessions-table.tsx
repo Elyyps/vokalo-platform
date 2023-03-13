@@ -174,7 +174,11 @@ export const SessionsTableComponent = ({
                             src={
                               row.analysis_language === "da-dk"
                                 ? "/icons/dk-flag.svg"
-                                : "/icons/uk-flag.svg"
+                                : row.analysis_language === "de-de"
+                                ? "/icons/de-flag.svg"
+                                : row.analysis_language === "en-uk"
+                                ? "/icons/uk-flag.svg"
+                                : ""
                             }
                           />
                         )}
