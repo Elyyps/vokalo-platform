@@ -75,7 +75,7 @@ export const DropdownComponent = (props: IDropdownComponent) => {
           props.contentPosition === "right" && style["dropdown-content-right"]
         }`}
         style={{
-          padding: props.hasPadding ? "8px 16px" : 0,
+          padding: props.hasPadding ? "8px 12px" : 0,
           top:
             !props.title || props.isColor
               ? "25px"

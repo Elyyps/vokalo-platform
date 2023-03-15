@@ -16,11 +16,11 @@ import {
   editVideoTagsAPI,
 } from "../../api/tags";
 import { ITag } from "../../types/cores/tag";
+import CoachContext from "../../context/coach";
 
 export const RecordingsPage = () => {
   const playerRef = React.useRef<any>();
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [tags, setTags] = React.useState<any[]>([]);
   const [audios, setAudios] = React.useState<any[]>([]);
   const [video, setVideo] = React.useState<string>("");
@@ -29,8 +29,17 @@ export const RecordingsPage = () => {
   const [startsAt, setStartsAt] = React.useState<any>(0);
   const { team, startDate, endDate } = React.useContext(FilterContext);
   const { getAccount } = React.useContext(AccountContext);
+  const { isCoach } = React.useContext(CoachContext);
   const { id } = useParams();
 
+  const getActivePlayersId = () => {
+    const playersID = players
+      .map((player: any) => {
+        if (!player.isMuted && player.profile.id) return player.profile.id;
+      })
+      .filter((id: string) => id);
+    return playersID;
+  };
   const getTags = async (session: any) => {
     const data = await getAPI("session/video-tags", session, "", "", "", {
       key: "sessionId",
@@ -58,6 +67,10 @@ export const RecordingsPage = () => {
             key: "tagTime",
             value: parseInt(startsAt),
           },
+          // {
+          //   key: "playersID",
+          //   value: getActivePlayersId(),
+          // },
         ]);
         getTags(session);
       });
@@ -145,12 +158,8 @@ export const RecordingsPage = () => {
   };
   const onUpload = useMemo(
     () => async (files: any) => {
-      setIsLoading(true);
       getAccount().then(async (session: any) => {
         const data = await addVideoAPI(session, files[0], id);
-        if (data) {
-          setIsLoading(false);
-        }
       });
     },
     []
@@ -193,8 +202,10 @@ export const RecordingsPage = () => {
               <FieldAudioOverviewComponent
                 fieldOverview={field}
                 profiles={players}
+                isCoach={isCoach}
                 currentTime={parseInt(startsAt) * 1000}
                 isPlaying={isPlaying}
+                onChange={setPlayers}
               />
               <AddTagsComponent
                 time={parseInt(startsAt) * 1000}

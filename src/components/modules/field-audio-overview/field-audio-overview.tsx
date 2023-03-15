@@ -2,22 +2,26 @@ import React from "react";
 import style from "./field-audio-overview.module.scss";
 import { PlayerComponent } from "../../cores/player/player";
 import { IFieldOverview } from "../../../types/modules/field-overview";
-import { LoaderComponent } from "../../cores/loader/loader";
 import { ReactSVG } from "react-svg";
 import { AudioPlayerComponent } from "../../cores/audio-player/audio-player";
+import { ButtonComponent } from "../../cores/button/button";
 
-interface IFieldOverviewComponent {
+interface IFieldAudioOverviewComponent {
   fieldOverview: IFieldOverview;
   profiles: any[];
   currentTime: number;
   isPlaying: boolean;
+  onChange: (players: any) => void;
+  isCoach: boolean;
 }
 export const FieldAudioOverviewComponent = ({
   fieldOverview,
   profiles,
   currentTime,
   isPlaying,
-}: IFieldOverviewComponent) => {
+  isCoach,
+  onChange,
+}: IFieldAudioOverviewComponent) => {
   const sortPlayers = (list: any[]) => {
     if (list.length) {
       const filtertedData = list.filter(
@@ -32,28 +36,26 @@ export const FieldAudioOverviewComponent = ({
       });
     } else return [];
   };
-  const [playersList, setPlayersList] = React.useState<any[]>(profiles);
+  const [isCoachPlaying, setIsCoachPlaying] = React.useState<boolean>(false);
   const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
   const getReplacementPlayers = () => {
     return (
-      playersList &&
-      playersList.filter(
+      profiles &&
+      profiles.filter(
         (player: any) =>
           player.profile.gridX === -1 && player.profile.gridY === -1
       )
     );
   };
+  const [sliceFrom, setSliceFrom] = React.useState(0);
   const [currentPlayer, setCurrentPlayer] = React.useState<any>(
-    playersList[0] && playersList[0]
+    profiles[0] && profiles[0]
   );
   const [formation, setFormation] = React.useState<string>(
     fieldOverview.matchData.currentFormation
       ? fieldOverview.matchData.currentFormation
       : ""
   );
-  const [sliceFrom, setSliceFrom] = React.useState(0);
-
-  const [isLoading, setIsLoading] = React.useState(false);
 
   const getPlayerPosition = (position: number) => {
     const newFormation = formation.replaceAll("-", "");
@@ -62,7 +64,7 @@ export const FieldAudioOverviewComponent = ({
   };
 
   const updatePlayers = (playerTarget: any, isReclacement?: boolean) => {
-    const players = playersList.map((player, index) => {
+    const players = profiles.map((player, index) => {
       const playerCopy: any = { ...player.profile };
 
       if (playerCopy.id === playerTarget.id) {
@@ -79,11 +81,11 @@ export const FieldAudioOverviewComponent = ({
       return { ...player, profile: playerCopy };
     });
     if (players) {
-      setPlayersList(players);
+      onChange(players);
     }
   };
   const mutePlayer = (selectedPlayer: any) => {
-    const players = playersList.map((player, index) => {
+    const players = profiles.map((player, index) => {
       const playerCopy: any = { ...player };
       if (playerCopy.profile.id === selectedPlayer.id) {
         return { ...playerCopy, isMuted: !playerCopy.isMuted };
@@ -92,81 +94,82 @@ export const FieldAudioOverviewComponent = ({
       }
     });
     if (players) {
-      setPlayersList(players);
+      onChange(players);
     }
   };
-  React.useEffect(() => {
-    if (profiles) {
-      setPlayersList(profiles);
-    }
-  }, [profiles]);
   return (
     fieldOverview && (
       <div className={style["field-audio-overview"]}>
-        {!isLoading ? (
+        <div
+          className={` ${style["field-audio-overview-top"]} ${
+            style[isFlipped ? "field-audio-overview-top-rotate" : ""]
+          }  `}
+        >
+          {isCoach && (
+            <div className={style["field-audio-overview-coach"]}>
+              <ButtonComponent
+                title="coach"
+                icon="/icons/volume-up.svg"
+                variant={isCoachPlaying ? "secondary" : "disabled"}
+                onClick={() => setIsCoachPlaying(!isCoachPlaying)}
+              />
+            </div>
+          )}
+
+          <div className={style["field-audio-overview-formation"]}>
+            <span style={{ opacity: isFlipped ? "1" : "0.5" }}>
+              <ReactSVG
+                src="/icons/up-down-arrow.svg"
+                onClick={() => setIsFlipped(!isFlipped)}
+              />
+            </span>
+            <b>{formation}</b>
+          </div>
           <div
-            className={` ${style["field-audio-overview-top"]} ${
-              style[isFlipped ? "field-audio-overview-top-rotate" : ""]
-            }  `}
+            className={style["field-audio-overview-players"]}
+            style={formation === "Training" ? { paddingTop: "44px" } : {}}
           >
-            <div className={style["field-audio-overview-formation"]}>
-              <span style={{ opacity: isFlipped ? "1" : "0.6" }}>
-                <ReactSVG
-                  src="/icons/up-down-arrow.svg"
-                  onClick={() => setIsFlipped(!isFlipped)}
-                />
-              </span>
-              <b>{formation}</b>
-            </div>
-            <div
-              className={style["field-audio-overview-players"]}
-              style={formation === "Training" ? { paddingTop: "44px" } : {}}
-            >
-              {playersList &&
-                sortPlayers(playersList).map(
-                  (player, key) =>
-                    player.profile.gridX !== undefined && (
-                      <div
-                        key={key}
-                        style={
-                          formation !== "Training"
-                            ? {
-                                width:
-                                  key === 0
-                                    ? "100%"
-                                    : `${getPlayerPosition(
-                                        player.profile.gridX
-                                      )}% `,
-                              }
-                            : { width: "20%" }
-                        }
+            {profiles &&
+              sortPlayers(profiles).map(
+                (player, key) =>
+                  player.profile.gridX !== undefined && (
+                    <div
+                      key={key}
+                      style={
+                        formation !== "Training"
+                          ? {
+                              width:
+                                key === 0
+                                  ? "100%"
+                                  : `${getPlayerPosition(
+                                      player.profile.gridX
+                                    )}% `,
+                            }
+                          : { width: "20%" }
+                      }
+                    >
+                      <PlayerComponent
+                        player={player.profile}
+                        label={0}
+                        value={0}
+                        color={""}
+                        onPlayerDrag={setCurrentPlayer}
+                        onPlayerDrop={updatePlayers}
+                        onClick={() => mutePlayer(player.profile)}
                       >
-                        <PlayerComponent
-                          player={player.profile}
-                          label={0}
-                          value={0}
-                          color={""}
-                          onPlayerDrag={setCurrentPlayer}
-                          onPlayerDrop={updatePlayers}
-                          onClick={() => mutePlayer(player.profile)}
-                        >
-                          <AudioPlayerComponent
-                            audios={player.audioRecordingData}
-                            currentTime={currentTime}
-                            isPlaying={isPlaying}
-                            isMuted={player.isMuted}
-                          />
-                        </PlayerComponent>
-                      </div>
-                    )
-                )}
-            </div>
+                        <AudioPlayerComponent
+                          audios={player.audioRecordingData}
+                          currentTime={currentTime}
+                          isPlaying={isPlaying}
+                          isMuted={player.isMuted}
+                        />
+                      </PlayerComponent>
+                    </div>
+                  )
+              )}
           </div>
-        ) : (
-          <div className={style["field-audio-overview-top"]}>
-            <LoaderComponent />
-          </div>
-        )}
+        </div>
+
         {getReplacementPlayers().length > 0 && (
           <div className={style["field-audio-overview-bottom"]}>
             <div>

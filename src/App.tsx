@@ -14,6 +14,7 @@ import { SquadDetailsPage } from "./pages/squad-details/squad-details";
 import { SquadPage } from "./pages/squad/squad";
 import { CookiesProvider } from "react-cookie";
 import { RecordingsPage } from "./pages/recordings/recordings";
+import { CoachContextProvider } from "./context/coach";
 
 const App = () => {
   const [user, setUser] = React.useState<any>(undefined);
@@ -50,46 +51,51 @@ const App = () => {
     <div className="App">
       <CookiesProvider>
         <FilterContextProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <CoachContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route
+                  path="/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
 
-              <Route
-                index
-                element={addPageLayout(<DashboardPage user={user} />)}
-              />
-              {/* <Route
+                <Route
+                  index
+                  element={addPageLayout(<DashboardPage user={user} />)}
+                />
+                {/* <Route
               path="/coach"
               element={addPageLayout(<CoachPage user={user} />, "Coachs")}
             /> */}
-              <Route
-                path="/sessions"
-                element={addPageLayout(<SessionsPage />, "Sessions")}
-              />
-              <Route
-                path="/sessions/:id"
-                element={addPageLayout(<SessionDetailsPage />, "Coach")}
-              />
-              <Route
-                path="/squad"
-                element={addPageLayout(<SquadPage user={user} />, "Squads")}
-              />
-              <Route
-                path="/squad/:id"
-                element={addPageLayout(<SquadDetailsPage />, "Squad")}
-              />
-              <Route
-                path="/video-sync/:id"
-                element={addPageLayout(<RecordingsPage />, "Recordings")}
-              />
-              {/*<Route path="/recordings" element={<div>Recordings</div>} /> */}
-              <Route
-                path="/settings"
-                element={addPageLayout(<div>Settings</div>, "Settings")}
-              />
-            </Routes>
-          </BrowserRouter>
+                <Route
+                  path="/sessions"
+                  element={addPageLayout(<SessionsPage />, "Sessions")}
+                />
+                <Route
+                  path="/sessions/:id"
+                  element={addPageLayout(<SessionDetailsPage />, "Coach")}
+                />
+                <Route
+                  path="/squad"
+                  element={addPageLayout(<SquadPage user={user} />, "Squads")}
+                />
+                <Route
+                  path="/squad/:id"
+                  element={addPageLayout(<SquadDetailsPage />, "Squad")}
+                />
+                <Route
+                  path="/video-sync/:id"
+                  element={addPageLayout(<RecordingsPage />, "Recordings")}
+                />
+                {/*<Route path="/recordings" element={<div>Recordings</div>} /> */}
+                <Route
+                  path="/settings"
+                  element={addPageLayout(<div>Settings</div>, "Settings")}
+                />
+              </Routes>
+            </BrowserRouter>
+          </CoachContextProvider>
         </FilterContextProvider>
       </CookiesProvider>
     </div>

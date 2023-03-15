@@ -30,7 +30,7 @@
     }
   }
   &-players {
-    padding: 16px 4px;
+    padding: 24px 4px 12px 4px;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -39,6 +39,27 @@
       margin-bottom: 20px;
       @media (max-width: variables.$breakpoint-lg) {
         margin-bottom: 12px;
+      }
+    }
+  }
+  &-coach {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 10;
+    > div {
+      padding: 2px 4px;
+      font-size: 13px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.3;
+      }
+      > div {
+        margin-left: 4px;
+        * {
+          width: 15px;
+          height: 15px;
+        }
       }
     }
   }
