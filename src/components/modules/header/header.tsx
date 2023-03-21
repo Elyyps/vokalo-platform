@@ -25,7 +25,7 @@ export const HeaderComponent = ({ user }: Props) => {
   const { startDate, setStartDate, endDate, setEndDate } =
     React.useContext(FilterContext);
   const checkPassword = (value: string) => {
-    if (value === "123") {
+    if (value === "0000") {
       setIsCoach(true);
       setIsOpen(false);
     }

@@ -27,6 +27,7 @@ export const RecordingsPage = () => {
   const [field, setField] = React.useState<any>();
   const [players, setPlayers] = React.useState<any>([]);
   const [startsAt, setStartsAt] = React.useState<any>(0);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const { team, startDate, endDate } = React.useContext(FilterContext);
   const { getAccount } = React.useContext(AccountContext);
   const { isCoach } = React.useContext(CoachContext);
@@ -50,7 +51,7 @@ export const RecordingsPage = () => {
   const addTag = async (color: string, comment: string) => {
     if (comment) {
       getAccount().then(async (session: any) => {
-        await addVideoTagsAPI(session, [
+        await addVideoTagsAPI(session, getActivePlayersId(), [
           {
             key: "sessionId",
             value: id,
@@ -67,10 +68,6 @@ export const RecordingsPage = () => {
             key: "tagTime",
             value: parseInt(startsAt),
           },
-          // {
-          //   key: "playersID",
-          //   value: getActivePlayersId(),
-          // },
         ]);
         getTags(session);
       });
@@ -158,8 +155,12 @@ export const RecordingsPage = () => {
   };
   const onUpload = useMemo(
     () => async (files: any) => {
+      setIsLoading(true);
       getAccount().then(async (session: any) => {
-        const data = await addVideoAPI(session, files[0], id);
+        // const data = await addVideoAPI(session, files[0], id);
+        // if (data) {
+        //   setIsLoading(false);
+        // }
       });
     },
     []
@@ -174,20 +175,26 @@ export const RecordingsPage = () => {
 
   return (
     <div className={style["recordings"]}>
-      {video || audios ? (
+      {(video || audios) && (
         <div className={style["recordings-container"]}>
           <div className={style["recordings-video"]}>
-            <VideoPlayerComponent
-              src={video}
-              hasControl
-              isPlaying={isPlaying}
-              startAt={startsAt}
-              playerRef={playerRef}
-              onClick={setIsPlaying}
-              onChange={setStartsAt}
-              onUpload={onUpload}
-              tags={tags}
-            />
+            {!isLoading ? (
+              <VideoPlayerComponent
+                src={video}
+                hasControl
+                isPlaying={isPlaying}
+                startAt={startsAt}
+                playerRef={playerRef}
+                onClick={setIsPlaying}
+                onChange={setStartsAt}
+                onUpload={onUpload}
+                tags={tags}
+              />
+            ) : (
+              <div className="widget-container" style={{ minHeight: "400px" }}>
+                <LoaderComponent />
+              </div>
+            )}
             <TagsComponent
               tags={tags}
               onDelete={onDelete}
@@ -195,6 +202,7 @@ export const RecordingsPage = () => {
               onClick={(time: number) => (playerRef.current.currentTime = time)}
             />
           </div>
+
           {field && players && (
             <div
               className={` ${style["recordings-field-container"]} widget-container`}
@@ -215,8 +223,6 @@ export const RecordingsPage = () => {
             </div>
           )}
         </div>
-      ) : (
-        <LoaderComponent />
       )}
     </div>
   );

@@ -10,7 +10,11 @@ const getURL = (filters: any[]) => {
   });
   return filtersList;
 };
-export const addVideoTagsAPI = async ({ accessToken }: any, filters: any[]) => {
+export const addVideoTagsAPI = async (
+  { accessToken }: any,
+  profilesID: string[],
+  filters: any[]
+) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -18,7 +22,7 @@ export const addVideoTagsAPI = async ({ accessToken }: any, filters: any[]) => {
     },
   };
   return await axios
-    .post(`${API_URL}session/video-tag?` + getURL(filters), {}, config)
+    .post(`${API_URL}session/video-tag?` + getURL(filters), profilesID, config)
     .then((response: any) => response.data)
     .catch(console.log);
 };

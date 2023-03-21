@@ -47,21 +47,7 @@
     top: 8px;
     left: 8px;
     z-index: 10;
-    > div {
-      padding: 2px 4px;
-      font-size: 13px;
-      cursor: pointer;
-      &:hover {
-        opacity: 0.3;
-      }
-      > div {
-        margin-left: 4px;
-        * {
-          width: 15px;
-          height: 15px;
-        }
-      }
-    }
+    cursor: pointer;
   }
   &-formation {
     position: absolute;

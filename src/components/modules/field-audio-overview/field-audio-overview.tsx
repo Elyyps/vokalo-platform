@@ -25,7 +25,10 @@ export const FieldAudioOverviewComponent = ({
   const sortPlayers = (list: any[]) => {
     if (list.length) {
       const filtertedData = list.filter(
-        (player: any) => player.profile.gridX >= 0 && player.profile.gridY >= 0
+        (player: any) =>
+          player.profile.role !== "coach" &&
+          player.profile.gridX >= 0 &&
+          player.profile.gridY >= 0
       );
       return filtertedData.sort((a, b) => {
         if (a.profile.gridX === b.profile.gridX) {
@@ -51,6 +54,7 @@ export const FieldAudioOverviewComponent = ({
   const [currentPlayer, setCurrentPlayer] = React.useState<any>(
     profiles[0] && profiles[0]
   );
+  const [coachAudio, setCoachAudio] = React.useState<any>();
   const [formation, setFormation] = React.useState<string>(
     fieldOverview.matchData.currentFormation
       ? fieldOverview.matchData.currentFormation
@@ -97,6 +101,15 @@ export const FieldAudioOverviewComponent = ({
       onChange(players);
     }
   };
+  const getCoachAudio = () => {
+    const coach = profiles.find((player) => player.profile.role === "Coach");
+    if (coach) {
+      setCoachAudio(coach.audioRecordingData);
+    }
+  };
+  React.useEffect(() => {
+    getCoachAudio();
+  }, [isCoach]);
   return (
     fieldOverview && (
       <div className={style["field-audio-overview"]}>
@@ -107,12 +120,17 @@ export const FieldAudioOverviewComponent = ({
         >
           {isCoach && (
             <div className={style["field-audio-overview-coach"]}>
-              <ButtonComponent
-                title="coach"
-                icon="/icons/volume-up.svg"
-                variant={isCoachPlaying ? "secondary" : "disabled"}
-                onClick={() => setIsCoachPlaying(!isCoachPlaying)}
-              />
+              {coachAudio && coachAudio.length > 0 && (
+                <span onClick={() => setIsCoachPlaying(!isCoachPlaying)}>
+                  <AudioPlayerComponent
+                    audios={coachAudio}
+                    currentTime={currentTime}
+                    isPlaying={isPlaying}
+                    isMuted={!isCoachPlaying || !coachAudio}
+                    isCoach
+                  />
+                </span>
+              )}
             </div>
           )}
 

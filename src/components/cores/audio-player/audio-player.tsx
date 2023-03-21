@@ -1,4 +1,5 @@
 import React from "react";
+import { ReactSVG } from "react-svg";
 import style from "./audio-player.module.scss";
 import AudioVisualizer from "./audio-visualizer";
 
@@ -12,6 +13,7 @@ interface IAudioPlayerComponent {
   currentTime: number;
   isMuted?: boolean;
   audios: IAudioComponent[];
+  isCoach?: boolean;
 }
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const getAudio = () => {
@@ -58,6 +60,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
     <div
       className={`${style["audio-player"]}
        ${!props.isMuted && style["audio-player-active"]}`}
+      style={{ borderRadius: props.isCoach ? "5px" : "50%" }}
     >
       {audio && (
         <div>
@@ -71,15 +74,27 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
             crossOrigin="anonymous"
           />
           {isLoaded ? (
-            <div className={style["audio-player-image"]}>
-              {[...Array(8)].map((item, i) => (
-                <span key={i} className={style["audio-player-image-" + i]} />
-              ))}
-            </div>
+            props.isCoach ? (
+              <span
+                className={style["audio-player-coach"]}
+                style={{ opacity: props.isMuted ? "0.5" : "1" }}
+              >
+                Coach
+                <ReactSVG src="/icons/volume-up.svg" />
+              </span>
+            ) : (
+              <div className={style["audio-player-image"]}>
+                {[...Array(8)].map((item, i) => (
+                  <span key={i} className={style["audio-player-image-" + i]} />
+                ))}
+              </div>
+            )
           ) : (
             <b>. . .</b>
           )}
-          <AudioVisualizer audio={playerRef} isMuted={props.isMuted} />
+          {!props.isCoach && (
+            <AudioVisualizer audio={playerRef} isMuted={props.isMuted} />
+          )}
         </div>
       )}
     </div>
