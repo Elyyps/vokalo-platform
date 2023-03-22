@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { addVideoAPI } from "../../api/session";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { VideoPlayerComponent } from "../../components/modules/video-player/video-player";
 import { FieldAudioOverviewComponent } from "../../components/modules/field-audio-overview/field-audio-overview";

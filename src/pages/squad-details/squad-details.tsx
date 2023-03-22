@@ -1,10 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { ClassificationWidget } from "../../components/cores/classifications-widget/classifications-widget";
-import { FeedbackWidget } from "../../components/cores/feedback-widget/feedback-widget";
 import { LoaderComponent } from "../../components/cores/loader/loader";
 import { PageHeaderComponent } from "../../components/cores/page-header/page-header";
-import { ClassificationComponent } from "../../components/modules/classifications/classifications";
 import { InteractionsComponent } from "../../components/modules/interactions/interactions";
 import { PageWidgetsComponent } from "../../components/modules/page-widgets/page-widgets";
 import { SessionsComponent } from "../../components/modules/sessions/sessions";

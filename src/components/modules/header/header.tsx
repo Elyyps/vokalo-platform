@@ -6,9 +6,7 @@ import FilterContext from "../../../context/filter";
 import { DatePickerComponent } from "../../cores/date-picker/date-picker";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import Switch from "react-switch";
-
 import style from "./header.module.scss";
-import { ButtonComponent } from "../../cores/button/button";
 import CoachContext from "../../../context/coach";
 
 type Props = {

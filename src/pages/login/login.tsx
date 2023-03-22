@@ -18,7 +18,7 @@ export const LoginPage = () => {
       })
       .catch((err: any) => {
         setHasError(true);
-        //console.error("Failed to login!", err);
+        console.error("Failed to login!", err);
       });
   };
   return (
