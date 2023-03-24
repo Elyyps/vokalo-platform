@@ -1,7 +1,7 @@
-import React from "react";
 import { ITag } from "../../../types/cores/tag";
 import { TagItemComponent } from "../../cores/tag-item/tag-item";
 import style from "./tags.module.scss";
+
 interface ITagsComponent {
   tags: ITag[];
   onClick: (time: number) => void;

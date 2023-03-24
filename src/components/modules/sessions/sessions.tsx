@@ -9,6 +9,7 @@ import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
 import { Tooltip } from "../../cores/tooltip/tooltip";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions.module.scss";
+
 interface ISessionsComponent {
   sessions: ISession[];
   isSquadSessions?: boolean;

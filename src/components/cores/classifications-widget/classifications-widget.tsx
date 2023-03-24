@@ -1,13 +1,14 @@
-import React from "react";
 import style from "./classifications-widget.module.scss";
 import { IWidget } from "../../../types/cores/widget";
 import { Tooltip } from "../tooltip/tooltip";
 import { EmptyStateComponent } from "../empty-state/empty-state";
+
 interface IClassificationWidget {
   widget: IWidget;
   isBig?: boolean;
   tempoTooltip?: string;
 }
+
 export const ClassificationWidget = ({
   widget,
   isBig,

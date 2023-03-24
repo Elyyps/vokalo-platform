@@ -2,11 +2,10 @@ import React from "react";
 import { ButtonComponent } from "../button/button";
 import { DropdownComponent } from "../dropdown/dropdown";
 import style from "./date-picker.module.scss";
-import { DateRangePicker, defaultStaticRanges } from "react-date-range";
+import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { convertDateToString } from "../../../utils/convertDate";
-import { addYears, endOfYear, isSameDay, startOfYear } from "date-fns";
 import { staticRanges } from "./staticRanges";
 
 interface IDateRange {

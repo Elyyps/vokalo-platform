@@ -1,4 +1,3 @@
-import React from "react";
 import { IWidget } from "../../../types/cores/widget";
 import { ActivityWidget } from "../../cores/activity-widget/activity-widget";
 import { ClassificationWidget } from "../../cores/classifications-widget/classifications-widget";
@@ -9,6 +8,7 @@ import { Tooltip } from "../../cores/tooltip/tooltip";
 import { UsageWidget } from "../../cores/usage-widget/usage-widget";
 import { ClassificationComponent } from "../classifications/classifications";
 import style from "./page-widgets.module.scss";
+
 interface IPageWidgetsComponent {
   widgets: IWidget[];
 }

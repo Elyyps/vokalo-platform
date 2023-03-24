@@ -4,6 +4,7 @@ import { EmptyStateComponent } from "../empty-state/empty-state";
 import { Tooltip } from "../tooltip/tooltip";
 import { TrendComponent } from "../trend/trend";
 import style from "./sentiment-widget.module.scss";
+
 interface ISentimentWidget {
   widget: IWidget;
 }

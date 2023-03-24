@@ -1,4 +1,3 @@
-import React from "react";
 import { IWidget } from "../../../types/cores/widget";
 import { EmptyStateComponent } from "../empty-state/empty-state";
 import { Tooltip } from "../tooltip/tooltip";

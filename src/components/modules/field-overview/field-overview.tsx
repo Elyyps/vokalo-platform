@@ -5,16 +5,15 @@ import { IPlayer } from "../../../types/cores/player";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import { ButtonComponent } from "../../cores/button/button";
 import { IFieldOverview } from "../../../types/modules/field-overview";
-import { PlayerSwapComponent } from "../../cores/player-swap/player-swap";
 import {
   getNewFormationAPI,
-  getRangeAPI,
   updatePlayerAPI,
 } from "../../../api/field-overview";
 import { useParams } from "react-router-dom";
 import { AccountContext } from "../../../context/account";
 import { LoaderComponent } from "../../cores/loader/loader";
 import { ReactSVG } from "react-svg";
+
 interface IFieldOverviewComponent {
   fieldOverview: IFieldOverview;
   profiles: any[];

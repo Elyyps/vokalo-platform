@@ -2,6 +2,7 @@ import React from "react";
 import { IMostWords } from "../../../types/modules/most-words";
 import { TrendComponent } from "../../cores/trend/trend";
 import style from "./most-words.module.scss";
+
 interface IMostWordsComponent {
   mostWords: IMostWords;
 }

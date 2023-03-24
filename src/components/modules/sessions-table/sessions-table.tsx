@@ -7,7 +7,6 @@ import { converToDate } from "../../../utils/convertDate";
 import { converToMinutes } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { PaginationComponent } from "../../cores/pagination/pagination";
-import { TrendComponent } from "../../cores/trend/trend";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions-table.module.scss";
 

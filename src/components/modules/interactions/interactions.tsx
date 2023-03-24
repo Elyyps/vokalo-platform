@@ -8,6 +8,7 @@ import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
 import { LightBoxComponent } from "../../cores/lightbox/lightbox";
 import { Tooltip } from "../../cores/tooltip/tooltip";
 import style from "./interactions.module.scss";
+
 type ISort = {
   value: string;
   index?: number;

@@ -1,5 +1,3 @@
-import { log } from "console";
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import style from "./menu-item.module.scss";

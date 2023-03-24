@@ -1,6 +1,4 @@
-import { time } from "console";
 import React from "react";
-import { ITag } from "../../../types/cores/tag";
 import { converToMinutes } from "../../../utils/convertTime";
 import { ButtonComponent } from "../../cores/button/button";
 import { ColorPickerComponent } from "../../cores/color-picker/color-picker";

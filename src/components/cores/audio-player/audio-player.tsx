@@ -13,7 +13,7 @@ interface IAudioPlayerComponent {
   currentTime: number;
   isMuted?: boolean;
   audios: IAudioComponent[];
-  isCoach?: boolean;
+  coachNumber?: number;
 }
 export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const getAudio = () => {
@@ -60,7 +60,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
     <div
       className={`${style["audio-player"]}
        ${!props.isMuted && style["audio-player-active"]}`}
-      style={{ borderRadius: props.isCoach ? "5px" : "50%" }}
+      style={{ borderRadius: props.coachNumber ? "5px" : "50%" }}
     >
       {audio && (
         <div>
@@ -74,12 +74,12 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
             crossOrigin="anonymous"
           />
           {isLoaded ? (
-            props.isCoach ? (
+            props.coachNumber ? (
               <span
                 className={style["audio-player-coach"]}
                 style={{ opacity: props.isMuted ? "0.5" : "1" }}
               >
-                Coach
+                {props.coachNumber}
                 <ReactSVG src="/icons/volume-up.svg" />
               </span>
             ) : (
@@ -92,7 +92,7 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
           ) : (
             <b>. . .</b>
           )}
-          {!props.isCoach && (
+          {!props.coachNumber && (
             <AudioVisualizer audio={playerRef} isMuted={props.isMuted} />
           )}
         </div>

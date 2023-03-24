@@ -19,6 +19,7 @@
       background-image: url("../../../../public/img/field-flipped.png");
       .field-audio-overview-players {
         transform: rotate(180deg);
+        padding: 12px 4px 24px 4px;
         > div {
           transform: rotate(180deg);
           margin-bottom: 24px;
@@ -48,12 +49,17 @@
     left: 8px;
     z-index: 10;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    > span:last-child {
+      margin-left: 4px;
+    }
   }
   &-formation {
     position: absolute;
     top: 8px;
     right: 8px;
-    z-index: 2;
+    z-index: 10;
     display: flex;
     align-items: center;
     > span {

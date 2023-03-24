@@ -5,12 +5,14 @@ import { converToMinutes } from "../../../utils/convertTime";
 import { ButtonComponent } from "../button/button";
 import { ColorPickerComponent } from "../color-picker/color-picker";
 import style from "./tag-item.module.scss";
+
 interface ITagItemComponent {
   tag: ITag;
   onClick: (time: number) => void;
   onEdit: (tag: ITag) => void;
   onDelete: (id: string) => void;
 }
+
 export const TagItemComponent = ({
   tag,
   onClick,

@@ -16,6 +16,7 @@ import {
 } from "../../api/tags";
 import { ITag } from "../../types/cores/tag";
 import CoachContext from "../../context/coach";
+import { useCookies } from "react-cookie";
 
 export const RecordingsPage = () => {
   const playerRef = React.useRef<any>();
@@ -29,7 +30,7 @@ export const RecordingsPage = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const { team, startDate, endDate } = React.useContext(FilterContext);
   const { getAccount } = React.useContext(AccountContext);
-  const { isCoach } = React.useContext(CoachContext);
+  const [cookies] = useCookies(["coach"]);
   const { id } = useParams();
 
   const getActivePlayersId = () => {
@@ -201,7 +202,6 @@ export const RecordingsPage = () => {
               onClick={(time: number) => (playerRef.current.currentTime = time)}
             />
           </div>
-
           {field && players && (
             <div
               className={` ${style["recordings-field-container"]} widget-container`}
@@ -209,7 +209,7 @@ export const RecordingsPage = () => {
               <FieldAudioOverviewComponent
                 fieldOverview={field}
                 profiles={players}
-                isCoach={isCoach}
+                isCoach={cookies.coach?.value}
                 currentTime={parseInt(startsAt) * 1000}
                 isPlaying={isPlaying}
                 onChange={setPlayers}

@@ -1,12 +1,13 @@
-import React from "react";
 import { useCookies } from "react-cookie";
 import { DropdownComponent } from "../dropdown/dropdown";
 import style from "./pagination.module.scss";
+
 interface IPaginationComponent {
   list: any[];
   currentPage: number;
   setCurrentPage: (page: number) => void;
 }
+
 export const PaginationComponent = (props: IPaginationComponent) => {
   const [cookies, setCookie] = useCookies(["rows"]);
   const numberOfPages = Math.ceil(

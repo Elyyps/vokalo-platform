@@ -1,5 +1,6 @@
 import { ISuggestions } from "../../../types/modules/suggestions";
 import style from "./suggestions.module.scss";
+
 interface ISuggestionComponent {
   suggestions: ISuggestions;
 }

@@ -1,7 +1,7 @@
-import React from "react";
 import { ReactSVG } from "react-svg";
 import { IPlayer } from "../../../types/cores/player";
 import style from "./player.module.scss";
+
 interface IPlayerComponent {
   player: IPlayer;
   value: number;
@@ -12,6 +12,7 @@ interface IPlayerComponent {
   onClick?: () => void;
   children?: any;
 }
+
 export const PlayerComponent = (props: IPlayerComponent) => {
   const handleDragStart = (e: any) => {
     const data = JSON.stringify({ type: "card" });

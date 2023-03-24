@@ -1,8 +1,8 @@
-import React from "react";
 import style from "./classifications.module.scss";
 import { IWidget } from "../../../types/cores/widget";
 import { EmptyStateComponent } from "../../cores/empty-state/empty-state";
 import { Tooltip } from "../../cores/tooltip/tooltip";
+
 interface IClassificationComponent {
   widget: IWidget;
 }

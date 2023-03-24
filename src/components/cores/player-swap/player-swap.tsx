@@ -4,6 +4,7 @@ import { IPlayer } from "../../../types/cores/player";
 import { ReactSVG } from "react-svg";
 import { PlayerComponent } from "../player/player";
 import { Tooltip } from "../tooltip/tooltip";
+
 interface IPlayerSwapComponent {
   players: IPlayer[];
   playerName?: string;

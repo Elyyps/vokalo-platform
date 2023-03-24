@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./lightbox.module.scss";
 import ReactDOM from "react-dom";
-import { ReactSVG } from "react-svg";
+
 export interface ILightBoxComponentProps {
   children: any;
   isLightBoxOpen?: boolean;

@@ -3,11 +3,11 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
 import { IProfile } from "../../../types/modules/squad";
-import { converToHours, converToMinutes } from "../../../utils/convertTime";
+import { converToHours } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { PaginationComponent } from "../../cores/pagination/pagination";
-import { TrendComponent } from "../../cores/trend/trend";
 import style from "./squad-table.module.scss";
+
 interface ISquadTableComponent {
   squad: IProfile[];
 }

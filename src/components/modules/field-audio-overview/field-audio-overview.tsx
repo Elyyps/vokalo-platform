@@ -4,7 +4,6 @@ import { PlayerComponent } from "../../cores/player/player";
 import { IFieldOverview } from "../../../types/modules/field-overview";
 import { ReactSVG } from "react-svg";
 import { AudioPlayerComponent } from "../../cores/audio-player/audio-player";
-import { ButtonComponent } from "../../cores/button/button";
 
 interface IFieldAudioOverviewComponent {
   fieldOverview: IFieldOverview;
@@ -39,7 +38,6 @@ export const FieldAudioOverviewComponent = ({
       });
     } else return [];
   };
-  const [isCoachPlaying, setIsCoachPlaying] = React.useState<boolean>(false);
   const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
   const getReplacementPlayers = () => {
     return (
@@ -54,7 +52,6 @@ export const FieldAudioOverviewComponent = ({
   const [currentPlayer, setCurrentPlayer] = React.useState<any>(
     profiles[0] && profiles[0]
   );
-  const [coachAudio, setCoachAudio] = React.useState<any>();
   const [formation, setFormation] = React.useState<string>(
     fieldOverview.matchData.currentFormation
       ? fieldOverview.matchData.currentFormation
@@ -101,15 +98,10 @@ export const FieldAudioOverviewComponent = ({
       onChange(players);
     }
   };
-  const getCoachAudio = () => {
-    const coach = profiles.find((player) => player.profile.role === "Coach");
-    if (coach) {
-      setCoachAudio(coach.audioRecordingData);
-    }
+  const getCoachAudios = () => {
+    return profiles.filter((player) => player.profile.role === "Coach");
   };
-  React.useEffect(() => {
-    getCoachAudio();
-  }, [isCoach]);
+
   return (
     fieldOverview && (
       <div className={style["field-audio-overview"]}>
@@ -118,19 +110,19 @@ export const FieldAudioOverviewComponent = ({
             style[isFlipped ? "field-audio-overview-top-rotate" : ""]
           }  `}
         >
-          {isCoach && (
+          {isCoach && profiles && (
             <div className={style["field-audio-overview-coach"]}>
-              {coachAudio && coachAudio.length > 0 && (
-                <span onClick={() => setIsCoachPlaying(!isCoachPlaying)}>
+              {getCoachAudios().map((coach, key) => (
+                <span onClick={() => mutePlayer(coach.profile)} key={key}>
                   <AudioPlayerComponent
-                    audios={coachAudio}
+                    audios={coach.audioRecordingData}
                     currentTime={currentTime}
                     isPlaying={isPlaying}
-                    isMuted={!isCoachPlaying || !coachAudio}
-                    isCoach
+                    isMuted={coach.isMuted}
+                    coachNumber={key + 1}
                   />
                 </span>
-              )}
+              ))}
             </div>
           )}
 

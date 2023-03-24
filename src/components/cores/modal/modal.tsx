@@ -2,12 +2,14 @@ import React from "react";
 import style from "./modal.module.scss";
 import { TypeComponent } from "../type/type";
 import { ButtonComponent } from "../button/button";
+
 interface IModalComponent {
   onClick: (title: string, type: "match" | "training") => void;
   onClose: () => void;
   title: string;
   type: "match" | "training";
 }
+
 export const ModalComponent = (props: IModalComponent) => {
   const wrapperRef = React.createRef<HTMLDivElement>();
   const [title, setTitle] = React.useState<string>(props.title);

@@ -1,4 +1,3 @@
-import React from "react";
 import { DropdownComponent } from "../dropdown/dropdown";
 import style from "./color-picker.module.scss";
 

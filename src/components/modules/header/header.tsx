@@ -7,7 +7,6 @@ import { DatePickerComponent } from "../../cores/date-picker/date-picker";
 import { DropdownComponent } from "../../cores/dropdown/dropdown";
 import Switch from "react-switch";
 import style from "./header.module.scss";
-import CoachContext from "../../../context/coach";
 
 type Props = {
   user: any;
@@ -15,22 +14,22 @@ type Props = {
 export const HeaderComponent = ({ user }: Props) => {
   let navigate = useNavigate();
   const { pathname } = useLocation();
-  const [cookies, setCookie, removeCookie] = useCookies(["team"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["team", "coach"]);
   const { logout } = React.useContext(AccountContext);
-  const { isCoach, setIsCoach } = React.useContext(CoachContext);
+  //const { isCoach, setIsCoach } = React.useContext(CoachContext);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const { startDate, setStartDate, endDate, setEndDate } =
     React.useContext(FilterContext);
   const checkPassword = (value: string) => {
     if (value === "0000") {
-      setIsCoach(true);
+      setCookie("coach", { value: true });
       setIsOpen(false);
     }
   };
   const onSwitchClick = () => {
-    if (isCoach) {
-      setIsCoach(false);
+    if (cookies.coach?.value) {
+      setCookie("coach", { value: false });
       setIsOpen(false);
     } else {
       setIsOpen(true);
@@ -39,6 +38,7 @@ export const HeaderComponent = ({ user }: Props) => {
   const onLogout = () => {
     logout();
     removeCookie("team");
+    removeCookie("coach");
     navigate("/login");
   };
   const setTeam = (team: any) => {
@@ -109,7 +109,11 @@ export const HeaderComponent = ({ user }: Props) => {
                   Coach
                   <Switch
                     onChange={onSwitchClick}
-                    checked={isCoach}
+                    checked={
+                      cookies.coach && cookies.coach.value
+                        ? cookies.coach.value
+                        : false
+                    }
                     height={18}
                     width={42}
                     handleDiameter={19}
