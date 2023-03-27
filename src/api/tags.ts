@@ -29,6 +29,7 @@ export const addVideoTagsAPI = async (
 
 export const editVideoTagsAPI = async (
   { accessToken }: any,
+  profilesID: string[],
   filters: any[]
 ) => {
   const config = {
@@ -38,7 +39,7 @@ export const editVideoTagsAPI = async (
     },
   };
   return await axios
-    .put(`${API_URL}session/video-tag?` + getURL(filters), {}, config)
+    .put(`${API_URL}session/video-tag?` + getURL(filters), profilesID, config)
     .then((response: any) => response.data)
     .catch(console.log);
 };

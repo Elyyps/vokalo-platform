@@ -90,28 +90,32 @@ export const RecordingsPage = () => {
   };
   const onEdit = (tag: ITag) => {
     getAccount().then(async (session: any) => {
-      await editVideoTagsAPI(session, [
-        {
-          key: "sessionId",
-          value: id,
-        },
-        {
-          key: "videoTagId",
-          value: tag.id,
-        },
-        {
-          key: "comment",
-          value: tag.comment,
-        },
-        {
-          key: "color",
-          value: "%23" + tag.color.substring(1),
-        },
-        {
-          key: "tagTime",
-          value: tag.tagTime,
-        },
-      ]);
+      await editVideoTagsAPI(
+        session,
+        [],
+        [
+          {
+            key: "sessionId",
+            value: id,
+          },
+          {
+            key: "videoTagId",
+            value: tag.id,
+          },
+          {
+            key: "comment",
+            value: tag.comment,
+          },
+          {
+            key: "color",
+            value: "%23" + tag.color.substring(1),
+          },
+          {
+            key: "tagTime",
+            value: tag.tagTime,
+          },
+        ]
+      );
       getTags(session);
     });
   };
