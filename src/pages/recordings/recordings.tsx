@@ -15,8 +15,8 @@ import {
   editVideoTagsAPI,
 } from "../../api/tags";
 import { ITag } from "../../types/cores/tag";
-import CoachContext from "../../context/coach";
 import { useCookies } from "react-cookie";
+import { addVideoAPI } from "../../api/session";
 
 export const RecordingsPage = () => {
   const playerRef = React.useRef<any>();
@@ -161,10 +161,10 @@ export const RecordingsPage = () => {
     () => async (files: any) => {
       setIsLoading(true);
       getAccount().then(async (session: any) => {
-        // const data = await addVideoAPI(session, files[0], id);
-        // if (data) {
-        //   setIsLoading(false);
-        // }
+        const data = await addVideoAPI(session, files[0], id);
+        if (data) {
+          setIsLoading(false);
+        }
       });
     },
     []

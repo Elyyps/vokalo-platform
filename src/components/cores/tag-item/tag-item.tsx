@@ -24,6 +24,11 @@ export const TagItemComponent = ({
   const [color, setColor] = React.useState<string>(tag.color);
   const [comment, setComment] = React.useState<string>(tag.comment);
 
+  const onEditOpen = (tag: ITag) => {
+    setColor(tag.color);
+    setComment(tag.comment);
+    setIsEdit(true);
+  };
   return (
     <div className={` ${style["tag-item"]} widget-container`}>
       {!isEdit ? (
@@ -42,7 +47,7 @@ export const TagItemComponent = ({
           </div>
           <span className={style["tag-item-icons"]}>
             <ReactSVG src="/icons/export.svg" />
-            <ReactSVG src="/icons/edit.svg" onClick={() => setIsEdit(true)} />
+            <ReactSVG src="/icons/edit.svg" onClick={() => onEditOpen(tag)} />
             <ReactSVG
               src="/icons/delete.svg"
               onClick={() => setIsDelete(true)}
