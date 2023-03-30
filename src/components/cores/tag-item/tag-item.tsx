@@ -8,7 +8,7 @@ import style from "./tag-item.module.scss";
 
 interface ITagItemComponent {
   tag: ITag;
-  onClick: (time: number) => void;
+  onClick: (tag: ITag) => void;
   onEdit: (tag: ITag) => void;
   onDelete: (id: string) => void;
 }
@@ -37,7 +37,7 @@ export const TagItemComponent = ({
             <small>
               <b>{converToMinutes(tag.tagTime * 1000)}</b>
             </small>
-            <span onClick={() => tag.tagTime > 0 && onClick(tag.tagTime)}>
+            <span onClick={() => tag.tagTime > 0 && onClick(tag)}>
               <span
                 className={style["tag-item-color"]}
                 style={{ backgroundColor: tag.color }}

@@ -5,4 +5,5 @@ export type ITag = {
   comment: string;
   color: string;
   tagTime: number;
+  profileIds: string[];
 };

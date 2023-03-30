@@ -17,6 +17,7 @@ import {
 import { ITag } from "../../types/cores/tag";
 import { useCookies } from "react-cookie";
 import { addVideoAPI } from "../../api/session";
+import { IPlayer } from "../../types/cores/player";
 
 export const RecordingsPage = () => {
   const playerRef = React.useRef<any>();
@@ -41,11 +42,26 @@ export const RecordingsPage = () => {
       .filter((id: string) => id);
     return playersID;
   };
+  const onTagClicked = (tag: ITag) => {
+    playerRef.current.currentTime = tag.tagTime;
+    const newPlayers = players.map((player: any) => {
+      if (tag.profileIds && tag.profileIds.includes(player.profile.id)) {
+        player.isMuted = false;
+      } else {
+        player.isMuted = true;
+      }
+
+      return player;
+    });
+    console.log(newPlayers);
+    setPlayers(newPlayers);
+  };
   const getTags = async (session: any) => {
     const data = await getAPI("session/video-tags", session, "", "", "", {
       key: "sessionId",
       value: id,
     });
+    console.log(data.videoTags);
     setTags(data.videoTags);
   };
   const addTag = async (color: string, comment: string) => {
@@ -90,32 +106,28 @@ export const RecordingsPage = () => {
   };
   const onEdit = (tag: ITag) => {
     getAccount().then(async (session: any) => {
-      await editVideoTagsAPI(
-        session,
-        [],
-        [
-          {
-            key: "sessionId",
-            value: id,
-          },
-          {
-            key: "videoTagId",
-            value: tag.id,
-          },
-          {
-            key: "comment",
-            value: tag.comment,
-          },
-          {
-            key: "color",
-            value: "%23" + tag.color.substring(1),
-          },
-          {
-            key: "tagTime",
-            value: tag.tagTime,
-          },
-        ]
-      );
+      await editVideoTagsAPI(session, getActivePlayersId(), [
+        {
+          key: "sessionId",
+          value: id,
+        },
+        {
+          key: "videoTagId",
+          value: tag.id,
+        },
+        {
+          key: "comment",
+          value: tag.comment,
+        },
+        {
+          key: "color",
+          value: "%23" + tag.color.substring(1),
+        },
+        {
+          key: "tagTime",
+          value: tag.tagTime,
+        },
+      ]);
       getTags(session);
     });
   };
@@ -140,7 +152,7 @@ export const RecordingsPage = () => {
       }
       return { ...item, isMuted: true };
     });
-    console.log(newList);
+    // console.log(newList);
     setPlayers(newList);
   };
   const getVideoData = async (session: any) => {
@@ -203,7 +215,7 @@ export const RecordingsPage = () => {
               tags={tags}
               onDelete={onDelete}
               onEdit={onEdit}
-              onClick={(time: number) => (playerRef.current.currentTime = time)}
+              onClick={onTagClicked}
             />
           </div>
           {field && players && (

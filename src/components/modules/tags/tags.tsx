@@ -4,7 +4,7 @@ import style from "./tags.module.scss";
 
 interface ITagsComponent {
   tags: ITag[];
-  onClick: (time: number) => void;
+  onClick: (tag: ITag) => void;
   onEdit: (tag: ITag) => void;
   onDelete: (id: string) => void;
 }
