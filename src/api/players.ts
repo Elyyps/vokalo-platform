@@ -2,8 +2,8 @@ import { IPlayer } from "../types/cores/player";
 
 export const playersData = (): IPlayer[] => [
   {
-    firstName: "player-0",
-    lastName: "",
+    firstName: "Alexander",
+    lastName: "Plagborg",
     id: 50,
     gridX: 0,
     gridY: 1,
@@ -11,8 +11,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-1",
-    lastName: "",
+    firstName: "Andreas",
+    lastName: "Louridsen",
     id: 51,
     gridX: 1,
     gridY: 1,
@@ -20,8 +20,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-2",
-    lastName: "",
+    firstName: "Christan",
+    lastName: "Jorgensen",
     id: 52,
     gridX: 1,
     gridY: 2,
@@ -29,8 +29,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-3",
-    lastName: "",
+    firstName: "Gabriel",
+    lastName: "Shawol",
     id: 53,
     gridX: 1,
     gridY: 3,
@@ -38,8 +38,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-4",
-    lastName: "",
+    firstName: "Jakob",
+    lastName: "Agger",
     id: 54,
     gridX: 1,
     gridY: 4,
@@ -47,8 +47,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-5",
-    lastName: "",
+    firstName: "Alexander",
+    lastName: "Jorgensen",
     id: 55,
     gridX: 2,
     gridY: 1,
@@ -56,8 +56,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-6",
-    lastName: "",
+    firstName: "Agger",
+    lastName: "Christan",
     id: 56,
     gridX: 2,
     gridY: 2,
@@ -65,8 +65,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-7",
-    lastName: "",
+    firstName: "Jorgensen",
+    lastName: "Jorgensen",
     id: 57,
     gridX: 3,
     gridY: 1,
@@ -74,8 +74,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-8",
-    lastName: "",
+    firstName: "Alexander",
+    lastName: "Shawol",
     id: 58,
     gridX: 3,
     gridY: 2,
@@ -83,8 +83,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-9",
-    lastName: "",
+    firstName: "Christan",
+    lastName: "Agger",
     id: 59,
     gridX: 3,
     gridY: 3,
@@ -92,8 +92,8 @@ export const playersData = (): IPlayer[] => [
     ghost: false,
   },
   {
-    firstName: "player-10",
-    lastName: "",
+    firstName: "Shawol",
+    lastName: "Jorgensen",
     id: 60,
     gridX: 4,
     gridY: 1,

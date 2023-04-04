@@ -17,7 +17,6 @@ import {
 import { ITag } from "../../types/cores/tag";
 import { useCookies } from "react-cookie";
 import { addVideoAPI } from "../../api/session";
-import { IPlayer } from "../../types/cores/player";
 
 export const RecordingsPage = () => {
   const playerRef = React.useRef<any>();

@@ -11,7 +11,7 @@ export interface IDropdownComponent {
   hasBorder?: boolean;
   isColor?: boolean;
   contentPosition?: "right" | "left" | "top";
-  variant?: "transparent" | "disabled";
+  variant?: "transparent" | "disabled" | "admin";
   children: any;
   isClosed?: boolean;
   onClick?: (event: any) => void;

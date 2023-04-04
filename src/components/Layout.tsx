@@ -8,9 +8,10 @@ type Props = {
   children?: any;
   user?: any;
   title: string;
+  isAdmin?: boolean;
 };
 
-const Layout = ({ children, user, title }: Props) => {
+const Layout = ({ children, user, title, isAdmin }: Props) => {
   return (
     <HelmetProvider>
       <div className="layout">
@@ -27,14 +28,16 @@ const Layout = ({ children, user, title }: Props) => {
             content="Amazing app to manage sport games"
           />
         </Helmet>
-        <div className="layout-sidebar">
+        <div className={`layout-sidebar ${isAdmin && "layout-sidebar-admin"}`}>
           <SidebarComponent sidebarModule={sidebarData()} />
         </div>
-        <div className="layout-body">
+        <div className={`layout-body ${isAdmin && "layout-body-admin"}`}>
           <div className="container">
-            <div className="layout-header">
-              <HeaderComponent user={user} />
-            </div>
+            {!isAdmin && (
+              <div className="layout-header">
+                <HeaderComponent user={user} />
+              </div>
+            )}
             <div className="layout-content">{children}</div>
           </div>
         </div>

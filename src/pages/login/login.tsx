@@ -10,16 +10,18 @@ export const LoginPage = () => {
   const [hasError, setHasError] = React.useState(false);
   const account = React.useContext(AccountContext);
   const onSubmit = (e: any) => {
-    account
-      // .authenticate("vokalo-fcn@vokalo.io", "tW6ui23bt")
-      .authenticate(e.username, e.password)
-      .then((data: any) => {
-        navigate("/sessions");
-      })
-      .catch((err: any) => {
-        setHasError(true);
-        console.error("Failed to login!", err);
-      });
+    e.username === "admin@vokalo.io"
+      ? navigate("/admin")
+      : account
+          // .authenticate("vokalo-fcn@vokalo.io", "tW6ui23bt")
+          .authenticate(e.username, e.password)
+          .then(() => {
+            navigate("/sessions");
+          })
+          .catch((err: any) => {
+            setHasError(true);
+            console.error("Failed to login!", err);
+          });
   };
   return (
     <div className={style["login"]}>

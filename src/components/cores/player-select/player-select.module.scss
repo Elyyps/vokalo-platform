@@ -1,0 +1,59 @@
+@use "src/variables";
+
+.player-select {
+  position: relative;
+  &-dropdown {
+    > div:first-child {
+      height: 40px;
+    }
+  }
+  &-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    left: 0;
+    background-color: white;
+    border: 1px solid variables.$tertiary-color;
+    border-radius: 5px;
+    z-index: 100;
+    white-space: nowrap;
+    > input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 8px;
+    }
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      > li {
+        cursor: pointer;
+        padding: 4px 12px;
+        display: flex;
+        align-items: center;
+        text-transform: capitalize;
+        > input {
+          margin-right: 8px;
+        }
+        &:hover {
+          background-color: rgba($color: variables.$tertiary-color, $alpha: 1);
+        }
+        &:not(:last-child) {
+          border-bottom: 1px solid variables.$tertiary-color;
+        }
+      }
+    }
+    &-open {
+      display: block;
+    }
+  }
+  &-list {
+    margin-top: 16px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    > div {
+      margin-right: 24px;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@use "src/variables";
+
+.team-item {
+  display: flex;
+  height: 80px;
+  border-radius: 10px;
+  border: 1px solid variables.$tertiary-color;
+  box-shadow: 3px 5px rgba($color: variables.$primary-color, $alpha: 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  &-left {
+    width: calc(100% - 35px);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: variables.$primary-color;
+    > span {
+      font-size: 20px;
+    }
+  }
+  &-right {
+    width: 35px;
+    position: relative;
+    background-color: variables.$admin-color;
+    font-size: 13px;
+    > span {
+      color: white;
+      white-space: nowrap;
+      position: absolute;
+      right: -10px;
+      bottom: 32px;
+      display: flex;
+      justify-content: center;
+      transform: rotate(90deg);
+    }
+  }
+}

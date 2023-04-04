@@ -49,6 +49,15 @@
       color: black;
     }
   }
+  &-admin {
+    color: white;
+    background-color: variables.$admin-color;
+    border-radius: 5px;
+    text-transform: capitalize;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
   &-icon {
     margin-left: 8px;
     svg {

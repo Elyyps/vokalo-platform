@@ -1,0 +1,16 @@
+@use "src/variables";
+
+.admin-teams {
+  &-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: calc(100% + 12px);
+    > div {
+      box-sizing: border-box;
+      width: calc(20% - 12px);
+      margin-right: 12px;
+      margin-bottom: 16px;
+    }
+  }
+}

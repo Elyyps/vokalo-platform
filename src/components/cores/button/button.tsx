@@ -6,7 +6,7 @@ export interface IButtonComponent {
   title?: string;
   icon?: string;
   position?: "right" | "left" | "top";
-  variant?: "transparent" | "secondary" | "disabled";
+  variant?: "transparent" | "secondary" | "disabled" | "admin";
   hasBorder?: boolean;
   isDropdown?: boolean;
   isColor?: boolean;
@@ -36,7 +36,9 @@ export const ButtonComponent = (props: IButtonComponent) => {
       className={` ${style["button"]} ${!variant && style["button-default"]} ${
         variant === "secondary"
           ? style["button-secondary"]
-          : variant === "disabled" && style["button-disabled"]
+          : variant === "disabled"
+          ? style["button-disabled"]
+          : variant === "admin" && style["button-admin"]
       } ${hasBorder && style["button-border"]} ${
         position === "top" && style["button-top"]
       }`}

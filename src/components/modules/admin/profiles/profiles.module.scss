@@ -1,0 +1,80 @@
+@use "src/variables";
+
+.admin-profiles {
+  &-table {
+    background-color: white;
+    border-radius: 10px;
+    overflow-x: auto;
+    table {
+      min-width: 1100px;
+      width: 100%;
+      border-collapse: collapse;
+      thead {
+        height: 50px;
+        background-color: variables.$admin-color;
+        color: white;
+      }
+      tbody tr {
+        height: 50px;
+        border-bottom: 1px solid #f3f3f3;
+        cursor: pointer;
+        &:hover {
+          background-color: rgba($color: variables.$admin-color, $alpha: 0.1);
+        }
+      }
+      th,
+      td {
+        text-align: left;
+        text-transform: capitalize;
+        padding: 8px;
+        &:last-child {
+          width: 15px;
+          padding-right: 16px;
+          svg {
+            height: 18px;
+          }
+        }
+      }
+      thead tr {
+        th > span {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          font-weight: normal;
+          svg {
+            width: 12px;
+            height: 10px;
+            margin-left: 8px;
+          }
+        }
+      }
+    }
+    &-language svg {
+      width: 22px;
+      height: 18px;
+    }
+
+    &-video {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      border-radius: 10px;
+      padding: 4px 8px;
+      width: fit-content;
+      border: 1px solid variables.$secondary-color;
+      background-color: #f3f3f3;
+      &:hover {
+        background-color: #dadada;
+      }
+      svg {
+        margin-right: 4px;
+        margin-top: 2px;
+        width: 14px;
+        height: 14px;
+      }
+      &-upload {
+        border-style: dashed;
+      }
+    }
+  }
+}

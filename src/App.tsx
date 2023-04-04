@@ -15,6 +15,9 @@ import { SquadPage } from "./pages/squad/squad";
 import { CookiesProvider } from "react-cookie";
 import { RecordingsPage } from "./pages/recordings/recordings";
 import { CoachContextProvider } from "./context/coach";
+import { AdminDashboardPage } from "./pages/admin/dashboard/dashboard";
+import { AdminCreateTeamPage } from "./pages/admin/create-team/create-team";
+import { AdminCreateProfilePage } from "./pages/admin/create-profile/create-profile";
 
 const App = () => {
   const [user, setUser] = React.useState<any>(undefined);
@@ -31,20 +34,25 @@ const App = () => {
       .catch(() => setUser(undefined));
   }, [isLogged]);
 
-  const addPageLayout = (component: any, title?: string) => {
+  const addPageLayout = (component: any, title?: string, isAdmin?: boolean) => {
     let defaultTitle = "Vokalo";
     if (title) {
       defaultTitle = defaultTitle.concat(" | " + title);
     }
-    return isLogged === false ? (
-      <Navigate to={"/login"} />
-    ) : (
-      user && (
-        <Layout user={user} title={defaultTitle}>
-          {component}
-        </Layout>
-      )
+    return (
+      <Layout user={user} title={defaultTitle} isAdmin={isAdmin}>
+        {component}
+      </Layout>
     );
+    // return isLogged === false ? (
+    //   <Navigate to={"/login"} />
+    // ) : (
+    //   user && (
+    //     <Layout user={user} title={defaultTitle} isAdmin={isAdmin}>
+    //       {component}
+    //     </Layout>
+    //   )
+    // );
   };
 
   return (
@@ -92,6 +100,26 @@ const App = () => {
                 <Route
                   path="/settings"
                   element={addPageLayout(<div>Settings</div>, "Settings")}
+                />
+                <Route
+                  path="/admin"
+                  element={addPageLayout(<AdminDashboardPage />, "Admin", true)}
+                />
+                <Route
+                  path="/admin/create-team"
+                  element={addPageLayout(
+                    <AdminCreateTeamPage />,
+                    "Admin Create Team",
+                    true
+                  )}
+                />
+                <Route
+                  path="/admin/create-profile"
+                  element={addPageLayout(
+                    <AdminCreateProfilePage />,
+                    "Admin Create Profile",
+                    true
+                  )}
                 />
               </Routes>
             </BrowserRouter>

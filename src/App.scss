@@ -15,8 +15,10 @@
   min-height: 100vh;
   &-sidebar {
     z-index: 100;
-    background-color: variables.$primary-color;
     width: fit-content;
+    &-admin > div {
+      background-color: variables.$admin-color;
+    }
   }
   &-body {
     background-color: #f5f5f5;
@@ -24,6 +26,9 @@
     // @media (max-width: variables.$breakpoint-lg) {
     width: calc(100% - 50px);
     // }
+    &-admin {
+      //   background-color: variables.$primary-color;
+    }
   }
   &-content {
     margin-top: 36px;
@@ -128,6 +133,20 @@
   }
   &-NEUTRAL {
     background-color: #f0e050;
+  }
+}
+.admin-header {
+  // color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid variables.$tertiary-color;
+  > span {
+    padding: 0 8px 12px 8px;
+    margin-bottom: -19px;
+    border-bottom: 3px solid variables.$admin-color;
   }
 }
 input[type="checkbox"] {
