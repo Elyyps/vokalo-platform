@@ -9,7 +9,7 @@ export const TeamIteamComponent = (team: ITeam) => {
         <span>{team.name}</span>
       </div>
       <div className={style["team-item-right"]}>
-        <span>{team.profileIds.length} players</span>
+        <span>{team.playersIds.length} players</span>
       </div>
     </div>
   );

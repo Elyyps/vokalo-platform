@@ -1,9 +1,10 @@
 import { ReactSVG } from "react-svg";
 import { IPlayer } from "../../../types/cores/player";
 import style from "./player.module.scss";
+import { LoaderComponent } from "../loader/loader";
 
 interface IPlayerComponent {
-  player: IPlayer;
+  player?: IPlayer;
   value: number;
   label: number;
   color: string;
@@ -17,7 +18,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
   const handleDragStart = (e: any) => {
     const data = JSON.stringify({ type: "card" });
     e.dataTransfer.setData("text/plain", data);
-    props.onPlayerDrag(props.player);
+    props.player && props.onPlayerDrag(props.player);
   };
   const handleDragEnd = (e: any) => {
     e.dataTransfer.clearData();
@@ -37,7 +38,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
       props.onPlayerDrop(playerTarget);
     }
   };
-  return (
+  return props.player ? (
     <div
       className={`${style["player"]} ${style["player-" + props.player.gridX]}`}
       style={{ opacity: props.player.ghost ? 0.5 : 1 }}
@@ -49,7 +50,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}
-        onDrop={(e) => handleDrop(e, props.player)}
+        onDrop={(e) => props.player && handleDrop(e, props.player)}
         draggable
       >
         {!props.children ? <span>{props.label}</span> : props.children}
@@ -70,5 +71,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
           : ""}
       </span>
     </div>
+  ) : (
+    <LoaderComponent />
   );
 };

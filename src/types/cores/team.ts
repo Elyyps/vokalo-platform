@@ -1,5 +1,6 @@
 export type ITeam = {
-  id: string;
+  id: number;
   name: string;
-  profileIds: string[];
+  playersIds: number[];
+  coachesIds: number[];
 };

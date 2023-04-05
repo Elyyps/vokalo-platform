@@ -1,5 +1,5 @@
 import React from "react";
-import { sidebarData } from "../api/sidebar";
+import { sidebarAdminData, sidebarData } from "../api/sidebar";
 import { HeaderComponent } from "./modules/header/header";
 import { SidebarComponent } from "./modules/sidebar/sidebar";
 import { Helmet, HelmetProvider } from "react-helmet-async";
@@ -29,7 +29,9 @@ const Layout = ({ children, user, title, isAdmin }: Props) => {
           />
         </Helmet>
         <div className={`layout-sidebar ${isAdmin && "layout-sidebar-admin"}`}>
-          <SidebarComponent sidebarModule={sidebarData()} />
+          <SidebarComponent
+            sidebarModule={isAdmin ? sidebarAdminData() : sidebarData()}
+          />
         </div>
         <div className={`layout-body ${isAdmin && "layout-body-admin"}`}>
           <div className="container">

@@ -1,0 +1,23 @@
+@use "src/variables";
+
+.view-team {
+  &-form {
+    > div {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      > small {
+        color: variables.$secondary-color;
+      }
+      > div {
+        margin-top: 12px;
+        min-height: 180px;
+        display: flex;
+        flex-wrap: wrap;
+        > div {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+}

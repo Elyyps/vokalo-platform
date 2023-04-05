@@ -16,3 +16,10 @@ export const sidebarData = (): ISidebar => ({
     // { title: "Settings", icon: "/icons/settings.svg", route: "/settings" },
   ],
 });
+export const sidebarAdminData = (): ISidebar => ({
+  logo: "Vokalo",
+  items: [
+    { title: "Admin panel", icon: "/icons/dashboard.svg", route: "/admin" },
+    { title: "Settings", icon: "/icons/settings.svg", route: "#" },
+  ],
+});

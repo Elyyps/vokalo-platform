@@ -22,7 +22,9 @@ export const AdminTeamsComponent = (props: IAdminTeamsComponent) => {
       </div>
       <div className={style["admin-teams-list"]}>
         {props.teams.map((team, key) => (
-          <TeamIteamComponent {...team} key={key} />
+          <div key={key} onClick={() => navigate("/admin/team/" + team.id)}>
+            <TeamIteamComponent {...team} />
+          </div>
         ))}
       </div>
     </div>

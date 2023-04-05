@@ -5,12 +5,14 @@ import { AdminProfilesComponent } from "../../../components/modules/admin/profil
 import { AdminTeamsComponent } from "../../../components/modules/admin/teams/teams";
 import { ITeam } from "../../../types/cores/team";
 const teams: ITeam[] = [
-  { id: "0", name: "ASA", profileIds: ["", "", ""] },
-  { id: "0", name: "ASA2", profileIds: [""] },
-  { id: "0", name: "ASA3", profileIds: ["", "", "", "", "", ""] },
-  // { id: "0", name: "ASA4", profileIds: [""] },
-  // { id: "0", name: "ASA5", profileIds: [""] },
-  // { id: "0", name: "ASA6", profileIds: [""] },
+  { id: 0, name: "ASA", playersIds: [50, 51, 52], coachesIds: [59] },
+  { id: 1, name: "ASA2", playersIds: [59], coachesIds: [58] },
+  {
+    id: 2,
+    name: "ASA3",
+    playersIds: [53, 54, 55, 56, 57, 58],
+    coachesIds: [58],
+  },
 ];
 export const AdminDashboardPage = () => {
   return (

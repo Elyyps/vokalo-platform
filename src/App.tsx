@@ -18,6 +18,7 @@ import { CoachContextProvider } from "./context/coach";
 import { AdminDashboardPage } from "./pages/admin/dashboard/dashboard";
 import { AdminCreateTeamPage } from "./pages/admin/create-team/create-team";
 import { AdminCreateProfilePage } from "./pages/admin/create-profile/create-profile";
+import { AdminViewTeamPage } from "./pages/admin/view-team/view-team";
 
 const App = () => {
   const [user, setUser] = React.useState<any>(undefined);
@@ -118,6 +119,14 @@ const App = () => {
                   element={addPageLayout(
                     <AdminCreateProfilePage />,
                     "Admin Create Profile",
+                    true
+                  )}
+                />
+                <Route
+                  path="/admin/team/:id"
+                  element={addPageLayout(
+                    <AdminViewTeamPage />,
+                    "Admin View Team",
                     true
                   )}
                 />
