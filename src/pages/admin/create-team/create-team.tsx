@@ -5,6 +5,7 @@ import { PlayerSelectCompenent } from "../../../components/cores/player-select/p
 import style from "./create-team.module.scss";
 import { IPlayer } from "../../../types/cores/player";
 import { ButtonComponent } from "../../../components/cores/button/button";
+import { useNavigate } from "react-router-dom";
 interface IAdminCreateTeamPage {
   //onSubmit: (name: string, players: IPlayer[], coaches: IPlayer[]) => void;
 }
@@ -12,9 +13,22 @@ export const AdminCreateTeamPage = (props: IAdminCreateTeamPage) => {
   const [players, setPlayers] = React.useState<IPlayer[]>([]);
   const [coaches, setCoaches] = React.useState<IPlayer[]>([]);
   const [name, setName] = React.useState<string>("");
-  const onClick = () => {
-    // props.onSubmit(name, players, coaches);
+  let navigate = useNavigate();
+
+  const getProfiles = () => {
+    const player = playersData().map((player) => {
+      return {
+        ...player,
+        isChecked: false,
+      };
+    });
+    setPlayers(player);
+    setCoaches(player);
   };
+  React.useEffect(() => {
+    getProfiles();
+  }, []);
+
   return (
     <div className={style["create-team"]}>
       <PageHeaderComponent
@@ -25,7 +39,11 @@ export const AdminCreateTeamPage = (props: IAdminCreateTeamPage) => {
         list={[]}
         onSelect={() => ""}
       >
-        <ButtonComponent title="Create" variant="admin" />
+        <ButtonComponent
+          title="Create"
+          variant="admin"
+          onClick={() => navigate("/admin")}
+        />
       </PageHeaderComponent>
       <div className={style["create-team-form"]}>
         <div>
@@ -41,8 +59,9 @@ export const AdminCreateTeamPage = (props: IAdminCreateTeamPage) => {
             Players <small>(Assign players to this team)</small>
           </label>
           <PlayerSelectCompenent
-            players={playersData()}
+            players={players}
             onSelect={setPlayers}
+            isEdit
           />
         </div>
         <div>
@@ -50,8 +69,9 @@ export const AdminCreateTeamPage = (props: IAdminCreateTeamPage) => {
             Coaches <small>(Assign coaches to this team)</small>
           </label>
           <PlayerSelectCompenent
-            players={playersData()}
+            players={coaches}
             onSelect={setCoaches}
+            isEdit
           />
         </div>
       </div>

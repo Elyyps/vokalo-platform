@@ -1,6 +1,21 @@
 @use "src/variables";
 
 .view-team {
+  &-buttons {
+    display: flex;
+    > div:last-child {
+      border-radius: 5px;
+      margin-left: 12px;
+      svg {
+        margin-top: 2px;
+        width: 14px;
+        height: 14px;
+        path {
+          fill: transparent;
+        }
+      }
+    }
+  }
   &-form {
     > div {
       margin-top: 28px;
@@ -11,12 +26,6 @@
       }
       > div {
         margin-top: 12px;
-        min-height: 180px;
-        display: flex;
-        flex-wrap: wrap;
-        > div {
-          margin-right: 16px;
-        }
       }
     }
   }

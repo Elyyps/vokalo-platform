@@ -3,6 +3,7 @@
 .player-select {
   position: relative;
   &-dropdown {
+    width: 100%;
     > div:first-child {
       height: 40px;
     }

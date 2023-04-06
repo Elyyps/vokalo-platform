@@ -4,7 +4,7 @@ import style from "./player.module.scss";
 import { LoaderComponent } from "../loader/loader";
 
 interface IPlayerComponent {
-  player?: IPlayer;
+  player: IPlayer;
   value: number;
   label: number;
   color: string;
@@ -18,7 +18,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
   const handleDragStart = (e: any) => {
     const data = JSON.stringify({ type: "card" });
     e.dataTransfer.setData("text/plain", data);
-    props.player && props.onPlayerDrag(props.player);
+    props.onPlayerDrag(props.player);
   };
   const handleDragEnd = (e: any) => {
     e.dataTransfer.clearData();
@@ -50,7 +50,7 @@ export const PlayerComponent = (props: IPlayerComponent) => {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         onDragOver={handleDragOver}
-        onDrop={(e) => props.player && handleDrop(e, props.player)}
+        onDrop={(e) => handleDrop(e, props.player)}
         draggable
       >
         {!props.children ? <span>{props.label}</span> : props.children}
