@@ -5,7 +5,6 @@ import { PageHeaderComponent } from "../../../components/cores/page-header/page-
 import style from "./view-team.module.scss";
 import { ITeam } from "../../../types/cores/team";
 import { LoaderComponent } from "../../../components/cores/loader/loader";
-import { PlayerComponent } from "../../../components/cores/player/player";
 import { ButtonComponent } from "../../../components/cores/button/button";
 import { PlayerSelectCompenent } from "../../../components/cores/player-select/player-select";
 import { IPlayer } from "../../../types/cores/player";

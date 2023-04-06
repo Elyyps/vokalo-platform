@@ -10,7 +10,6 @@ interface IPlayerSelectCompenent {
   isEdit?: boolean;
 }
 export const PlayerSelectCompenent = (props: IPlayerSelectCompenent) => {
-  const [profiles, setProfiles] = React.useState<IPlayer[]>([]);
   const [search, setSearch] = React.useState<string>("");
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const wrapperRef = React.createRef<HTMLDivElement>();
