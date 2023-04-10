@@ -1,0 +1,19 @@
+.create-profile {
+  &-form {
+    > div {
+      margin-bottom: 12px;
+      label {
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      > input {
+        padding: 0 8px;
+        height: 40px;
+        border-radius: 5px;
+        border-color: #d5d5d5;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  }
+}

@@ -53,7 +53,11 @@ export const DropdownComponent = (props: IDropdownComponent) => {
           />
         </div>
       ) : (
-        <div className={style[isOpen && !props.icon ? "open" : ""]}>
+        <div
+          className={` ${style[isOpen && !props.icon ? "open" : ""]} ${
+            props.variant === "admin" && style["dropdown-admin"]
+          }`}
+        >
           <ButtonComponent
             title={props.title}
             icon={props.icon}
@@ -70,7 +74,7 @@ export const DropdownComponent = (props: IDropdownComponent) => {
       )}
       <div
         className={` ${style["dropdown-content"]} 
-        ${props.isProfile && style["dropdown-content-profile"]}
+        ${props.isProfile && style["dropdown-content-profile"]}  
         ${isOpen && style["dropdown-content-open"]} ${
           props.contentPosition === "right" && style["dropdown-content-right"]
         }`}

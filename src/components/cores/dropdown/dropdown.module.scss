@@ -19,6 +19,14 @@
       justify-content: center;
     }
   }
+  &-admin {
+    > div {
+      min-height: 40px;
+      svg path {
+        fill: white;
+      }
+    }
+  }
   &-content {
     display: none;
     position: absolute;

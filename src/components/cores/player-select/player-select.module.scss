@@ -33,11 +33,19 @@
         display: flex;
         align-items: center;
         text-transform: capitalize;
-        > input {
+        > input[type="checkbox"] {
           margin-right: 8px;
+          cursor: pointer;
+          width: 15px;
+          height: 15px;
+          accent-color: variables.$admin-color;
+          &:checked {
+            content: "\002714";
+            background-color: variables.$admin-color !important;
+          }
         }
         &:hover {
-          background-color: rgba($color: variables.$tertiary-color, $alpha: 1);
+          background-color: rgba($color: variables.$admin-color, $alpha: 0.3);
         }
         &:not(:last-child) {
           border-bottom: 1px solid variables.$tertiary-color;
