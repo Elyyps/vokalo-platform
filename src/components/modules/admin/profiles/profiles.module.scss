@@ -13,11 +13,17 @@
         height: 50px;
         background-color: variables.$admin-color;
         color: white;
+        @media (max-width: variables.$breakpoint-lg) {
+          height: 40px;
+        }
       }
       tbody tr {
         height: 50px;
         border-bottom: 1px solid #f3f3f3;
         cursor: pointer;
+        @media (max-width: variables.$breakpoint-lg) {
+          height: 40px;
+        }
         &:hover {
           background-color: rgba($color: variables.$admin-color, $alpha: 0.1);
         }

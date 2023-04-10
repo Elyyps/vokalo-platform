@@ -8,6 +8,9 @@
   box-shadow: 3px 5px rgba($color: variables.$primary-color, $alpha: 0.2);
   overflow: hidden;
   cursor: pointer;
+  @media (max-width: variables.$breakpoint-lg) {
+    height: 60px;
+  }
   &-left {
     width: calc(100% - 35px);
     background-color: white;
@@ -16,8 +19,14 @@
     justify-content: center;
     flex-direction: column;
     color: variables.$primary-color;
+    @media (max-width: variables.$breakpoint-lg) {
+      width: calc(100% - 28px);
+    }
     > span {
-      font-size: 20px;
+      font-size: 24px;
+      @media (max-width: variables.$breakpoint-lg) {
+        font-size: 20px;
+      }
     }
   }
   &-right {
@@ -25,6 +34,10 @@
     position: relative;
     background-color: variables.$admin-color;
     font-size: 13px;
+    @media (max-width: variables.$breakpoint-lg) {
+      width: 28px;
+      font-size: 11px;
+    }
     > span {
       color: white;
       white-space: nowrap;
@@ -34,6 +47,9 @@
       display: flex;
       justify-content: center;
       transform: rotate(90deg);
+      @media (max-width: variables.$breakpoint-lg) {
+        bottom: 26px;
+      }
     }
   }
 }

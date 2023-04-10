@@ -4,6 +4,9 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
+  @media (max-width: variables.$breakpoint-lg) {
+    margin-bottom: 16px;
+  }
   h2 {
     margin: 0;
     font-size: 30px;
@@ -11,6 +14,9 @@
     display: flex;
     align-items: center;
     width: fit-content;
+    @media (max-width: variables.$breakpoint-lg) {
+      font-size: 24px;
+    }
     > div {
       margin-right: 16px;
       svg {
