@@ -146,6 +146,10 @@
     padding: 0 8px 12px 8px;
     margin-bottom: -19px;
     border-bottom: 3px solid variables.$admin-color;
+    font-size: 18px;
+    @media (max-width: variables.$breakpoint-lg) {
+      font-size: 14px;
+    }
   }
 }
 input[type="checkbox"] {
