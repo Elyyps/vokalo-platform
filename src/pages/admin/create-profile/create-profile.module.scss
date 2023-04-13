@@ -29,12 +29,12 @@
         }
         input {
           padding: 0 8px;
-          height: 40px;
+          height: 45px;
           border-radius: 5px;
           border-color: #d5d5d5;
           box-sizing: border-box;
           @media (max-width: variables.$breakpoint-lg) {
-            height: 35px;
+            height: 40px;
           }
         }
       }

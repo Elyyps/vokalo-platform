@@ -21,9 +21,11 @@
   }
   &-admin {
     > div {
-      min-height: 40px;
+      min-height: 45px;
+      height: 45px;
       @media (max-width: variables.$breakpoint-lg) {
-        min-height: 35px;
+        min-height: 40px;
+        height: 40px;
       }
       svg path {
         fill: white;

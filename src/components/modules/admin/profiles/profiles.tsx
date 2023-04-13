@@ -58,6 +58,7 @@ export const AdminProfilesComponent = () => {
                   >
                     <ul>
                       <li>edit</li>
+                      <li>delete</li>
                     </ul>
                   </DropdownComponent>
                 </td>

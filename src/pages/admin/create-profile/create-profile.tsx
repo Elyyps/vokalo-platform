@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 import { PageHeaderComponent } from "../../../components/cores/page-header/page-header";
 import { ButtonComponent } from "../../../components/cores/button/button";
 import style from "./create-profile.module.scss";
@@ -16,22 +17,72 @@ const teams: ITeam[] = [
     coachesIds: [58],
   },
 ];
-const positions = ["GK", "LB", "CB", "RB", "LM", "CM", "RM", "S"];
-const languages = [
-  "English",
-  "German",
-  "Danish",
-  "French",
-  "Spanish",
-  "Italian",
-  "Swedish",
+const positions = [
+  { value: "gk", label: "GK" },
+  { value: "lb", label: "LB" },
+  { value: "cb", label: "CB" },
+  { value: "rb", label: "RB" },
+  { value: "lm", label: "LM" },
+  { value: "cm", label: "CM" },
+  { value: "rm", label: "RM" },
+  { value: "s", label: "S" },
 ];
+const languages = [
+  { value: "english", label: "English" },
+  { value: "german", label: "German" },
+  { value: "danish", label: "Danish" },
+  { value: "french", label: "French" },
+  { value: "spanish", label: "Spanish" },
+  { value: "italian", label: "Italian" },
+  { value: "swedish", label: "Swedish" },
+];
+// const customStyles = {
+//   control: (base: any) => ({
+//     ...base,
+//     height: 40,
+//     backgroundColor: "#0e2e86",
+//     stroke: "white",
+//   }),
+// };
 export const AdminCreateProfilePage = () => {
   let navigate = useNavigate();
   const [team, setTeam] = React.useState<string>("");
   const [role, setRole] = React.useState<string>("");
   const [position, setPosition] = React.useState<string>("");
-  const [language, setLanguage] = React.useState<string>("");
+  const [language, setLanguage] =
+    React.useState<[{ value: string; label: string }]>();
+  const getTeams = () => {
+    return teams.map((team) => {
+      return { value: team.name.toLocaleLowerCase(), label: team.name };
+    });
+  };
+  const customStyles = {
+    placeholder: (base: any) => ({
+      ...base,
+      color: "white",
+    }),
+    valueContainer: (base: any) => ({
+      ...base,
+      height: "43px",
+    }),
+    input: (base: any) => ({
+      ...base,
+      height: "45px",
+      color: "white",
+    }),
+    control: (base: any) => ({
+      ...base,
+      height: "45px",
+      minHeight: "45px",
+      backgroundColor: "#0e2e86",
+      borderRadius: "5px",
+      margin: 0,
+    }),
+    dropdownIndicator: (base: any) => ({
+      ...base,
+      color: "white", // Custom colour
+    }),
+  };
   return (
     <div>
       <PageHeaderComponent
@@ -82,19 +133,13 @@ export const AdminCreateProfilePage = () => {
         <div className={style["create-profile-form-line"]}>
           <div>
             <label>Team</label>
-            <DropdownComponent
-              title={team ? team : "-"}
-              variant="admin"
-              contentPosition="right"
-            >
-              <ul>
-                {teams.map((team, key) => (
-                  <li key={key} onClick={() => setTeam(team.name)}>
-                    {team.name}
-                  </li>
-                ))}
-              </ul>
-            </DropdownComponent>
+            <Select
+              options={getTeams()}
+              isMulti
+              styles={customStyles}
+              className={style["Select-control"]}
+              placeholder={"-"}
+            />
           </div>
           <div>
             <label>Role</label>
@@ -113,35 +158,22 @@ export const AdminCreateProfilePage = () => {
         <div className={style["create-profile-form-line"]}>
           <div>
             <label>Position</label>
-            <DropdownComponent
-              title={position ? position : "-"}
-              variant="admin"
-              contentPosition="right"
-            >
-              <ul>
-                {positions.map((position, key) => (
-                  <li key={key} onClick={() => setPosition(position)}>
-                    {position}
-                  </li>
-                ))}
-              </ul>
-            </DropdownComponent>
+            <Select
+              options={positions}
+              isMulti
+              styles={customStyles}
+              placeholder={"-"}
+            />
           </div>
           <div>
             <label>Language</label>
-            <DropdownComponent
-              title={language ? language : "-"}
-              variant="admin"
-              contentPosition="right"
-            >
-              <ul>
-                {languages.map((language, key) => (
-                  <li key={key} onClick={() => setLanguage(language)}>
-                    {language}
-                  </li>
-                ))}
-              </ul>
-            </DropdownComponent>
+            <Select
+              options={languages}
+              isMulti
+              styles={customStyles}
+              placeholder={"-"}
+              //  onChange={(e) => setLanguages(e)}
+            />
           </div>
         </div>
       </div>

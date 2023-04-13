@@ -19,6 +19,8 @@ export const AdminDashboardPage = () => {
     <div className={style["dashboard"]}>
       <PageHeaderComponent
         title={"Admin Panel"}
+        route="sessions"
+        hasReturn
         list={[]}
         onSelect={() => ""}
       />
