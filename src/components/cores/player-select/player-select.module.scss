@@ -6,6 +6,9 @@
     width: 100%;
     > div:first-child {
       height: 40px;
+      @media (max-width: variables.$breakpoint-lg) {
+        height: 35px;
+      }
     }
   }
   &-content {
@@ -63,9 +66,15 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-top: 8px;
+    }
     > div {
       margin-right: 24px;
       margin-bottom: 8px;
+      @media (max-width: variables.$breakpoint-lg) {
+        margin-right: 16px;
+      }
     }
   }
 }

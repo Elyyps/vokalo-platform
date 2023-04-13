@@ -10,6 +10,9 @@
   justify-content: space-between;
   cursor: pointer;
   text-decoration: none;
+  @media (max-width: variables.$breakpoint-lg) {
+    padding: 8px;
+  }
   > span {
     width: calc(100% - 45px);
     white-space: nowrap;
@@ -23,6 +26,7 @@
       width: 20px;
       height: 20px;
       vertical-align: middle;
+
       path {
         fill: white;
       }

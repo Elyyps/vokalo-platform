@@ -131,7 +131,14 @@ export const HeaderComponent = ({ user }: Props) => {
                   />
                 )}
               </li>
-
+              <li>
+                <span
+                  onClick={() => navigate("/admin")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Admin panel
+                </span>
+              </li>
               <li>
                 <span onClick={onLogout} style={{ cursor: "pointer" }}>
                   Logout
