@@ -1,0 +1,43 @@
+@use "src/variables";
+
+.create-profile {
+  &-form {
+    margin-top: 46px;
+    @media (max-width: variables.$breakpoint-lg) {
+      margin-top: 32px;
+    }
+    &-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      @media (max-width: variables.$breakpoint-lg) {
+        flex-wrap: wrap;
+        margin-bottom: 0;
+      }
+      > div {
+        width: 49%;
+        display: flex;
+        flex-direction: column;
+        @media (max-width: variables.$breakpoint-lg) {
+          width: 100%;
+          margin-bottom: 12px;
+        }
+        label {
+          display: inline-block;
+          margin-bottom: 8px;
+        }
+        input {
+          padding: 0 8px;
+          height: 45px;
+          border-radius: 5px;
+          border-color: #d5d5d5;
+          box-sizing: border-box;
+          @media (max-width: variables.$breakpoint-lg) {
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}

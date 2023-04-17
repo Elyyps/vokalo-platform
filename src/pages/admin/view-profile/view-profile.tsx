@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { PageHeaderComponent } from "../../../components/cores/page-header/page-header";
 import { ButtonComponent } from "../../../components/cores/button/button";
-import style from "./create-profile.module.scss";
+import style from "./view-profile.module.scss";
 import { DropdownComponent } from "../../../components/cores/dropdown/dropdown";
 import { ITeam } from "../../../types/cores/team";
 
@@ -37,7 +37,7 @@ const languages = [
   { value: "swedish", label: "Swedish" },
 ];
 
-export const AdminCreateProfilePage = () => {
+export const AdminViewProfilePage = () => {
   let navigate = useNavigate();
   const [team, setTeam] = React.useState<string>("");
   const [role, setRole] = React.useState<string>("");
@@ -79,7 +79,7 @@ export const AdminCreateProfilePage = () => {
   return (
     <div>
       <PageHeaderComponent
-        title={"Create profile"}
+        title={"View profile"}
         route="admin"
         hasTwoButtons
         hasReturn
@@ -87,7 +87,7 @@ export const AdminCreateProfilePage = () => {
         onSelect={() => ""}
       >
         <ButtonComponent
-          title="Create"
+          title="Edit"
           variant="admin"
           onClick={() => navigate("/admin")}
         />

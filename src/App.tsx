@@ -19,6 +19,7 @@ import { AdminDashboardPage } from "./pages/admin/dashboard/dashboard";
 import { AdminCreateTeamPage } from "./pages/admin/create-team/create-team";
 import { AdminCreateProfilePage } from "./pages/admin/create-profile/create-profile";
 import { AdminViewTeamPage } from "./pages/admin/view-team/view-team";
+import { AdminViewProfilePage } from "./pages/admin/view-profile/view-profile";
 
 const App = () => {
   const [user, setUser] = React.useState<any>(undefined);
@@ -102,7 +103,7 @@ const App = () => {
                   path="/settings"
                   element={addPageLayout(<div>Settings</div>, "Settings")}
                 />
-                <Route
+                {/* <Route
                   path="/admin"
                   element={addPageLayout(<AdminDashboardPage />, "Admin", true)}
                 />
@@ -130,6 +131,14 @@ const App = () => {
                     true
                   )}
                 />
+                <Route
+                  path="/admin/profile/:id"
+                  element={addPageLayout(
+                    <AdminViewProfilePage />,
+                    "Admin View Profile",
+                    true
+                  )}
+                /> */}
               </Routes>
             </BrowserRouter>
           </CoachContextProvider>

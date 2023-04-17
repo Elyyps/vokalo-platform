@@ -10,11 +10,41 @@ export const AdminProfilesComponent = () => {
     { name: "team", param: [""] },
   ];
   const rows = [
-    { profile: "Profile 1", role: "player", team: "ASA" },
-    { profile: "Profile 2", role: "player", team: "ASA" },
-    { profile: "Profile 3", role: "player", team: "ASA" },
-    { profile: "Profile 4", role: "player", team: "ASA" },
-    { profile: "Profile 5", role: "player", team: "ASA" },
+    {
+      id: 0,
+      firstName: "Alexander",
+      lastName: "Plagborg",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 1,
+      firstName: "Andreas",
+      lastName: "Louridsen",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 2,
+      firstName: "Christan",
+      lastName: "Jorgensen",
+      role: "coach",
+      team: "ASA",
+    },
+    {
+      id: 3,
+      firstName: "Gabriel",
+      lastName: "Shawol",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 4,
+      firstName: "Jakob",
+      lastName: "Agger",
+      role: "player",
+      team: "ASA",
+    },
   ];
   let navigate = useNavigate();
   return (
@@ -43,12 +73,14 @@ export const AdminProfilesComponent = () => {
             {rows.map((row: any, key) => (
               <tr
                 key={key}
-                // onClick={(e: any) =>
-                //   e.target.localName === "td" &&
-                //   navigate("/sessions/" + row.id)
-                // }
+                onClick={(e: any) =>
+                  e.target.localName === "td" &&
+                  navigate("/admin/profile/" + row.id)
+                }
               >
-                <td>{row.profile}</td>
+                <td>
+                  {row.firstName} {row.lastName}
+                </td>
                 <td>{row.role}</td>
                 <td>{row.team}</td>
                 <td>

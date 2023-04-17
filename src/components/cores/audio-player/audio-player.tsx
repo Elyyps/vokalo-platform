@@ -40,9 +40,9 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
   const getUpdateTime = () => {
     const newAudio = getAudio();
     if (newAudio) {
-      let startAt = newAudio?.startOffset >= 0 ? newAudio?.startOffset : 0;
       if (playerRef.current) {
-        playerRef.current.currentTime = (props.currentTime - startAt) / 1000;
+        playerRef.current.currentTime =
+          (props.currentTime - newAudio?.startOffset) / 1000;
       }
       setAudio(newAudio);
     }
