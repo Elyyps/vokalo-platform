@@ -8,7 +8,7 @@ type ICommunicationAggregation = {
   averageInteractions: number;
   minutes: number;
 };
-export type IProfile = {
+export type ISquad = {
   communicationAggregations: ICommunicationAggregation;
   firstName: string;
   lastName: string;

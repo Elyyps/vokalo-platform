@@ -1,11 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Select from "react-select";
 import { PageHeaderComponent } from "../../../components/cores/page-header/page-header";
 import { ButtonComponent } from "../../../components/cores/button/button";
 import style from "./view-profile.module.scss";
 import { DropdownComponent } from "../../../components/cores/dropdown/dropdown";
 import { ITeam } from "../../../types/cores/team";
+import { IProfile } from "../../../types/cores/profile";
 
 const teams: ITeam[] = [
   { id: 0, name: "ASA", playersIds: [50, 51, 52], coachesIds: [59] },
@@ -36,18 +37,93 @@ const languages = [
   { value: "italian", label: "Italian" },
   { value: "swedish", label: "Swedish" },
 ];
-
+const profiles: IProfile[] = [
+  {
+    id: "0",
+    firstName: "Alexander",
+    lastName: "Plagborg",
+    role: "coach",
+    teamsId: ["ASA"],
+    languages: ["EN", "FR"],
+    positions: ["GK", "RB"],
+    initials: "AM",
+    number: 9,
+    phone: "28 000 000",
+    birthdate: new Date("27/05/1995"),
+  },
+  {
+    id: "1",
+    firstName: "Andreas",
+    lastName: "Louridsen",
+    role: "player",
+    teamsId: ["ASA"],
+    languages: ["EN", "FR"],
+    positions: ["GK"],
+    initials: "AM",
+    number: 9,
+    phone: "28 000 000",
+    birthdate: new Date("27/05/1995"),
+  },
+  {
+    id: "2",
+    firstName: "Christan",
+    lastName: "Jorgensen",
+    role: "coach",
+    teamsId: ["ASA"],
+    languages: ["EN", "FR"],
+    positions: ["GK"],
+    initials: "AM",
+    number: 9,
+    phone: "28 000 000",
+    birthdate: new Date("27/05/1995"),
+  },
+  {
+    id: "3",
+    firstName: "Gabriel",
+    lastName: "Shawol",
+    role: "player",
+    teamsId: ["ASA"],
+    languages: ["EN", "FR"],
+    positions: ["GK"],
+    initials: "AM",
+    number: 9,
+    phone: "28 000 000",
+    birthdate: new Date("27/05/1995"),
+  },
+  {
+    id: "4",
+    firstName: "Jakob",
+    lastName: "Agger",
+    role: "player",
+    teamsId: ["ASA"],
+    languages: ["EN", "FR"],
+    positions: ["GK"],
+    initials: "AM",
+    number: 9,
+    phone: "28 000 000",
+    birthdate: new Date("27/05/1995"),
+  },
+];
 export const AdminViewProfilePage = () => {
   let navigate = useNavigate();
-  const [team, setTeam] = React.useState<string>("");
-  const [role, setRole] = React.useState<string>("");
-  const [position, setPosition] = React.useState<string>("");
-  const [language, setLanguage] =
-    React.useState<[{ value: string; label: string }]>();
+  const { id } = useParams();
+  const [profile, setProfile] = React.useState<IProfile>();
+
   const getTeams = () => {
     return teams.map((team) => {
       return { value: team.name.toLocaleLowerCase(), label: team.name };
     });
+  };
+  const getValues = (list: any) => {
+    return list.map((item: any) => {
+      return { value: item.toLocaleLowerCase(), label: item };
+    });
+  };
+  const getProfile = () => {
+    let currentProfile = profiles.find((profile) => profile.id === id);
+    if (currentProfile) {
+      setProfile(currentProfile);
+    }
   };
   const customStyles = {
     placeholder: (base: any) => ({
@@ -76,7 +152,10 @@ export const AdminViewProfilePage = () => {
       color: "white", // Custom colour
     }),
   };
-  return (
+  React.useEffect(() => {
+    getProfile();
+  }, []);
+  return profile ? (
     <div>
       <PageHeaderComponent
         title={"View profile"}
@@ -96,31 +175,72 @@ export const AdminViewProfilePage = () => {
         <div className={style["create-profile-form-line"]}>
           <div>
             <label>First name</label>
-            <input type="text" placeholder="Enter profile's firstname" />
+            <input
+              type="text"
+              placeholder="Enter profile's firstname"
+              onChange={(e) =>
+                setProfile({ ...profile, firstName: e.target.value })
+              }
+              value={profile.firstName}
+            />
           </div>
           <div>
             <label>Last name</label>
-            <input type="text" placeholder="Enter profile's lastname" />
+            <input
+              type="text"
+              placeholder="Enter profile's lastname"
+              onChange={(e) =>
+                setProfile({ ...profile, lastName: e.target.value })
+              }
+              value={profile.lastName}
+            />
           </div>
         </div>
         <div className={style["create-profile-form-line"]}>
           <div>
             <label>Initials</label>
-            <input type="text" placeholder="Enter profile's initials" />
+            <input
+              type="text"
+              placeholder="Enter profile's initials"
+              onChange={(e) =>
+                setProfile({ ...profile, initials: e.target.value })
+              }
+              value={profile.initials}
+            />
           </div>
           <div>
             <label>Number</label>
-            <input type="text" placeholder="Enter profile's number" />
+            <input
+              type="number"
+              placeholder="Enter profile's number"
+              onChange={(e) =>
+                setProfile({ ...profile, number: parseInt(e.target.value) })
+              }
+              value={profile.number}
+            />
           </div>
         </div>
         <div className={style["create-profile-form-line"]}>
           <div>
             <label>Phone</label>
-            <input type="text" placeholder="Enter profile's phone" />
+            <input
+              type="text"
+              placeholder="Enter profile's phone"
+              value={profile.phone}
+              onChange={(e) =>
+                setProfile({ ...profile, phone: e.target.value })
+              }
+            />
           </div>
           <div>
             <label>Birthday</label>
-            <input type="date" />
+            <input
+              type="date"
+              value={profile.birthdate.toLocaleDateString()}
+              onChange={(e) =>
+                setProfile({ ...profile, birthdate: new Date(e.target.value) })
+              }
+            />
           </div>
         </div>
         <div className={style["create-profile-form-line"]}>
@@ -132,18 +252,23 @@ export const AdminViewProfilePage = () => {
               styles={customStyles}
               className={style["Select-control"]}
               placeholder={"-"}
+              value={getValues(profile.teamsId)}
             />
           </div>
           <div>
             <label>Role</label>
             <DropdownComponent
-              title={role ? role : "-"}
+              title={profile.role ? profile.role : "-"}
               variant="admin"
               contentPosition="right"
             >
               <ul>
-                <li onClick={() => setRole("player")}>Player</li>
-                <li onClick={() => setRole("coach")}>Coach</li>
+                <li onClick={() => setProfile({ ...profile, role: "player" })}>
+                  Player
+                </li>
+                <li onClick={() => setProfile({ ...profile, role: "coach" })}>
+                  Coach
+                </li>
               </ul>
             </DropdownComponent>
           </div>
@@ -156,6 +281,7 @@ export const AdminViewProfilePage = () => {
               isMulti
               styles={customStyles}
               placeholder={"-"}
+              value={getValues(profile.positions)}
             />
           </div>
           <div>
@@ -165,11 +291,14 @@ export const AdminViewProfilePage = () => {
               isMulti
               styles={customStyles}
               placeholder={"-"}
+              value={getValues(profile.languages)}
               //  onChange={(e) => setLanguages(e)}
             />
           </div>
         </div>
       </div>
     </div>
+  ) : (
+    <div />
   );
 };

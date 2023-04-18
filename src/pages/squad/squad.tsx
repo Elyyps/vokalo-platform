@@ -8,7 +8,7 @@ import { SquadTableComponent } from "../../components/modules/squad-table/squad-
 import { AccountContext } from "../../context/account";
 import FilterContext from "../../context/filter";
 import { IWidget } from "../../types/cores/widget";
-import { IProfile } from "../../types/modules/squad";
+import { ISquad } from "../../types/modules/squad";
 import { getAPI } from "../../utils/getApi";
 import style from "./squad.module.scss";
 interface ISquadPage {
@@ -16,7 +16,7 @@ interface ISquadPage {
 }
 export const SquadPage = ({ user }: ISquadPage) => {
   const [list, setList] = React.useState<{
-    squads: IProfile[];
+    squads: ISquad[];
     widgets: IWidget[];
   }>();
   const { getAccount } = React.useContext(AccountContext);

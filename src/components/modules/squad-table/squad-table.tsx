@@ -2,14 +2,14 @@ import React from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { ReactSVG } from "react-svg";
-import { IProfile } from "../../../types/modules/squad";
+import { ISquad } from "../../../types/modules/squad";
 import { converToHours } from "../../../utils/convertTime";
 import { sortColumn } from "../../../utils/sortColumn";
 import { PaginationComponent } from "../../cores/pagination/pagination";
 import style from "./squad-table.module.scss";
 
 interface ISquadTableComponent {
-  squad: IProfile[];
+  squad: ISquad[];
 }
 export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
   const [cookies] = useCookies(["rows"]);
@@ -88,7 +88,7 @@ export const SquadTableComponent = ({ squad }: ISquadTableComponent) => {
           <tbody>
             {sortedSquad
               .slice((currentPage - 1) * rows, currentPage * rows)
-              .map((row: IProfile, key) => (
+              .map((row: ISquad, key) => (
                 <tr key={key} onClick={() => navigate("/squad/" + row.id)}>
                   <td>
                     {row.firstName} {row.lastName}

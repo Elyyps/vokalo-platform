@@ -41,20 +41,16 @@ const App = () => {
     if (title) {
       defaultTitle = defaultTitle.concat(" | " + title);
     }
-    return (
-      <Layout user={user} title={defaultTitle} isAdmin={isAdmin}>
-        {component}
-      </Layout>
+
+    return isLogged === false ? (
+      <Navigate to={"/login"} />
+    ) : (
+      user && (
+        <Layout user={user} title={defaultTitle} isAdmin={isAdmin}>
+          {component}
+        </Layout>
+      )
     );
-    // return isLogged === false ? (
-    //   <Navigate to={"/login"} />
-    // ) : (
-    //   user && (
-    //     <Layout user={user} title={defaultTitle} isAdmin={isAdmin}>
-    //       {component}
-    //     </Layout>
-    //   )
-    // );
   };
 
   return (
@@ -103,7 +99,7 @@ const App = () => {
                   path="/settings"
                   element={addPageLayout(<div>Settings</div>, "Settings")}
                 />
-                {/* <Route
+                <Route
                   path="/admin"
                   element={addPageLayout(<AdminDashboardPage />, "Admin", true)}
                 />
@@ -138,7 +134,7 @@ const App = () => {
                     "Admin View Profile",
                     true
                   )}
-                /> */}
+                />
               </Routes>
             </BrowserRouter>
           </CoachContextProvider>
