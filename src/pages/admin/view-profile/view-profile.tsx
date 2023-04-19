@@ -44,12 +44,12 @@ const profiles: IProfile[] = [
     lastName: "Plagborg",
     role: "coach",
     teamsId: ["ASA"],
-    languages: ["EN", "FR"],
+    languages: ["German", "French"],
     positions: ["GK", "RB"],
     initials: "AM",
     number: 9,
     phone: "28 000 000",
-    birthdate: new Date("27/05/1995"),
+    birthdate: new Date("1995/05/27"),
   },
   {
     id: "1",
@@ -57,12 +57,12 @@ const profiles: IProfile[] = [
     lastName: "Louridsen",
     role: "player",
     teamsId: ["ASA"],
-    languages: ["EN", "FR"],
+    languages: ["Swedish", "French"],
     positions: ["GK"],
     initials: "AM",
     number: 9,
     phone: "28 000 000",
-    birthdate: new Date("27/05/1995"),
+    birthdate: new Date("1995/05/27"),
   },
   {
     id: "2",
@@ -70,12 +70,12 @@ const profiles: IProfile[] = [
     lastName: "Jorgensen",
     role: "coach",
     teamsId: ["ASA"],
-    languages: ["EN", "FR"],
+    languages: ["French", "German"],
     positions: ["GK"],
     initials: "AM",
     number: 9,
     phone: "28 000 000",
-    birthdate: new Date("27/05/1995"),
+    birthdate: new Date("1995/05/27"),
   },
   {
     id: "3",
@@ -83,12 +83,12 @@ const profiles: IProfile[] = [
     lastName: "Shawol",
     role: "player",
     teamsId: ["ASA"],
-    languages: ["EN", "FR"],
+    languages: ["German", "Swedish"],
     positions: ["GK"],
     initials: "AM",
     number: 9,
     phone: "28 000 000",
-    birthdate: new Date("27/05/1995"),
+    birthdate: new Date("1995/05/27"),
   },
   {
     id: "4",
@@ -96,12 +96,12 @@ const profiles: IProfile[] = [
     lastName: "Agger",
     role: "player",
     teamsId: ["ASA"],
-    languages: ["EN", "FR"],
+    languages: ["Swedish", "German"],
     positions: ["GK"],
     initials: "AM",
     number: 9,
     phone: "28 000 000",
-    birthdate: new Date("27/05/1995"),
+    birthdate: new Date("1995/05/27"),
   },
 ];
 export const AdminViewProfilePage = () => {
@@ -114,9 +114,14 @@ export const AdminViewProfilePage = () => {
       return { value: team.name.toLocaleLowerCase(), label: team.name };
     });
   };
-  const getValues = (list: any) => {
+  const convertValue = (list: any) => {
     return list.map((item: any) => {
       return { value: item.toLocaleLowerCase(), label: item };
+    });
+  };
+  const getValues = (list: any) => {
+    return list.map((item: any) => {
+      return item.label;
     });
   };
   const getProfile = () => {
@@ -132,10 +137,11 @@ export const AdminViewProfilePage = () => {
     }),
     valueContainer: (base: any) => ({
       ...base,
-      height: "43px",
+      height: "45px",
     }),
     input: (base: any) => ({
       ...base,
+      margin: 0,
       height: "45px",
       color: "white",
     }),
@@ -145,7 +151,6 @@ export const AdminViewProfilePage = () => {
       minHeight: "45px",
       backgroundColor: "#0e2e86",
       borderRadius: "5px",
-      margin: 0,
     }),
     dropdownIndicator: (base: any) => ({
       ...base,
@@ -236,7 +241,7 @@ export const AdminViewProfilePage = () => {
             <label>Birthday</label>
             <input
               type="date"
-              value={profile.birthdate.toLocaleDateString()}
+              value={new Date(profile.birthdate).toISOString().slice(0, 10)}
               onChange={(e) =>
                 setProfile({ ...profile, birthdate: new Date(e.target.value) })
               }
@@ -252,7 +257,10 @@ export const AdminViewProfilePage = () => {
               styles={customStyles}
               className={style["Select-control"]}
               placeholder={"-"}
-              value={getValues(profile.teamsId)}
+              value={convertValue(profile.teamsId)}
+              onChange={(e: any) =>
+                setProfile({ ...profile, teamsId: getValues(e) })
+              }
             />
           </div>
           <div>
@@ -281,7 +289,10 @@ export const AdminViewProfilePage = () => {
               isMulti
               styles={customStyles}
               placeholder={"-"}
-              value={getValues(profile.positions)}
+              value={convertValue(profile.positions)}
+              onChange={(e: any) =>
+                setProfile({ ...profile, positions: getValues(e) })
+              }
             />
           </div>
           <div>
@@ -291,8 +302,10 @@ export const AdminViewProfilePage = () => {
               isMulti
               styles={customStyles}
               placeholder={"-"}
-              value={getValues(profile.languages)}
-              //  onChange={(e) => setLanguages(e)}
+              value={convertValue(profile.languages)}
+              onChange={(e: any) =>
+                setProfile({ ...profile, languages: getValues(e) })
+              }
             />
           </div>
         </div>
