@@ -24,7 +24,7 @@ export const PlayerSelectCompenent = (props: IPlayerSelectCompenent) => {
   };
   const hasCheckedPlayers = () => {
     const result = props.players.filter((profile: any) => profile.isChecked);
-    return result && result.length > 0 ? true : false;
+    return result && result.length > 0;
   };
 
   const checkPlayer = (selectedPlayer: any) => {
