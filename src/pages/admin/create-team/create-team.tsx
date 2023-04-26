@@ -1,5 +1,4 @@
 import React from "react";
-import { playersData } from "../../../api/players";
 import { PageHeaderComponent } from "../../../components/cores/page-header/page-header";
 import { PlayerSelectCompenent } from "../../../components/cores/player-select/player-select";
 import style from "./create-team.module.scss";
@@ -10,13 +9,49 @@ interface IAdminCreateTeamPage {
   //onSubmit: (name: string, players: IPlayer[], coaches: IPlayer[]) => void;
 }
 export const AdminCreateTeamPage = (props: IAdminCreateTeamPage) => {
-  const [players, setPlayers] = React.useState<IPlayer[]>([]);
-  const [coaches, setCoaches] = React.useState<IPlayer[]>([]);
+  const [players, setPlayers] = React.useState<any[]>([]);
+  const [coaches, setCoaches] = React.useState<any[]>([]);
   const [name, setName] = React.useState<string>("");
   let navigate = useNavigate();
-
+  const rows = [
+    {
+      id: 0,
+      firstName: "Alexander",
+      lastName: "Plagborg",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 1,
+      firstName: "Andreas",
+      lastName: "Louridsen",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 2,
+      firstName: "Christan",
+      lastName: "Jorgensen",
+      role: "coach",
+      team: "ASA",
+    },
+    {
+      id: 3,
+      firstName: "Gabriel",
+      lastName: "Shawol",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 4,
+      firstName: "Jakob",
+      lastName: "Agger",
+      role: "player",
+      team: "ASA",
+    },
+  ];
   const getProfiles = () => {
-    const player = playersData().map((player) => {
+    const player = rows.map((player) => {
       return {
         ...player,
         isChecked: false,

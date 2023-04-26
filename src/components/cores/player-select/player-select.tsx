@@ -3,16 +3,18 @@ import { IPlayer } from "../../../types/cores/player";
 import style from "./player-select.module.scss";
 import { ButtonComponent } from "../button/button";
 import { PlayerComponent } from "../player/player";
+import { useNavigate } from "react-router-dom";
 
 interface IPlayerSelectCompenent {
   players: any;
-  onSelect: (players: IPlayer[]) => void;
+  onSelect: (players: any[]) => void;
   isEdit?: boolean;
 }
 export const PlayerSelectCompenent = (props: IPlayerSelectCompenent) => {
   const [search, setSearch] = React.useState<string>("");
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const wrapperRef = React.createRef<HTMLDivElement>();
+  let navigate = useNavigate();
 
   const searchPlayers = () => {
     const filteredPlayers = props.players.filter(
@@ -101,6 +103,7 @@ export const PlayerSelectCompenent = (props: IPlayerSelectCompenent) => {
                     value={0}
                     color="#153a9f"
                     label={0}
+                    onClick={() => navigate("/admin/profile/" + player.id)}
                   />
                 </div>
               )

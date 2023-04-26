@@ -1,34 +1,68 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { playersData } from "../../../api/players";
 import { PageHeaderComponent } from "../../../components/cores/page-header/page-header";
 import style from "./view-team.module.scss";
 import { ITeam } from "../../../types/cores/team";
 import { LoaderComponent } from "../../../components/cores/loader/loader";
 import { ButtonComponent } from "../../../components/cores/button/button";
 import { PlayerSelectCompenent } from "../../../components/cores/player-select/player-select";
-import { IPlayer } from "../../../types/cores/player";
 
 const teams: ITeam[] = [
-  { id: 0, name: "ASA", playersIds: [50, 51, 52], coachesIds: [59] },
-  { id: 1, name: "ASA2", playersIds: [59], coachesIds: [58] },
+  { id: 0, name: "ASA", playersIds: [0, 1, 2], coachesIds: [4] },
+  { id: 1, name: "ASA2", playersIds: [0], coachesIds: [4] },
   {
     id: 2,
     name: "ASA3",
-    playersIds: [53, 54, 55, 56, 57, 58],
-    coachesIds: [58],
+    playersIds: [0, 1, 2, 3],
+    coachesIds: [4],
   },
 ];
 export const AdminViewTeamPage = () => {
   let navigate = useNavigate();
   const { id } = useParams();
   const [team, setTeam] = React.useState<ITeam>();
-  const [players, setPlayers] = React.useState<IPlayer[]>();
-  const [coaches, setCoaches] = React.useState<IPlayer[]>();
+  const [players, setPlayers] = React.useState<any[]>();
+  const [coaches, setCoaches] = React.useState<any[]>();
   const [isEdit, setIsEdit] = React.useState<boolean>(false);
-
+  const rows = [
+    {
+      id: 0,
+      firstName: "Alexander",
+      lastName: "Plagborg",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 1,
+      firstName: "Andreas",
+      lastName: "Louridsen",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 2,
+      firstName: "Christan",
+      lastName: "Jorgensen",
+      role: "coach",
+      team: "ASA",
+    },
+    {
+      id: 3,
+      firstName: "Gabriel",
+      lastName: "Shawol",
+      role: "player",
+      team: "ASA",
+    },
+    {
+      id: 4,
+      firstName: "Jakob",
+      lastName: "Agger",
+      role: "player",
+      team: "ASA",
+    },
+  ];
   const getPlayers = (id: number[]) => {
-    const player = playersData().map((player) => {
+    const player = rows.map((player) => {
       return {
         ...player,
         isChecked: id.includes(player.id),

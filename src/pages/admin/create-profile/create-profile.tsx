@@ -8,13 +8,13 @@ import { DropdownComponent } from "../../../components/cores/dropdown/dropdown";
 import { ITeam } from "../../../types/cores/team";
 
 const teams: ITeam[] = [
-  { id: 0, name: "ASA", playersIds: [50, 51, 52], coachesIds: [59] },
-  { id: 1, name: "ASA2", playersIds: [59], coachesIds: [58] },
+  { id: 0, name: "ASA", playersIds: [0, 1, 2], coachesIds: [4] },
+  { id: 1, name: "ASA2", playersIds: [0], coachesIds: [4] },
   {
     id: 2,
     name: "ASA3",
-    playersIds: [53, 54, 55, 56, 57, 58],
-    coachesIds: [58],
+    playersIds: [0, 1, 2, 3],
+    coachesIds: [4],
   },
 ];
 const positions = [

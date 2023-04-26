@@ -89,7 +89,6 @@ export const AdminProfilesComponent = () => {
                     variant="transparent"
                   >
                     <ul>
-                      <li>edit</li>
                       <li>delete</li>
                     </ul>
                   </DropdownComponent>

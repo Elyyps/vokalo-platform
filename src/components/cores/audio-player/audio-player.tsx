@@ -69,7 +69,8 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
             src={audio.path}
             muted={props.isMuted}
             onLoadStart={() => setIsLoaded(false)}
-            onCanPlay={() => setIsLoaded(true)}
+            onCanPlayThrough={() => setIsLoaded(true)}
+            onEmptied={() => setIsLoaded(false)}
             preload="auto"
             crossOrigin="anonymous"
           />

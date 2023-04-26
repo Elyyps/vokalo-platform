@@ -4,26 +4,33 @@ import { PageHeaderComponent } from "../../../components/cores/page-header/page-
 import { AdminProfilesComponent } from "../../../components/modules/admin/profiles/profiles";
 import { AdminTeamsComponent } from "../../../components/modules/admin/teams/teams";
 import { ITeam } from "../../../types/cores/team";
+import { ButtonComponent } from "../../../components/cores/button/button";
+import { useNavigate } from "react-router-dom";
 const teams: ITeam[] = [
-  { id: 0, name: "ASA", playersIds: [50, 51, 52], coachesIds: [59] },
-  { id: 1, name: "ASA2", playersIds: [59], coachesIds: [58] },
+  { id: 0, name: "ASA", playersIds: [0, 1, 2], coachesIds: [4] },
+  { id: 1, name: "ASA2", playersIds: [0], coachesIds: [4] },
   {
     id: 2,
     name: "ASA3",
-    playersIds: [53, 54, 55, 56, 57, 58],
-    coachesIds: [58],
+    playersIds: [0, 1, 2, 3],
+    coachesIds: [4],
   },
 ];
 export const AdminDashboardPage = () => {
+  const navigate = useNavigate();
   return (
     <div className={style["dashboard"]}>
       <PageHeaderComponent
         title={"Admin Panel"}
-        route="sessions"
-        hasReturn
+        hasTwoButtons
         list={[]}
         onSelect={() => ""}
-      />
+      >
+        <ButtonComponent
+          title="Exit panel"
+          onClick={() => navigate("/sessions")}
+        />
+      </PageHeaderComponent>
       <AdminTeamsComponent teams={teams} />
       <br />
       <AdminProfilesComponent />
