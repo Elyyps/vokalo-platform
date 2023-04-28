@@ -89,42 +89,34 @@
     }
   }
   &-bottom {
-    > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba($color: #dadada, $alpha: 0.5);
+    padding: 8px 2px;
+    border: 1px solid variables.$tertiary-color;
+    svg {
+      cursor: pointer;
+    }
+    .field-audio-overview-swaps {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: rgba($color: #dadada, $alpha: 0.5);
-      padding: 8px 2px;
-      border: 1px solid variables.$tertiary-color;
-      svg {
-        cursor: pointer;
-      }
-      .field-audio-overview-swaps {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
+      flex-wrap: wrap;
+      width: 100%;
+      > div {
+        width: 25%;
+        margin-bottom: 4px;
         > div {
-          width: 25%;
-          margin-bottom: 4px;
-          > div {
-            border-color: variables.$primary-color;
-            background-color: rgba(
-              $color: variables.$primary-color,
-              $alpha: 0.6
-            );
-            width: 42px;
-            height: 42px;
-            @media (max-width: variables.$breakpoint-lg) {
-              width: 36px;
-              height: 36px;
-            }
+          border-color: variables.$primary-color;
+          background-color: rgba($color: variables.$primary-color, $alpha: 0.6);
+          width: 42px;
+          height: 42px;
+          @media (max-width: variables.$breakpoint-lg) {
+            width: 36px;
+            height: 36px;
           }
-          > span {
-            background-color: rgba(
-              $color: variables.$primary-color,
-              $alpha: 0.6
-            );
-          }
+        }
+        > span {
+          background-color: rgba($color: variables.$primary-color, $alpha: 0.6);
         }
       }
     }

@@ -46,7 +46,7 @@ export const SessionsTableComponent = ({
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [sortConfig, setSortConfig] = React.useState({
     column: { name: "date", param: [""] },
-    ascending: true,
+    ascending: false,
   });
   const rows = cookies.rows ? cookies.rows : 24;
   const getPercentage = (value: number) => {

@@ -36,11 +36,19 @@ export const SessionsComponent = ({
       return "POSITIVE";
     }
   };
+  const getPercentage = (value: number) => {
+    return Math.round(value * 100);
+  };
   React.useEffect(() => {
+    console.log(sessions);
     let list: any[] = [
       { name: "date", param: ["creationTimestamp"] },
       isSquadSessions && { name: "name", param: ["label"] },
-      { name: "type", param: ["type"] },
+      {
+        name: "A.I",
+        param: ["communicationAggregations", "averageInteractions"],
+      },
+      { name: "O.P", param: ["orientationAggregations", "value"] },
     ];
     if (!isSquadSessions) {
       list.push(
@@ -102,7 +110,17 @@ export const SessionsComponent = ({
                 <span>{session.label}</span>
               )}
               <span>
-                <TypeComponent type={session.type} />
+                {session &&
+                  session.communicationAggregations &&
+                  Math.round(
+                    session.communicationAggregations.averageInteractions * 10
+                  ) / 10}
+              </span>
+              <span>
+                {session &&
+                  session.orientationAggregations &&
+                  Math.round(session?.orientationAggregations?.value * 100)}
+                %
               </span>
               {!isSquadSessions && (
                 <span

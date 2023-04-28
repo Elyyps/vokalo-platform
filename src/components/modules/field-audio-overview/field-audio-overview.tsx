@@ -180,62 +180,58 @@ export const FieldAudioOverviewComponent = ({
           </div>
         </div>
 
-        {getReplacementPlayers().length > 0 && (
+        {getReplacementPlayers().length > 0 && formation !== "Training" && (
           <div className={style["field-audio-overview-bottom"]}>
-            <div>
-              {getReplacementPlayers().length > 8 && (
-                <ReactSVG
-                  src="/icons/arrow-down.svg"
-                  style={{
-                    transform: "rotate(90deg)",
-                    opacity: sliceFrom === 0 ? 0.3 : 1,
-                  }}
-                  onClick={() => sliceFrom > 0 && setSliceFrom(sliceFrom - 8)}
-                />
-              )}
-              <div className={style["field-audio-overview-swaps"]}>
-                {getReplacementPlayers()
-                  .slice(sliceFrom, sliceFrom + 8)
-                  .map(
-                    (player: any, key: number) =>
-                      player.profile.gridX < 0 && (
-                        <PlayerComponent
-                          player={player.profile}
-                          label={0}
-                          value={0}
-                          color={""}
-                          onPlayerDrag={(index) => setCurrentPlayer(index)}
-                          onPlayerDrop={(player) => updatePlayers(player, true)}
-                          onClick={() => mutePlayer(player.profile)}
-                          key={key}
-                        >
-                          <AudioPlayerComponent
-                            audios={player.audioRecordingData}
-                            currentTime={currentTime}
-                            isPlaying={isPlaying}
-                            isMuted={player.isMuted}
-                          />
-                        </PlayerComponent>
-                      )
-                  )}
-              </div>
-              {getReplacementPlayers().length > 8 && (
-                <ReactSVG
-                  src="/icons/arrow-down.svg"
-                  style={{
-                    transform: "rotate(270deg)",
-                    opacity:
-                      sliceFrom === getReplacementPlayers().length - 4
-                        ? 0.3
-                        : 1,
-                  }}
-                  onClick={() =>
-                    sliceFrom < getReplacementPlayers().length - 8 &&
-                    setSliceFrom(sliceFrom + 8)
-                  }
-                />
-              )}
+            {getReplacementPlayers().length > 8 && (
+              <ReactSVG
+                src="/icons/arrow-down.svg"
+                style={{
+                  transform: "rotate(90deg)",
+                  opacity: sliceFrom === 0 ? 0.3 : 1,
+                }}
+                onClick={() => sliceFrom > 0 && setSliceFrom(sliceFrom - 8)}
+              />
+            )}
+            <div className={style["field-audio-overview-swaps"]}>
+              {getReplacementPlayers()
+                .slice(sliceFrom, sliceFrom + 8)
+                .map(
+                  (player: any, key: number) =>
+                    player.profile.gridX < 0 && (
+                      <PlayerComponent
+                        player={player.profile}
+                        label={0}
+                        value={0}
+                        color={""}
+                        onPlayerDrag={(index) => setCurrentPlayer(index)}
+                        onPlayerDrop={(player) => updatePlayers(player, true)}
+                        onClick={() => mutePlayer(player.profile)}
+                        key={key}
+                      >
+                        <AudioPlayerComponent
+                          audios={player.audioRecordingData}
+                          currentTime={currentTime}
+                          isPlaying={isPlaying}
+                          isMuted={player.isMuted}
+                        />
+                      </PlayerComponent>
+                    )
+                )}
             </div>
+            {getReplacementPlayers().length > 8 && (
+              <ReactSVG
+                src="/icons/arrow-down.svg"
+                style={{
+                  transform: "rotate(270deg)",
+                  opacity:
+                    sliceFrom === getReplacementPlayers().length - 4 ? 0.3 : 1,
+                }}
+                onClick={() =>
+                  sliceFrom < getReplacementPlayers().length - 8 &&
+                  setSliceFrom(sliceFrom + 8)
+                }
+              />
+            )}
           </div>
         )}
       </div>

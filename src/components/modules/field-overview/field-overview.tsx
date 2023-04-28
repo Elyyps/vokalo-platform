@@ -179,8 +179,10 @@ export const FieldOverviewComponent = ({
       "sessionId=" + id + "&formation=" + formation
     );
     const sortedResult = sortPlayer(result.data.profiles);
-    setPlayersList(sortedResult);
     if (sortedResult) {
+      const swaps = getReplacementPlayers(result.data.profiles);
+      setSwapPlayersList(swaps);
+      setPlayersList(sortedResult);
       setIsLoading(false);
     }
   };
@@ -281,47 +283,50 @@ export const FieldOverviewComponent = ({
         )}
         {!isAudio && (
           <div className={style["field-overview-bottom"]}>
-            <div>
-              {swapPlayersList.length > 8 && (
-                <ReactSVG
-                  src="/icons/arrow-down.svg"
-                  style={{
-                    transform: "rotate(90deg)",
-                    opacity: sliceFrom === 1 ? 0.3 : 1,
-                  }}
-                  onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 8)}
-                />
-              )}
-              <div className={style["field-overview-swaps"]}>
-                {swapPlayersList
-                  .slice(sliceFrom, sliceFrom + 8)
-                  .map((player, key) => (
-                    <PlayerComponent
-                      player={player}
-                      label={player.ghost ? 0 : getPlayerLabel(player.id)}
-                      value={player.ghost ? 0 : getPlayerValue(player.id)}
-                      color={player.ghost ? "" : getPlayerColor(player.id)}
-                      onPlayerDrag={(index) => setCurrentPlayer(index)}
-                      onPlayerDrop={updatePlayers}
-                      key={key}
-                    />
-                  ))}
-              </div>
+            {formation !== "Training" && (
+              <div>
+                {swapPlayersList.length > 8 && (
+                  <ReactSVG
+                    src="/icons/arrow-down.svg"
+                    style={{
+                      transform: "rotate(90deg)",
+                      opacity: sliceFrom === 1 ? 0.3 : 1,
+                    }}
+                    onClick={() => sliceFrom > 1 && setSliceFrom(sliceFrom - 8)}
+                  />
+                )}
+                <div className={style["field-overview-swaps"]}>
+                  {swapPlayersList
+                    .slice(sliceFrom, sliceFrom + 8)
+                    .map((player, key) => (
+                      <PlayerComponent
+                        player={player}
+                        label={player.ghost ? 0 : getPlayerLabel(player.id)}
+                        value={player.ghost ? 0 : getPlayerValue(player.id)}
+                        color={player.ghost ? "" : getPlayerColor(player.id)}
+                        onPlayerDrag={(index) => setCurrentPlayer(index)}
+                        onPlayerDrop={updatePlayers}
+                        key={key}
+                      />
+                    ))}
+                </div>
 
-              {swapPlayersList.length > 8 && (
-                <ReactSVG
-                  src="/icons/arrow-down.svg"
-                  style={{
-                    transform: "rotate(270deg)",
-                    opacity: sliceFrom === swapPlayersList.length - 8 ? 0.3 : 1,
-                  }}
-                  onClick={() =>
-                    sliceFrom < swapPlayersList.length - 8 &&
-                    setSliceFrom(sliceFrom + 8)
-                  }
-                />
-              )}
-            </div>
+                {swapPlayersList.length > 8 && (
+                  <ReactSVG
+                    src="/icons/arrow-down.svg"
+                    style={{
+                      transform: "rotate(270deg)",
+                      opacity:
+                        sliceFrom === swapPlayersList.length - 8 ? 0.3 : 1,
+                    }}
+                    onClick={() =>
+                      sliceFrom < swapPlayersList.length - 8 &&
+                      setSliceFrom(sliceFrom + 8)
+                    }
+                  />
+                )}
+              </div>
+            )}
             {/* <div className={style["field-overview-gradient"]}>
             <div>
               <span>Few</span>
