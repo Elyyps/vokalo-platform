@@ -52,7 +52,6 @@ export const RecordingsPage = () => {
 
       return player;
     });
-    console.log(newPlayers);
     setPlayers(newPlayers);
   };
   const getTags = async (session: any) => {
@@ -60,7 +59,6 @@ export const RecordingsPage = () => {
       key: "sessionId",
       value: id,
     });
-    console.log(data.videoTags);
     setTags(data.videoTags);
   };
   const addTag = async (color: string, comment: string) => {
@@ -151,7 +149,6 @@ export const RecordingsPage = () => {
       }
       return { ...item, isMuted: true };
     });
-    // console.log(newList);
     setPlayers(newList);
   };
   const getVideoData = async (session: any) => {

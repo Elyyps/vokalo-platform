@@ -45,6 +45,8 @@ export const AudioPlayerComponent = (props: IAudioPlayerComponent) => {
           (props.currentTime - newAudio?.startOffset) / 1000;
       }
       setAudio(newAudio);
+    } else {
+      setAudio(undefined);
     }
   };
   React.useEffect(() => {

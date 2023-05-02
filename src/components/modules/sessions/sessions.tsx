@@ -36,11 +36,7 @@ export const SessionsComponent = ({
       return "POSITIVE";
     }
   };
-  const getPercentage = (value: number) => {
-    return Math.round(value * 100);
-  };
   React.useEffect(() => {
-    console.log(sessions);
     let list: any[] = [
       { name: "date", param: ["creationTimestamp"] },
       isSquadSessions && { name: "name", param: ["label"] },
