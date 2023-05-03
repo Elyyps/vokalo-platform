@@ -9,6 +9,7 @@ import { sortColumn } from "../../../utils/sortColumn";
 import { PaginationComponent } from "../../cores/pagination/pagination";
 import { TypeComponent } from "../../cores/type/type";
 import style from "./sessions-table.module.scss";
+import lodash from "lodash";
 
 interface ISessionsTableComponent {
   sessions: ISession[];
@@ -20,7 +21,7 @@ export const SessionsTableComponent = ({
   let navigate = useNavigate();
   const columns = [
     { name: "date", param: ["creationTimestamp"] },
-    { name: "name", param: ["name"] },
+    { name: "name", param: ["label"] },
     { name: "type", param: ["type"] },
     { name: "length", param: ["length"] },
     { name: "coach", param: ["creator", "firstName"] },
@@ -45,7 +46,7 @@ export const SessionsTableComponent = ({
   const [cookies] = useCookies(["rows"]);
   const [currentPage, setCurrentPage] = React.useState<number>(1);
   const [sortConfig, setSortConfig] = React.useState({
-    column: { name: "date", param: [""] },
+    column: { name: "date", param: ["creationTimestamp"] },
     ascending: false,
   });
   const rows = cookies.rows ? cookies.rows : 24;
