@@ -11,8 +11,6 @@ interface ISidebarComponent {
 
 export const SidebarComponent = ({ sidebarModule }: ISidebarComponent) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  let navigate = useNavigate();
-
   return (
     <div className={` ${style["sidebar"]} ${isOpen && style["sidebar-open"]}`}>
       <div className="container">

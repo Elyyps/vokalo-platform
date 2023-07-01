@@ -20,6 +20,7 @@ import { AdminCreateTeamPage } from "./pages/admin/create-team/create-team";
 import { AdminCreateProfilePage } from "./pages/admin/create-profile/create-profile";
 import { AdminViewTeamPage } from "./pages/admin/view-team/view-team";
 import { AdminViewProfilePage } from "./pages/admin/view-profile/view-profile";
+import { AdminRecordingPage } from "./pages/admin/recording/recording";
 
 const App = () => {
   const [user, setUser] = React.useState<any>(undefined);
@@ -65,7 +66,6 @@ const App = () => {
                   path="/forgot-password"
                   element={<ForgotPasswordPage />}
                 />
-
                 <Route
                   index
                   element={addPageLayout(<DashboardPage user={user} />)}
@@ -100,8 +100,16 @@ const App = () => {
                   element={addPageLayout(<div>Settings</div>, "Settings")}
                 />
                 <Route
-                  path="/admin"
+                  path="/admin/"
                   element={addPageLayout(<AdminDashboardPage />, "Admin", true)}
+                />
+                <Route
+                  path="/admin/recordings"
+                  element={addPageLayout(
+                    <AdminRecordingPage />,
+                    "Admin Recording",
+                    true
+                  )}
                 />
                 <Route
                   path="/admin/create-team"

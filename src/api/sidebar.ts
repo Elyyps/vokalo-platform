@@ -19,7 +19,8 @@ export const sidebarData = (): ISidebar => ({
 export const sidebarAdminData = (): ISidebar => ({
   logo: "Vokalo",
   items: [
-    { title: "Admin panel", icon: "/icons/dashboard.svg", route: "/admin" },
+    { title: "Admin panel", icon: "/icons/dashboard.svg", route: "/admin/" },
+    { title: "Audio", icon: "/icons/video.svg", route: "/admin/recordings" },
     { title: "Settings", icon: "/icons/settings.svg", route: "#" },
   ],
 });

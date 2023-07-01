@@ -17,7 +17,7 @@ export const MenuItemComponent = (props: IMenuItemComponent) => {
     <Link
       to={props.route}
       className={` ${style["menu-item"]} ${
-        route.length && path.startsWith(route) && style["active"]
+        route.length && path === route && style["active"]
       } `}
     >
       <ReactSVG src={props.icon} className={style["menu-item-icon"]} />

@@ -57,6 +57,14 @@
     &:hover {
       opacity: 0.8;
     }
+    svg {
+      width: 13px !important;
+      height: 13px !important;
+      path {
+        fill: transparent !important;
+        stroke: white;
+      }
+    }
   }
   &-icon {
     margin-left: 6px;
